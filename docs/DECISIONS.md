@@ -101,3 +101,17 @@ Select one pretrained detector, then one classifier. No LLM service or training 
 Move CUDA-dependent experiments to NVIDIA hardware early.
 Local reference success does not satisfy CUDA, TensorRT, or Jetson acceptance.
 A production Metal backend is not part of this decision.
+
+
+## D010 — Start with an explicit local reference slice
+
+Status: implemented for local validation, CUDA acceptance pending.
+
+The frontend records an immutable letterbox/normalize/output graph without execution.
+Independent NumPy sampling and PyTorch interpolation implement the documented image contract.
+The first full consumer is pretrained SSDLite on CPU, with CPU or MPS preprocessing.
+This small consumer exercises the harness without claiming YOLO/TensorRT coverage.
+
+No cuda-conv code is imported. Its MIT kernels remain migration candidates after the source audit.
+The first observed hazards concern host-copy defaults, per-channel dispatch, and a strided kernel-timing input.
+GPU tests must establish the behavior before migration.

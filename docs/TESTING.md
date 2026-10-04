@@ -1,6 +1,7 @@
 # End-to-end feedback loop
 
-Status: implementation plan. The harness and commands described below do not exist yet.
+Status: full harness implementation plan. The initial synthetic local detector runner exists in scripts/local_detector.py.
+See [LOCAL_DEVELOPMENT.md](LOCAL_DEVELOPMENT.md) for its limited scope. The full hardware scenarios below remain pending.
 This is the primary validation strategy for the runtime.
 Unit tests can help isolate defects, but they cannot satisfy a pipeline milestone by themselves.
 

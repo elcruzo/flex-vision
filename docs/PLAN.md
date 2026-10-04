@@ -6,7 +6,9 @@ Help a perception engineer move camera data into a model with less latency, memo
 The unit of success is a complete pipeline, not an isolated filter.
 
 This plan defines outcomes and evidence. It does not freeze the implementation.
-All runtime milestones are pending. No hardware result exists yet.
+G0 source review and the initial local G1 reference slice exist.
+Full G0/G1 acceptance remains pending. No CUDA or TensorRT result exists yet.
+See [local development](LOCAL_DEVELOPMENT.md) and [source audit](SOURCE_AUDIT.md) for current evidence.
 
 [REQUIREMENTS.md](REQUIREMENTS.md) preserves the complete product scope and maps each requirement to its milestone.
 It includes target APIs, configuration, every MVP operator, ROS contracts, tuning records, research experiments, and distribution deliverables.

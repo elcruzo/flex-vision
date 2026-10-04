@@ -47,5 +47,5 @@ Unit tests alone do not establish runtime acceptance.
 For performance changes, follow [the benchmark protocol](docs/BENCHMARKS.md).
 For distribution changes, test a clean installation on each claimed platform.
 
-This repository currently has no runtime, package build, or GPU test suite.
+The repository has a local Python package, reference tests, and a detector runner. No CUDA backend or GPU acceptance suite exists yet.
 Commands in design documents describe planned interfaces unless explicitly marked as available.

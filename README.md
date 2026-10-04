@@ -12,7 +12,7 @@ First benchmark target:
     → TensorRT inference
 ```
 
-**Status: project definition. No runtime or benchmark results exist in this repository yet.**
+**Status: early local reference implementation. No CUDA runtime or GPU benchmark results yet.**
 We will publish measured latency, memory use, kernel launches, and transfer bytes here when the benchmark is reproducible.
 
 CUDA Preprocess Graph (CPG) aims to optimize the complete preprocessing pipeline.
@@ -28,7 +28,7 @@ The proposed ROS package is `cuda_preprocess`. These names do not imply publishe
 
 ## Intended API
 
-This example describes the proposed API. It does not run yet.
+The graph-building calls below exist. Execution through `pipeline(frame)` still requires the planned CUDA backend.
 
 ```python
 import cpg
@@ -59,6 +59,12 @@ The runtime then executes that plan on a CUDA stream.
 The initial operator scope includes resize, letterbox, crop, RGB/BGR conversion, normalization, type conversion, and layout conversion.
 It also includes small custom stencils, Gaussian, sharpen, Sobel, clamp, and simple arithmetic.
 An operator enters the release only after correctness and pipeline tests pass.
+
+## Local development
+
+The first slice provides plan inspection, independent NumPy and PyTorch references, and a pretrained detector validation runner.
+Read [the local development guide](docs/LOCAL_DEVELOPMENT.md) for setup, exact semantics, and reproduction commands.
+Reference execution is explicit. It does not silently replace the planned CUDA path.
 
 ## Development strategy
 

@@ -35,6 +35,6 @@ Keep the upstream license and source revision with the bundled skill.
 
 ## Current state
 
-The repository contains planning documents and the writing skill.
-No CUDA runtime or benchmark result exists yet.
-Start implementation with the G0 audit and G1 detector contract.
+The repository contains a graph frontend and explicit NumPy/PyTorch reference paths.
+Read docs/LOCAL_DEVELOPMENT.md and docs/SOURCE_AUDIT.md before continuing.
+No CUDA runtime or GPU benchmark result exists yet. G0/G1 hardware acceptance remains pending.

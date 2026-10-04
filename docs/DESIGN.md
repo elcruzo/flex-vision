@@ -1,6 +1,7 @@
 # Design notes
 
-Status: proposed contracts. No runtime exists yet.
+Status: mostly proposed contracts. The initial reference slice implements the numerical rules in [LOCAL_DEVELOPMENT.md](LOCAL_DEVELOPMENT.md).
+No CUDA backend exists yet.
 
 ## Pipeline model
 

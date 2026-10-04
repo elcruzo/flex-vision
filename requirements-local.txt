@@ -1,0 +1,6 @@
+# Versions used for the initial Mac reference experiment.
+numpy==2.2.6
+torch==2.8.0
+torchvision==0.23.0
+Pillow==12.0.0
+pytest==8.4.2
