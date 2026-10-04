@@ -88,3 +88,16 @@ OPTIONS.md retains alternatives without copying the source brief verbatim.
 
 This documentation change does not provision hardware.
 Paid setup needs account access and an agreed spending limit.
+
+
+## D009 — Use the Mac for reference inference before CUDA experiments
+
+Status: accepted development direction.
+
+The local Apple M5 has working PyTorch MPS support in a small arithmetic check.
+Use CPU/MPS reference inference to develop fixtures and the complete feedback harness.
+Select one pretrained detector, then one classifier. No LLM service or training pipeline is required.
+
+Move CUDA-dependent experiments to NVIDIA hardware early.
+Local reference success does not satisfy CUDA, TensorRT, or Jetson acceptance.
+A production Metal backend is not part of this decision.

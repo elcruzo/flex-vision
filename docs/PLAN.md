@@ -227,8 +227,10 @@ Do not publish package names, releases, or third-party contributions as part of 
 ## First implementation sequence
 
 1. Complete the source and environment audit from G0.
-2. Define a detector fixture and its numerical reference.
+2. Define a detector fixture, pinned pretrained model, and its numerical reference.
+   Run reference preprocessing through real PyTorch inference locally on CPU or supported MPS operations.
 3. Add graph construction, validation, and an inspectable fixed plan.
+   Move the first CUDA-dependent experiment to NVIDIA hardware without waiting for the full frontend.
 4. Execute the unfused GPU detector path.
 5. Add stream and ownership tests for CuPy and PyTorch.
 6. Run real TensorRT inference and export baseline samples, correctness results, and a focused trace.

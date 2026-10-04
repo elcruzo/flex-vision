@@ -214,3 +214,47 @@ An unavailable Jetson leaves Jetson validation pending. It does not remove Jetso
 
 The first useful implementation checkpoint is E01 with baseline, real inference, correctness output, and a trace.
 After that checkpoint, repeat the loop for fusion, E02, and the robot/ROS scenarios.
+
+
+## Model artifacts and the local reference loop
+
+CPG does not require an LLM, model training, Ollama, or a paid model API.
+Use pretrained vision models as real consumers of preprocessing output.
+Begin with one small detector. Add one classifier for the inspection workload.
+Reuse the detector for concurrent camera streams.
+YOLO and RT-DETR remain detector candidates. Select the exact model after checking its license and export path.
+Segmentation, depth, and VLM encoders remain later consumer possibilities.
+
+Hugging Face is an optional source for model artifacts and a later demo channel.
+An upstream model repository is also acceptable.
+Runtime inference should use the pinned local artifacts rather than depend on a hosted endpoint.
+Do not download weights until the selected model and artifact license are clear.
+
+The model manifest must record:
+
+- Source URL, immutable revision, artifact checksum, and license.
+- Architecture, weight file, class labels, and expected output interpretation.
+- Input size, dynamic-shape policy, batch limits, dtype, layout, and channel order.
+- Resize/letterbox rules, padding, scaling, mean/std, and coordinate transforms.
+- Output decoding and NMS rules for detection, including thresholds.
+- Exporter version, export options, and target engine build settings.
+- Reference inference environment, precision, and output tolerances.
+
+Check whether the model already includes preprocessing to avoid applying it twice.
+Use identical weights and postprocessing across baseline and CPG comparisons.
+Check the exported model against the reference model before attributing differences to CPG.
+Keep engine conversion errors separate from preprocessing errors.
+
+Before a CUDA implementation exists, run this local development scenario:
+
+```text
+recorded/synthetic image → independent reference preprocessing
+                         → real PyTorch model on CPU or MPS
+                         → tensor/output checks → saved result bundle
+```
+
+Record the actual backend and any fallback in the bundle.
+MPS availability does not prove that every operator in a selected model works.
+A passing local scenario validates fixture semantics and harness behavior.
+It does not pass E01's TensorRT acceptance or the CUDA/ROS hardware scenarios.
+Reuse the exact artifacts and checks when moving the experiment to NVIDIA hardware.

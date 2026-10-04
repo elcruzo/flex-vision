@@ -5,7 +5,7 @@ Source check date: 2026-10-04. Recheck availability and compatibility before pro
 
 ## Recommended starting setup
 
-Use the local computer for editing and reviewing artifacts.
+Use the local computer for editing, reference pipelines, supported model inference, and reviewing artifacts.
 Use one dedicated NVIDIA GPU on a Linux machine for the first complete detector experiment.
 That machine can be owned, borrowed, or rented. Runpod Pods are a suitable candidate for remote development through SSH.
 Runpod documents SSH as an option for long-running development sessions. [Runpod connection options](https://docs.runpod.io/pods/connect-to-a-pod)
@@ -123,3 +123,58 @@ A target is ready only when its setup record links to:
 
 Mark each field as passed, failed, blocked, or not applicable with evidence.
 Do not declare the environment ready from `nvidia-smi` alone.
+
+
+## Current Mac and local-first development
+
+Observed on 2026-10-04:
+
+| Item | Local observation |
+| --- | --- |
+| Computer | MacBook Air, Apple M5 |
+| CPU / GPU | 10 CPU cores / 10 GPU cores |
+| Memory | 16 GB unified memory |
+| OS / architecture | macOS 26.5.1 / arm64 |
+| Current python3 environment | PyTorch 2.8.0 |
+| MPS checks | Built and available, small GPU arithmetic check passed |
+
+These observations describe the development machine, not a supported CPG deployment target.
+The smoke check does not establish model compatibility or benchmark performance.
+Do not store machine serial numbers, device UUIDs, or private account identifiers in environment reports.
+
+PyTorch's MPS backend can execute supported operations on the Apple GPU.
+Check availability and actual model execution in the chosen environment. [PyTorch MPS documentation](https://docs.pytorch.org/docs/main/notes/mps.html)
+The Apple GPU does not execute CPG's NVIDIA CUDA kernels.
+MPS results do not establish CUDA stream behavior, CUDA Array Interface support, TensorRT compatibility, or Jetson performance.
+
+### Work to complete locally
+
+1. Define graph construction, operator semantics, YAML validation, and plan inspection.
+2. Create deterministic frames and the independent CPU reference pipeline.
+3. Run a small pretrained vision model through reference preprocessing and real PyTorch inference.
+4. Try MPS for that same reference pipeline and model where its operators work.
+5. Compare tensors, model outputs, and detection coordinate mapping against the CPU reference.
+6. Build the replay source, result bundle, comparison report, and failure diagnostics.
+7. Test model/configuration loading and prepare pinned artifacts for the NVIDIA run.
+
+This local loop runs real model inference. It is more than isolated unit tests.
+Keep it explicitly labeled as a reference path, not the CPG CUDA backend.
+Do not build a production Metal backend merely to occupy the local GPU.
+
+Use one small model and modest batches initially.
+The 16 GB memory is shared by the OS, applications, CPU work, and GPU work.
+Monitor memory pressure and reduce input buffering before trying large batches or six 4K streams.
+MPS acceleration is optional for the reference path. CPU execution remains useful when an operator is unsupported.
+Record any CPU fallback. Do not report a mixed path as entirely GPU-resident.
+Use an isolated project environment when establishing the reproducible setup rather than relying on the observed global installation.
+
+### When to move work to NVIDIA hardware
+
+Move to a rented or accessible NVIDIA GPU as soon as the next experiment needs CUDA compilation, dispatch, or framework interoperability.
+Also move when testing TensorRT, CUDA fusion, tuning decisions, or NVIDIA performance.
+Do not wait until the entire frontend is complete to discover backend constraints.
+A suitable first remote checkpoint is the smallest detector path with matching reference tensors and real TensorRT output.
+
+Move to actual Jetson hardware when testing camera buffers, ROS CUDA transport, power, thermals, and the live flagship demo.
+Keep the Mac as the editor, SSH client, reference runner, and report viewer throughout the project.
+This sequence limits rental time without postponing the GPU evidence that drives the design.
