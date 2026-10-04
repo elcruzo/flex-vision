@@ -71,6 +71,9 @@ The [requirements map](docs/REQUIREMENTS.md) preserves the complete product scop
 The [delivery plan](docs/PLAN.md) defines goals and exit criteria.
 The [design notes](docs/DESIGN.md) record proposed contracts and open decisions.
 The [benchmark protocol](docs/BENCHMARKS.md) defines the evidence needed for performance claims.
+The [hardware plan](docs/HARDWARE.md) explains cloud GPU and Jetson setup.
+The [end-to-end test plan](docs/TESTING.md) defines the real inference feedback loop.
+The [options register](docs/OPTIONS.md) retains alternative approaches and later possibilities.
 The [decision log](docs/DECISIONS.md) separates accepted direction from provisional choices.
 
 ## Origin and scope

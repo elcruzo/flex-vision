@@ -75,3 +75,16 @@ Fewer copies or allocations can satisfy the original success criterion without a
 
 Implementation details can change with evidence. Required outcomes need an explicit scope decision before removal.
 External release claims and issue status remain unverified research leads until checked against current sources.
+
+
+## D008 — Validate through complete inference and target hardware
+
+Status: accepted testing direction.
+
+The user requires the full development feedback loop, not unit tests as the main completion signal.
+TESTING.md defines scenarios, real model consumers, traces, sustained runs, faults, and result bundles.
+HARDWARE.md separates cloud GPU evidence from Jetson camera and power evidence.
+OPTIONS.md retains alternatives without copying the source brief verbatim.
+
+This documentation change does not provision hardware.
+Paid setup needs account access and an agreed spending limit.

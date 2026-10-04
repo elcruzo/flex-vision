@@ -1,6 +1,8 @@
 # Benchmark protocol
 
 Status: protocol only. No measurements exist yet.
+[TESTING.md](TESTING.md) defines the runnable harness requirements and the change–measure–rerun loop.
+[HARDWARE.md](HARDWARE.md) defines environment setup and which claims each target can validate.
 
 ## Questions
 

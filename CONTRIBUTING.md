@@ -41,7 +41,9 @@ The skill is available to repository agents on their next turn.
 ## Validate according to scope
 
 For documentation, check links, examples, status labels, and consistency.
-For runtime changes, add independent numerical references and ownership tests.
+For runtime changes, run the affected complete inference scenarios from [TESTING.md](docs/TESTING.md).
+Use independent references and ownership checks within that feedback loop.
+Unit tests alone do not establish runtime acceptance.
 For performance changes, follow [the benchmark protocol](docs/BENCHMARKS.md).
 For distribution changes, test a clean installation on each claimed platform.
 

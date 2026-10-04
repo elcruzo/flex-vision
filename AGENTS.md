@@ -12,6 +12,10 @@ Use the latest CUDA Preprocess Graph direction when older FluxVision requirement
 - Define numerical semantics before optimizing an operation.
 - Preserve buffer ownership and stream dependencies across framework boundaries.
 - Measure complete pipelines against credible GPU baselines.
+- Use docs/TESTING.md for end-to-end acceptance through real inference.
+- Use docs/HARDWARE.md for target setup and environment limits.
+- Do not count unit-test passes or skipped GPU jobs as full-system validation.
+- Preserve required scope and candidate ideas using docs/REQUIREMENTS.md and docs/OPTIONS.md.
 - Mark unsupported platforms and unmeasured results explicitly.
 - Check current primary sources before choosing version-sensitive APIs.
 - Update docs/DECISIONS.md when evidence changes a design choice.

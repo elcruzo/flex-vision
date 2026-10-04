@@ -3,6 +3,8 @@
 Status: planned. No requirement below represents implemented runtime support.
 This document preserves the CUDA Preprocess Graph brief at release-level detail.
 [PLAN.md](PLAN.md) sequences the work. [DESIGN.md](DESIGN.md) records technical choices.
+[TESTING.md](TESTING.md) defines full-system acceptance. [HARDWARE.md](HARDWARE.md) defines the test environments.
+[OPTIONS.md](OPTIONS.md) retains implementation alternatives and earlier product possibilities.
 
 A requirement states the result the product must deliver.
 A candidate implementation states one way to achieve that result.

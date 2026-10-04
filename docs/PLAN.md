@@ -10,6 +10,9 @@ All runtime milestones are pending. No hardware result exists yet.
 
 [REQUIREMENTS.md](REQUIREMENTS.md) preserves the complete product scope and maps each requirement to its milestone.
 It includes target APIs, configuration, every MVP operator, ROS contracts, tuning records, research experiments, and distribution deliverables.
+[TESTING.md](TESTING.md) defines the complete inference feedback loop and scenario acceptance checks.
+[HARDWARE.md](HARDWARE.md) defines cloud and Jetson setup, access needs, and the limits of each environment.
+[OPTIONS.md](OPTIONS.md) preserves candidate approaches and earlier FluxVision possibilities without changing their priority.
 An early milestone subset does not replace the complete release scope.
 Changes to required outcomes need an explicit scope decision. Backend choices remain open to evidence.
 
@@ -43,7 +46,9 @@ Exit evidence:
 - A source audit records what to retain, replace, or defer.
 - A minimal GPU test runs on at least one supported development target.
 - A compatibility table distinguishes tested, planned, and unavailable environments.
-- Correctness tests can run separately from hardware performance tests.
+- Correctness checks can run separately from performance captures without replacing full inference validation.
+- A target passes the hardware preflight, including real inference and trace export.
+- The selected hardware has a recorded access path, environment manifest, and run budget where relevant.
 
 Target environments are Jetson AGX Orin, Jetson AGX Thor, and x86-64 NVIDIA GPUs.
 The requested targets include CUDA 13 and ROS 2 Lyrical, subject to actual platform compatibility.
@@ -70,6 +75,8 @@ Exit evidence:
 - CuPy, PyTorch CUDA, CUDA Array Interface, and DLPack each have explicit interoperability tests.
 - Python and YAML examples have an equivalence fixture for later configuration delivery.
 
+G1 requires scenario E01 from TESTING.md: actual model inference, checked output, and an exported result bundle.
+Unit-test success or a tensor with the expected shape is insufficient.
 Prefer a simple correct implementation before a specialized kernel.
 Do not label a CPU reference as the production GPU backend.
 
@@ -86,7 +93,7 @@ Exit evidence:
 - Raw samples and environment metadata reproduce p50, p95, p99, and throughput.
 - Reports separate cold compilation, warm execution, and end-to-end latency.
 - Reports identify allocations, transfers, launches, and synchronization points.
-- At least two realistic workloads have a working GPU baseline.
+- At least two realistic workloads have a working GPU baseline through their actual inference consumer.
 - Missing baselines have a reason and a follow-up condition.
 - The robot workload specifies camera count, offered load, queues, calibration, and inference endpoint.
 - Each required baseline has a per-workload applicability record.
@@ -111,7 +118,7 @@ Exit evidence:
 
 - The optimized result passes the same independent reference checks.
 - A trace supports the reported transfer and launch counts.
-- Concurrent streams and batches pass ownership and correctness tests.
+- Concurrent streams and batches pass full-inference ownership, output-retention, and correctness scenarios.
 - Memory use reaches a bounded steady state during a sustained run.
 - Two realistic pipelines meet the success gate below.
 - All stencil sizes accept literal coefficients and configuration files.
@@ -207,6 +214,8 @@ Exit evidence:
 - Detector, inspection, and multi-camera robot reports include their actual inference endpoints.
 - ROS indexing and clean PyPI installation have release tasks and verification records.
 - Research requirement R22 links to experiments or states its pending research status.
+- E01–E12 have scenario results, target coverage, and any explicit blockers.
+- Clean-install, sustained-load, live-camera, and trace artifacts accompany release claims.
 
 GitHub is the project home. PyPI distributes Python packages.
 ROS packaging follows validated integration.
@@ -222,7 +231,7 @@ Do not publish package names, releases, or third-party contributions as part of 
 3. Add graph construction, validation, and an inspectable fixed plan.
 4. Execute the unfused GPU detector path.
 5. Add stream and ownership tests for CuPy and PyTorch.
-6. Measure the baseline with raw samples.
+6. Run real TensorRT inference and export baseline samples, correctness results, and a focused trace.
 7. Add the fused detector candidate and compare it.
 8. Add the inspection workload and the first custom stencil.
 
@@ -235,3 +244,17 @@ Defer a stable C++ ABI, broad backend coverage, and general graph scheduling unt
 Defer morphology, thresholding, debayering, and a large filter catalog.
 Keep the research paper as an evidence summary after reproducible experiments.
 Check hardware access and compatibility before promising a deadline.
+
+
+## Feedback-loop execution policy
+
+Each implementation milestone must exercise the affected complete workload on its required hardware.
+Use tests to diagnose failures, then rerun the full scenario after the fix.
+Measure one changed strategy at a time against the same baseline and fixture.
+Record unsuccessful experiments and revise the next hypothesis from the trace.
+A missing GPU means blocked hardware validation, not a passed milestone.
+A cloud-only result does not complete Jetson camera, power, or transport acceptance.
+
+Do not spend on remote hardware during planning.
+Before paid provisioning, confirm account access, allowed spending, storage retention, and shutdown responsibility.
+Build the reproducible harness so the first rented session can test the real pipeline immediately.
