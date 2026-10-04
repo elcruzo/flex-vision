@@ -134,3 +134,31 @@ python scripts/summarize_trace.py benchmark-results/latency-trace.sqlite --range
 
 The trace summary reports copies by CUPTI kind. It does not assume that decoder metadata transfers contain image payloads.
 The strict zero-copy check for preprocessing through dense TensorRT output remains a separate check.
+
+## Inference attribution controls
+
+Use short diagnostic runs before changing the runtime to explain downstream timing differences.
+These runs do not replace the 10,000-sample performance comparison.
+
+- `--control fixed-input`: execute each preprocessing path, but feed TensorRT the same retained device tensor and pointer.
+- `--control no-preprocess`: both candidate labels return that same retained tensor. Neither label executes preprocessing during timing.
+- `--reuse-outputs`: reuse the TensorRT dense output buffers. The next inference overwrites their contents.
+
+The real preprocessing paths still pass numerical and detection validation before any control runs.
+Control names and buffer policies appear in the report and CPU summary.
+Only the serial experiment uses output reuse. The library's fresh-output ownership contract remains unchanged.
+Every decode must complete before the next inference overwrites the dense outputs.
+
+Run the unchanged baseline and each control with the same engine, sample count, warmup, and repeat count:
+
+```bash
+python scripts/tensorrt_benchmark.py --validated-run benchmark-results/tensorrt-detector --output benchmark-results/control-fixed --control fixed-input --samples 300 --repeats 4 --warmup 50
+python scripts/tensorrt_benchmark.py --validated-run benchmark-results/tensorrt-detector --output benchmark-results/control-empty --control no-preprocess --samples 300 --repeats 4 --warmup 50
+python scripts/tensorrt_benchmark.py --validated-run benchmark-results/tensorrt-detector --output benchmark-results/control-fixed-reuse --control fixed-input --reuse-outputs --samples 300 --repeats 4 --warmup 50
+```
+
+Also repeat `--control no-preprocess` with `--reuse-outputs` to separate label/order effects from preprocessing effects.
+A difference between the no-preprocessing labels is measurement variation or harness behavior, not a CPG improvement.
+A fixed-pointer difference cannot be explained by different inference input values or addresses alone.
+Output reuse removes dense-output allocation, but does not remove allocations inside the decoder.
+Keep unexplained effects explicit rather than selecting only the fastest control.
