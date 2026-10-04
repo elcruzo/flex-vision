@@ -114,3 +114,23 @@ Host timing starts before preprocessing and ends after decode/NMS completion.
 Uploads, file decoding, engine construction, correctness downloads, warmup, and CSV writes remain outside the sampled interval.
 This serial replay does not measure live-camera latency, queue behavior, or multi-camera throughput.
 The allocation policy and synchronous implementation remain limitations for performance interpretation.
+
+Recompute the completed run on a CPU host:
+
+```bash
+python scripts/summarize_latency.py benchmark-results/latency --output benchmark-results/latency-summary.json
+```
+
+This command verifies sample hashes, unique identities, counts, balance, and finite positive latencies.
+It rejects failed or instrumented runs. It reports pooled percentiles and paired per-repeat reductions.
+Observed repeat ranges are not confidence intervals. Keep all samples, including outliers.
+
+For a separate short Nsight capture, count work inside each complete hybrid detector range:
+
+```bash
+python scripts/summarize_trace.py benchmark-results/latency-trace.sqlite --range cpg_hybrid_pipeline --expected-ranges 2 --output benchmark-results/cpg-hybrid-trace.json
+python scripts/summarize_trace.py benchmark-results/latency-trace.sqlite --range torch_unfused_hybrid_pipeline --expected-ranges 2 --output benchmark-results/baseline-hybrid-trace.json
+```
+
+The trace summary reports copies by CUPTI kind. It does not assume that decoder metadata transfers contain image payloads.
+The strict zero-copy check for preprocessing through dense TensorRT output remains a separate check.
