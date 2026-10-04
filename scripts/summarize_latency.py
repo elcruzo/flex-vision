@@ -46,7 +46,8 @@ def summarize(directory):
     paired = np.asarray([100*(1-percentiles(groups[repeat,'cpg'])/percentiles(groups[repeat,'torch_unfused']))
                          for repeat in range(repeats)])
     output = {'scope':report['scope'], 'samples_per_candidate':repeats*count, 'repeats':repeats,
-              'percentile_method':'numpy linear', 'metrics':{},
+              'percentile_method':'numpy linear', 'control':report.get('control','none'),
+              'reuse_outputs':report.get('reuse_outputs',False), 'metrics':{},
               'interpretation':'Positive reduction favors CPG. Repeat ranges describe observed variation, not confidence intervals.',
               'samples_sha256':report['samples_sha256']}
     for i,metric in enumerate(METRICS):

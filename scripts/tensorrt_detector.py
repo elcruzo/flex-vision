@@ -42,7 +42,7 @@ class DenseDetector(torch.nn.Module):
 
 class Consumer:
     """Fixed FP32 test consumer. Owns runtime, engine, and execution context."""
-    def __init__(self, engine_path):
+    def __init__(self, engine_path, *, reuse_outputs=False):
         self.logger = trt.Logger(trt.Logger.WARNING)
         self.runtime = trt.Runtime(self.logger)
         self.engine = self.runtime.deserialize_cuda_engine(engine_path.read_bytes())
@@ -66,13 +66,17 @@ class Consumer:
                 self.outputs[name] = shape
         if set(self.outputs) != {'bbox_regression','cls_logits'}:
             raise ValueError('Unexpected TensorRT outputs')
+        # Experimental serial-only reuse: the next call overwrites these tensors.
+        self.output_buffers = ({name: torch.empty(shape, device='cuda', dtype=torch.float32)
+                                for name, shape in self.outputs.items()} if reuse_outputs else None)
 
     def __call__(self, image):
         if not isinstance(image, cp.ndarray) or image.shape != (1,3,320,320) or image.dtype != cp.float32 or not image.flags.c_contiguous:
             raise ValueError('Expected a contiguous CuPy FP32 NCHW 320x320 tensor')
         if image.device.id != torch.cuda.current_device():
             raise ValueError('Input must use the current CUDA device')
-        outputs = {name: torch.empty(shape, device='cuda', dtype=torch.float32) for name,shape in self.outputs.items()}
+        outputs = self.output_buffers if self.output_buffers is not None else {
+            name: torch.empty(shape, device='cuda', dtype=torch.float32) for name,shape in self.outputs.items()}
         if not self.context.set_tensor_address('image', image.data.ptr):
             raise RuntimeError('Could not bind the CPG device pointer')
         for name, tensor in outputs.items():

@@ -44,6 +44,8 @@ def main():
     parser.add_argument('--samples', type=positive, default=1000, help='Samples per candidate per repeat')
     parser.add_argument('--repeats', type=positive, default=10)
     parser.add_argument('--warmup', type=positive, default=100)
+    parser.add_argument('--control', choices=('none', 'fixed-input', 'no-preprocess'), default='none')
+    parser.add_argument('--reuse-outputs', action='store_true', help='Serial diagnostic reuse of dense output buffers')
     parser.add_argument('--trace', action='store_true', help='Diagnostic run only; timings are not benchmark evidence')
     parser.add_argument('--weights', type=Path, default=Path('.cache/models/ssdlite320_mobilenet_v3_large_coco-a79551df.pth'))
     args = parser.parse_args()
@@ -54,8 +56,8 @@ def main():
     if digest(args.weights) != WEIGHTS_SHA256:
         parser.error('Model weights do not match the pinned hash')
     args.output.mkdir(parents=True, exist_ok=False)
-    report = {'status': 'failed', 'scope': 'serial 1080p photographic replay to hybrid SSDLite detections',
-              'instrumented': args.trace, 'engine_sha256': digest(engine),
+    report = {'status': 'failed', 'scope': ('serial 1080p photographic replay to hybrid SSDLite detections' if args.control == 'none' else 'diagnostic inference attribution control: '+args.control),
+              'instrumented': args.trace, 'control': args.control, 'reuse_outputs': args.reuse_outputs, 'engine_sha256': digest(engine),
               'validated_report_sha256': digest(args.validated_run/'report.json'),
               'runner_sha256': digest(Path(__file__)),
               'revision': subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),
@@ -75,7 +77,7 @@ def main():
         model = ssdlite320_mobilenet_v3_large(weights=None, weights_backbone=None).eval()
         model.load_state_dict(torch.load(args.weights, map_location='cpu', weights_only=True))
         model.cuda()
-        consumer = Consumer(engine)
+        consumer = Consumer(engine, reuse_outputs=args.reuse_outputs)
         stream = torch.cuda.Stream()
         stream.wait_stream(torch.cuda.current_stream())
         with torch.cuda.stream(stream), cp.cuda.ExternalStream(stream.cuda_stream, device_id=0), torch.inference_mode():
@@ -128,6 +130,17 @@ def main():
                 iou = check_expected_object(output['labels'][keep].tolist(),output['scores'][keep].tolist(),
                       [g.source_box(b.tolist()) for b in output['boxes'][keep]],expectation)
                 report['validation'].append({'candidate':name,'tensor_max_abs_error':float(np.abs(actual_cpu-expected).max()),'expected_object_iou':iou})
+            fixed_input = cp.asarray(expected)
+            stream.synchronize()
+            # Validation above always exercises the real preprocessing paths.
+            # Controls below change only the timed workload, and never claim preprocessing gains.
+            if args.control == 'no-preprocess':
+                paths = {name: (lambda: fixed_input) for name in paths}
+            def infer(image):
+                return consumer(fixed_input if args.control != 'none' else image)
+            report['policy'] += ('; fixed inference pointer' if args.control != 'none' else '; live preprocessing output')
+            report['policy'] += ('; dense outputs reused and overwritten each call' if args.reuse_outputs else '; fresh dense outputs')
+            report['fixed_input_sha256'] = hashlib.sha256(expected.tobytes()).hexdigest()
             events = [torch.cuda.Event(enable_timing=True) for _ in range(4)]
             # Initialize event resources before collecting any sample.
             for event in events:
@@ -144,7 +157,7 @@ def main():
                     for name in order:
                         preprocess = paths[name]
                         for _ in range(args.warmup):
-                            output = decode(consumer(preprocess()))
+                            output = decode(infer(preprocess()))
                             stream.synchronize()
                         rows = []
                         for sample in range(args.samples):
@@ -154,7 +167,7 @@ def main():
                                 events[0].record(stream)
                                 image = preprocess()
                                 events[1].record(stream)
-                                head = consumer(image)
+                                head = infer(image)
                                 events[2].record(stream)
                                 output = decode(head)
                                 events[3].record(stream)
