@@ -145,9 +145,14 @@ def main():
                 or pipeline.operations[2].dtype != 'float32' or norm.mean != (0.,0.,0.) or norm.std != (1.,1.,1.) or norm.scale != 1/255):
             raise ValueError('This detector requires the fixed SSDLite fixture configuration')
         # Warm initialization lies outside each camera-to-network range.
-        consumer(cp.zeros((1,3,320,320),dtype=cp.float32))
+        warmup = cp.zeros((1,3,320,320),dtype=cp.float32)
+        cp.cuda.get_current_stream().synchronize()
+        consumer(warmup)
         with torch.inference_mode():
             anchors = dense.anchors(sample.cuda())
+            torch.cuda.synchronize()
+            # Nsight --capture-range=cudaProfilerApi excludes engine construction.
+            torch.cuda.profiler.start()
             for case_id,rgb,expectation,provenance in photo_cases(Path('tests/fixtures/images/manifest.json')):
                 host = np.ascontiguousarray(rgb[...,::-1])
                 expected,g = numpy_reference(pipeline,host)
@@ -181,6 +186,7 @@ def main():
                                     **{'candidate_'+k:v.numpy() for k,v in candidate.items()},
                                     **{'baseline_'+k:v.numpy() for k,v in baseline.items()})
                 case['status'] = 'passed'
+            torch.cuda.profiler.stop()
         report['status'] = 'passed'
     except Exception as exc:
         report['error'] = f'{type(exc).__name__}: {exc}'
