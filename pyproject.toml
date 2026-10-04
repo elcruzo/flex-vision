@@ -7,7 +7,10 @@ name = "cuda-preprocess-graph"
 version = "0.0.1"
 description = "Experimental preprocessing graph contracts and explicit reference execution"
 requires-python = ">=3.11"
-dependencies = ["numpy>=2.0"]
+dependencies = ["numpy>=2.0", "PyYAML>=6.0.2"]
+
+[project.scripts]
+cpg = "cpg.cli:main"
 
 [project.optional-dependencies]
 reference = ["torch>=2.8", "torchvision>=0.23"]

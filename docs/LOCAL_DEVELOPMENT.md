@@ -3,7 +3,8 @@
 Available: immutable detector graph, plan inspection, NumPy oracle, and explicit CPU/MPS PyTorch reference execution.
 No CUDA backend exists yet. Calling `pipeline(frame)` raises an explicit error rather than silently selecting CPU execution.
 This slice supports only letterbox → normalize → output conversion.
-YAML, other operators, batches, GPU input protocols, and TensorRT remain pending.
+Strict YAML loading and `cpg inspect` are available for this subset.
+Other operators, batches, GPU input protocols, and TensorRT remain pending.
 
 ## Reproduce the environment
 
@@ -15,6 +16,7 @@ python3 -m venv .venv
 .venv/bin/python -m pip install --no-deps -e .
 .venv/bin/python -m pytest -q
 .venv/bin/python examples/detector_reference.py
+.venv/bin/cpg inspect examples/local-detector.yaml --height 1080 --width 1920
 ```
 
 The first development environment inherited unrelated system dependency conflicts.
@@ -81,6 +83,20 @@ This synthetic run does not measure detection accuracy, real-camera behavior, or
 ## Next iteration
 
 Add a licensed representative recorded-image fixture and model-output expectations.
-Add Python/YAML equivalence and expand the input contract only as needed for that workload.
+Python/YAML equivalence now covers the initial detector graph. Expand the input contract only as needed for the next workload.
 Then execute the smallest CUDA/TensorRT path on NVIDIA hardware using the same fixtures and numerical contract.
 G0/G1 remain incomplete until the required GPU and inference evidence exists.
+
+
+## YAML validation
+
+Use `cpg.load_pipeline(path)` to load examples/local-detector.yaml.
+Schema version 1 accepts input.encoding, an ordered letterbox/normalize list, and output.dtype/layout.
+The normalization scale is required. Missing fields, unknown fields, duplicate keys, invalid numbers, and unsupported operation order produce errors.
+Errors identify the file and relevant configuration location.
+Python YAML tags are rejected. Configuration loading does not execute operators.
+The loader limits input to 1 MiB.
+
+The detector runner accepts `--config` and records the configuration text and checksum.
+It checks that the configuration matches its fixed SSDLite input contract before running inference.
+The CLI currently supports only `inspect`. Benchmark, profile, and tune remain planned commands.

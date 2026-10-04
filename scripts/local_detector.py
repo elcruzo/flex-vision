@@ -16,7 +16,7 @@ import numpy as np
 import torch
 import torchvision
 from torchvision.models.detection import ssdlite320_mobilenet_v3_large
-from cpg import Pipeline
+from cpg import load_pipeline
 from cpg.reference import numpy_reference, torch_reference
 
 WEIGHTS_SHA256 = "a79551df90c79834bcd3bb3845ef9d966b5449a3a9b2833ae8404778ca5d65d2"
@@ -36,11 +36,19 @@ def fixture(height, width):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--device", choices=("cpu", "mps"), default="cpu", help="Preprocessing device only")
+    parser.add_argument("--config", type=Path, default=Path("examples/local-detector.yaml"))
     parser.add_argument("--weights", type=Path, default=Path(".cache/models/ssdlite320_mobilenet_v3_large_coco-a79551df.pth"))
     parser.add_argument("--output", type=Path, required=True, help="New output directory; existing runs are never overwritten")
     args = parser.parse_args()
     if not args.weights.is_file() or digest(args.weights) != WEIGHTS_SHA256:
         parser.error(f"Expected pinned weights SHA256 {WEIGHTS_SHA256}. Download from {WEIGHTS_URL}")
+    pipeline = load_pipeline(args.config)
+    plan = pipeline.plan((1080, 1920, 3))
+    norm = pipeline.operations[1]
+    if (pipeline.input_encoding != "bgr8" or plan["output_shape"] != [1, 3, 320, 320]
+            or plan["dtype"] != "float32" or norm.mean != (0., 0., 0.)
+            or norm.std != (1., 1., 1.) or norm.scale != 1/255):
+        parser.error("This local SSDLite fixture requires bgr8 -> 320x320 RGB float32 NCHW, scale 1/255, mean 0, std 1")
     args.output.mkdir(parents=True, exist_ok=False)
     manifest = {"started_utc": datetime.now(timezone.utc).isoformat(),
                 "revision": subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip(),
@@ -48,6 +56,7 @@ def main():
                 "python": platform.python_version(), "platform": platform.platform(),
                 "torch": torch.__version__, "torchvision": torchvision.__version__, "numpy": np.__version__,
                 "preprocessing_device": args.device, "inference_device": "cpu", "weights_sha256": WEIGHTS_SHA256,
+                "config_sha256": digest(args.config), "config_text": args.config.read_text(),
                 "weights_url": WEIGHTS_URL, "model": "ssdlite320_mobilenet_v3_large.COCO_V1",
                 "scope": "synthetic local reference validation; not accuracy, CUDA, TensorRT, or performance evidence",
                 "tensor_atol": 2e-4, "dense_head_atol": 0.01, "dense_head_rtol": 1e-4,
@@ -70,9 +79,6 @@ def main():
             frame = fixture(height, width)
             # Pass a non-contiguous BGR view to exercise explicit encoding and strides.
             bgr = frame[..., ::-1]
-            pipeline = (Pipeline(input_encoding="bgr8").letterbox(320, 320)
-                        .normalize([0, 0, 0], [1, 1, 1], scale=1/255)
-                        .to(dtype="float32", layout="NCHW"))
             case = {"input_shape": list(bgr.shape), "input_sha256": hashlib.sha256(bgr.tobytes()).hexdigest(),
                     "plan": pipeline.plan(bgr.shape), "status": "failed"}
             results.append(case)

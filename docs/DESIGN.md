@@ -84,7 +84,8 @@ Select them using complete-plan cost and compatibility evidence.
 
 ## Configuration and errors
 
-A future YAML schema describes input, ordered operations, and output requirements.
+The initial version-1 YAML subset describes input encoding, letterbox, normalization, and output requirements.
+Other operations and kernel-file configuration remain planned.
 Validate the schema before opening a camera or allocating GPU workspace.
 Reject unknown fields and invalid kernels with their configuration location.
 Resolve kernel file paths relative to the configuration file.

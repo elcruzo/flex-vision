@@ -1,0 +1,16 @@
+# Local SSDLite reference fixture; not the final YOLO/TensorRT pipeline.
+schema_version: 1
+input:
+  encoding: bgr8
+pipeline:
+  - letterbox:
+      width: 320
+      height: 320
+      value: 114
+  - normalize:
+      mean: [0, 0, 0]
+      std: [1, 1, 1]
+      scale: 0.00392156862745098
+output:
+  dtype: float32
+  layout: nchw

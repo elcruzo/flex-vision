@@ -115,3 +115,13 @@ This small consumer exercises the harness without claiming YOLO/TensorRT coverag
 No cuda-conv code is imported. Its MIT kernels remain migration candidates after the source audit.
 The first observed hazards concern host-copy defaults, per-channel dispatch, and a strided kernel-timing input.
 GPU tests must establish the behavior before migration.
+
+
+## D011 — Validate configuration through the real consumer
+
+Status: implemented for the initial detector subset.
+
+YAML loading uses a restricted schema, rejects duplicate/unknown fields, and requires explicit normalization scale.
+The inspector emits a reference-only plan and does not invent CUDA launch counts.
+The detector runner loads the YAML graph and checks the model input contract before inference.
+The wider PRD configuration remains required and will expand with operator implementations.
