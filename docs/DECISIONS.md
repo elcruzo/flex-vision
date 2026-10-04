@@ -125,3 +125,16 @@ YAML loading uses a restricted schema, rejects duplicate/unknown fields, and req
 The inspector emits a reference-only plan and does not invent CUDA launch counts.
 The detector runner loads the YAML graph and checks the model input contract before inference.
 The wider PRD configuration remains required and will expand with operator implementations.
+
+
+## D012 — Add semantic photograph checks before the NVIDIA step
+
+Status: implemented locally. Remote GPU access remains pending.
+
+Two pinned photographs supplement numerical fixtures, with original and padded variants.
+Semantic class and source-box overlap checks prevent empty-output agreement from passing the photograph suite.
+The broad annotations are smoke expectations, not a detection accuracy dataset.
+
+The user has no NVIDIA hardware yet and requested setup instructions.
+RUNPOD_SETUP.md defines account, SSH, template, budget, and preflight steps without starting paid compute.
+The Mac preflight must report blocked rather than pretend MPS supplies CUDA.

@@ -3,6 +3,8 @@
 Status: setup plan. This document does not configure a remote GPU, account, paid instance, or Jetson.
 Source check date: 2026-10-04. Recheck availability and compatibility before provisioning.
 
+For the first rental, follow [the Runpod setup guide](RUNPOD_SETUP.md).
+
 ## Recommended starting setup
 
 Use the local computer for editing, reference pipelines, supported model inference, and reviewing artifacts.
