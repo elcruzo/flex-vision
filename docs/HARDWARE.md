@@ -1,6 +1,7 @@
 # Hardware and environment plan
 
-Status: setup plan. This document does not configure a remote GPU, account, paid instance, or Jetson.
+Status: setup plan with one completed RTX 4090 smoke experiment. Jetson and TensorRT acceptance remain pending.
+See [the tested CUDA environment](experiments/004-cuda-host.md). The temporary Pod was terminated after artifact export.
 Source check date: 2026-10-04. Recheck availability and compatibility before provisioning.
 
 For the first rental, follow [the Runpod setup guide](RUNPOD_SETUP.md).

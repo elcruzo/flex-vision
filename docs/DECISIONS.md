@@ -129,7 +129,7 @@ The wider PRD configuration remains required and will expand with operator imple
 
 ## D012 — Add semantic photograph checks before the NVIDIA step
 
-Status: implemented locally. Remote GPU access remains pending.
+Status: implemented locally. The subsequent remote experiment is recorded in D013.
 
 Two pinned photographs supplement numerical fixtures, with original and padded variants.
 Semantic class and source-box overlap checks prevent empty-output agreement from passing the photograph suite.
@@ -138,3 +138,26 @@ The broad annotations are smoke expectations, not a detection accuracy dataset.
 The user has no NVIDIA hardware yet and requested setup instructions.
 RUNPOD_SETUP.md defines account, SSH, template, budget, and preflight steps without starting paid compute.
 The Mac preflight must report blocked rather than pretend MPS supplies CUDA.
+
+
+## D013 — Validate a rented CUDA host before backend development
+
+Status: hardware smoke and real PyTorch CUDA inference passed. Full G0/G1 acceptance remains pending.
+
+The first session used one RTX 4090 under the user-approved $15 total budget.
+It used CUDA 13.0, PyTorch 2.9.1+cu130, TorchVision 0.24.1+cu130, and CuPy 14.2.0.
+Pin the framework pair before installing optional dependencies. An unconstrained install selected a different PyTorch release.
+A separate environment retained the template's framework and passed `pip check`.
+
+The smoke runner keeps the CUDA backend separate from the production API.
+It checks same-stream DLPack pointer identity, compiled CUDA execution, photograph tensors, dense detector outputs, and semantic detections.
+It deliberately uploads fixtures and downloads validation evidence.
+Do not infer zero-copy camera transport or optimized pipeline performance from this experiment.
+
+PyTorch 2.9.1 streams lack the CUDA stream protocol required by CuPy's newer `Stream.from_external` API.
+Use CuPy's deprecated `ExternalStream` compatibility API in this pinned experiment, while keeping its Torch owner alive.
+Recheck this choice when updating the framework pair.
+
+Export and verify artifacts before terminating temporary compute.
+No persistent volume was created. The Pod was terminated and the account list returned no Pods.
+See [experiment 004](experiments/004-cuda-host.md) for evidence and remaining checks.

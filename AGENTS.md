@@ -37,4 +37,5 @@ Keep the upstream license and source revision with the bundled skill.
 
 The repository contains a graph frontend and explicit NumPy/PyTorch reference paths.
 Read docs/LOCAL_DEVELOPMENT.md and docs/SOURCE_AUDIT.md before continuing.
-No CUDA runtime or GPU benchmark result exists yet. G0/G1 hardware acceptance remains pending.
+An RTX 4090 CUDA reference/inference smoke experiment passed. Read docs/experiments/004-cuda-host.md.
+No CPG CUDA runtime or performance benchmark exists yet. Full G0/G1 acceptance remains pending.

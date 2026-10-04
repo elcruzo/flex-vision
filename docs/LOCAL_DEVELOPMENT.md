@@ -118,3 +118,11 @@ A deliberate absent-class control checks that the full runner fails rather than 
 For the upcoming NVIDIA session, use [RUNPOD_SETUP.md](RUNPOD_SETUP.md).
 The hardware preflight reports CUDA availability and performs arithmetic on a non-default CUDA stream when available.
 It does not claim TensorRT or CPG CUDA acceptance.
+
+
+## First NVIDIA evidence
+
+[Experiment 004](experiments/004-cuda-host.md) records the completed RTX 4090 session.
+`scripts/gpu_detector_smoke.py` runs an explicit CUDA reference and pretrained CUDA detector with the photograph fixtures.
+It is a hardware experiment, not the `Pipeline.__call__` implementation.
+TensorRT, optimized kernels, and production residency acceptance remain pending.

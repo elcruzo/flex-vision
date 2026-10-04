@@ -7,7 +7,8 @@ The unit of success is a complete pipeline, not an isolated filter.
 
 This plan defines outcomes and evidence. It does not freeze the implementation.
 G0 source review and the initial local G1 reference slice exist.
-Full G0/G1 acceptance remains pending. No CUDA or TensorRT result exists yet.
+Full G0/G1 acceptance remains pending. An RTX 4090 CUDA reference/inference smoke run passed.
+TensorRT and the CPG CUDA backend remain pending. See [GPU evidence](experiments/004-cuda-host.md).
 See [local development](LOCAL_DEVELOPMENT.md) and [source audit](SOURCE_AUDIT.md) for current evidence.
 
 [REQUIREMENTS.md](REQUIREMENTS.md) preserves the complete product scope and maps each requirement to its milestone.
