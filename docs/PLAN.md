@@ -8,6 +8,11 @@ The unit of success is a complete pipeline, not an isolated filter.
 This plan defines outcomes and evidence. It does not freeze the implementation.
 All runtime milestones are pending. No hardware result exists yet.
 
+[REQUIREMENTS.md](REQUIREMENTS.md) preserves the complete product scope and maps each requirement to its milestone.
+It includes target APIs, configuration, every MVP operator, ROS contracts, tuning records, research experiments, and distribution deliverables.
+An early milestone subset does not replace the complete release scope.
+Changes to required outcomes need an explicit scope decision. Backend choices remain open to evidence.
+
 ## Rules for progress
 
 1. Start each milestone with its hypothesis and acceptance checks.
@@ -61,7 +66,9 @@ Exit evidence:
 - CuPy input and PyTorch CUDA input stay on the GPU.
 - Tests prove ownership and producer/consumer stream synchronization.
 - Repeated calls do not overwrite output that the consumer still owns.
-- A minimal inference consumer accepts the output without a host copy.
+- A minimal TensorRT consumer accepts the output without a host copy.
+- CuPy, PyTorch CUDA, CUDA Array Interface, and DLPack each have explicit interoperability tests.
+- Python and YAML examples have an equivalence fixture for later configuration delivery.
 
 Prefer a simple correct implementation before a specialized kernel.
 Do not label a CPU reference as the production GPU backend.
@@ -81,6 +88,8 @@ Exit evidence:
 - Reports identify allocations, transfers, launches, and synchronization points.
 - At least two realistic workloads have a working GPU baseline.
 - Missing baselines have a reason and a follow-up condition.
+- The robot workload specifies camera count, offered load, queues, calibration, and inference endpoint.
+- Each required baseline has a per-workload applicability record.
 
 Use [the benchmark protocol](BENCHMARKS.md) for all comparisons.
 Do not derive a speed claim from a CPU-only comparison.
@@ -105,6 +114,9 @@ Exit evidence:
 - Concurrent streams and batches pass ownership and correctness tests.
 - Memory use reaches a bounded steady state during a sustained run.
 - Two realistic pipelines meet the success gate below.
+- All stencil sizes accept literal coefficients and configuration files.
+- Common constant kernels have compile-time specialization and unrolling evidence.
+- The full operator matrix in REQUIREMENTS.md has implementation and correctness checks before release.
 
 ### Success gate
 
@@ -114,8 +126,9 @@ On each of at least two pipelines, demonstrate one of these improvements against
 - At least 20% lower preprocessing p99 latency.
 - At least 20% higher sustained multi-camera throughput.
 - Materially lower GPU or CPU use.
-- Fewer transfers or temporary allocations with a useful measured system benefit.
+- Fewer memory copies or temporary allocations.
 
+Report the practical effect of fewer copies or allocations without adding a new success threshold.
 Define “materially lower” before collecting the comparison results.
 Record acceptable tradeoffs in accuracy, memory, power, throughput, and tail latency before the run.
 A faster median must not conceal an unacceptable tail regression.
@@ -141,14 +154,19 @@ Exit evidence:
 - Production execution does not tune unexpectedly on the frame path.
 - The execution plan reports unsupported metrics without invented values.
 
-Autotuning must justify its complexity against a stable heuristic planner.
+Autotuning is a required deliverable. Compare it with a stable heuristic planner to measure its benefit.
+The tuning record must include GPU architecture, image size, pixel format, pipeline, chosen implementation, p50, p95, p99, workspace, and launches.
+Test that production loads a compatible cached plan without repeating tuning.
+The profiler must compare measured original stages and optimized groups, including totals and transfer counts.
 CUDA Graph capture is a separate candidate optimization, not a requirement implied by the project name.
 
 ## G5 — Preserve GPU data through ROS and inference
 
 **Outcome:** A camera-to-model example preserves ownership and avoids unnecessary payload transfers across component boundaries.
 
-First validate current ROS 2 Lyrical buffer APIs and downstream message support.
+Implement the requested CUDA-backed `rosidl::Buffer` path for ROS 2 Lyrical after checking its current API and downstream support.
+Track incompatible or unavailable APIs as explicit blockers or scope decisions.
+Do not silently substitute a generic CUDA message for this requirement.
 Build a small transport experiment before committing to a ROS interface.
 Document where GPU residency starts for each camera source.
 
@@ -162,6 +180,10 @@ Exit evidence:
 - Backpressure, queue limits, dropped frames, and shutdown behavior have tests.
 - A TensorRT example records preprocessing, inference, and total latency separately.
 - An Nsight Systems trace supports the residency claim.
+- The package accepts sensor_msgs/Image and exposes Image or downstream-compatible tensor output.
+- Tests cover the documented preprocess_node executable and cuda_preprocess_node component names.
+- The yolo_demo.launch.py entry point runs the Jetson camera-to-TensorRT chain.
+- The demo reports camera dimensions/FPS, preprocessing, inference, total latency, CPU copies, GPU memory, and dropped frames.
 
 Do not force an NCHW tensor into an Image message with misleading image metadata.
 Choose a tensor message only after checking the inference consumer's contract.
@@ -181,9 +203,16 @@ Exit evidence:
 - The README opens with real camera-to-model benchmark evidence.
 - The Jetson demo reports measured values and includes trace instructions.
 - License, attribution, release artifacts, and supported platforms are explicit.
+- Every requirement R01–R21 has evidence or an explicit, accepted scope change.
+- Detector, inspection, and multi-camera robot reports include their actual inference endpoints.
+- ROS indexing and clean PyPI installation have release tasks and verification records.
+- Research requirement R22 links to experiments or states its pending research status.
 
 GitHub is the project home. PyPI distributes Python packages.
-ROS packaging follows validated integration. Model-hosting demos and educational notebooks are secondary.
+ROS packaging follows validated integration.
+Hugging Face hosts a secondary model demo with a pinned model and exact preprocessing configuration.
+Kaggle is a secondary education channel. Upstream OpenCV, Kornia, or ROS contributions remain optional.
+Check current issue status before planning an upstream contribution.
 Do not publish package names, releases, or third-party contributions as part of repository initialization.
 
 ## First implementation sequence

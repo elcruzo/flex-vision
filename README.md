@@ -67,6 +67,7 @@ Measure straightforward GPU baselines before expanding the operator set.
 Test whether fusion, memory reuse, and GPU transport improve the complete workload.
 Use vendor implementations when they produce a better plan.
 
+The [requirements map](docs/REQUIREMENTS.md) preserves the complete product scope and acceptance checks.
 The [delivery plan](docs/PLAN.md) defines goals and exit criteria.
 The [design notes](docs/DESIGN.md) record proposed contracts and open decisions.
 The [benchmark protocol](docs/BENCHMARKS.md) defines the evidence needed for performance claims.

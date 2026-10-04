@@ -62,3 +62,16 @@ The intended project is open source.
 Select the license after auditing cuda-conv and candidate dependencies.
 The writing skill retains its upstream MIT license independently.
 Do not infer a project-wide license from that bundled dependency.
+
+
+## D007 — Preserve detailed requirements separately from delivery order
+
+Status: accepted correction to the initial documentation.
+
+The first plan compressed several concrete deliverables into broad milestone language.
+REQUIREMENTS.md now records the full operator matrix, interfaces, transport contract, tuning records, demo, research questions, and distribution priorities.
+Autotuning remains required. The full robot benchmark remains required even when two other workloads pass the early gate.
+Fewer copies or allocations can satisfy the original success criterion without an added system-benefit threshold.
+
+Implementation details can change with evidence. Required outcomes need an explicit scope decision before removal.
+External release claims and issue status remain unverified research leads until checked against current sources.
