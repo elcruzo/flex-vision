@@ -192,3 +192,17 @@ This experiment does not establish dynamic shapes, FP16 TensorRT, portable engin
 Use TensorRT 10.13.3.9.post1 with the recorded runtime pin for this environment. The original package failed dependency installation.
 The next experiment must address the observed default-stream warning and compare equivalent warm pipeline latency.
 See [experiment 006](experiments/006-tensorrt.md). No performance advantage is claimed.
+
+## D016 — Separate preprocessing gains from complete detector gains
+
+Status: first matched serial replay measured on one L4.
+
+CPG reduced the median preprocessing stream interval by about 42% against the straightforward PyTorch baseline.
+Complete host latency fell by about 6.7% in the pooled samples. Decode/NMS dominated this hybrid detector.
+The full trace contained small host transfers, despite the copy-free preprocessing-to-dense-network boundary.
+Keep these two residency scopes separate in documentation.
+
+Identical image tensors still produced different downstream stage timings between candidate runs.
+Use identical-input controls and inspect allocation/dispatch behavior before attributing those changes to fusion.
+Do not expand performance claims or declare the two-workload success gate complete from this single experiment.
+See [experiment 007](experiments/007-latency.md) for raw-sample hashes, scope, and limitations.

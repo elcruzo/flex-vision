@@ -141,3 +141,8 @@ Experiment 006 used Pod `dsaslqanvq6ka9` at $0.49/hour from 17:18:17 to 17:35:15
 It was terminated after artifact verification. No Pods remained in the subsequent account read.
 Its billing records were not yet posted. Reserve $0.15 including disk, for approximately $0.303 cumulative spend including earlier posted charges.
 Reconcile this reserve with provider billing before the next rental. No persistent volume was created.
+
+Experiment 007 used Pod `slkpedxcxg5nj0` at $0.49/hour from 17:40:08 to 17:53:16 UTC on 2026-10-04.
+It was terminated after verification of all 26 artifacts. The subsequent account list contained no Pods.
+Reserve $0.12 including disk for this session. Billing for 006 and 007 remained unposted at this read.
+Posted charges plus the two reserves total approximately $0.423 of $15. Reconcile both reserves before the next rental.

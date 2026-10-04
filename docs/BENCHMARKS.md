@@ -1,6 +1,7 @@
 # Benchmark protocol
 
-Status: protocol only. No measurements exist yet.
+Status: [one matched L4 replay](experiments/007-latency.md) has raw samples and scoped trace evidence.
+The required detector, inspection, and multi-camera benchmark matrix remains incomplete.
 [TESTING.md](TESTING.md) defines the runnable harness requirements and the change–measure–rerun loop.
 [HARDWARE.md](HARDWARE.md) defines environment setup and which claims each target can validate.
 

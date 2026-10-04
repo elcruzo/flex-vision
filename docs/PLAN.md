@@ -9,7 +9,9 @@ This plan defines outcomes and evidence. It does not freeze the implementation.
 G0 source review and the initial local G1 reference slice exist.
 Full G0/G1 acceptance remains pending. An RTX 4090 CUDA reference/inference smoke run passed.
 The initial synchronous CUDA backend and fixed FP32 TensorRT consumer passed real inference checks.
-See [TensorRT evidence](experiments/006-tensorrt.md). Broader runtime acceptance and latency comparisons remain pending.
+See [TensorRT evidence](experiments/006-tensorrt.md). Broader runtime acceptance remains pending.
+[Experiment 007](experiments/007-latency.md) records the first matched latency comparison on one L4 workload.
+Next, isolate downstream timing changes with an identical-input control. The two-workload success gate remains open.
 See [the backend contract](CUDA_BACKEND.md), [host evidence](experiments/004-cuda-host.md), and [fused execution evidence](experiments/005-fused-cuda.md).
 See [local development](LOCAL_DEVELOPMENT.md) and [source audit](SOURCE_AUDIT.md) for current evidence.
 

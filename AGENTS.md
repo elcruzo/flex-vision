@@ -39,7 +39,8 @@ The repository contains a graph frontend and explicit NumPy/PyTorch reference pa
 Read docs/LOCAL_DEVELOPMENT.md and docs/SOURCE_AUDIT.md before continuing.
 An RTX 4090 CUDA reference/inference smoke experiment passed. Read docs/experiments/004-cuda-host.md.
 An initial synchronous fused CUDA backend exists for the detector graph. Read docs/CUDA_BACKEND.md.
-Performance evidence and full G0/G1 acceptance remain pending.
+Full G0/G1 acceptance and the two-workload performance gate remain pending.
 
 A fixed FP32 TensorRT consumer passed on an L4. Read docs/experiments/006-tensorrt.md.
-Next, compare complete equivalent GPU pipelines with explicit streams and raw latency samples.
+The first matched latency comparison exists in docs/experiments/007-latency.md.
+Next, isolate downstream timing changes with identical-input and allocation/dispatch controls before broadening performance claims.
