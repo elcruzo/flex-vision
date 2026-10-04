@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "upstream_revision": "e8a42ba85aaf5fd9322ef9ca51bc21063b22fcae",
+  "annotation_policy": "Broad hand-reviewed object boxes for smoke validation; not a detection accuracy dataset. Thresholds fixed before candidate runs.",
+  "images": [
+    {
+      "id": "astronaut",
+      "file": "astronaut.png",
+      "shape": [512, 512, 3],
+      "sha256": "88431cd9653ccd539741b555fb0a46b61558b301d4110412b5bc28b5e3ea6cb5",
+      "source": "https://raw.githubusercontent.com/scikit-image/scikit-image/e8a42ba85aaf5fd9322ef9ca51bc21063b22fcae/skimage/data/astronaut.png",
+      "attribution": "NASA, via scikit-image",
+      "rights": "Public domain according to scikit-image data documentation",
+      "expectation": {"name": "person", "label": 1, "min_score": 0.5, "box_xyxy": [10, 5, 385, 512], "min_iou": 0.5}
+    },
+    {
+      "id": "chelsea",
+      "file": "chelsea.png",
+      "shape": [300, 451, 3],
+      "sha256": "596aa1e7cb875eb79f437e310381d26b338a81c2da23439704a73c4651e8c4bb",
+      "source": "https://raw.githubusercontent.com/scikit-image/scikit-image/e8a42ba85aaf5fd9322ef9ca51bc21063b22fcae/skimage/data/chelsea.png",
+      "attribution": "Stefan van der Walt, via scikit-image",
+      "rights": "CC0",
+      "expectation": {"name": "cat", "label": 17, "min_score": 0.5, "box_xyxy": [0, 0, 400, 300], "min_iou": 0.5}
+    }
+  ]
+}

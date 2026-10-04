@@ -18,6 +18,7 @@ import torchvision
 from torchvision.models.detection import ssdlite320_mobilenet_v3_large
 from cpg import load_pipeline
 from cpg.reference import numpy_reference, torch_reference
+from cpg.validation import photo_cases, check_expected_object
 
 WEIGHTS_SHA256 = "a79551df90c79834bcd3bb3845ef9d966b5449a3a9b2833ae8404778ca5d65d2"
 WEIGHTS_URL = "https://download.pytorch.org/models/ssdlite320_mobilenet_v3_large_coco-a79551df.pth"
@@ -35,6 +36,8 @@ def fixture(height, width):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--suite", choices=("synthetic", "photos", "all"), default="all")
+    parser.add_argument("--fixtures", type=Path, default=Path("tests/fixtures/images/manifest.json"))
     parser.add_argument("--device", choices=("cpu", "mps"), default="cpu", help="Preprocessing device only")
     parser.add_argument("--config", type=Path, default=Path("examples/local-detector.yaml"))
     parser.add_argument("--weights", type=Path, default=Path(".cache/models/ssdlite320_mobilenet_v3_large_coco-a79551df.pth"))
@@ -49,6 +52,12 @@ def main():
             or plan["dtype"] != "float32" or norm.mean != (0., 0., 0.)
             or norm.std != (1., 1., 1.) or norm.scale != 1/255):
         parser.error("This local SSDLite fixture requires bgr8 -> 320x320 RGB float32 NCHW, scale 1/255, mean 0, std 1")
+    cases = []
+    if args.suite in ("synthetic", "all"):
+        cases.extend((f"synthetic-{height}x{width}", fixture(height, width), None, {"transform": "generated"})
+                     for height, width in [(1080, 1920), (481, 639), (33, 17)])
+    if args.suite in ("photos", "all"):
+        cases.extend(photo_cases(args.fixtures))
     args.output.mkdir(parents=True, exist_ok=False)
     manifest = {"started_utc": datetime.now(timezone.utc).isoformat(),
                 "revision": subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip(),
@@ -58,7 +67,9 @@ def main():
                 "preprocessing_device": args.device, "inference_device": "cpu", "weights_sha256": WEIGHTS_SHA256,
                 "config_sha256": digest(args.config), "config_text": args.config.read_text(),
                 "weights_url": WEIGHTS_URL, "model": "ssdlite320_mobilenet_v3_large.COCO_V1",
-                "scope": "synthetic local reference validation; not accuracy, CUDA, TensorRT, or performance evidence",
+                "scope": "local reference and semantic smoke validation; not accuracy, CUDA, TensorRT, or performance evidence",
+                "suite": args.suite,
+                "fixture_manifest_sha256": digest(args.fixtures) if args.suite != "synthetic" else None,
                 "tensor_atol": 2e-4, "dense_head_atol": 0.01, "dense_head_rtol": 1e-4,
                 "postprocess_box_atol": 0.1, "postprocess_score_atol": 0.001,
                 "source_files": {str(p): digest(p) for p in sorted(Path("src/cpg").glob("*.py"))},
@@ -75,11 +86,11 @@ def main():
         def capture(_module, _inputs, outputs):
             captures.append({key: value.detach().clone() for key, value in outputs.items()})
         hook = model.head.register_forward_hook(capture)
-        for height, width in [(1080, 1920), (481, 639), (33, 17)]:
-            frame = fixture(height, width)
+        for case_id, frame, expectation, provenance in cases:
+            height, width, _ = frame.shape
             # Pass a non-contiguous BGR view to exercise explicit encoding and strides.
             bgr = frame[..., ::-1]
-            case = {"input_shape": list(bgr.shape), "input_sha256": hashlib.sha256(bgr.tobytes()).hexdigest(),
+            case = {"id": case_id, "provenance": provenance, "expected_object": expectation, "input_shape": list(bgr.shape), "input_sha256": hashlib.sha256(bgr.tobytes()).hexdigest(),
                     "plan": pipeline.plan(bgr.shape), "status": "failed"}
             results.append(case)
             started = time.perf_counter()
@@ -104,13 +115,17 @@ def main():
             torch.testing.assert_close(detections[0]["labels"], detections[1]["labels"], atol=0, rtol=0)
             torch.testing.assert_close(detections[0]["scores"], detections[1]["scores"], atol=manifest["postprocess_score_atol"], rtol=0)
             torch.testing.assert_close(detections[0]["boxes"], detections[1]["boxes"], atol=manifest["postprocess_box_atol"], rtol=0)
-            np.savez_compressed(args.output/f"outputs-{height}x{width}.npz",
+            np.savez_compressed(args.output/f"outputs-{case_id}.npz",
                                 expected_tensor=expected, actual_tensor=actual_cpu.numpy(),
                                 baseline_boxes=baseline["boxes"].numpy(), candidate_boxes=candidate["boxes"].numpy(),
                                 baseline_scores=baseline["scores"].numpy(), candidate_scores=candidate["scores"].numpy(),
                                 baseline_labels=baseline["labels"].numpy(), candidate_labels=candidate["labels"].numpy())
             case["detections_above_0_5"] = len(detections[1]["labels"])
             case["source_boxes"] = [geometry.source_box(box.tolist()) for box in detections[1]["boxes"]]
+            case["labels"] = detections[1]["labels"].tolist()
+            case["scores"] = detections[1]["scores"].tolist()
+            if expectation:
+                case["expected_object_iou"] = check_expected_object(case["labels"], case["scores"], case["source_boxes"], expectation)
             case["diagnostic_elapsed_seconds"] = time.perf_counter()-started
             case["status"] = "passed"
         hook.remove()
@@ -121,7 +136,7 @@ def main():
     finally:
         (args.output/"results.json").write_text(json.dumps({"status": status, "cases": results, "error": manifest.get("error")}, indent=2)+"\n")
         report = f"# Local detector reference run\n\nStatus: {status}.\n\nPreprocessing: {args.device}. Inference: CPU SSDLite.\n\n"
-        report += "Synthetic fixtures only. No detection accuracy or GPU performance claim.\n"
+        report += "Synthetic and/or pinned photo smoke fixtures. No detection accuracy or GPU performance claim.\n"
         report += "Dense head outputs are compared even when no detection exceeds the score threshold.\n"
         report += "MPS output download, when selected, is deliberate and outside the future CUDA residency contract.\n"
         (args.output/"report.md").write_text(report)

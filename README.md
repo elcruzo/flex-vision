@@ -64,6 +64,7 @@ An operator enters the release only after correctness and pipeline tests pass.
 
 The first slice provides Python/YAML graph construction, plan inspection, independent references, and a pretrained detector validation runner.
 Read [the local development guide](docs/LOCAL_DEVELOPMENT.md) for setup, exact semantics, and reproduction commands.
+The detector runner checks synthetic inputs and pinned photographs with expected objects.
 Reference execution is explicit. It does not silently replace the planned CUDA path.
 
 ## Development strategy

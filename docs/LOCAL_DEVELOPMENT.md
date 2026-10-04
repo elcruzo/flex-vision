@@ -66,7 +66,7 @@ The runner verifies the complete SHA256 before loading weights with `weights_onl
 It refuses to overwrite existing run directories.
 MPS is optional and fails explicitly when unavailable.
 
-The runner compares independent NumPy bilinear sampling with PyTorch interpolation on three synthetic image shapes.
+The default suite compares independent NumPy bilinear sampling with PyTorch interpolation on three synthetic shapes and four photograph cases.
 Both paths feed the same pretrained CPU detector.
 The detector retains its trained internal normalization. External preprocessing applies only the 1/255 scale before the model.
 The external 320×320 letterbox is a harness fixture contract, not a claim of canonical SSD accuracy preprocessing.
@@ -82,7 +82,8 @@ This synthetic run does not measure detection accuracy, real-camera behavior, or
 
 ## Next iteration
 
-Add a licensed representative recorded-image fixture and model-output expectations.
+Two pinned photographs and semantic smoke expectations now supplement the synthetic fixtures.
+Representative robotics/inspection captures remain pending.
 Python/YAML equivalence now covers the initial detector graph. Expand the input contract only as needed for the next workload.
 Then execute the smallest CUDA/TensorRT path on NVIDIA hardware using the same fixtures and numerical contract.
 G0/G1 remain incomplete until the required GPU and inference evidence exists.
@@ -100,3 +101,20 @@ The loader limits input to 1 MiB.
 The detector runner accepts `--config` and records the configuration text and checksum.
 It checks that the configuration matches its fixed SSDLite input contract before running inference.
 The CLI currently supports only `inspect`. Benchmark, profile, and tune remain planned commands.
+
+
+## Photograph suite
+
+The default `--suite all` includes synthetic fixtures plus the astronaut and Chelsea photographs with padded variants.
+Use `--suite photos` or `--suite synthetic` to select either group.
+The tracked image manifest records hashes, source revision, attribution, and rights information.
+Read [fixture provenance](../tests/fixtures/images/README.md) before reusing the images.
+
+Photo cases require a person or cat above confidence 0.5 with source-space box IoU of at least 0.5.
+Broad hand-reviewed boxes define these smoke expectations independently of the detector output.
+Tensor agreement and dense-output checks remain required.
+A deliberate absent-class control checks that the full runner fails rather than accepting an empty or semantically wrong result.
+
+For the upcoming NVIDIA session, use [RUNPOD_SETUP.md](RUNPOD_SETUP.md).
+The hardware preflight reports CUDA availability and performs arithmetic on a non-default CUDA stream when available.
+It does not claim TensorRT or CPG CUDA acceptance.
