@@ -148,7 +148,9 @@ def main():
         warmup = cp.zeros((1,3,320,320),dtype=cp.float32)
         cp.cuda.get_current_stream().synchronize()
         consumer(warmup)
-        with torch.inference_mode():
+        stream = torch.cuda.Stream()
+        stream.wait_stream(torch.cuda.current_stream())
+        with torch.cuda.stream(stream), cp.cuda.ExternalStream(stream.cuda_stream, device_id=0), torch.inference_mode():
             anchors = dense.anchors(sample.cuda())
             torch.cuda.synchronize()
             # Nsight --capture-range=cudaProfilerApi excludes engine construction.
