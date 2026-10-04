@@ -82,3 +82,35 @@ The CPU still schedules work. Zero pixel transfers at this boundary do not mean 
 The full requirements and benchmark success gate remain unchanged.
 
 [Experiment 006](experiments/006-tensorrt.md) records the successful L4 run, scoped trace evidence, artifacts, and limitations.
+
+## Matched serial latency experiment
+
+The detector runner now uses an explicit shared Torch/CuPy stream for warmup and inference.
+The benchmark uses that same stream policy for both candidates.
+[NVIDIA's inference procedure](https://docs.nvidia.com/deeplearning/tensorrt/10.x.x/inference-library/python-api-docs.html) describes pointer binding, stream submission, and completion requirements.
+
+First run the detector validation on the current GPU. Then use its engine and report:
+
+```bash
+.venv-gpu/bin/python scripts/tensorrt_benchmark.py --validated-run benchmark-results/tensorrt-detector --output benchmark-results/latency
+```
+
+The default collects 10,000 samples per candidate across ten alternating-order repeats, after 100 warmup calls per candidate per repeat.
+It saves every sample and per-repeat p50/p95/p99 with NumPy's linear percentile method.
+A separate diagnostic run can use `--trace --samples 2 --repeats 1 --warmup 1` under Nsight's CUDA-profiler capture mode.
+Instrumented timings must not become headline benchmark numbers.
+
+Input is a pinned photograph enlarged by exact pixel repetition, then centered in a 1920×1080 frame.
+The output remains the existing 320×320 FP32 SSDLite contract. This does not replace the required 640×640 FP16 YOLO workload.
+The runner checks preprocessing tensors and actual detections against the independent reference before measuring either candidate.
+
+The unfused baseline uses PyTorch flip, permutation, float conversion, bilinear resize, padding, normalization, and contiguous output.
+Mean and standard deviation remain cached on the device. Both candidates allocate fresh output arrays through warmed framework pools.
+Both complete preprocessing synchronously before the same TensorRT consumer. Both include the same CUDA decoder and NMS.
+
+CUDA events delimit preprocessing, dense inference, and decoding/NMS on the shared stream.
+These intervals can include host dispatch gaps and synchronization effects. They are not sums of kernel execution durations.
+Host timing starts before preprocessing and ends after decode/NMS completion.
+Uploads, file decoding, engine construction, correctness downloads, warmup, and CSV writes remain outside the sampled interval.
+This serial replay does not measure live-camera latency, queue behavior, or multi-camera throughput.
+The allocation policy and synchronous implementation remain limitations for performance interpretation.

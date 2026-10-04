@@ -145,12 +145,12 @@ def main():
                 or pipeline.operations[2].dtype != 'float32' or norm.mean != (0.,0.,0.) or norm.std != (1.,1.,1.) or norm.scale != 1/255):
             raise ValueError('This detector requires the fixed SSDLite fixture configuration')
         # Warm initialization lies outside each camera-to-network range.
-        warmup = cp.zeros((1,3,320,320),dtype=cp.float32)
-        cp.cuda.get_current_stream().synchronize()
-        consumer(warmup)
         stream = torch.cuda.Stream()
         stream.wait_stream(torch.cuda.current_stream())
         with torch.cuda.stream(stream), cp.cuda.ExternalStream(stream.cuda_stream, device_id=0), torch.inference_mode():
+            warmup = cp.zeros((1,3,320,320),dtype=cp.float32)
+            cp.cuda.get_current_stream().synchronize()
+            consumer(warmup)
             anchors = dense.anchors(sample.cuda())
             torch.cuda.synchronize()
             # Nsight --capture-range=cudaProfilerApi excludes engine construction.
