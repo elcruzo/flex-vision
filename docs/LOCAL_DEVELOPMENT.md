@@ -17,8 +17,9 @@ python3 -m venv .venv
 .venv/bin/python examples/detector_reference.py
 ```
 
-The initial development run reused existing packages through a venv with `--system-site-packages`.
-That run is not clean-install release evidence. The pinned file records its relevant dependency versions.
+The first development environment inherited unrelated system dependency conflicts.
+A fresh isolated venv replaced it, and dependency checks plus the complete local inference runs passed.
+The pinned file records all installed runtime/test dependencies for this Mac experiment.
 No dependency or tool installation modifies the system Python as part of this implementation.
 
 ## Numerical contract
