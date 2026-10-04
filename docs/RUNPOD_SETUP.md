@@ -110,7 +110,7 @@ If the host restricts required tracing, resolve it or select another host before
 
 Next, establish compatible CuPy and TensorRT versions and run actual model inference.
 Record that tested environment separately from the Mac lock.
-The CPG CUDA backend is still the next implementation step, not something the preflight claims to validate.
+The separate CPG and TensorRT experiments validate their own scopes. The arithmetic preflight does not replace them.
 
 ## End the session deliberately
 
@@ -136,3 +136,8 @@ These costs include the provider's recorded GPU and disk amounts.
 
 The subtotal is $0.15281239314936102. Do not interpret this as including a later unposted session.
 The overall authorization remains $15 across sessions, not $15 per rental.
+
+Experiment 006 used Pod `dsaslqanvq6ka9` at $0.49/hour from 17:18:17 to 17:35:15 UTC on 2026-10-04.
+It was terminated after artifact verification. No Pods remained in the subsequent account read.
+Its billing records were not yet posted. Reserve $0.15 including disk, for approximately $0.303 cumulative spend including earlier posted charges.
+Reconcile this reserve with provider billing before the next rental. No persistent volume was created.

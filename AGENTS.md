@@ -40,3 +40,6 @@ Read docs/LOCAL_DEVELOPMENT.md and docs/SOURCE_AUDIT.md before continuing.
 An RTX 4090 CUDA reference/inference smoke experiment passed. Read docs/experiments/004-cuda-host.md.
 An initial synchronous fused CUDA backend exists for the detector graph. Read docs/CUDA_BACKEND.md.
 Performance evidence and full G0/G1 acceptance remain pending.
+
+A fixed FP32 TensorRT consumer passed on an L4. Read docs/experiments/006-tensorrt.md.
+Next, compare complete equivalent GPU pipelines with explicit streams and raw latency samples.

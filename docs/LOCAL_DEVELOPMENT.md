@@ -5,7 +5,8 @@ An initial CUDA backend accepts GPU input through `pipeline(frame)`. CPU inputs 
 Read [the CUDA contract](CUDA_BACKEND.md). Local reference functions remain explicit.
 This slice supports only letterbox → normalize → output conversion.
 Strict YAML loading and `cpg inspect` are available for this subset.
-Other operators, batches, GPU input protocols, and TensorRT remain pending.
+Other operators, batches, and broader GPU input protocols remain pending.
+A fixed FP32 TensorRT experiment exists. See [its evidence](experiments/006-tensorrt.md).
 
 ## Reproduce the environment
 
@@ -86,7 +87,7 @@ This synthetic run does not measure detection accuracy, real-camera behavior, or
 Two pinned photographs and semantic smoke expectations now supplement the synthetic fixtures.
 Representative robotics/inspection captures remain pending.
 Python/YAML equivalence now covers the initial detector graph. Expand the input contract only as needed for the next workload.
-Then execute the smallest CUDA/TensorRT path on NVIDIA hardware using the same fixtures and numerical contract.
+The smallest CUDA/TensorRT path now passes on NVIDIA hardware with these fixtures. Next, measure equivalent complete GPU pipelines.
 G0/G1 remain incomplete until the required GPU and inference evidence exists.
 
 
@@ -126,4 +127,4 @@ It does not claim TensorRT or CPG CUDA acceptance.
 [Experiment 004](experiments/004-cuda-host.md) records the completed RTX 4090 session.
 `scripts/gpu_detector_smoke.py` runs an explicit CUDA reference and pretrained CUDA detector with the photograph fixtures.
 Its `--backend cpg` option now exercises `Pipeline.__call__` through real CUDA inference.
-TensorRT, optimized kernels, and production residency acceptance remain pending.
+The fused kernel and fixed TensorRT handoff passed scoped checks. Performance and production residency acceptance remain pending.

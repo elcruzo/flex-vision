@@ -1,6 +1,7 @@
 # Hardware and environment plan
 
-Status: setup plan with one completed RTX 4090 smoke experiment. Jetson and TensorRT acceptance remain pending.
+Status: RTX 4090 CUDA checks and a fixed L4 TensorRT experiment passed. Jetson and broader platform acceptance remain pending.
+See [experiment 006](experiments/006-tensorrt.md) for the tested L4 environment.
 See [the tested CUDA environment](experiments/004-cuda-host.md). The temporary Pod was terminated after artifact export.
 Source check date: 2026-10-04. Recheck availability and compatibility before provisioning.
 

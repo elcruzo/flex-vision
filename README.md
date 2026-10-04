@@ -18,6 +18,7 @@ Read the [CUDA backend contract](docs/CUDA_BACKEND.md) for supported inputs, syn
 
 The [fused CUDA experiment](docs/experiments/005-fused-cuda.md) passed real detector checks.
 Its trace shows one kernel and no memory-copy events within each preprocessing call.
+The [TensorRT experiment](docs/experiments/006-tensorrt.md) also passed on an L4, with no copies through the dense network boundary.
 We will publish measured latency, memory use, kernel launches, and transfer bytes here when the benchmark is reproducible.
 
 CUDA Preprocess Graph (CPG) aims to optimize the complete preprocessing pipeline.
@@ -33,7 +34,7 @@ The proposed ROS package is `cuda_preprocess`. These names do not imply publishe
 
 ## Intended API
 
-The graph-building calls below exist. Execution through `pipeline(frame)` still requires the planned CUDA backend.
+The graph-building calls below exist. Execution through `pipeline(frame)` uses the initial synchronous CUDA backend.
 
 ```python
 import cpg
@@ -97,7 +98,7 @@ Before reuse, we will check the source revision, license, numerical behavior, an
 
 CPG focuses on the boundary between camera data and model input.
 It does not aim to replace OpenCV or provide a general tensor framework.
-ROS transport, TensorRT examples, and package distribution follow the first measured runtime milestone.
+An experimental TensorRT consumer exists. ROS transport, production inference integration, and package distribution remain pending.
 
 ## Contributing
 

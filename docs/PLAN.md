@@ -8,7 +8,8 @@ The unit of success is a complete pipeline, not an isolated filter.
 This plan defines outcomes and evidence. It does not freeze the implementation.
 G0 source review and the initial local G1 reference slice exist.
 Full G0/G1 acceptance remains pending. An RTX 4090 CUDA reference/inference smoke run passed.
-The initial synchronous CUDA backend exists. TensorRT and broader runtime acceptance remain pending.
+The initial synchronous CUDA backend and fixed FP32 TensorRT consumer passed real inference checks.
+See [TensorRT evidence](experiments/006-tensorrt.md). Broader runtime acceptance and latency comparisons remain pending.
 See [the backend contract](CUDA_BACKEND.md), [host evidence](experiments/004-cuda-host.md), and [fused execution evidence](experiments/005-fused-cuda.md).
 See [local development](LOCAL_DEVELOPMENT.md) and [source audit](SOURCE_AUDIT.md) for current evidence.
 

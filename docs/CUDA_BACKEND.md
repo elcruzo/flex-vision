@@ -6,7 +6,8 @@ The first backend executes this fixed graph in one CUDA kernel:
 RGB8/BGR8 HWC → letterbox → normalize → FP16/FP32 NCHW
 ```
 
-It does not implement the remaining MVP operators, batching, autotuning, or TensorRT integration.
+It does not implement the remaining MVP operators, batching, or autotuning.
+A [fixed TensorRT consumer experiment](TENSORRT_EXPERIMENT.md) exists outside the library API.
 The complete scope in REQUIREMENTS.md remains required.
 
 ## Install and execute

@@ -20,4 +20,4 @@ This is a source review on the Mac. No upstream CUDA tests ran here.
 No upstream implementation code is imported in this first slice.
 The first frontend/reference implementation is new code.
 Project licensing remains pending until the maintainer chooses it, before source import or distribution.
-G0 remains incomplete because NVIDIA execution and target environment validation are pending.
+Later NVIDIA experiments provide execution evidence. G0 remains incomplete because licensing and broader target validation remain pending.

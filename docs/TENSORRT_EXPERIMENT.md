@@ -80,3 +80,5 @@ A successful run establishes one fixed detector handoff and its numerical output
 It does not establish ROS transport, camera capture, a latency advantage, tail latency, or sustained multi-camera throughput.
 The CPU still schedules work. Zero pixel transfers at this boundary do not mean zero CPU use.
 The full requirements and benchmark success gate remain unchanged.
+
+[Experiment 006](experiments/006-tensorrt.md) records the successful L4 run, scoped trace evidence, artifacts, and limitations.

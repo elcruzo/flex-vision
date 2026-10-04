@@ -180,3 +180,15 @@ CUDA Array Interface-only objects remain unsupported.
 The trace showed one kernel and no memory-copy events in each preprocessing range.
 The full detector passed on all four pinned photograph cases.
 No latency comparison or TensorRT result exists yet. See [experiment 005](experiments/005-fused-cuda.md).
+
+## D015 — Validate a fixed TensorRT network before general integration
+
+Status: the FP32 SSDLite hybrid consumer passed on an L4.
+
+TensorRT executes trained normalization, backbone, and dense heads. TorchVision CUDA retains box decoding and NMS.
+The consumer binds the existing CuPy input pointer and retains buffers through synchronous completion.
+This experiment does not establish dynamic shapes, FP16 TensorRT, portable engine caching, or a production adapter.
+
+Use TensorRT 10.13.3.9.post1 with the recorded runtime pin for this environment. The original package failed dependency installation.
+The next experiment must address the observed default-stream warning and compare equivalent warm pipeline latency.
+See [experiment 006](experiments/006-tensorrt.md). No performance advantage is claimed.
