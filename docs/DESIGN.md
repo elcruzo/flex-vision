@@ -1,7 +1,7 @@
 # Design notes
 
 Status: mostly proposed contracts. The initial reference slice implements the numerical rules in [LOCAL_DEVELOPMENT.md](LOCAL_DEVELOPMENT.md).
-No CUDA backend exists yet.
+An initial synchronous CUDA backend implements the fixed detector graph. See [its contract](CUDA_BACKEND.md).
 
 ## Pipeline model
 

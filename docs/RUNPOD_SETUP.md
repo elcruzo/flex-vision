@@ -3,7 +3,7 @@
 Status: user setup guide, checked against provider documentation on 2026-10-04.
 The first NVIDIA session passed and its Pod was terminated after artifact export.
 See [the session evidence](experiments/004-cuda-host.md) for the tested environment and reproduction steps.
-The user authorized a $15 total development budget. This session used approximately $0.10, pending the billing ledger.
+The user authorized a $15 total development budget. The first two sessions used approximately $0.16 in total, pending the billing ledger.
 Track later sessions against the remaining total. The budget is not a per-session allowance.
 
 ## What to prepare now

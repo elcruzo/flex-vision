@@ -1,7 +1,8 @@
 # First local development slice
 
 Available: immutable detector graph, plan inspection, NumPy oracle, and explicit CPU/MPS PyTorch reference execution.
-No CUDA backend exists yet. Calling `pipeline(frame)` raises an explicit error rather than silently selecting CPU execution.
+An initial CUDA backend accepts GPU input through `pipeline(frame)`. CPU inputs are rejected rather than silently uploaded.
+Read [the CUDA contract](CUDA_BACKEND.md). Local reference functions remain explicit.
 This slice supports only letterbox → normalize → output conversion.
 Strict YAML loading and `cpg inspect` are available for this subset.
 Other operators, batches, GPU input protocols, and TensorRT remain pending.
@@ -124,5 +125,5 @@ It does not claim TensorRT or CPG CUDA acceptance.
 
 [Experiment 004](experiments/004-cuda-host.md) records the completed RTX 4090 session.
 `scripts/gpu_detector_smoke.py` runs an explicit CUDA reference and pretrained CUDA detector with the photograph fixtures.
-It is a hardware experiment, not the `Pipeline.__call__` implementation.
+Its `--backend cpg` option now exercises `Pipeline.__call__` through real CUDA inference.
 TensorRT, optimized kernels, and production residency acceptance remain pending.

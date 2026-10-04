@@ -161,3 +161,22 @@ Recheck this choice when updating the framework pair.
 Export and verify artifacts before terminating temporary compute.
 No persistent volume was created. The Pod was terminated and the account list returned no Pods.
 See [experiment 004](experiments/004-cuda-host.md) for evidence and remaining checks.
+
+
+## D014 — Start CUDA execution with a synchronous fused detector kernel
+
+Status: implemented and validated on one RTX 4090. Full G1 remains incomplete.
+
+The first CUDA backend fuses the fixed detector graph and returns a new CuPy output.
+Calls reject CPU input and synchronize the current CuPy stream before returning.
+This initial restriction preserves imported input ownership until completion and avoids hidden output reuse.
+It does not replace the required asynchronous runtime or reusable-buffer work.
+
+Double-precision sampling coordinates and disabled multiply/add contraction match the independent oracle before FP32 interpolation.
+Keep these correctness choices until measured evidence supports a change.
+The kernel supports byte-strided CuPy uint8 input and CUDA object DLPack input.
+CUDA Array Interface-only objects remain unsupported.
+
+The trace showed one kernel and no memory-copy events in each preprocessing range.
+The full detector passed on all four pinned photograph cases.
+No latency comparison or TensorRT result exists yet. See [experiment 005](experiments/005-fused-cuda.md).

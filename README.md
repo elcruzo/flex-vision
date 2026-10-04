@@ -12,9 +12,12 @@ First benchmark target:
     → TensorRT inference
 ```
 
-**Status: reference implementation with CPU, MPS, and CUDA hardware experiments. No CPG CUDA backend or performance results yet.**
+**Status: initial fused CUDA detector preprocessing, plus CPU/MPS references. Performance and full-platform acceptance remain pending.**
 
-The [first NVIDIA experiment](docs/experiments/004-cuda-host.md) passed real detector checks and exported Nsight traces.
+Read the [CUDA backend contract](docs/CUDA_BACKEND.md) for supported inputs, synchronous execution, and limitations.
+
+The [fused CUDA experiment](docs/experiments/005-fused-cuda.md) passed real detector checks.
+Its trace shows one kernel and no memory-copy events within each preprocessing call.
 We will publish measured latency, memory use, kernel launches, and transfer bytes here when the benchmark is reproducible.
 
 CUDA Preprocess Graph (CPG) aims to optimize the complete preprocessing pipeline.
