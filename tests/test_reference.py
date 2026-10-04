@@ -14,7 +14,7 @@ def test_immutable_and_no_silent_execution():
     original = Pipeline()
     _ = original.letterbox(640, 640)
     assert original.operations == ()
-    with pytest.raises(NotImplementedError, match="CUDA"):
+    with pytest.raises(TypeError, match="CUDA"):
         pipe()(np.zeros((2, 2, 3), np.uint8))
 
 

@@ -25,6 +25,7 @@ from local_detector import WEIGHTS_SHA256, digest
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--backend', choices=('reference', 'cpg'), default='reference')
     parser.add_argument('--weights', type=Path, default=Path('.cache/models/ssdlite320_mobilenet_v3_large_coco-a79551df.pth'))
     args = parser.parse_args()
     if digest(args.weights) != WEIGHTS_SHA256:
@@ -40,6 +41,7 @@ def main():
             or norm.mean != (0., 0., 0.) or norm.std != (1., 1., 1.)):
         parser.error('This smoke fixture requires 320x320 RGB FP32 NCHW with scale 1/255, mean 0, std 1')
     report = {'status': 'failed', 'scope': 'unfused GPU reference and hardware smoke; not CPG/TensorRT acceptance',
+              'backend': args.backend,
               'torch': torch.__version__, 'torchvision': torchvision.__version__, 'cupy': cp.__version__,
               'numpy': np.__version__, 'cuda_build': torch.version.cuda,
               'gpu': torch.cuda.get_device_name(0), 'weights_sha256': WEIGHTS_SHA256,
@@ -84,14 +86,14 @@ def main():
                 tensor = torch.from_dlpack(frame)
                 if tensor.data_ptr() != frame.data.ptr:
                     raise AssertionError('Input interoperability did not share the allocation')
-                with torch.cuda.nvtx.range('unfused_reference_preprocess'):
-                    actual = tensor.flip(-1).permute(2, 0, 1)[None].float()
-                    actual = F.interpolate(actual, size=(g.resized_height, g.resized_width), mode='bilinear', align_corners=False, antialias=False)
-                    actual = F.pad(actual, (g.left, g.output_width-g.resized_width-g.left, g.top, g.output_height-g.resized_height-g.top), value=pipeline.operations[0].value)
-                    norm = pipeline.operations[1]
-                    mean = torch.tensor(norm.mean, device='cuda').view(1, 3, 1, 1)
-                    std = torch.tensor(norm.std, device='cuda').view(1, 3, 1, 1)
-                    actual = ((actual*norm.scale-mean)/std).contiguous()
+                with torch.cuda.nvtx.range('unfused_reference_preprocess' if args.backend == 'reference' else 'cpg_preprocess'):
+                    if args.backend == 'cpg':
+                        processed = pipeline(frame)
+                        actual = torch.from_dlpack(processed)
+                        if actual.data_ptr() != processed.data.ptr:
+                            raise AssertionError('Output interoperability did not share the allocation')
+                    else:
+                        actual = reference_preprocess(tensor, pipeline, g)
                 captures.clear()
                 with torch.cuda.nvtx.range('candidate_inference'):
                     candidate = model([actual[0]])[0]
@@ -125,6 +127,16 @@ def main():
     finally:
         (args.output/'report.json').write_text(json.dumps(report, indent=2)+'\n')
     print(json.dumps({'status': report['status'], 'cases': len(report['cases'])}))
+
+
+def reference_preprocess(tensor, pipeline, g):
+    actual = tensor.flip(-1).permute(2, 0, 1)[None].float()
+    actual = F.interpolate(actual, size=(g.resized_height, g.resized_width), mode='bilinear', align_corners=False, antialias=False)
+    actual = F.pad(actual, (g.left, g.output_width-g.resized_width-g.left, g.top, g.output_height-g.resized_height-g.top), value=pipeline.operations[0].value)
+    norm = pipeline.operations[1]
+    mean = torch.tensor(norm.mean, device='cuda').view(1, 3, 1, 1)
+    std = torch.tensor(norm.std, device='cuda').view(1, 3, 1, 1)
+    return ((actual*norm.scale-mean)/std).contiguous()
 
 
 if __name__ == '__main__':

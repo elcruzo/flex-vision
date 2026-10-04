@@ -113,7 +113,9 @@ class Pipeline:
     def to(self, *, dtype, layout):
         return replace(self, operations=self.operations + (Convert(dtype, layout),))
 
-    def plan(self, shape):
+    def plan(self, shape, *, backend='reference'):
+        if backend not in ('reference', 'cuda'):
+            raise ValueError('backend must be reference or cuda')
         if len(shape) != 3 or shape[2] != 3:
             raise ValueError("input shape must be HWC with three channels")
         h, w, _ = shape
@@ -128,11 +130,14 @@ class Pipeline:
         rh = min(size.height, max(1, math.floor(h * ratio + 0.5)))
         geometry = Geometry(h, w, rh, rw, size.height, size.width,
                             (size.height-rh)//2, (size.width-rw)//2)
-        return {"backend": "reference-only", "input_encoding": self.input_encoding,
+        return {"backend": "cuda-fused" if backend == 'cuda' else "reference-only", "input_encoding": self.input_encoding,
                 "output_encoding": "rgb", "output_shape": [1, 3, size.height, size.width],
                 "dtype": output.dtype, "geometry": asdict(geometry),
                 "operations": [{"kind": type(op).__name__, **asdict(op)} for op in self.operations],
-                "cuda_launches": None, "fusion": False}
+                "cuda_launches": 1 if backend == 'cuda' else None, "fusion": backend == 'cuda',
+                "synchronous": backend == 'cuda',
+                "temporary_arrays": 0 if backend == 'cuda' else None}
 
     def __call__(self, frame):
-        raise NotImplementedError("CUDA execution is not implemented. Use cpg.reference explicitly for local validation.")
+        from .cuda import execute
+        return execute(self, frame)

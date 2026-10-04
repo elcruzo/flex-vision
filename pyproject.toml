@@ -13,6 +13,7 @@ dependencies = ["numpy>=2.0", "PyYAML>=6.0.2"]
 cpg = "cpg.cli:main"
 
 [project.optional-dependencies]
+cuda = ["cupy-cuda13x>=14.2,<15"]
 reference = ["torch>=2.8", "torchvision>=0.23"]
 dev = ["pytest>=8"]
 
