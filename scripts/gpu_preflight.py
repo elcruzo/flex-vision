@@ -29,7 +29,7 @@ def collect():
               "nvidia_smi": command(["nvidia-smi", "--query-gpu=name,driver_version,memory.total", "--format=csv,noheader"]),
               "nvcc": command(["nvcc", "--version"]), "nsys": command(["nsys", "--version"]),
               "packages": {}, "pending": ["CuPy interoperability", "TensorRT inference", "actual Nsight trace inspection"]}
-    for name in ("torch", "torchvision", "cupy-cuda13x", "cupy-cuda12x", "tensorrt"):
+    for name in ("torch", "torchvision", "cupy-cuda13x", "cupy-cuda12x", "tensorrt", "tensorrt-cu13", "cuda-toolkit"):
         try:
             report["packages"][name] = importlib.metadata.version(name)
         except importlib.metadata.PackageNotFoundError:

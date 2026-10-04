@@ -3,7 +3,8 @@
 Status: user setup guide, checked against provider documentation on 2026-10-04.
 The first NVIDIA session passed and its Pod was terminated after artifact export.
 See [the session evidence](experiments/004-cuda-host.md) for the tested environment and reproduction steps.
-The user authorized a $15 total development budget. The first two sessions used approximately $0.16 in total, pending the billing ledger.
+The user authorized a $15 total development budget. The first two sessions have posted charges totaling $0.15281239314936102.
+Later session charges must be added before calculating the remaining budget.
 Track later sessions against the remaining total. The budget is not a per-session allowance.
 
 ## What to prepare now
@@ -121,3 +122,17 @@ Use the provider's current lifecycle instructions for the selected storage type.
 
 You can prepare the account and SSH access before renting.
 Start paid compute when we are ready to run the CUDA experiment.
+
+
+## Posted session ledger
+
+Runpod billing was read on 2026-10-04 after the first two Pods were terminated.
+These costs include the provider's recorded GPU and disk amounts.
+
+| Experiment | Pod | Posted USD |
+| --- | --- | --- |
+| 004 CUDA host | 9rffjln920g60i | 0.09863918775226921 |
+| 005 fused backend | hkcvv93vzorup5 | 0.054173205397091806 |
+
+The subtotal is $0.15281239314936102. Do not interpret this as including a later unposted session.
+The overall authorization remains $15 across sessions, not $15 per rental.
