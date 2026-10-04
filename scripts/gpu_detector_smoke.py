@@ -1,6 +1,6 @@
 """Validate a CUDA development host with CuPy interoperability and real inference.
 
-This is an unfused hardware/reference experiment, not the CPG execution backend.
+Select the unfused reference or the experimental CPG CUDA backend.
 Fixture uploads and validation downloads are deliberate. No residency claim.
 """
 import argparse
@@ -40,7 +40,7 @@ def main():
             or pipeline.operations[2].dtype != 'float32' or norm.scale != 1/255
             or norm.mean != (0., 0., 0.) or norm.std != (1., 1., 1.)):
         parser.error('This smoke fixture requires 320x320 RGB FP32 NCHW with scale 1/255, mean 0, std 1')
-    report = {'status': 'failed', 'scope': 'unfused GPU reference and hardware smoke; not CPG/TensorRT acceptance',
+    report = {'status': 'failed', 'scope': 'CUDA detector smoke; not complete G1, TensorRT, or performance acceptance',
               'backend': args.backend,
               'torch': torch.__version__, 'torchvision': torchvision.__version__, 'cupy': cp.__version__,
               'numpy': np.__version__, 'cuda_build': torch.version.cuda,
