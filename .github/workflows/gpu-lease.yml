@@ -1,0 +1,38 @@
+name: Bounded GPU lease
+run-name: L4 lease (${{ inputs.minutes }} minutes)
+on:
+  workflow_dispatch:
+    inputs:
+      minutes:
+        description: '2 = termination test; 30 = inspection experiment'
+        type: choice
+        options: ['2', '30']
+        required: true
+        default: '2'
+permissions:
+  contents: read
+concurrency:
+  group: cpg-gpu-lease
+  cancel-in-progress: false
+jobs:
+  lease:
+    if: github.repository == 'elcruzo/flex-vision' && github.ref == 'refs/heads/main' && github.actor == 'elcruzo' && github.run_attempt == 1
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    env:
+      LEASE_MINUTES: ${{ inputs.minutes }}
+      CPG_RUN: ${{ github.run_id }}-${{ github.run_attempt }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Create, watch, and terminate one Pod
+        env:
+          RUNPOD_API_KEY: ${{ secrets.CPG_RUNPOD_API_KEY }}
+          CPG_SSH_PUBLIC_KEY: ${{ vars.CPG_SSH_PUBLIC_KEY }}
+        run: python3 -u scripts/runpod_lease.py lease
+      - name: Verify cleanup after failure or cancellation
+        if: always()
+        env:
+          RUNPOD_API_KEY: ${{ secrets.CPG_RUNPOD_API_KEY }}
+        run: python3 -u scripts/runpod_lease.py cleanup
