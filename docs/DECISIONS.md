@@ -226,3 +226,16 @@ The image also lacked the executable and credential required by the attempted Po
 Do not rely on either unverified mechanism for future rentals.
 Verify provider-side expiration or an independent termination mechanism, including readback and an actual cleanup test.
 Keep total spend accounting across sessions and include unposted reserves.
+
+## D019 — Establish the full inspection reference before adding CUDA operators
+
+Status: CPU and MPS preprocessing passed through a real pretrained classifier on three fixtures, including 4K input.
+
+Use a fixed Gaussian → sharpen → clamp → crop → resize → normalize contract for the next workload.
+Filtering precedes ROI extraction. Preserve global border semantics and FP32 intermediates without uint8 quantization.
+Keep independent NumPy accumulation and PyTorch grouped-convolution references outside the public graph API for now.
+
+MobileNetV3 Small with pinned ImageNet weights provides an actual inference consumer and a predefined cat-class smoke check.
+The photograph does not establish industrial defect accuracy, and the custom ROI transform is not canonical ImageNet evaluation.
+The absent-class negative control must fail. Pixel agreement alone is insufficient.
+See [experiment 009](experiments/009-inspection-reference.md). GPU performance and the two-workload gate remain pending.

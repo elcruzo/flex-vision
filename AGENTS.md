@@ -45,4 +45,5 @@ A fixed FP32 TensorRT consumer passed on an L4. Read docs/experiments/006-tensor
 The first matched latency comparison exists in docs/experiments/007-latency.md.
 Inference controls in docs/experiments/008-controls.md support a preceding-memory-state effect.
 Before another paid rental, verify independent termination. The local timer failed during a long Mac-session pause.
-Next, prepare a second inference workload locally while preserving the full performance gate.
+The inspection reference passed CPU and MPS preprocessing through real classifier inference. Read docs/INSPECTION_REFERENCE.md and docs/experiments/009-inspection-reference.md.
+Next, establish the second GPU baseline after verifying independent cloud expiration. Reference operators are not production CUDA support.

@@ -122,6 +122,13 @@ The hardware preflight reports CUDA availability and performs arithmetic on a no
 It does not claim TensorRT or CPG CUDA acceptance.
 
 
+## Inspection reference
+
+A second full workload now runs Gaussian, sharpen, clamp, ROI crop, resize, and normalization through a pretrained classifier.
+Both CPU and MPS preprocessing passed the original, odd-ROI, and 4K cases. Inference remains on CPU.
+Read [the inspection contract](INSPECTION_REFERENCE.md) and [experiment 009](experiments/009-inspection-reference.md).
+These are fixed reference implementations outside the public graph API. CUDA operator support and second-workload performance remain pending.
+
 ## First NVIDIA evidence
 
 [Experiment 004](experiments/004-cuda-host.md) records the completed RTX 4090 session.
