@@ -1,6 +1,7 @@
 # Independent GPU lease
 
 Status: implemented, live termination proof pending.
+The initial hosted attempt did not receive a runner. See [experiment 010](experiments/010-lease-preparation.md).
 
 The manually dispatched `gpu-lease.yml` workflow creates one disposable L4 Pod on a GitHub-hosted runner.
 That runner starts the deadline before provisioning and terminates the Pod when the deadline arrives.

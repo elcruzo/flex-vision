@@ -178,3 +178,13 @@ The cleanup read showed partial posted charges of $4.1067960490472615 for this s
 That amount is included in the $4.70 reserve, not an additional charge.
 The account had no Pods after termination. No persistent volume was created.
 See [experiment 008](experiments/008-controls.md) for results and the shutdown failure.
+
+## Posted reconciliation on 2026-10-05
+
+Experiment 008 now has final posted GPU and disk charges of $4.605089353630319.
+Replace its $4.70 reserve with that value. All five completed rentals total $5.007173080695793.
+The remaining authorization is $9.992826919304207 before any later lease.
+The account read contained no Pods and no new experiment rental had started.
+
+The [independent lease workflow](GPU_LEASE.md) now implements creation and termination on a GitHub-hosted runner.
+Its live cleanup proof remains pending. Do not treat its local fault checks as that proof.

@@ -250,3 +250,16 @@ See [the merged Runpod change](https://github.com/runpod/runpodctl/pull/330), ch
 An independent watchdog still needs implementation and an actual termination test before another experiment rental.
 A hosted job timeout alone does not terminate a cloud Pod.
 Continue local harness preparation while this requirement remains open.
+
+## D021 — Create and expire experimental Pods from an independent runner
+
+Status: implemented, live proof pending because the hosted job did not start.
+
+Use a manually dispatched GitHub Actions job to create and watch one disposable Pod.
+Start the deadline before provisioning. Bind deletion to the exact creation receipt and verify provider absence.
+Reject delayed dispatch, overlapping rentals, unavailable capacity, and an increased GPU rate.
+Keep account credentials out of the GPU container and use encrypted Actions secret storage.
+
+The runner remains subject to infrastructure failures and API outages. This is not a provider-enforced cost cap.
+A passing mock test or a committed workflow does not satisfy D018. Require the two-minute live test first.
+See [experiment 010](experiments/010-lease-preparation.md).

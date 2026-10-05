@@ -14,6 +14,7 @@ See [TensorRT evidence](experiments/006-tensorrt.md). Broader runtime acceptance
 [Experiment 008](experiments/008-controls.md) tested fixed inputs, output reuse, and common memory conditioning.
 It supports a preceding-memory-state effect. The two-workload success gate remains open.
 Verify independent cloud expiration before another paid experiment.
+The [hosted lease workflow](GPU_LEASE.md) is implemented. Its live termination test remains pending.
 [Experiment 009](experiments/009-inspection-reference.md) validates the complete inspection reference through a pretrained classifier locally.
 Its GPU implementation and comparison remain pending.
 See [the backend contract](CUDA_BACKEND.md), [host evidence](experiments/004-cuda-host.md), and [fused execution evidence](experiments/005-fused-cuda.md).
