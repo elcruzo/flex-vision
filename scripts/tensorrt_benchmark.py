@@ -50,6 +50,8 @@ def main():
     parser.add_argument('--trace', action='store_true', help='Diagnostic run only; timings are not benchmark evidence')
     parser.add_argument('--weights', type=Path, default=Path('.cache/models/ssdlite320_mobilenet_v3_large_coco-a79551df.pth'))
     args = parser.parse_args()
+    if args.condition_memory_mib > 1024:
+        parser.error('Memory conditioning is limited to 1024 MiB')
     if args.condition_memory_mib and args.control != 'fixed-input':
         parser.error('Memory conditioning requires the fixed-input control')
     previous = json.loads((args.validated_run/'report.json').read_text())
