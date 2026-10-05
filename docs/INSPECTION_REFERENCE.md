@@ -109,3 +109,27 @@ Do not assume that combining Gaussian and sharpen preserves finite-precision res
 Required later evidence includes actual GPU classifier output, retained buffers, streams, transfer traces, and raw repeated latency samples.
 The planned industrial workload still needs representative inspection images and an appropriate classifier or dataset evaluation.
 The two-workload performance gate remains open until this second workload has credible GPU results.
+
+## Prepared CUDA baseline runner (hardware validation pending)
+
+`TorchInspectionBaseline` stores filter and normalization constants on the selected device once.
+Its `from_bgr8` method accepts a resident PyTorch uint8 HWC BGR frame.
+It runs conversion, filtering, crop, resize, and normalization without an explicit pixel download.
+The caller must preserve input ownership and current-stream dependencies until execution completes.
+This experimental adapter does not extend the public CPG operator catalog.
+
+Run the same classifier checks on NVIDIA hardware:
+
+```bash
+python scripts/local_classifier.py --device cuda --output benchmark-results/inspection-cuda
+```
+
+The runner uploads the fixture before preprocessing, then feeds the resulting tensor directly to MobileNetV3 Small on CUDA.
+It downloads tensors and logits only after inference, for comparison against independent NumPy preprocessing and CPU inference.
+The `inspection_to_classifier` NVTX range marks that device boundary, including completion synchronization.
+A trace must still verify transfers. The presence of an NVTX range does not prove residency.
+The runner disables TF32 for convolution and matrix multiplication and records the GPU and CUDA version.
+The precision and stream policy follows [PyTorch 2.9 CUDA semantics](https://docs.pytorch.org/docs/2.9/notes/cuda.html).
+
+CPU and MPS checks validate shared code locally. CUDA execution, transfer traces, and repeated latency measurements remain pending.
+Do not treat this smoke runner as a warmed performance benchmark.

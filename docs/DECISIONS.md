@@ -239,3 +239,14 @@ MobileNetV3 Small with pinned ImageNet weights provides an actual inference cons
 The photograph does not establish industrial defect accuracy, and the custom ROI transform is not canonical ImageNet evaluation.
 The absent-class negative control must fail. Pixel agreement alone is insufficient.
 See [experiment 009](experiments/009-inspection-reference.md). GPU performance and the two-workload gate remain pending.
+
+## D020 — Do not use Runpod expiration flags as a shutdown guarantee
+
+Status: native expiration is unavailable in the reviewed client/backend path.
+
+Runpod removed `--stop-after` and `--terminate-after` because the backend accepted but ignored their deadlines.
+The REST API has no corresponding scheduling field or deadline readback.
+See [the merged Runpod change](https://github.com/runpod/runpodctl/pull/330), checked on 2026-10-05.
+An independent watchdog still needs implementation and an actual termination test before another experiment rental.
+A hosted job timeout alone does not terminate a cloud Pod.
+Continue local harness preparation while this requirement remains open.

@@ -1,6 +1,6 @@
-"""Validate a fixed inspection reference through real CPU classifier inference.
+"""Validate inspection preprocessing through real classifier inference.
 
-MPS can run preprocessing. Validation downloads are explicit. No CUDA claim.
+CPU/MPS use CPU inference. CUDA uses resident CUDA inference before validation downloads.
 """
 import argparse
 import hashlib
@@ -17,7 +17,7 @@ import torchvision
 from torchvision.models import mobilenet_v3_small, MobileNet_V3_Small_Weights
 
 from cpg.validation import photo_cases
-from inspection_reference import numpy_inspection, torch_inspection, gaussian_coefficients, SHARPEN, MEAN, STD
+from inspection_reference import numpy_inspection, torch_inspection, gaussian_coefficients, SHARPEN, MEAN, STD, TorchInspectionBaseline
 from local_detector import digest
 
 WEIGHTS_URL = 'https://download.pytorch.org/models/mobilenet_v3_small-047dcff4.pth'
@@ -54,7 +54,7 @@ def check_semantics(logits, *, negative=False):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--device',choices=('cpu','mps'),default='cpu')
+    parser.add_argument('--device',choices=('cpu','mps','cuda'),default='cpu')
     parser.add_argument('--output',type=Path,required=True)
     parser.add_argument('--negative-control',action='store_true',help='Require an absent dog class; the run must fail')
     parser.add_argument('--weights',type=Path,default=Path('.cache/models/mobilenet_v3_small-047dcff4.pth'))
@@ -63,9 +63,11 @@ def main():
         parser.error(f'Expected pinned model weights: {WEIGHTS_URL} (SHA256 {WEIGHTS_SHA256})')
     if args.device == 'mps' and os.environ.get('PYTORCH_ENABLE_MPS_FALLBACK') == '1':
         parser.error('Disable MPS CPU fallback for this explicit device experiment')
+    if args.device == 'cuda' and not torch.cuda.is_available():
+        parser.error('CUDA is unavailable')
     args.output.mkdir(parents=True,exist_ok=False)
-    report = {'status':'failed','scope':'local inspection reference and classifier smoke; no industrial accuracy, CUDA, TensorRT, or performance claim',
-              'preprocessing_device':args.device,'inference_device':'cpu','negative_control':args.negative_control,
+    report = {'status':'failed','scope':'inspection baseline and classifier smoke; no industrial accuracy, TensorRT, or performance claim',
+              'preprocessing_device':args.device,'inference_device':'cuda' if args.device == 'cuda' else 'cpu','negative_control':args.negative_control,
               'revision':subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),
               'dirty':bool(subprocess.check_output(['git','status','--porcelain'],text=True)),
               'platform':platform.platform(),'python':platform.python_version(),'torch':torch.__version__,'torchvision':torchvision.__version__,
@@ -82,6 +84,18 @@ def main():
         torch.set_num_threads(4)
         model = mobilenet_v3_small(weights=None).eval()
         model.load_state_dict(torch.load(args.weights,map_location='cpu',weights_only=True))
+        gpu_model = None
+        prepared = None
+        if args.device == 'cuda':
+            import copy
+            torch.backends.cuda.matmul.allow_tf32 = False
+            torch.backends.cudnn.allow_tf32 = False
+            torch.backends.cudnn.benchmark = False
+            gpu_model = copy.deepcopy(model).cuda().eval()
+            prepared = TorchInspectionBaseline('cuda')
+            report['gpu'] = torch.cuda.get_device_name()
+            report['cuda'] = torch.version.cuda
+            report['tf32'] = False
         categories = MobileNet_V3_Small_Weights.IMAGENET1K_V1.meta['categories']
         for name,rgb,roi,provenance in cases():
             frame = rgb[...,::-1]  # Deliberately noncontiguous BGR input.
@@ -90,12 +104,22 @@ def main():
             report['cases'].append(case)
             started = time.perf_counter()
             expected = numpy_inspection(frame,roi)
-            actual = torch_inspection(frame,roi,device=args.device).cpu()
+            if prepared is not None:
+                # Explicit fixture upload precedes the GPU preprocessing/inference boundary.
+                resident = torch.from_numpy(np.ascontiguousarray(frame)).cuda()
+                with torch.inference_mode(), torch.cuda.nvtx.range('inspection_to_classifier'):
+                    actual_device = prepared.from_bgr8(resident,roi)
+                    candidate_device = gpu_model(actual_device)
+                    torch.cuda.synchronize()
+                # Downloads below are validation only, after real resident inference.
+                actual = actual_device.cpu()
+            else:
+                actual = torch_inspection(frame,roi,device=args.device).cpu()
             np.testing.assert_allclose(actual.numpy(),expected,atol=report['tensor_atol'],rtol=0)
             case['tensor_max_abs_error'] = float(np.abs(actual.numpy()-expected).max())
             with torch.inference_mode():
                 baseline = model(torch.from_numpy(expected))
-                candidate = model(actual)
+                candidate = candidate_device.cpu() if prepared is not None else model(actual)
             torch.testing.assert_close(candidate,baseline,atol=report['logit_atol'],rtol=report['logit_rtol'])
             case['logit_max_abs_error'] = float((candidate-baseline).abs().max())
             baseline_top,baseline_mass = check_semantics(baseline,negative=args.negative_control)
