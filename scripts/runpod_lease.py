@@ -29,7 +29,7 @@ def api(method, path, body=None):
     if not key:
         raise RuntimeError('Missing Runpod credential')
     request = Request('https://api.runpod.io/v2/' + path, method=method,
-                      headers={'Authorization':'Bearer '+key, 'Content-Type':'application/json'},
+                      headers={'Authorization':'Bearer '+key, 'Content-Type':'application/json', 'User-Agent':'cpg-gpu-lease/1.0'},
                       data=None if body is None else json.dumps(body).encode())
     try:
         with urlopen(request, timeout=20) as response:
@@ -138,6 +138,9 @@ def main():
         return
     receipt = None
     try:
+        expires = int(os.environ['CPG_DISPATCH_EXPIRES'])
+        if not 0 < expires-time.time() <= 900:
+            raise RuntimeError('Dispatch expired or exceeds the 15-minute start window')
         receipt = create(int(os.environ['LEASE_MINUTES']),os.environ['CPG_RUN'])
         watch(receipt)
     finally:

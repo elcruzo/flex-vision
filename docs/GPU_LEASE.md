@@ -39,9 +39,12 @@ The ignored receipt contains the Pod ID, run ID, deadline, image, and quoted GPU
 8. Reconcile posted charges after cleanup.
 
 ```bash
-gh workflow run gpu-lease.yml --ref main -f minutes=2
+gh workflow run gpu-lease.yml --ref main -f minutes=2 -f expires_at=UTC_UNIX_DEADLINE
 gh run list --workflow gpu-lease.yml --limit 1
 ```
+
+Replace `UTC_UNIX_DEADLINE` with a timestamp at most 15 minutes in the future.
+A delayed runner refuses creation after that time. Queue delays do not start a later unattended rental.
 
 The workflow job has a 45-minute timeout, leaving cleanup time after the maximum lease.
 The timeout itself does not stop cloud billing. The Python `finally` block and an `always()` cleanup step perform API deletion.

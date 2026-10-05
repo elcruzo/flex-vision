@@ -26,7 +26,7 @@ def test_cleanup_retries_and_checks_absence():
 
 
 def test_watch_failure_still_terminates():
-    with patch('sys.argv',['lease','lease']), patch.dict('os.environ',LEASE_MINUTES='2',CPG_RUN='123-1'), patch.object(lease,'create',return_value=RECEIPT), patch.object(lease,'watch',side_effect=RuntimeError('outage')), patch.object(lease,'terminate') as terminate:
+    with patch('sys.argv',['lease','lease']), patch.dict('os.environ',LEASE_MINUTES='2',CPG_RUN='123-1',CPG_DISPATCH_EXPIRES=str(int(lease.time.time()+60))), patch.object(lease,'create',return_value=RECEIPT), patch.object(lease,'watch',side_effect=RuntimeError('outage')), patch.object(lease,'terminate') as terminate:
         with pytest.raises(RuntimeError,match='outage'):
             lease.main()
     terminate.assert_called_once_with(RECEIPT)

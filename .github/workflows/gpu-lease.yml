@@ -9,6 +9,10 @@ on:
         options: ['2', '30']
         required: true
         default: '2'
+      expires_at:
+        description: 'UTC Unix timestamp: refuse creation after this time (within 15 minutes)'
+        type: string
+        required: true
 permissions:
   contents: read
 concurrency:
@@ -21,6 +25,7 @@ jobs:
     timeout-minutes: 45
     env:
       LEASE_MINUTES: ${{ inputs.minutes }}
+      CPG_DISPATCH_EXPIRES: ${{ inputs.expires_at }}
       CPG_RUN: ${{ github.run_id }}-${{ github.run_attempt }}
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
