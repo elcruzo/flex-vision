@@ -206,3 +206,23 @@ Identical image tensors still produced different downstream stage timings betwee
 Use identical-input controls and inspect allocation/dispatch behavior before attributing those changes to fusion.
 Do not expand performance claims or declare the two-workload success gate complete from this single experiment.
 See [experiment 007](experiments/007-latency.md) for raw-sample hashes, scope, and limitations.
+
+## D017 — Treat downstream memory state as part of the graph experiment
+
+Status: six attribution controls completed on one L4.
+
+The network difference persisted with identical input pointers and reused dense outputs.
+It nearly disappeared when both labels skipped preprocessing, or when both paths performed a common memory write before inference.
+This supports a preceding-memory-state effect, consistent with cache behavior. It does not prove a specific cache mechanism.
+Keep the scratch-memory control out of production. Keep operator and complete-graph measurements distinct.
+See [experiment 008](experiments/008-controls.md).
+
+## D018 — Verify independent expiration before another rental
+
+Status: required after an observed shutdown-control failure.
+
+A Mac-side long-sleep timer failed during a long pause, leaving a Pod running idle.
+The image also lacked the executable and credential required by the attempted Pod-side timer.
+Do not rely on either unverified mechanism for future rentals.
+Verify provider-side expiration or an independent termination mechanism, including readback and an actual cleanup test.
+Keep total spend accounting across sessions and include unposted reserves.

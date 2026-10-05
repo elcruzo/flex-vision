@@ -164,3 +164,17 @@ Set it when creating the resource so that container startup is covered.
 Test its actual termination and confirm that billing resources disappear before relying on it.
 Do not create another paid experiment while this protection remains unresolved.
 Keep manual termination after verified artifact export as the normal completion path.
+
+## Reconciled ledger after experiment 008
+
+On 2026-10-05, experiment 006 posted $0.14031437516678125 and experiment 007 posted $0.10895695874933153.
+Together with experiments 004 and 005, prior posted charges total $0.4020837270654738.
+Replace the earlier estimates for 006 and 007 with these amounts. Do not count both estimates and posted charges.
+
+Experiment 008 used Pod `64rp1cyu1iune8`, created at 17:56:42 UTC on October 4 and terminated at 03:12:39 UTC on October 5.
+Most elapsed time was idle during a Mac-session pause. The local shutdown guard failed to terminate it during that pause.
+Reserve $4.70 including disk for this entire session, giving approximately $5.10 cumulative against the $15 authorization.
+The cleanup read showed partial posted charges of $4.1067960490472615 for this session.
+That amount is included in the $4.70 reserve, not an additional charge.
+The account had no Pods after termination. No persistent volume was created.
+See [experiment 008](experiments/008-controls.md) for results and the shutdown failure.

@@ -20,7 +20,8 @@ The [fused CUDA experiment](docs/experiments/005-fused-cuda.md) passed real dete
 Its trace shows one kernel and no memory-copy events within each preprocessing call.
 The [TensorRT experiment](docs/experiments/006-tensorrt.md) also passed on an L4, with no copies through the dense network boundary.
 The [first matched latency experiment](docs/experiments/007-latency.md) records 10,000 samples per candidate through a hybrid TensorRT detector.
-It shows a preprocessing gain on one L4 workload. Vendor comparisons, downstream timing attribution, and the two-workload success gate remain pending.
+It shows a preprocessing gain on one L4 workload. [Attribution controls](docs/experiments/008-controls.md) support a preceding-memory-state effect in downstream timings.
+Vendor comparisons and the two-workload success gate remain pending.
 
 CUDA Preprocess Graph (CPG) aims to optimize the complete preprocessing pipeline.
 It should keep GPU input on the GPU, reuse memory, and combine compatible operations.

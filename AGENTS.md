@@ -43,4 +43,6 @@ Full G0/G1 acceptance and the two-workload performance gate remain pending.
 
 A fixed FP32 TensorRT consumer passed on an L4. Read docs/experiments/006-tensorrt.md.
 The first matched latency comparison exists in docs/experiments/007-latency.md.
-Next, isolate downstream timing changes with identical-input and allocation/dispatch controls before broadening performance claims.
+Inference controls in docs/experiments/008-controls.md support a preceding-memory-state effect.
+Before another paid rental, verify independent termination. The local timer failed during a long Mac-session pause.
+Next, prepare a second inference workload locally while preserving the full performance gate.
