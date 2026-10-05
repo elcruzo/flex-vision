@@ -162,3 +162,17 @@ A difference between the no-preprocessing labels is measurement variation or har
 A fixed-pointer difference cannot be explained by different inference input values or addresses alone.
 Output reuse removes dense-output allocation, but does not remove allocations inside the decoder.
 Keep unexplained effects explicit rather than selecting only the fastest control.
+
+An additional memory-state control is available:
+
+```bash
+python scripts/tensorrt_benchmark.py --validated-run benchmark-results/tensorrt-detector --output benchmark-results/control-conditioned --control fixed-input --reuse-outputs --condition-memory-mib 256 --samples 300 --repeats 4 --warmup 50
+```
+
+Both candidates write the same scratch buffer immediately before dense inference, then synchronize.
+The kernel writes varied integer values to avoid an all-zero compression case.
+This is common memory conditioning, not a guaranteed cache flush or a production optimization.
+Its cost is included in the preprocessing interval, so that interval cannot represent ordinary preprocessing performance.
+Compare the downstream network and decoder intervals with the fixed-input, reused-output control.
+A reduced difference supports a preceding-memory-state effect. It does not establish a specific cache mechanism without additional counters.
+The scratch allocation is bounded to 1024 MiB and is available only with the fixed-input control.
