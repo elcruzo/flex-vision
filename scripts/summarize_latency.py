@@ -47,7 +47,8 @@ def summarize(directory):
                          for repeat in range(repeats)])
     output = {'scope':report['scope'], 'samples_per_candidate':repeats*count, 'repeats':repeats,
               'percentile_method':'numpy linear', 'control':report.get('control','none'),
-              'reuse_outputs':report.get('reuse_outputs',False), 'metrics':{},
+              'reuse_outputs':report.get('reuse_outputs',False),
+              'condition_memory_mib':report.get('condition_memory_mib',0), 'metrics':{},
               'interpretation':'Positive reduction favors CPG. Repeat ranges describe observed variation, not confidence intervals.',
               'samples_sha256':report['samples_sha256']}
     for i,metric in enumerate(METRICS):

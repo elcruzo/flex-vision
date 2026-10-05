@@ -45,10 +45,13 @@ def main():
     parser.add_argument('--repeats', type=positive, default=10)
     parser.add_argument('--warmup', type=positive, default=100)
     parser.add_argument('--control', choices=('none', 'fixed-input', 'no-preprocess'), default='none')
+    parser.add_argument('--condition-memory-mib', type=positive, default=0, help='Diagnostic common memory write before inference; zero by default')
     parser.add_argument('--reuse-outputs', action='store_true', help='Serial diagnostic reuse of dense output buffers')
     parser.add_argument('--trace', action='store_true', help='Diagnostic run only; timings are not benchmark evidence')
     parser.add_argument('--weights', type=Path, default=Path('.cache/models/ssdlite320_mobilenet_v3_large_coco-a79551df.pth'))
     args = parser.parse_args()
+    if args.condition_memory_mib and args.control != 'fixed-input':
+        parser.error('Memory conditioning requires the fixed-input control')
     previous = json.loads((args.validated_run/'report.json').read_text())
     engine = args.validated_run/'ssdlite.engine'
     if previous['status'] != 'passed' or digest(engine) != previous['engine_sha256']:
@@ -57,7 +60,7 @@ def main():
         parser.error('Model weights do not match the pinned hash')
     args.output.mkdir(parents=True, exist_ok=False)
     report = {'status': 'failed', 'scope': ('serial 1080p photographic replay to hybrid SSDLite detections' if args.control == 'none' else 'diagnostic inference attribution control: '+args.control),
-              'instrumented': args.trace, 'control': args.control, 'reuse_outputs': args.reuse_outputs, 'engine_sha256': digest(engine),
+              'instrumented': args.trace, 'control': args.control, 'reuse_outputs': args.reuse_outputs, 'condition_memory_mib': args.condition_memory_mib, 'engine_sha256': digest(engine),
               'validated_report_sha256': digest(args.validated_run/'report.json'),
               'runner_sha256': digest(Path(__file__)),
               'revision': subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),
@@ -141,6 +144,25 @@ def main():
             report['policy'] += ('; fixed inference pointer' if args.control != 'none' else '; live preprocessing output')
             report['policy'] += ('; dense outputs reused and overwritten each call' if args.reuse_outputs else '; fresh dense outputs')
             report['fixed_input_sha256'] = hashlib.sha256(expected.tobytes()).hexdigest()
+            if args.condition_memory_mib:
+                # Vary stores to avoid an all-zero compression special case.
+                # This is a memory-state control, not a guaranteed cache flush.
+                elements = args.condition_memory_mib*1024*1024//4
+                scratch = cp.empty(elements, dtype=cp.uint32)
+                condition = cp.RawKernel('''extern "C" __global__ void condition_memory(unsigned int* p, int n) {
+                    int i = blockIdx.x*blockDim.x+threadIdx.x;
+                    if(i<n) { unsigned int x=(unsigned int)i*747796405u+2891336453u;
+                    x=((x>>((x>>28)+4))^x)*277803737u; p[i]=(x>>22)^x; }
+                }''', 'condition_memory')
+                def conditioned(preprocess):
+                    def call():
+                        image = preprocess()
+                        condition(((elements+255)//256,), (256,), (scratch, np.int32(elements)))
+                        stream.synchronize()
+                        return image
+                    return call
+                paths = {name: conditioned(preprocess) for name,preprocess in paths.items()}
+                report['policy'] += '; common memory write before inference, included in preprocessing interval'
             events = [torch.cuda.Event(enable_timing=True) for _ in range(4)]
             # Initialize event resources before collecting any sample.
             for event in events:
