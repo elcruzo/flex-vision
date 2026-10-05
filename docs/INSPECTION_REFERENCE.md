@@ -133,3 +133,27 @@ The precision and stream policy follows [PyTorch 2.9 CUDA semantics](https://doc
 
 CPU and MPS checks validate shared code locally. CUDA execution, transfer traces, and repeated latency measurements remain pending.
 Do not treat this smoke runner as a warmed performance benchmark.
+
+The CUDA smoke runner performs three warmup passes per fixture before its NVTX range.
+Use `--warmup 0` only for an explicitly cold diagnostic. No warmup changes the required numerical tolerances.
+
+After a passing CUDA smoke report at the same clean revision, collect the baseline:
+
+```bash
+python scripts/inspection_benchmark.py \
+  --validation benchmark-results/inspection-cuda/report.json \
+  --output benchmark-results/inspection-latency
+```
+
+The benchmark rejects failed, negative-control, stale-source, or mismatched-device validation reports.
+It checks model and fixture hashes before measurement.
+Each fixture runs four repeats of 300 serial frames, with 30 warmup frames before each repeat.
+Raw CSV rows contain preprocessing, inference, complete CUDA-stream intervals, and completed host-call latency.
+Percentiles use NumPy's linear method without outlier removal.
+Fixture uploads, reference comparisons, and result downloads are outside these intervals.
+These measurements do not include camera acquisition, upload latency, or an industrial deployment.
+
+The report includes PyTorch peak allocated bytes and reserved bytes.
+Those allocator observations do not measure total GPU memory, bandwidth, power, or kernel launch counts.
+Use a separate Nsight run for launch and transfer evidence. Do not mix profiled timing with ordinary benchmark timing.
+A passing baseline is not evidence that CPG improves the second workload.

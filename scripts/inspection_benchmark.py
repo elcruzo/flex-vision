@@ -1,0 +1,122 @@
+"""Measure the unfused CUDA inspection baseline through real classifier inference.
+
+Run local_classifier.py --device cuda first. No optimized comparison is claimed.
+"""
+import argparse
+import csv
+import hashlib
+import json
+from pathlib import Path
+import platform
+import subprocess
+import time
+
+import numpy as np
+import torch
+import torchvision
+from torchvision.models import mobilenet_v3_small
+
+from inspection_reference import TorchInspectionBaseline
+from local_classifier import cases, WEIGHTS_SHA256
+from local_detector import digest
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--validation',type=Path,required=True)
+    parser.add_argument('--output',type=Path,required=True)
+    parser.add_argument('--iterations',type=int,default=300)
+    parser.add_argument('--repeats',type=int,default=4)
+    parser.add_argument('--warmup',type=int,default=30)
+    parser.add_argument('--weights',type=Path,default=Path('.cache/models/mobilenet_v3_small-047dcff4.pth'))
+    args = parser.parse_args()
+    if not torch.cuda.is_available():
+        parser.error('CUDA is required; no CPU fallback')
+    if not 1 <= args.iterations <= 10000 or not 1 <= args.repeats <= 20 or not 1 <= args.warmup <= 1000:
+        parser.error('Invalid sample or warmup count')
+    revision = subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
+    if subprocess.check_output(['git','status','--porcelain'],text=True):
+        parser.error('Commit the measured source first')
+    validation = json.loads(args.validation.read_text())
+    if (validation.get('status') != 'passed' or validation.get('negative_control') or
+        validation.get('preprocessing_device') != 'cuda' or validation.get('inference_device') != 'cuda' or
+        validation.get('revision') != revision or validation.get('dirty') or
+        validation.get('torch') != torch.__version__ or validation.get('torchvision') != torchvision.__version__ or
+        validation.get('gpu') != torch.cuda.get_device_name() or validation.get('cuda') != torch.version.cuda or
+        validation.get('fixture_manifest_sha256') != digest(Path('tests/fixtures/images/manifest.json')) or
+        validation.get('reference_sha256') != digest(Path('scripts/inspection_reference.py')) or
+        validation.get('weights_sha256') != WEIGHTS_SHA256 or digest(args.weights) != WEIGHTS_SHA256):
+        parser.error('Require passing CUDA classifier validation from this clean revision and model')
+    args.output.mkdir(parents=True,exist_ok=False)
+    torch.set_num_threads(4)
+    torch.backends.cuda.matmul.allow_tf32 = False
+    torch.backends.cudnn.allow_tf32 = False
+    torch.backends.cudnn.benchmark = False
+    model = mobilenet_v3_small(weights=None).eval()
+    model.load_state_dict(torch.load(args.weights,map_location='cpu',weights_only=True))
+    model = model.cuda()
+    prepared = TorchInspectionBaseline('cuda')
+    report = {'status':'failed','scope':'serial unfused CUDA baseline through PyTorch classifier; not a CPG comparison',
+              'revision':revision,'python':platform.python_version(),'torch':torch.__version__,'torchvision':torchvision.__version__,
+              'cuda':torch.version.cuda,'gpu':torch.cuda.get_device_name(),'weights_sha256':WEIGHTS_SHA256,
+              'validation_sha256':digest(args.validation),'runner_sha256':digest(Path(__file__)),
+              'iterations':args.iterations,'repeats':args.repeats,'warmup':args.warmup,'tf32':False,
+              'timing':'CUDA events for stream stages; perf_counter_ns for completed host call; no outlier removal',
+              'cases':[]}
+    columns = ['case','repeat','iteration','preprocess_ms','inference_ms','stream_total_ms','host_total_ms']
+    try:
+        validated = {c['id']:c for c in validation['cases']}
+        with (args.output/'samples.csv').open('x',newline='') as file, torch.inference_mode():
+            writer = csv.DictWriter(file,fieldnames=columns)
+            writer.writeheader()
+            for name,rgb,roi,_ in cases():
+                frame = np.ascontiguousarray(rgb[...,::-1])
+                checked = validated.get(name,{})
+                if checked.get('status') != 'passed' or checked.get('input_sha256') != hashlib.sha256(frame.tobytes()).hexdigest() or checked.get('roi_xywh') != list(roi):
+                    raise ValueError('Fixture is not covered by the passing validation')
+                resident = torch.from_numpy(frame).cuda()
+                events = [torch.cuda.Event(enable_timing=True) for _ in range(3)]
+                rows = []
+                for repeat in range(args.repeats):
+                    for _ in range(args.warmup):
+                        model(prepared.from_bgr8(resident,roi))
+                    torch.cuda.synchronize()
+                    start_allocated = torch.cuda.memory_allocated()
+                    torch.cuda.reset_peak_memory_stats()
+                    for iteration in range(args.iterations):
+                        started = time.perf_counter_ns()
+                        events[0].record()
+                        tensor = prepared.from_bgr8(resident,roi)
+                        events[1].record()
+                        logits = model(tensor)
+                        events[2].record()
+                        events[2].synchronize()
+                        host_ms = (time.perf_counter_ns()-started)/1e6
+                        row = dict(case=name,repeat=repeat,iteration=iteration,
+                                   preprocess_ms=events[0].elapsed_time(events[1]),
+                                   inference_ms=events[1].elapsed_time(events[2]),
+                                   stream_total_ms=events[0].elapsed_time(events[2]),host_total_ms=host_ms)
+                        writer.writerow(row)
+                        rows.append(row)
+                        del tensor, logits
+                    report['cases'].append({'case':name,'repeat':repeat,
+                        'allocated_before_bytes':start_allocated,
+                        'peak_allocated_bytes':torch.cuda.max_memory_allocated(),
+                        'peak_above_start_bytes':torch.cuda.max_memory_allocated()-start_allocated,
+                        'reserved_after_bytes':torch.cuda.memory_reserved()})
+                report.setdefault('percentiles',{})[name] = {
+                    metric:dict(zip(('p50','p95','p99'),np.percentile([r[metric] for r in rows],[50,95,99],method='linear').tolist()))
+                    for metric in columns[3:]}
+                del resident
+        report['samples_sha256'] = digest(args.output/'samples.csv')
+        report['status'] = 'passed'
+    except Exception as exc:
+        report['error'] = f'{type(exc).__name__}: {exc}'
+        raise
+    finally:
+        (args.output/'report.json').write_text(json.dumps(report,indent=2)+'\n')
+    print(json.dumps({'status':report['status'],'percentiles':report['percentiles']}))
+
+
+if __name__ == '__main__':
+    main()

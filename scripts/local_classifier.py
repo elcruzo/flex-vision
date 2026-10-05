@@ -56,9 +56,12 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--device',choices=('cpu','mps','cuda'),default='cpu')
     parser.add_argument('--output',type=Path,required=True)
+    parser.add_argument('--warmup',type=int,default=3,help='CUDA warmup passes per fixture, outside the NVTX range')
     parser.add_argument('--negative-control',action='store_true',help='Require an absent dog class; the run must fail')
     parser.add_argument('--weights',type=Path,default=Path('.cache/models/mobilenet_v3_small-047dcff4.pth'))
     args = parser.parse_args()
+    if not 0 <= args.warmup <= 100:
+        parser.error('warmup must be between 0 and 100')
     if not args.weights.is_file() or digest(args.weights) != WEIGHTS_SHA256:
         parser.error(f'Expected pinned model weights: {WEIGHTS_URL} (SHA256 {WEIGHTS_SHA256})')
     if args.device == 'mps' and os.environ.get('PYTORCH_ENABLE_MPS_FALLBACK') == '1':
@@ -67,6 +70,7 @@ def main():
         parser.error('CUDA is unavailable')
     args.output.mkdir(parents=True,exist_ok=False)
     report = {'status':'failed','scope':'inspection baseline and classifier smoke; no industrial accuracy, TensorRT, or performance claim',
+              'warmup_per_case':args.warmup if args.device == 'cuda' else 0,
               'preprocessing_device':args.device,'inference_device':'cuda' if args.device == 'cuda' else 'cpu','negative_control':args.negative_control,
               'revision':subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),
               'dirty':bool(subprocess.check_output(['git','status','--porcelain'],text=True)),
@@ -107,6 +111,10 @@ def main():
             if prepared is not None:
                 # Explicit fixture upload precedes the GPU preprocessing/inference boundary.
                 resident = torch.from_numpy(np.ascontiguousarray(frame)).cuda()
+                with torch.inference_mode():
+                    for _ in range(args.warmup):
+                        gpu_model(prepared.from_bgr8(resident,roi))
+                    torch.cuda.synchronize()
                 with torch.inference_mode(), torch.cuda.nvtx.range('inspection_to_classifier'):
                     actual_device = prepared.from_bgr8(resident,roi)
                     candidate_device = gpu_model(actual_device)
