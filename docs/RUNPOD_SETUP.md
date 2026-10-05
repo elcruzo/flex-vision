@@ -146,3 +146,21 @@ Experiment 007 used Pod `slkpedxcxg5nj0` at $0.49/hour from 17:40:08 to 17:53:16
 It was terminated after verification of all 26 artifacts. The subsequent account list contained no Pods.
 Reserve $0.12 including disk for this session. Billing for 006 and 007 remained unposted at this read.
 Posted charges plus the two reserves total approximately $0.423 of $15. Reconcile both reserves before the next rental.
+
+## Shutdown control failure observed in experiment 008
+
+The Mac session paused while a newly created Pod remained active for approximately nine hours.
+A local timer used one long relative sleep. It did not fire during the pause.
+Do not rely on a laptop process as an independent cloud spending limit.
+Checking an absolute UTC deadline every few seconds improves behavior after resume, but cannot terminate compute while the laptop is unavailable.
+
+The tested cluster image did not provide `runpodctl` or a Pod-scoped API key on this session.
+A shell timer that invokes a missing command provides no protection. Check its executable and authorization before treating it as armed.
+The public runpodctl documentation and available API/source differed on automatic termination options during this audit.
+Do not assume a documented flag is supported or persisted by the provider without a verified readback.
+
+Before the next rental, verify a provider-side expiration or an independent termination mechanism.
+Set it when creating the resource so that container startup is covered.
+Test its actual termination and confirm that billing resources disappear before relying on it.
+Do not create another paid experiment while this protection remains unresolved.
+Keep manual termination after verified artifact export as the normal completion path.
