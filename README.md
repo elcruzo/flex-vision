@@ -12,11 +12,12 @@ First benchmark target:
     → TensorRT inference
 ```
 
-**Status: initial fused CUDA detector preprocessing, plus CPU/MPS references. Performance and full-platform acceptance remain pending.**
+**Status: initial fused CUDA detector preprocessing, plus a measured CUDA inspection reference. CPG's two-workload performance gate and full-platform acceptance remain pending.**
 
 Read the [CUDA backend contract](docs/CUDA_BACKEND.md) for supported inputs, synchronous execution, and limitations.
 
 The [fused CUDA experiment](docs/experiments/005-fused-cuda.md) passed real detector checks.
+The [inspection CUDA baseline](docs/experiments/012-inspection-cuda.md) passed real MobileNetV3 inference and a zero-copy Nsight range; its measurements are reference evidence, not CPG gains.
 Its trace shows one kernel and no memory-copy events within each preprocessing call.
 The [TensorRT experiment](docs/experiments/006-tensorrt.md) also passed on an L4, with no copies through the dense network boundary.
 The [first matched latency experiment](docs/experiments/007-latency.md) records 10,000 samples per candidate through a hybrid TensorRT detector.

@@ -17,7 +17,8 @@ Independent Runpod controller cleanup passed in [experiment 011](experiments/011
 Use that verified path for the next GPU experiment and verify cleanup after each rental.
 Use the [direct Runpod controller](GPU_LEASE.md) for rentals. GitHub Actions is an optional alternative, not a prerequisite.
 [Experiment 009](experiments/009-inspection-reference.md) validates the complete inspection reference through a pretrained classifier locally.
-Its GPU implementation and comparison remain pending.
+[Experiment 012](experiments/012-inspection-cuda.md) now establishes the matched CUDA reference, repeated latency baseline, and zero-copy Nsight range for that workload.
+The second-workload optimization gate remains pending; the 4K case is the immediate bottleneck to investigate.
 See [the backend contract](CUDA_BACKEND.md), [host evidence](experiments/004-cuda-host.md), and [fused execution evidence](experiments/005-fused-cuda.md).
 See [local development](LOCAL_DEVELOPMENT.md) and [source audit](SOURCE_AUDIT.md) for current evidence.
 

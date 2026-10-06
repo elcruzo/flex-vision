@@ -131,8 +131,8 @@ A trace must still verify transfers. The presence of an NVTX range does not prov
 The runner disables TF32 for convolution and matrix multiplication and records the GPU and CUDA version.
 The precision and stream policy follows [PyTorch 2.9 CUDA semantics](https://docs.pytorch.org/docs/2.9/notes/cuda.html).
 
-CPU and MPS checks validate shared code locally. CUDA execution, transfer traces, and repeated latency measurements remain pending.
-Do not treat this smoke runner as a warmed performance benchmark.
+CPU and MPS checks validate shared code locally. Experiment 012 records the corresponding CUDA classifier run, transfer trace, and warmed repeated baseline on an L4.
+Do not treat that reference baseline as production CUDA operator support or as evidence that CPG improves the workload.
 
 The CUDA smoke runner performs three warmup passes per fixture before its NVTX range.
 Use `--warmup 0` only for an explicitly cold diagnostic. No warmup changes the required numerical tolerances.
