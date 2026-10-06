@@ -48,7 +48,8 @@ Before another paid rental, verify independent termination. The local timer fail
 The inspection reference passed CPU and MPS preprocessing through real classifier inference. Read docs/INSPECTION_REFERENCE.md and docs/experiments/009-inspection-reference.md.
 The second GPU baseline passed. Read docs/experiments/012-inspection-cuda.md.
 The ROI candidate passed local classifier checks. Read docs/experiments/013-inspection-roi.md.
-Next, compare that candidate with the full-frame CUDA baseline through real inference on the same rental.
+The matched CUDA comparison passed for the 4K case. Read docs/experiments/014-inspection-comparison.md.
+Next, define selective planner integration and validate the public inspection path. Small-image preprocessing was slower.
 Reference operators are not production CUDA support.
 
 GitHub Actions is optional. The default rental path uses a disposable Runpod CPU controller. Read docs/GPU_LEASE.md.

@@ -1,0 +1,8 @@
+{
+  "status": "passed",
+  "cases": 19,
+  "max_abs_error": 3.814697265625e-06,
+  "retained_outputs": "passed",
+  "input_unchanged": "passed",
+  "device": "NVIDIA L4"
+}

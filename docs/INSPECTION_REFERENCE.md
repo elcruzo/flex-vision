@@ -110,7 +110,7 @@ Required later evidence includes actual GPU classifier output, retained buffers,
 The planned industrial workload still needs representative inspection images and an appropriate classifier or dataset evaluation.
 The two-workload performance gate remains open until this second workload has credible GPU results.
 
-## Prepared CUDA baseline runner (hardware validation pending)
+## CUDA baseline runner
 
 `TorchInspectionBaseline` stores filter and normalization constants on the selected device once.
 Its `from_bgr8` method accepts a resident PyTorch uint8 HWC BGR frame.
@@ -157,3 +157,13 @@ The report includes PyTorch peak allocated bytes and reserved bytes.
 Those allocator observations do not measure total GPU memory, bandwidth, power, or kernel launch counts.
 Use a separate Nsight run for launch and transfer evidence. Do not mix profiled timing with ordinary benchmark timing.
 A passing baseline is not evidence that CPG improves the second workload.
+
+## Measured ROI candidate
+
+[Experiment 014](experiments/014-inspection-comparison.md) compares the baseline with the three-pixel-halo ROI candidate on an L4.
+Both implementations passed real CUDA classifier checks and separate transfer traces.
+The 4K candidate reduced preprocessing p50 and p99 by approximately 42%.
+Small-image preprocessing medians were approximately 5% slower, so the rewrite needs selective planning.
+Use `--implementation roi` with the classifier runner to validate the candidate.
+Use `--candidate-validation` with the benchmark to compare both implementations with alternating block order.
+These experimental references do not add inspection operators to the public CPG backend.

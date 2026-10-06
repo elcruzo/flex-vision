@@ -191,3 +191,15 @@ Its cleanup test passed in [experiment 011](experiments/011-direct-lease.md). Gi
 Reserve $0.06 for the controller/GPU test until its billing records post.
 Posted charges plus that reserve total approximately $5.07 against the $15 authorization.
 Both test Pods and the temporary encrypted secret were absent after cleanup.
+
+## Reconciliation on 2026-10-06
+
+Experiment 011 posted $0.01869893982075155 for its CPU and GPU Pods.
+Experiment 012 posted $0.07088790504167264 for its CPU and GPU Pods.
+Replace their earlier reserves with those amounts. Total posted charges are $5.096759925558217 against the $15 authorization.
+
+Experiment 014 used GPU `h1svmmclpuiqhz` and controller `7abcbhr2jj52iw` at $0.49/hour and $0.06/hour, respectively.
+Both Pods and temporary secret `7xztdjwdoy` were absent after verified artifact export and cleanup.
+No persistent volume was created. Billing had not posted at the cleanup read.
+Reserve $0.10 including disk, giving approximately $5.20 used or reserved and $9.80 remaining.
+Replace this reserve with posted charges before another rental.

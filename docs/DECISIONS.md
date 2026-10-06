@@ -283,4 +283,7 @@ The 4K baseline in experiment 012 spends most of its measured time in preprocess
 Test a restricted work rectangle with a three-pixel halo before adding public operators.
 Keep the filter stages and numerical tolerances unchanged.
 Local classifier checks passed in [experiment 013](experiments/013-inspection-roi.md).
-CUDA correctness, matched latency, and trace evidence remain required before adoption.
+Experiment 014 supplied CUDA correctness, matched latency, and trace evidence.
+The 4K candidate reduced preprocessing p50 and p99 by approximately 42%, with unchanged launches and no measured copies.
+Small-image preprocessing medians regressed approximately 5%. Retain the rewrite as a selective candidate, not a universal default.
+Public runtime integration and representative industrial evaluation remain pending.
