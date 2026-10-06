@@ -44,3 +44,19 @@ def test_existing_pods_prevent_creation(tmp_path):
         with pytest.raises(RuntimeError,match='already has Pods'):
             lease.create(2,'123-1')
     assert [call.args[0] for call in api.call_args_list]==['GET']
+
+
+def test_controller_inventory_never_exempts_an_unrelated_pod(tmp_path):
+    controller = {'id':'controller','cpu':{'id':'cpu3c'},'env':{'CPG_LEASE_RUN':'123-1'}}
+    with patch.object(lease,'RECEIPT',tmp_path/'lease.json'), patch.object(lease,'api',return_value={'pods':[controller,POD]}) as api:
+        with pytest.raises(RuntimeError,match='already has Pods'):
+            lease.create(2,'123-1',controller_id='controller')
+    assert [call.args[0] for call in api.call_args_list]==['GET']
+
+
+def test_controller_inventory_requires_run_marker(tmp_path):
+    controller = {'id':'controller','cpu':{'id':'cpu3c'},'env':{'CPG_LEASE_RUN':'another-run'}}
+    with patch.object(lease,'RECEIPT',tmp_path/'lease.json'), patch.object(lease,'api',return_value={'pods':[controller]}) as api:
+        with pytest.raises(RuntimeError,match='identity'):
+            lease.create(2,'123-1',controller_id='controller')
+    assert [call.args[0] for call in api.call_args_list]==['GET']

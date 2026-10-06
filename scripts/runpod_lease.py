@@ -1,6 +1,6 @@
 """Create one disposable L4 Pod and terminate it from an independent runner.
 
-Run only from the manually dispatched lease workflow. No laptop timer is used.
+Run on an independent host. GitHub Actions is an optional launcher.
 The receipt binds cleanup to the exact creation response, never a name search.
 """
 import argparse
@@ -25,7 +25,7 @@ def log(event, **fields):
 
 
 def api(method, path, body=None):
-    key = os.environ.get('RUNPOD_API_KEY', '')
+    key = os.environ.get('CPG_CONTROL_API_KEY') or os.environ.get('RUNPOD_API_KEY', '')
     if not key:
         raise RuntimeError('Missing Runpod credential')
     request = Request('https://api.runpod.io/v2/' + path, method=method,
@@ -66,13 +66,20 @@ def terminate(receipt):
     raise RuntimeError('Pod termination could not be verified; manual cleanup is required')
 
 
-def create(minutes, run):
+def create(minutes, run, controller_id=None):
     if minutes not in (2,30) or not re.fullmatch(r'[0-9]+-[0-9]+',run):
-        raise ValueError('Expected a 2- or 30-minute lease and a GitHub run identifier')
+        raise ValueError('Expected a 2- or 30-minute lease and a numeric lease identifier')
     if RECEIPT.exists():
         raise RuntimeError('Creation receipt already exists; refusing another Pod')
     inventory = api('GET','pods')
-    if inventory['pods']:
+    existing = inventory['pods']
+    if controller_id is not None:
+        own = [pod for pod in existing if pod['id'] == controller_id]
+        if len(own) != 1 or own[0].get('cpu',{}).get('id') != 'cpu3c':
+            raise RuntimeError('Expected the verified CPU controller in the inventory')
+        verify(own[0], {'id':controller_id,'run':run})
+        existing = [pod for pod in existing if pod['id'] != controller_id]
+    if existing or inventory.get('pagination',{}).get('hasNextPage'):
         raise RuntimeError('Account already has Pods; refusing overlapping rental')
     catalog = api('GET', 'catalog/gpus/'+quote(GPU, safe='')+'?include=AVAILABILITY&product=POD&minCudaVersion=13.0')
     price = catalog['price']['secure']
