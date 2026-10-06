@@ -276,3 +276,11 @@ Only controller code runs on the CPU host. Account credentials are broader than 
 Record both CPU and GPU charges, and verify cleanup through provider reads.
 The independent termination requirement remains. A failed boot or provider outage still needs manual intervention.
 The direct controller cleanup test passed. See [experiment 011](experiments/011-direct-lease.md) and [the lease procedure](GPU_LEASE.md).
+
+## D023 — Test crop-aware execution before adding inspection operators
+
+The 4K baseline in experiment 012 spends most of its measured time in preprocessing.
+Test a restricted work rectangle with a three-pixel halo before adding public operators.
+Keep the filter stages and numerical tolerances unchanged.
+Local classifier checks passed in [experiment 013](experiments/013-inspection-roi.md).
+CUDA correctness, matched latency, and trace evidence remain required before adoption.

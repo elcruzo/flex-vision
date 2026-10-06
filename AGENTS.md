@@ -46,7 +46,10 @@ The first matched latency comparison exists in docs/experiments/007-latency.md.
 Inference controls in docs/experiments/008-controls.md support a preceding-memory-state effect.
 Before another paid rental, verify independent termination. The local timer failed during a long Mac-session pause.
 The inspection reference passed CPU and MPS preprocessing through real classifier inference. Read docs/INSPECTION_REFERENCE.md and docs/experiments/009-inspection-reference.md.
-Next, establish the second GPU baseline after verifying independent cloud expiration. Reference operators are not production CUDA support.
+The second GPU baseline passed. Read docs/experiments/012-inspection-cuda.md.
+The ROI candidate passed local classifier checks. Read docs/experiments/013-inspection-roi.md.
+Next, compare that candidate with the full-frame CUDA baseline through real inference on the same rental.
+Reference operators are not production CUDA support.
 
 GitHub Actions is optional. The default rental path uses a disposable Runpod CPU controller. Read docs/GPU_LEASE.md.
 The controller cleanup test passed. Read docs/experiments/011-direct-lease.md for evidence and remaining failure limits.

@@ -39,6 +39,7 @@ def main():
         parser.error('Commit the measured source first')
     validation = json.loads(args.validation.read_text())
     if (validation.get('status') != 'passed' or validation.get('negative_control') or
+        validation.get('implementation', 'baseline') != 'baseline' or
         validation.get('preprocessing_device') != 'cuda' or validation.get('inference_device') != 'cuda' or
         validation.get('revision') != revision or validation.get('dirty') or
         validation.get('torch') != torch.__version__ or validation.get('torchvision') != torchvision.__version__ or

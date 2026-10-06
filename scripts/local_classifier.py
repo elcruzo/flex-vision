@@ -19,6 +19,7 @@ from torchvision.models import mobilenet_v3_small, MobileNet_V3_Small_Weights
 from cpg.validation import photo_cases
 from inspection_reference import numpy_inspection, torch_inspection, gaussian_coefficients, SHARPEN, MEAN, STD, TorchInspectionBaseline
 from local_detector import digest
+from inspection_roi import TorchInspectionROI
 
 WEIGHTS_URL = 'https://download.pytorch.org/models/mobilenet_v3_small-047dcff4.pth'
 WEIGHTS_SHA256 = '047dcff4addef86ea5bc2eff13c9614dc11f47ab1160d0a71a25e7db994f4e1f'
@@ -55,6 +56,7 @@ def check_semantics(logits, *, negative=False):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--device',choices=('cpu','mps','cuda'),default='cpu')
+    parser.add_argument('--implementation',choices=('baseline','roi'),default='baseline')
     parser.add_argument('--output',type=Path,required=True)
     parser.add_argument('--warmup',type=int,default=3,help='CUDA warmup passes per fixture, outside the NVTX range')
     parser.add_argument('--negative-control',action='store_true',help='Require an absent dog class; the run must fail')
@@ -70,6 +72,8 @@ def main():
         parser.error('CUDA is unavailable')
     args.output.mkdir(parents=True,exist_ok=False)
     report = {'status':'failed','scope':'inspection baseline and classifier smoke; no industrial accuracy, TensorRT, or performance claim',
+              'implementation':args.implementation,
+              'candidate_sha256':digest(Path('scripts/inspection_roi.py')) if args.implementation == 'roi' else None,
               'warmup_per_case':args.warmup if args.device == 'cuda' else 0,
               'preprocessing_device':args.device,'inference_device':'cuda' if args.device == 'cuda' else 'cpu','negative_control':args.negative_control,
               'revision':subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),
@@ -96,7 +100,7 @@ def main():
             torch.backends.cudnn.allow_tf32 = False
             torch.backends.cudnn.benchmark = False
             gpu_model = copy.deepcopy(model).cuda().eval()
-            prepared = TorchInspectionBaseline('cuda')
+            prepared = (TorchInspectionROI if args.implementation == 'roi' else TorchInspectionBaseline)('cuda')
             report['gpu'] = torch.cuda.get_device_name()
             report['cuda'] = torch.version.cuda
             report['tf32'] = False
@@ -122,7 +126,11 @@ def main():
                 # Downloads below are validation only, after real resident inference.
                 actual = actual_device.cpu()
             else:
-                actual = torch_inspection(frame,roi,device=args.device).cpu()
+                if args.implementation == 'roi':
+                    resident = torch.from_numpy(np.ascontiguousarray(frame)).to(args.device)
+                    actual = TorchInspectionROI(args.device).from_bgr8(resident,roi).cpu()
+                else:
+                    actual = torch_inspection(frame,roi,device=args.device).cpu()
             np.testing.assert_allclose(actual.numpy(),expected,atol=report['tensor_atol'],rtol=0)
             case['tensor_max_abs_error'] = float(np.abs(actual.numpy()-expected).max())
             with torch.inference_mode():
