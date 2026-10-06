@@ -186,5 +186,8 @@ Replace its $4.70 reserve with that value. All five completed rentals total $5.0
 The remaining authorization is $9.992826919304207 before any later lease.
 The account read contained no Pods and no new experiment rental had started.
 
-The [independent lease workflow](GPU_LEASE.md) now implements creation and termination on a GitHub-hosted runner.
-Its live cleanup proof remains pending. Do not treat its local fault checks as that proof.
+The [direct Runpod controller](GPU_LEASE.md) now provides the default independent lease path.
+Its cleanup test passed in [experiment 011](experiments/011-direct-lease.md). GitHub Actions remains optional.
+Reserve $0.06 for the controller/GPU test until its billing records post.
+Posted charges plus that reserve total approximately $5.07 against the $15 authorization.
+Both test Pods and the temporary encrypted secret were absent after cleanup.

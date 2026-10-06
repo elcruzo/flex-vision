@@ -263,3 +263,16 @@ Keep account credentials out of the GPU container and use encrypted Actions secr
 The runner remains subject to infrastructure failures and API outages. This is not a provider-enforced cost cap.
 A passing mock test or a committed workflow does not satisfy D018. Require the two-minute live test first.
 See [experiment 010](experiments/010-lease-preparation.md).
+
+## D022 — Make GitHub Actions optional
+
+The user requested development without a GitHub Actions dependency.
+Use a disposable Runpod CPU controller to create and expire the GPU lease.
+It removes its temporary secret and deletes itself after GPU cleanup.
+Keep Actions as an optional independent host for the same lease code. No CPG runtime or test requires Actions.
+
+The controller uses a temporary encrypted Runpod account secret. It never sends that credential to the GPU workload.
+Only controller code runs on the CPU host. Account credentials are broader than a Pod-scoped token.
+Record both CPU and GPU charges, and verify cleanup through provider reads.
+The independent termination requirement remains. A failed boot or provider outage still needs manual intervention.
+The direct controller cleanup test passed. See [experiment 011](experiments/011-direct-lease.md) and [the lease procedure](GPU_LEASE.md).

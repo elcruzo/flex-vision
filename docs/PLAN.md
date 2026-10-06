@@ -13,8 +13,9 @@ See [TensorRT evidence](experiments/006-tensorrt.md). Broader runtime acceptance
 [Experiment 007](experiments/007-latency.md) records the first matched latency comparison on one L4 workload.
 [Experiment 008](experiments/008-controls.md) tested fixed inputs, output reuse, and common memory conditioning.
 It supports a preceding-memory-state effect. The two-workload success gate remains open.
-Verify independent cloud expiration before another paid experiment.
-The [hosted lease workflow](GPU_LEASE.md) is implemented. Its live termination test remains pending.
+Independent Runpod controller cleanup passed in [experiment 011](experiments/011-direct-lease.md).
+Use that verified path for the next GPU experiment and verify cleanup after each rental.
+Use the [direct Runpod controller](GPU_LEASE.md) for rentals. GitHub Actions is an optional alternative, not a prerequisite.
 [Experiment 009](experiments/009-inspection-reference.md) validates the complete inspection reference through a pretrained classifier locally.
 Its GPU implementation and comparison remain pending.
 See [the backend contract](CUDA_BACKEND.md), [host evidence](experiments/004-cuda-host.md), and [fused execution evidence](experiments/005-fused-cuda.md).

@@ -48,5 +48,6 @@ Before another paid rental, verify independent termination. The local timer fail
 The inspection reference passed CPU and MPS preprocessing through real classifier inference. Read docs/INSPECTION_REFERENCE.md and docs/experiments/009-inspection-reference.md.
 Next, establish the second GPU baseline after verifying independent cloud expiration. Reference operators are not production CUDA support.
 
-A hosted GPU lease workflow exists, but its live termination proof is pending. Read docs/GPU_LEASE.md and docs/experiments/010-lease-preparation.md.
-The first corrected Actions job was rejected before runner allocation. Resolve that prerequisite before another experiment rental.
+GitHub Actions is optional. The default rental path uses a disposable Runpod CPU controller. Read docs/GPU_LEASE.md.
+The controller cleanup test passed. Read docs/experiments/011-direct-lease.md for evidence and remaining failure limits.
+An unavailable GitHub Actions runner is not a project prerequisite.
