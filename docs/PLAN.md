@@ -26,6 +26,7 @@ Small-image preprocessing was slower. The [experimental fixed inspection API](IN
 [Experiment 017](experiments/017-inspection-streams.md) passed 24 cross-stream classifier cases with explicit handoffs and retained-output checks.
 Its first timing run failed the small-image p99 guard. A revised run passed, with both results retained.
 Next, evaluate sustained concurrent streams and memory behavior. Do not infer throughput or tail stability from the finite correctness run.
+The [sustained inspection protocol](SUSTAINED_INSPECTION.md) and bounded-load harness are prepared. GPU execution remains pending.
 See [the backend contract](CUDA_BACKEND.md), [host evidence](experiments/004-cuda-host.md), and [fused execution evidence](experiments/005-fused-cuda.md).
 See [local development](LOCAL_DEVELOPMENT.md) and [source audit](SOURCE_AUDIT.md) for current evidence.
 
