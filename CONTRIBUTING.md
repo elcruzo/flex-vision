@@ -47,5 +47,6 @@ Unit tests alone do not establish runtime acceptance.
 For performance changes, follow [the benchmark protocol](docs/BENCHMARKS.md).
 For distribution changes, test a clean installation on each claimed platform.
 
-The repository has a local Python package, reference tests, and a detector runner. No CUDA backend or GPU acceptance suite exists yet.
+The repository has a fixed fused CUDA detector backend and an experimental PyTorch inspection runtime.
+Scoped GPU inference and trace checks exist. Full scenario and platform acceptance remain pending.
 Commands in design documents describe planned interfaces unless explicitly marked as available.

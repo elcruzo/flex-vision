@@ -18,7 +18,7 @@ Use that verified path for the next GPU experiment and verify cleanup after each
 Use the [direct Runpod controller](GPU_LEASE.md) for rentals. GitHub Actions is an optional alternative, not a prerequisite.
 [Experiment 009](experiments/009-inspection-reference.md) validates the complete inspection reference through a pretrained classifier locally.
 [Experiment 012](experiments/012-inspection-cuda.md) now establishes the matched CUDA reference, repeated latency baseline, and zero-copy Nsight range for that workload.
-The second-workload optimization gate remains pending; the 4K case is the immediate bottleneck to investigate.
+That baseline identified 4K preprocessing as the next optimization target. Subsequent experiments below measured the ROI improvement.
 [Experiment 013](experiments/013-inspection-roi.md) validates a crop-aware candidate locally through real classifier inference.
 [Experiment 014](experiments/014-inspection-comparison.md) passed the matched L4 comparison: 42% lower 4K preprocessing latency through real classifier inference.
 Small-image preprocessing was slower. The [experimental fixed inspection API](INSPECTION_RUNTIME.md) now exposes explicit full and ROI plans.
@@ -27,6 +27,9 @@ Small-image preprocessing was slower. The [experimental fixed inspection API](IN
 Its first timing run failed the small-image p99 guard. A revised run passed, with both results retained.
 Next, evaluate sustained concurrent streams and memory behavior. Do not infer throughput or tail stability from the finite correctness run.
 The [sustained inspection protocol](SUSTAINED_INSPECTION.md) and bounded-load harness are prepared. GPU execution remains pending.
+Treat its short runs as development evidence, not the comparison or soak tiers in TESTING.md.
+The measured SSDLite FP32 workload does not complete the required 640×640 FP16 YOLO/TensorRT scenario.
+The fixed inspection API does not complete configurable stencils, reusable workspace, batching, or general graph planning.
 See [the backend contract](CUDA_BACKEND.md), [host evidence](experiments/004-cuda-host.md), and [fused execution evidence](experiments/005-fused-cuda.md).
 See [local development](LOCAL_DEVELOPMENT.md) and [source audit](SOURCE_AUDIT.md) for current evidence.
 

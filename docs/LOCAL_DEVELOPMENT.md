@@ -127,7 +127,9 @@ It does not claim TensorRT or CPG CUDA acceptance.
 A second full workload now runs Gaussian, sharpen, clamp, ROI crop, resize, and normalization through a pretrained classifier.
 Both CPU and MPS preprocessing passed the original, odd-ROI, and 4K cases. Inference remains on CPU.
 Read [the inspection contract](INSPECTION_REFERENCE.md) and [experiment 009](experiments/009-inspection-reference.md).
-These are fixed reference implementations outside the public graph API. CUDA operator support and second-workload performance remain pending.
+The independent references remain outside the public graph API.
+The separate [experimental inspection runtime](INSPECTION_RUNTIME.md) now has integrated CUDA correctness, timing, and stream evidence.
+General inspection graphs, the full operator catalog, and sustained acceptance remain pending.
 
 ## First NVIDIA evidence
 

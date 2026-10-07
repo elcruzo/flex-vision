@@ -1,6 +1,7 @@
 # Sustained inspection experiment
 
 Status: harness prepared. CUDA execution and throughput acceptance remain pending.
+This is the developer tier from TESTING.md. It does not satisfy the 10,000-frame comparison or 30-minute soak tiers.
 
 ## Question
 
@@ -85,6 +86,8 @@ The finite stream test remains the separate test for producer/consumer handoffs 
 This experiment uses one stream per camera. It does not validate overlapping stages within one camera.
 Record unsuccessful runs before changing the schedule, queue depth, or performance threshold.
 Extend duration and add real camera arrival traces only after this protocol passes.
+Report per-camera completion counts, drops, and latency from the recorded lane identifiers before interpreting aggregate throughput.
+An aggregate gain cannot establish fairness or exclude camera starvation.
 
 Event polling follows the [PyTorch 2.9 Event contract](https://docs.pytorch.org/docs/2.9/generated/torch.cuda.Event.html).
 `query()` reports completion without a host synchronization call.

@@ -22,7 +22,7 @@ The [matched inspection experiment](docs/experiments/014-inspection-comparison.m
 Small-image preprocessing was slower. The [experimental inspection API](docs/INSPECTION_RUNTIME.md) now exposes explicit plans.
 The [integrated CUDA experiment](docs/experiments/016-integrated-inspection.md) passed real classifier checks and measured the same approximate 42% 4K preprocessing gain.
 Its transfer traces recorded zero copies in the measured preprocessing-to-classifier ranges. Broader runtime acceptance remains pending.
-Its trace shows one kernel and no memory-copy events within each preprocessing call.
+The fused detector trace shows one kernel and no memory-copy events within each preprocessing call.
 The [TensorRT experiment](docs/experiments/006-tensorrt.md) also passed on an L4, with no copies through the dense network boundary.
 The [first matched latency experiment](docs/experiments/007-latency.md) records 10,000 samples per candidate through a hybrid TensorRT detector.
 It shows a preprocessing gain on one L4 workload. [Attribution controls](docs/experiments/008-controls.md) support a preceding-memory-state effect in downstream timings.
