@@ -18,6 +18,7 @@ def summarize(root):
     if report['status'] != 'passed':
         raise ValueError('Require a complete correctness-passing run')
     result = {'revision': report['revision'], 'runs': [], 'sample_sha256': {},
+              'summary_script_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
               'scope': report['scope'], 'status': 'verified'}
     identities = set()
     for run in report['runs']:
@@ -105,6 +106,11 @@ def summarize(root):
         f'{cameras}-{strategy}': [r['allocated_after_drain'] for r in sorted(result['runs'], key=lambda r:r['repeat'])
                                   if r['cameras']==cameras and r['strategy']==strategy]
         for cameras in (1,4) for strategy in ('baseline','roi')}
+    result['memory_growth_flags'] = {
+        'within_blocks': [f"{r['cameras']}-{r['strategy']}-{r['repeat']}" for r in result['runs']
+                          if r['allocated_after_drain'] > r['allocated_start']],
+        'across_repeats': [key for key, values in result['post_drain_allocated_by_repeat'].items()
+                           if any(value > values[0] for value in values[1:])]}
     return result
 
 

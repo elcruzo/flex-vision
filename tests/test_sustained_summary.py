@@ -61,6 +61,15 @@ def test_changed_latency_report_is_rejected(bundle):
         summary.summarize(bundle)
 
 
+def test_allocation_growth_remains_visible_despite_correctness(bundle):
+    path = bundle/'report.json'
+    report = json.loads(path.read_text())
+    report['runs'][0]['allocated_after_drain'] = 101
+    path.write_text(json.dumps(report))
+    result = summary.summarize(bundle)
+    assert result['memory_growth_flags']['within_blocks'] == ['1-baseline-0']
+
+
 def test_failed_run_cannot_be_summarized_as_passed(bundle):
     path = bundle/'report.json'
     report = json.loads(path.read_text())
