@@ -49,7 +49,8 @@ The inspection reference passed CPU and MPS preprocessing through real classifie
 The second GPU baseline passed. Read docs/experiments/012-inspection-cuda.md.
 The ROI candidate passed local classifier checks. Read docs/experiments/013-inspection-roi.md.
 The matched CUDA comparison passed for the 4K case. Read docs/experiments/014-inspection-comparison.md.
-Next, define selective planner integration and validate the public inspection path. Small-image preprocessing was slower.
+The experimental InspectionPipeline exposes explicit full and ROI strategies. Read docs/INSPECTION_RUNTIME.md.
+Local classifier checks passed. Next, validate integrated CUDA correctness, timing, and traces. Small-image preprocessing was slower.
 Reference operators are not production CUDA support.
 
 GitHub Actions is optional. The default rental path uses a disposable Runpod CPU controller. Read docs/GPU_LEASE.md.

@@ -17,6 +17,7 @@ import torchvision
 from torchvision.models import mobilenet_v3_small, MobileNet_V3_Small_Weights
 
 from cpg.validation import photo_cases
+from cpg import InspectionPipeline
 from inspection_reference import numpy_inspection, torch_inspection, gaussian_coefficients, SHARPEN, MEAN, STD, TorchInspectionBaseline
 from local_detector import digest
 from inspection_roi import TorchInspectionROI
@@ -56,7 +57,7 @@ def check_semantics(logits, *, negative=False):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--device',choices=('cpu','mps','cuda'),default='cpu')
-    parser.add_argument('--implementation',choices=('baseline','roi'),default='baseline')
+    parser.add_argument('--implementation',choices=('baseline','roi','planned-full','planned-roi'),default='baseline')
     parser.add_argument('--output',type=Path,required=True)
     parser.add_argument('--warmup',type=int,default=3,help='CUDA warmup passes per fixture, outside the NVTX range')
     parser.add_argument('--negative-control',action='store_true',help='Require an absent dog class; the run must fail')
@@ -74,6 +75,7 @@ def main():
     report = {'status':'failed','scope':'inspection baseline and classifier smoke; no industrial accuracy, TensorRT, or performance claim',
               'implementation':args.implementation,
               'candidate_sha256':digest(Path('scripts/inspection_roi.py')) if args.implementation == 'roi' else None,
+              'inspection_runtime_sha256':digest(Path('src/cpg/inspection.py')) if args.implementation.startswith('planned-') else None,
               'warmup_per_case':args.warmup if args.device == 'cuda' else 0,
               'preprocessing_device':args.device,'inference_device':'cuda' if args.device == 'cuda' else 'cpu','negative_control':args.negative_control,
               'revision':subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),
@@ -112,21 +114,30 @@ def main():
             report['cases'].append(case)
             started = time.perf_counter()
             expected = numpy_inspection(frame,roi)
+            planned = None
+            if args.implementation.startswith('planned-'):
+                from dataclasses import asdict
+                planned = InspectionPipeline(roi, strategy=args.implementation.removeprefix('planned-')).prepare(
+                    frame.shape,device=args.device,reference=args.device != 'cuda')
+                case['execution_plan'] = asdict(planned.plan)
             if prepared is not None:
                 # Explicit fixture upload precedes the GPU preprocessing/inference boundary.
                 resident = torch.from_numpy(np.ascontiguousarray(frame)).cuda()
                 with torch.inference_mode():
                     for _ in range(args.warmup):
-                        gpu_model(prepared.from_bgr8(resident,roi))
+                        gpu_model(planned(resident) if planned is not None else prepared.from_bgr8(resident,roi))
                     torch.cuda.synchronize()
                 with torch.inference_mode(), torch.cuda.nvtx.range('inspection_to_classifier'):
-                    actual_device = prepared.from_bgr8(resident,roi)
+                    actual_device = planned(resident) if planned is not None else prepared.from_bgr8(resident,roi)
                     candidate_device = gpu_model(actual_device)
                     torch.cuda.synchronize()
                 # Downloads below are validation only, after real resident inference.
                 actual = actual_device.cpu()
             else:
-                if args.implementation == 'roi':
+                if planned is not None:
+                    resident = torch.from_numpy(np.ascontiguousarray(frame)).to(args.device)
+                    actual = planned(resident).cpu()
+                elif args.implementation == 'roi':
                     resident = torch.from_numpy(np.ascontiguousarray(frame)).to(args.device)
                     actual = TorchInspectionROI(args.device).from_bgr8(resident,roi).cpu()
                 else:

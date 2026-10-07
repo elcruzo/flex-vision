@@ -287,3 +287,12 @@ Experiment 014 supplied CUDA correctness, matched latency, and trace evidence.
 The 4K candidate reduced preprocessing p50 and p99 by approximately 42%, with unchanged launches and no measured copies.
 Small-image preprocessing medians regressed approximately 5%. Retain the rewrite as a selective candidate, not a universal default.
 Public runtime integration and representative industrial evaluation remain pending.
+
+## D024 — Expose explicit inspection plans before automatic selection
+
+Add an experimental fixed `InspectionPipeline` with immutable plans and prepared PyTorch execution.
+Keep full-frame execution as the default. Require an explicit ROI strategy until tuning supports a general selection policy.
+The measured three fixture sizes are insufficient to infer a portable size threshold.
+Preserve the independent references and compare the integrated runtime through the existing classifier harness.
+Local checks passed. Integrated CUDA validation and performance measurements remain pending.
+See [the runtime contract](INSPECTION_RUNTIME.md).
