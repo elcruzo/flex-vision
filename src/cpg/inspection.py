@@ -106,9 +106,11 @@ class _PreparedInspection:
         self.mean = torch.tensor([.485,.456,.406],dtype=torch.float32,device=self.device).view(1,3,1,1)
         self.std = torch.tensor([.229,.224,.225],dtype=torch.float32,device=self.device).view(1,3,1,1)
         self._constants_ready = None
+        self._creation_stream = None
         if self.device.type == 'cuda':
+            self._creation_stream = torch.cuda.current_stream(self.device)
             self._constants_ready = torch.cuda.Event()
-            self._constants_ready.record(torch.cuda.current_stream(self.device))
+            self._constants_ready.record(self._creation_stream)
 
     def submit(self, frame, *, ready_event=None):
         """Return a completion handle for a CUDA consumer on another stream."""
@@ -136,12 +138,14 @@ class _PreparedInspection:
                 raise ValueError('Input event must be recorded on the prepared CUDA device')
         if self.device.type == 'cuda':
             stream = torch.cuda.current_stream(self.device)
-            stream.wait_event(self._constants_ready)
+            if stream != self._creation_stream:
+                stream.wait_event(self._constants_ready)
+                for tensor in (self.horizontal,self.vertical,self.kernel,self.mean,self.std):
+                    tensor.record_stream(stream)
             if ready_event is not None:
                 stream.wait_event(ready_event)
             # Waiting orders work. record_stream separately protects allocator lifetimes.
-            for tensor in (frame,self.horizontal,self.vertical,self.kernel,self.mean,self.std):
-                tensor.record_stream(stream)
+            frame.record_stream(stream)
         left,top,width,height = self.plan.work_box
         x,y,w,h = self.plan.roi
         x,y = x-left,y-top

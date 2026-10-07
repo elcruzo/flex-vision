@@ -30,3 +30,14 @@ and [record_stream](https://docs.pytorch.org/docs/2.9/generated/torch.Tensor.rec
 ## Status
 
 Prepared. CUDA stream and updated performance validation are pending.
+
+The first run at `0aca957` passed all 24 stream cases but failed the timing guard.
+Odd-ROI pooled host p99 increased from 2.2092 to 2.5683 ms, approximately 16.3%.
+The 4K gain remained. This failed observation must remain in the final report.
+
+A revised implementation avoids constant event waits and constant `record_stream` calls on their original allocation stream.
+PyTorch already orders and manages storage on that stream. Cross-stream constant tracking remains active.
+Input storage tracking remains unconditional because its allocation stream is not inferred.
+The extra host operations are a plausible overhead source, not a proven explanation for the tail spike.
+Rerun correctness, stream checks, traces, and the complete timing protocol on the same lease.
+Keep both measurements. Do not remove samples or replace the failed run.
