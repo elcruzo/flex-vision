@@ -66,7 +66,7 @@ def terminate(receipt):
     raise RuntimeError('Pod termination could not be verified; manual cleanup is required')
 
 
-def create(minutes, run, controller_id=None):
+def create(minutes, run, controller_id=None, data_center='EU-RO-1'):
     if minutes not in (2,30) or not re.fullmatch(r'[0-9]+-[0-9]+',run):
         raise ValueError('Expected a 2- or 30-minute lease and a numeric lease identifier')
     if RECEIPT.exists():
@@ -83,7 +83,7 @@ def create(minutes, run, controller_id=None):
         raise RuntimeError('Account already has Pods; refusing overlapping rental')
     catalog = api('GET', 'catalog/gpus/'+quote(GPU, safe='')+'?include=AVAILABILITY&product=POD&minCudaVersion=13.0')
     price = catalog['price']['secure']
-    available = any(dc['id']=='EU-RO-1' and dc['availability'] in ('LOW','MEDIUM','HIGH') for dc in catalog.get('dataCenters',[]))
+    available = any(dc['id']==data_center and dc['availability'] in ('LOW','MEDIUM','HIGH') for dc in catalog.get('dataCenters',[]))
     if not available or not 0 < price <= .49:
         raise RuntimeError('L4 capacity or the approved $0.49/hour price is unavailable')
     public_key = os.environ.get('CPG_SSH_PUBLIC_KEY','').strip()
@@ -96,11 +96,11 @@ def create(minutes, run, controller_id=None):
     pod = api('POST','pods',{
         'name':'cpg-lease-'+run, 'image':IMAGE, 'cloud':'SECURE',
         'gpu':{'id':GPU,'count':1,'minCudaVersion':'13.0'},
-        'dataCenterIds':['EU-RO-1'], 'disk':50, 'ports':['22/tcp'],
+        'dataCenterIds':[data_center], 'disk':50, 'ports':['22/tcp'],
         'startSsh':True, 'startJupyter':False,
         'env':{'PUBLIC_KEY':public_key,'CPG_LEASE_RUN':run},
     })
-    receipt = {'id':pod['id'],'run':run,'deadline':deadline,'image':IMAGE,'gpu_hourly_usd':price}
+    receipt = {'id':pod['id'],'run':run,'deadline':deadline,'image':IMAGE,'gpu_hourly_usd':price,'data_center':data_center}
     # The only deletion authority is the ID returned by this POST.
     try:
         RECEIPT.write_text(json.dumps(receipt,indent=2)+'\n')

@@ -24,7 +24,7 @@ os.execvp('python3',['python3','-u','runpod_controller.py','serve'])
 '''
 
 
-def launch(minutes, receipt_path, controller_data_center='EU-RO-1'):
+def launch(minutes, receipt_path, controller_data_center='EU-RO-1', gpu_data_center='EU-RO-1'):
     if minutes not in (2,30):
         raise ValueError('Lease must be 2 or 30 minutes')
     if receipt_path.exists():
@@ -47,7 +47,7 @@ def launch(minutes, receipt_path, controller_data_center='EU-RO-1'):
         'description':'Temporary credential for one CPG CPU controller',
     })
     # Save the exact secret ID before provisioning. Never save the value.
-    receipt = {'run':run,'secret_id':secret['id'],'minutes':minutes,'image':CPU_IMAGE,'controller_data_center':controller_data_center,
+    receipt = {'run':run,'secret_id':secret['id'],'minutes':minutes,'image':CPU_IMAGE,'controller_data_center':controller_data_center,'gpu_data_center':gpu_data_center,
                'source_sha256':{n:hashlib.sha256(s.encode()).hexdigest() for n,s in sources.items()}}
     try:
         receipt_path.parent.mkdir(parents=True,exist_ok=True)
@@ -62,7 +62,7 @@ def launch(minutes, receipt_path, controller_data_center='EU-RO-1'):
             'disk':2,'ports':[], 'entrypoint':['python3','-u','-c',BOOT], 'cmd':[],
             'env':{'CPG_CONTROL_API_KEY':'{{ RUNPOD_SECRET_'+secret['name']+' }}',
                    'CPG_SECRET_ID':secret['id'],'CPG_LEASE_RUN':run,'CPG_SOURCE':payload,
-                   'CPG_SSH_PUBLIC_KEY':public,'LEASE_MINUTES':str(minutes),
+                   'CPG_SSH_PUBLIC_KEY':public,'LEASE_MINUTES':str(minutes),'CPG_GPU_DATA_CENTER':gpu_data_center,
                    'CPG_DISPATCH_EXPIRES':str(int(time.time()+600))},
         })
     except Exception:
@@ -96,7 +96,8 @@ def serve():
         if not 0 < int(os.environ['CPG_DISPATCH_EXPIRES'])-time.time() <= 600:
             raise RuntimeError('Controller startup expired; refusing GPU creation')
         log('controller_ready',**own)
-        gpu = create(int(os.environ['LEASE_MINUTES']),own['run'],controller_id=own['id'])
+        gpu = create(int(os.environ['LEASE_MINUTES']),own['run'],controller_id=own['id'],
+                     data_center=os.environ.get('CPG_GPU_DATA_CENTER','EU-RO-1'))
         watch(gpu)
     finally:
         try:
@@ -116,6 +117,7 @@ def main():
     parser.add_argument('mode',choices=('launch','serve'))
     parser.add_argument('--minutes',type=int,choices=(2,30),default=2)
     parser.add_argument('--controller-data-center',default='EU-RO-1')
+    parser.add_argument('--gpu-data-center',default='EU-RO-1')
     parser.add_argument('--receipt',type=Path,default=Path('.cache/runpod/controller.json'))
     args = parser.parse_args()
     def interrupted(signum, frame):
@@ -123,7 +125,7 @@ def main():
     signal.signal(signal.SIGTERM,interrupted)
     signal.signal(signal.SIGINT,interrupted)
     if args.mode == 'launch':
-        launch(args.minutes,args.receipt,args.controller_data_center)
+        launch(args.minutes,args.receipt,args.controller_data_center,args.gpu_data_center)
     else:
         serve()
 

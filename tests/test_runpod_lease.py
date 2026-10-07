@@ -39,6 +39,23 @@ def test_invalid_duration_never_calls_provider():
     api.assert_not_called()
 
 
+@pytest.mark.parametrize('available', [True, False])
+def test_explicit_gpu_region_preserves_capacity_guard(tmp_path, available):
+    catalog = {'price': {'secure': .49}, 'dataCenters':
+               [{'id': 'EUR-IS-1', 'availability': 'LOW'}] if available else []}
+    with patch.object(lease, 'RECEIPT', tmp_path/'lease.json'), patch.object(
+            lease, 'api', side_effect=[{'pods': []}, catalog, POD]) as api, patch.dict(
+            'os.environ', CPG_SSH_PUBLIC_KEY='ssh-ed25519 test'):
+        if available:
+            receipt = lease.create(30, '123-1', data_center='EUR-IS-1')
+            assert receipt['data_center'] == 'EUR-IS-1'
+            assert api.call_args.args[2]['dataCenterIds'] == ['EUR-IS-1']
+        else:
+            with pytest.raises(RuntimeError, match='capacity'):
+                lease.create(30, '123-1', data_center='EUR-IS-1')
+            assert all(call.args[0] == 'GET' for call in api.call_args_list)
+
+
 def test_existing_pods_prevent_creation(tmp_path):
     with patch.object(lease,'RECEIPT',tmp_path/'lease.json'), patch.object(lease,'api',return_value={'pods':[POD]}) as api:
         with pytest.raises(RuntimeError,match='already has Pods'):
