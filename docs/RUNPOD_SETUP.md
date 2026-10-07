@@ -203,3 +203,12 @@ Both Pods and temporary secret `7xztdjwdoy` were absent after verified artifact 
 No persistent volume was created. Billing had not posted at the cleanup read.
 Reserve $0.10 including disk, giving approximately $5.20 used or reserved and $9.80 remaining.
 Replace this reserve with posted charges before another rental.
+
+## Reconciliation before experiment 016
+
+Experiment 014 posted $0.05681364292649960 including CPU, GPU, and disk. Replace its $0.10 reserve with that amount.
+Total posted spending is $5.153573568484717 against the $15 authorization.
+Experiment 016 used GPU `n2x2oog9mcnytl` and controller `nvah9ciyl9tjqq`.
+Both Pods and temporary secret `thh9dns536` were absent after verified export and cleanup.
+Reserve $0.10 including disk for experiment 016 until billing posts.
+Posted spending plus that reserve is approximately $5.25, leaving approximately $9.75.

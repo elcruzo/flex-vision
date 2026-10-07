@@ -1,0 +1,381 @@
+{
+  "status": "passed",
+  "scope": "matched full-frame versus ROI reference through PyTorch classifier",
+  "revision": "b77e90c212d44eb3ec13ac9686c86f678049ed28",
+  "python": "3.12.3",
+  "torch": "2.9.1+cu130",
+  "torchvision": "0.24.1+cu130",
+  "cuda": "13.0",
+  "gpu": "NVIDIA L4",
+  "weights_sha256": "047dcff4addef86ea5bc2eff13c9614dc11f47ab1160d0a71a25e7db994f4e1f",
+  "validation_sha256": "8ca942c04a638dd96e5555fb95fc9d5da519eb8a303e00c4de8fcd294239442b",
+  "runner_sha256": "5bcbe041a3c046745071e5a44dc2d081686c7fd36c6e38011c8fa7aed4b4e9b5",
+  "iterations": 300,
+  "repeats": 4,
+  "warmup": 30,
+  "tf32": false,
+  "timing": "CUDA events for stream stages; perf_counter_ns for completed host call; no outlier removal",
+  "cases": [
+    {
+      "case": "chelsea",
+      "repeat": 0,
+      "implementation": "baseline",
+      "allocated_before_bytes": 20260864,
+      "peak_allocated_bytes": 32377344,
+      "peak_above_start_bytes": 12116480,
+      "reserved_after_bytes": 52428800
+    },
+    {
+      "case": "chelsea",
+      "repeat": 0,
+      "implementation": "planned-roi",
+      "allocated_before_bytes": 20260864,
+      "peak_allocated_bytes": 32377344,
+      "peak_above_start_bytes": 12116480,
+      "reserved_after_bytes": 52428800
+    },
+    {
+      "case": "chelsea",
+      "repeat": 1,
+      "implementation": "planned-roi",
+      "allocated_before_bytes": 20260864,
+      "peak_allocated_bytes": 32377344,
+      "peak_above_start_bytes": 12116480,
+      "reserved_after_bytes": 52428800
+    },
+    {
+      "case": "chelsea",
+      "repeat": 1,
+      "implementation": "baseline",
+      "allocated_before_bytes": 20260864,
+      "peak_allocated_bytes": 32377344,
+      "peak_above_start_bytes": 12116480,
+      "reserved_after_bytes": 52428800
+    },
+    {
+      "case": "chelsea",
+      "repeat": 2,
+      "implementation": "baseline",
+      "allocated_before_bytes": 20260864,
+      "peak_allocated_bytes": 32377344,
+      "peak_above_start_bytes": 12116480,
+      "reserved_after_bytes": 52428800
+    },
+    {
+      "case": "chelsea",
+      "repeat": 2,
+      "implementation": "planned-roi",
+      "allocated_before_bytes": 20260864,
+      "peak_allocated_bytes": 32377344,
+      "peak_above_start_bytes": 12116480,
+      "reserved_after_bytes": 52428800
+    },
+    {
+      "case": "chelsea",
+      "repeat": 3,
+      "implementation": "planned-roi",
+      "allocated_before_bytes": 20260864,
+      "peak_allocated_bytes": 32377344,
+      "peak_above_start_bytes": 12116480,
+      "reserved_after_bytes": 52428800
+    },
+    {
+      "case": "chelsea",
+      "repeat": 3,
+      "implementation": "baseline",
+      "allocated_before_bytes": 20260864,
+      "peak_allocated_bytes": 32377344,
+      "peak_above_start_bytes": 12116480,
+      "reserved_after_bytes": 52428800
+    },
+    {
+      "case": "chelsea-odd-roi",
+      "repeat": 0,
+      "implementation": "baseline",
+      "allocated_before_bytes": 20344832,
+      "peak_allocated_bytes": 32461312,
+      "peak_above_start_bytes": 12116480,
+      "reserved_after_bytes": 52428800
+    },
+    {
+      "case": "chelsea-odd-roi",
+      "repeat": 0,
+      "implementation": "planned-roi",
+      "allocated_before_bytes": 20344832,
+      "peak_allocated_bytes": 32461312,
+      "peak_above_start_bytes": 12116480,
+      "reserved_after_bytes": 52428800
+    },
+    {
+      "case": "chelsea-odd-roi",
+      "repeat": 1,
+      "implementation": "planned-roi",
+      "allocated_before_bytes": 20344832,
+      "peak_allocated_bytes": 32461312,
+      "peak_above_start_bytes": 12116480,
+      "reserved_after_bytes": 52428800
+    },
+    {
+      "case": "chelsea-odd-roi",
+      "repeat": 1,
+      "implementation": "baseline",
+      "allocated_before_bytes": 20344832,
+      "peak_allocated_bytes": 32461312,
+      "peak_above_start_bytes": 12116480,
+      "reserved_after_bytes": 52428800
+    },
+    {
+      "case": "chelsea-odd-roi",
+      "repeat": 2,
+      "implementation": "baseline",
+      "allocated_before_bytes": 20344832,
+      "peak_allocated_bytes": 32461312,
+      "peak_above_start_bytes": 12116480,
+      "reserved_after_bytes": 52428800
+    },
+    {
+      "case": "chelsea-odd-roi",
+      "repeat": 2,
+      "implementation": "planned-roi",
+      "allocated_before_bytes": 20344832,
+      "peak_allocated_bytes": 32461312,
+      "peak_above_start_bytes": 12116480,
+      "reserved_after_bytes": 52428800
+    },
+    {
+      "case": "chelsea-odd-roi",
+      "repeat": 3,
+      "implementation": "planned-roi",
+      "allocated_before_bytes": 20344832,
+      "peak_allocated_bytes": 32461312,
+      "peak_above_start_bytes": 12116480,
+      "reserved_after_bytes": 52428800
+    },
+    {
+      "case": "chelsea-odd-roi",
+      "repeat": 3,
+      "implementation": "baseline",
+      "allocated_before_bytes": 20344832,
+      "peak_allocated_bytes": 32461312,
+      "peak_above_start_bytes": 12116480,
+      "reserved_after_bytes": 52428800
+    },
+    {
+      "case": "chelsea-4k-roi",
+      "repeat": 0,
+      "implementation": "baseline",
+      "allocated_before_bytes": 45020672,
+      "peak_allocated_bytes": 444282368,
+      "peak_above_start_bytes": 399261696,
+      "reserved_after_bytes": 505413632
+    },
+    {
+      "case": "chelsea-4k-roi",
+      "repeat": 0,
+      "implementation": "planned-roi",
+      "allocated_before_bytes": 45020672,
+      "peak_allocated_bytes": 221474816,
+      "peak_above_start_bytes": 176454144,
+      "reserved_after_bytes": 505413632
+    },
+    {
+      "case": "chelsea-4k-roi",
+      "repeat": 1,
+      "implementation": "planned-roi",
+      "allocated_before_bytes": 45020672,
+      "peak_allocated_bytes": 221474816,
+      "peak_above_start_bytes": 176454144,
+      "reserved_after_bytes": 505413632
+    },
+    {
+      "case": "chelsea-4k-roi",
+      "repeat": 1,
+      "implementation": "baseline",
+      "allocated_before_bytes": 45020672,
+      "peak_allocated_bytes": 444282368,
+      "peak_above_start_bytes": 399261696,
+      "reserved_after_bytes": 505413632
+    },
+    {
+      "case": "chelsea-4k-roi",
+      "repeat": 2,
+      "implementation": "baseline",
+      "allocated_before_bytes": 45020672,
+      "peak_allocated_bytes": 444282368,
+      "peak_above_start_bytes": 399261696,
+      "reserved_after_bytes": 505413632
+    },
+    {
+      "case": "chelsea-4k-roi",
+      "repeat": 2,
+      "implementation": "planned-roi",
+      "allocated_before_bytes": 45020672,
+      "peak_allocated_bytes": 221474816,
+      "peak_above_start_bytes": 176454144,
+      "reserved_after_bytes": 505413632
+    },
+    {
+      "case": "chelsea-4k-roi",
+      "repeat": 3,
+      "implementation": "planned-roi",
+      "allocated_before_bytes": 45020672,
+      "peak_allocated_bytes": 221474816,
+      "peak_above_start_bytes": 176454144,
+      "reserved_after_bytes": 505413632
+    },
+    {
+      "case": "chelsea-4k-roi",
+      "repeat": 3,
+      "implementation": "baseline",
+      "allocated_before_bytes": 45020672,
+      "peak_allocated_bytes": 444282368,
+      "peak_above_start_bytes": 399261696,
+      "reserved_after_bytes": 505413632
+    }
+  ],
+  "candidate_validation_sha256": "1b7ae931d4fd083199f520580eaccfae87a55e2415a7d49127473bd40dbeebdb",
+  "candidate_implementation": "planned-roi",
+  "candidate_sha256": "874aeb7636e6877690d5acfcbd20471a8a1abdc7b52646f3a571f8e1ccffd22d",
+  "order": "baseline/candidate on even repeats; candidate/baseline on odd repeats",
+  "percentiles": {
+    "chelsea": {
+      "baseline": {
+        "preprocess_ms": {
+          "p50": 0.14847999811172485,
+          "p95": 0.17360160276293754,
+          "p99": 0.18745695695281028
+        },
+        "inference_ms": {
+          "p50": 2.0803200006484985,
+          "p95": 2.226561713218689,
+          "p99": 2.3296346044540406
+        },
+        "stream_total_ms": {
+          "p50": 2.232400059700012,
+          "p95": 2.381700837612152,
+          "p99": 2.4979561448097227
+        },
+        "host_total_ms": {
+          "p50": 2.2462845,
+          "p95": 2.3963025,
+          "p99": 2.51416151
+        }
+      },
+      "planned-roi": {
+        "preprocess_ms": {
+          "p50": 0.15167999267578125,
+          "p95": 0.17686559855937958,
+          "p99": 0.1897676795721054
+        },
+        "inference_ms": {
+          "p50": 2.073199987411499,
+          "p95": 2.3114032626152037,
+          "p99": 2.3711081624031065
+        },
+        "stream_total_ms": {
+          "p50": 2.2288960218429565,
+          "p95": 2.479971194267273,
+          "p99": 2.543664965629578
+        },
+        "host_total_ms": {
+          "p50": 2.242485,
+          "p95": 2.49535955,
+          "p99": 2.5598844300000003
+        }
+      }
+    },
+    "chelsea-odd-roi": {
+      "baseline": {
+        "preprocess_ms": {
+          "p50": 0.1459520012140274,
+          "p95": 0.16993599757552144,
+          "p99": 0.18329983502626418
+        },
+        "inference_ms": {
+          "p50": 2.032831907272339,
+          "p95": 2.159604811668396,
+          "p99": 2.3052435827255247
+        },
+        "stream_total_ms": {
+          "p50": 2.182528018951416,
+          "p95": 2.316491222381592,
+          "p99": 2.46219575881958
+        },
+        "host_total_ms": {
+          "p50": 2.1956379999999998,
+          "p95": 2.33109405,
+          "p99": 2.47624831
+        }
+      },
+      "planned-roi": {
+        "preprocess_ms": {
+          "p50": 0.14950400590896606,
+          "p95": 0.17248800173401832,
+          "p99": 0.1842588822543621
+        },
+        "inference_ms": {
+          "p50": 2.0155199766159058,
+          "p95": 2.133196759223938,
+          "p99": 2.244442980289459
+        },
+        "stream_total_ms": {
+          "p50": 2.167248010635376,
+          "p95": 2.2869312167167664,
+          "p99": 2.416928291320801
+        },
+        "host_total_ms": {
+          "p50": 2.1802,
+          "p95": 2.2998936,
+          "p99": 2.43020954
+        }
+      }
+    },
+    "chelsea-4k-roi": {
+      "baseline": {
+        "preprocess_ms": {
+          "p50": 7.988991975784302,
+          "p95": 8.063145685195924,
+          "p99": 8.091475505828857
+        },
+        "inference_ms": {
+          "p50": 1.0148320198059082,
+          "p95": 1.0400095641613007,
+          "p99": 1.048514542579651
+        },
+        "stream_total_ms": {
+          "p50": 9.004655838012695,
+          "p95": 9.098817539215087,
+          "p99": 9.139151992797851
+        },
+        "host_total_ms": {
+          "p50": 9.029878,
+          "p95": 9.12664755,
+          "p99": 9.167310969999999
+        }
+      },
+      "planned-roi": {
+        "preprocess_ms": {
+          "p50": 4.640448093414307,
+          "p95": 4.67625617980957,
+          "p99": 4.688200850486755
+        },
+        "inference_ms": {
+          "p50": 1.0198400020599365,
+          "p95": 1.0392655670642852,
+          "p99": 1.0417299389839172
+        },
+        "stream_total_ms": {
+          "p50": 5.660015821456909,
+          "p95": 5.713419198989868,
+          "p99": 5.728739442825318
+        },
+        "host_total_ms": {
+          "p50": 5.6814875,
+          "p95": 5.734182,
+          "p99": 5.749768619999999
+        }
+      }
+    }
+  },
+  "samples_sha256": "4e728b04c56b7f7b20259653ed6dc50aa3fb4a40772a8170687bef3071d95e00"
+}

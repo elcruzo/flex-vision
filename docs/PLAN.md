@@ -22,7 +22,8 @@ The second-workload optimization gate remains pending; the 4K case is the immedi
 [Experiment 013](experiments/013-inspection-roi.md) validates a crop-aware candidate locally through real classifier inference.
 [Experiment 014](experiments/014-inspection-comparison.md) passed the matched L4 comparison: 42% lower 4K preprocessing latency through real classifier inference.
 Small-image preprocessing was slower. The [experimental fixed inspection API](INSPECTION_RUNTIME.md) now exposes explicit full and ROI plans.
-Local classifier checks passed. Next, validate the integrated CUDA path, timing, and traces before broader operator work.
+[Experiment 016](experiments/016-integrated-inspection.md) validated integrated CUDA correctness, ROI timing, and transfer traces on an L4.
+Next, validate stream ownership and retained outputs through inference before broader operator work.
 See [the backend contract](CUDA_BACKEND.md), [host evidence](experiments/004-cuda-host.md), and [fused execution evidence](experiments/005-fused-cuda.md).
 See [local development](LOCAL_DEVELOPMENT.md) and [source audit](SOURCE_AUDIT.md) for current evidence.
 

@@ -41,7 +41,8 @@ CUDA operations enqueue on the current PyTorch stream. Execution does not synchr
 Keep the prepared object and input storage alive until queued operations complete.
 Order preparation, frame production, execution, and inference on the same stream for the initial supported usage.
 Cross-stream use requires caller-managed events, storage lifetimes, and dependencies. This integration has no cross-stream acceptance evidence yet.
-GPU pixel operations contain no host downloads. A new trace must verify the integrated CUDA path before a residency claim.
+Experiment 016 recorded no copies inside the integrated preprocessing-to-classifier ranges on an L4.
+That evidence excludes preparation and uploads and does not establish arbitrary cross-stream residency.
 
 Autocast is rejected. CUDA execution also requires cuDNN TF32 to be disabled under the tested PyTorch precision controls.
 The runtime does not change process-wide precision settings.
@@ -74,4 +75,6 @@ The repository checks passed: 57 tests, including plan validation, edge crops, r
 Each report records the integrated runtime source hash and each fixture's execution plan.
 The original NumPy and experimental PyTorch references remain separate from the integrated runtime.
 Experiment 014 measured the earlier candidate, not this integration.
-Integrated CUDA correctness, matched timing, and traces remain pending. No GPU was rented for this local integration step.
+The subsequent [integrated CUDA experiment](experiments/016-integrated-inspection.md) passed correctness, matched ROI timing, and transfer traces on an L4.
+It measured approximately 42% lower 4K preprocessing latency and 37% lower complete-host latency against the independent baseline.
+Small-image preprocessing was slower. Strategy selection remains explicit.

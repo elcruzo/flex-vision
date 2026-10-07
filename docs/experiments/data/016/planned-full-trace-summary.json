@@ -1,0 +1,24 @@
+{
+  "range": "inspection_to_classifier",
+  "scope": "synchronous completed ranges; counts only, not performance timing",
+  "ranges": [
+    {
+      "kernels": 199,
+      "copies_by_cupti_kind": [],
+      "overlapping_copy_events": 0,
+      "overlapping_copy_bytes": 0
+    },
+    {
+      "kernels": 199,
+      "copies_by_cupti_kind": [],
+      "overlapping_copy_events": 0,
+      "overlapping_copy_bytes": 0
+    },
+    {
+      "kernels": 199,
+      "copies_by_cupti_kind": [],
+      "overlapping_copy_events": 0,
+      "overlapping_copy_bytes": 0
+    }
+  ]
+}

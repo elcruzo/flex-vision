@@ -294,5 +294,6 @@ Add an experimental fixed `InspectionPipeline` with immutable plans and prepared
 Keep full-frame execution as the default. Require an explicit ROI strategy until tuning supports a general selection policy.
 The measured three fixture sizes are insufficient to infer a portable size threshold.
 Preserve the independent references and compare the integrated runtime through the existing classifier harness.
-Local checks passed. Integrated CUDA validation and performance measurements remain pending.
+Local checks passed. Experiment 016 also passed integrated CUDA validation, matched ROI performance, and transfer traces on an L4.
+Keep strategy selection explicit. Small-image preprocessing remains slower, and cross-stream inference acceptance remains pending.
 See [the runtime contract](INSPECTION_RUNTIME.md).
