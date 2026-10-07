@@ -225,3 +225,15 @@ Both measured revisions used that lease. Verified export preceded GPU terminatio
 Both Pods and temporary secret `3rqroevu1e` were absent after cleanup. Reserve $0.10 for this retry.
 Posted spending plus these three reserves is approximately $5.70, leaving approximately $9.30 of the $15 authorization.
 Replace reserves with corresponding posted charges before the next rental. Do not count both.
+
+## Reconciliation before experiment 018
+
+The October 7 billing read reports $5.533818361645899 across 17 Pods.
+The account inventory contained no active Pods before the new lease.
+Experiment 016 posted $0.045833331532776356 for its GPU and controller.
+The successful experiment 017 retry posted $0.055046326908268384.
+The earlier controller `tkgx9yijdp4iuj` posted $0.03065008862540708.
+Billing also lists GPU `hv9r4melf995m4` at $0.2487150460947305 in the same period.
+Its creation receipt was not captured during the session pause, so attribution to that attempt remains unverified.
+Include it in the budget nevertheless. These amounts replace the prior three reserves, without double counting.
+The remaining authorization before experiment 018 is $9.466181638354101.

@@ -24,6 +24,14 @@ python scripts/inspection_sustained.py --output benchmark-results/018-sustained
 Use the pinned model weights already required by the classifier harness.
 Record the environment, GPU driver, source revision, and artifact hashes with the experiment.
 Export the reports and raw CSV files before terminating the rental.
+Recompute counts, latency, throughput, and per-camera results from the exported CSV files:
+
+```bash
+python scripts/summarize_sustained.py benchmark-results/018-sustained --output benchmark-results/018-summary.json
+```
+
+This check rejects missing or duplicate frames, inconsistent timings, and a report that fails correctness.
+It preserves a failed performance verdict when correctness passes.
 Reconcile provider charges against the existing $15 total budget before provisioning.
 
 The default experiment uses these settings:
