@@ -82,7 +82,8 @@ class InspectionPipeline:
 class _PreparedInspection:
     """Enqueue on the current PyTorch stream and return a fresh owned tensor.
 
-    The caller must preserve input ownership and producer/consumer dependencies.
+    Supply ready_event for another producer stream. Use submit for a consumer handoff.
+    The caller must not overwrite input storage before preprocessing completes.
     CUDA execution does not synchronize or copy pixels to the host.
     """
     def __init__(self, plan, device, reference):

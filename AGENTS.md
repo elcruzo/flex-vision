@@ -51,7 +51,8 @@ The ROI candidate passed local classifier checks. Read docs/experiments/013-insp
 The matched CUDA comparison passed for the 4K case. Read docs/experiments/014-inspection-comparison.md.
 The experimental InspectionPipeline exposes explicit full and ROI strategies. Read docs/INSPECTION_RUNTIME.md.
 Integrated CUDA correctness, ROI timing, and traces passed on an L4. Read docs/experiments/016-integrated-inspection.md.
-Next, validate stream ownership and retained outputs through inference before broadening graph support. Small-image preprocessing was slower.
+Explicit stream handoffs passed real classifier checks. Read docs/experiments/017-inspection-streams.md, including the initial p99 failure.
+Next, evaluate sustained concurrent streams and memory behavior before broadening graph support. Small-image preprocessing was slower.
 Reference operators are not production CUDA support.
 
 GitHub Actions is optional. The default rental path uses a disposable Runpod CPU controller. Read docs/GPU_LEASE.md.

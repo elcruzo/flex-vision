@@ -38,9 +38,10 @@ Execution requires the prepared shape and device and allocates a fresh output fo
 The implementation does not reuse a caller-owned output or provide a bounded workspace pool.
 
 CUDA operations enqueue on the current PyTorch stream. Execution does not synchronize the host.
-Keep the prepared object and input storage alive until queued operations complete.
-Order preparation, frame production, execution, and inference on the same stream for the initial supported usage.
-Cross-stream use requires caller-managed events, storage lifetimes, and dependencies. This integration has no cross-stream acceptance evidence yet.
+Preparation records constant readiness. Execution waits for it when called from another stream and protects constant storage on that stream.
+Execution also records input storage on its stream, so releasing a Python input reference does not permit premature allocator reuse.
+Do not overwrite input storage until preprocessing completes. Lifetime tracking cannot prevent application writes to a live buffer.
+Use the completion handle below for a consumer on another stream.
 Experiment 016 recorded no copies inside the integrated preprocessing-to-classifier ranges on an L4.
 That evidence excludes preparation and uploads and does not establish arbitrary cross-stream residency.
 
@@ -78,3 +79,32 @@ Experiment 014 measured the earlier candidate, not this integration.
 The subsequent [integrated CUDA experiment](experiments/016-integrated-inspection.md) passed correctness, matched ROI timing, and transfer traces on an L4.
 It measured approximately 42% lower 4K preprocessing latency and 37% lower complete-host latency against the independent baseline.
 Small-image preprocessing was slower. Strategy selection remains explicit.
+
+## Explicit CUDA stream handoff
+
+```python
+# frame was produced on producer. Model initialization must already be ordered
+# before work on consumer. prepared may have been created on another stream.
+input_ready = torch.cuda.Event()
+input_ready.record(producer)
+with torch.cuda.stream(processor):
+    result = prepared.submit(frame, ready_event=input_ready)
+with torch.cuda.stream(consumer):
+    tensor = result.wait()
+    prediction = model(tensor)
+```
+
+`submit` returns a tensor and a CUDA completion event without synchronizing the host.
+`result.wait()` enqueues a wait on the current consumer stream and records output storage on that stream.
+An explicit `result.wait(stream)` does not make that stream current. Enqueue inference on the same stream that waited.
+Inputs, constants, and outputs can then lose Python references after their work is queued.
+Retained tensors remain owned outputs. Later preprocessing calls do not overwrite them.
+To reuse an input buffer, make its producer wait for `result.ready` before overwriting it.
+
+The optional input event must already be recorded on the prepared CUDA device.
+Without an input event, the caller must already order input production before preprocessing on the execution stream.
+The direct `prepared(frame)` call still returns a plain tensor. Its downstream handoff remains the caller's responsibility.
+`submit` is CUDA-only. Model parameters and unrelated framework memory remain outside this runtime's ownership contract.
+
+See [experiment 017](experiments/017-inspection-streams.md) for cross-stream classifier checks and the updated timing results.
+The finite stress test does not establish hard memory bounds or sustained multi-camera throughput.

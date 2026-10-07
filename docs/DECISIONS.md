@@ -297,3 +297,14 @@ Preserve the independent references and compare the integrated runtime through t
 Local checks passed. Experiment 016 also passed integrated CUDA validation, matched ROI performance, and transfer traces on an L4.
 Keep strategy selection explicit. Small-image preprocessing remains slower, and cross-stream inference acceptance remains pending.
 See [the runtime contract](INSPECTION_RUNTIME.md).
+
+## D025 — Separate stream ordering from storage lifetime
+
+Use CUDA events to order preparation, producer input, preprocessing, and downstream inference.
+Use PyTorch storage tracking when a tensor is used on another stream.
+Avoid redundant constant tracking on their allocation stream. Input allocation streams are not inferred.
+Expose `submit` and a completion handle, while retaining the plain-tensor same-stream call.
+The caller remains responsible for input-buffer writes and model initialization dependencies.
+Experiment 017 passed 24 cross-stream inference cases. Its initial timing guard failed and the revised run passed.
+Keep both results and do not attribute variable small-image tails solely to the implementation change.
+Sustained concurrent throughput and memory bounds remain unmeasured.

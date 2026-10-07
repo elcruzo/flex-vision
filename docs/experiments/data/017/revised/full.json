@@ -1,0 +1,279 @@
+{
+  "status": "passed",
+  "scope": "inspection baseline and classifier smoke; no industrial accuracy, TensorRT, or performance claim",
+  "implementation": "planned-full",
+  "candidate_sha256": null,
+  "inspection_runtime_sha256": "f75283b798a572c2d1e9e84183d70d4ead25bb2c97f6cdd57ca97f512381fb14",
+  "warmup_per_case": 3,
+  "preprocessing_device": "cuda",
+  "inference_device": "cuda",
+  "negative_control": false,
+  "revision": "406098256238803eb60a54cefea26f5b4561739c",
+  "dirty": false,
+  "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
+  "python": "3.12.3",
+  "torch": "2.9.1+cu130",
+  "torchvision": "0.24.1+cu130",
+  "weights_url": "https://download.pytorch.org/models/mobilenet_v3_small-047dcff4.pth",
+  "weights_sha256": "047dcff4addef86ea5bc2eff13c9614dc11f47ab1160d0a71a25e7db994f4e1f",
+  "model": "MobileNet_V3_Small.IMAGENET1K_V1",
+  "runner_sha256": "56ff8dd7fb1d0363e25560028d003af6dd25b86f5d4b075d7b91b103576f2e30",
+  "reference_sha256": "d32a017237e4acdb069bd3d60007759909c920a9eceddd6ba21b89fb7bd11e28",
+  "fixture_manifest_sha256": "94479b9a1f629ca1d08af5459473cea2f817020743ee86d726f3a2ac14ff2ed7",
+  "recipe": {
+    "gaussian": {
+      "size": 5,
+      "sigma": 1.2,
+      "coefficients": [
+        0.0856291651725769,
+        0.24266760051250458,
+        0.34340646862983704,
+        0.24266760051250458,
+        0.0856291651725769
+      ]
+    },
+    "sharpen": [
+      [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      [
+        -1.0,
+        5.0,
+        -1.0
+      ],
+      [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    ],
+    "border": "replicate",
+    "clamp": [
+      0,
+      255
+    ],
+    "order": [
+      "bgr-to-rgb",
+      "gaussian-horizontal",
+      "gaussian-vertical",
+      "sharpen",
+      "clamp",
+      "crop",
+      "resize",
+      "normalize",
+      "nchw"
+    ],
+    "resize": {
+      "width": 224,
+      "height": 224,
+      "coordinates": "half-pixel",
+      "antialias": false
+    },
+    "intermediate_dtype": "float32",
+    "output_dtype": "float32",
+    "scale": 0.00392156862745098,
+    "mean": [
+      0.485,
+      0.456,
+      0.406
+    ],
+    "std": [
+      0.229,
+      0.224,
+      0.225
+    ]
+  },
+  "tensor_atol": 0.0002,
+  "logit_atol": 0.001,
+  "logit_rtol": 0.0001,
+  "cases": [
+    {
+      "id": "chelsea",
+      "shape": [
+        300,
+        451,
+        3
+      ],
+      "roi_xywh": [
+        0,
+        0,
+        451,
+        300
+      ],
+      "provenance": {
+        "file": "chelsea.png",
+        "sha256": "596aa1e7cb875eb79f437e310381d26b338a81c2da23439704a73c4651e8c4bb",
+        "transform": "none"
+      },
+      "input_sha256": "2ae870185ec12f23e7f636043c834cdebe3f2a836d0769157047d4fcc3bb71f0",
+      "status": "passed",
+      "execution_plan": {
+        "input_shape": [
+          300,
+          451,
+          3
+        ],
+        "roi": [
+          0,
+          0,
+          451,
+          300
+        ],
+        "work_box": [
+          0,
+          0,
+          451,
+          300
+        ],
+        "strategy": "full",
+        "reason": "Explicit full-frame strategy; no automatic performance policy"
+      },
+      "tensor_max_abs_error": 1.835078001022339e-05,
+      "logit_max_abs_error": 2.1219253540039062e-05,
+      "top5": [
+        285,
+        282,
+        281,
+        287,
+        722
+      ],
+      "top5_names": [
+        "Egyptian cat",
+        "tiger cat",
+        "tabby",
+        "lynx",
+        "ping-pong ball"
+      ],
+      "baseline_group_probability": 0.9917078018188477,
+      "candidate_group_probability": 0.9917078018188477,
+      "diagnostic_seconds": 0.3048979416489601
+    },
+    {
+      "id": "chelsea-odd-roi",
+      "shape": [
+        333,
+        490,
+        3
+      ],
+      "roi_xywh": [
+        13,
+        11,
+        451,
+        300
+      ],
+      "provenance": {
+        "file": "chelsea.png",
+        "sha256": "596aa1e7cb875eb79f437e310381d26b338a81c2da23439704a73c4651e8c4bb",
+        "transform": "pad top/left 11/13, bottom/right 22/26"
+      },
+      "input_sha256": "710cde0e9de62ea638e120e59a437c3c1fc1bf76b740345df4fadcf44b70a7a4",
+      "status": "passed",
+      "execution_plan": {
+        "input_shape": [
+          333,
+          490,
+          3
+        ],
+        "roi": [
+          13,
+          11,
+          451,
+          300
+        ],
+        "work_box": [
+          0,
+          0,
+          490,
+          333
+        ],
+        "strategy": "full",
+        "reason": "Explicit full-frame strategy; no automatic performance policy"
+      },
+      "tensor_max_abs_error": 1.835078001022339e-05,
+      "logit_max_abs_error": 2.288818359375e-05,
+      "top5": [
+        285,
+        282,
+        281,
+        287,
+        722
+      ],
+      "top5_names": [
+        "Egyptian cat",
+        "tiger cat",
+        "tabby",
+        "lynx",
+        "ping-pong ball"
+      ],
+      "baseline_group_probability": 0.9921556115150452,
+      "candidate_group_probability": 0.9921554923057556,
+      "diagnostic_seconds": 0.06324535422027111
+    },
+    {
+      "id": "chelsea-4k-roi",
+      "shape": [
+        2160,
+        3840,
+        3
+      ],
+      "roi_xywh": [
+        567,
+        180,
+        2706,
+        1800
+      ],
+      "provenance": {
+        "file": "chelsea.png",
+        "sha256": "596aa1e7cb875eb79f437e310381d26b338a81c2da23439704a73c4651e8c4bb",
+        "transform": "repeat pixels 6x; centered 4K padding value 114"
+      },
+      "input_sha256": "73dc21146f6a5dc3f2b5e42b390a800e6981ad0cc476b985cdc76a2e6fab77cc",
+      "status": "passed",
+      "execution_plan": {
+        "input_shape": [
+          2160,
+          3840,
+          3
+        ],
+        "roi": [
+          567,
+          180,
+          2706,
+          1800
+        ],
+        "work_box": [
+          0,
+          0,
+          3840,
+          2160
+        ],
+        "strategy": "full",
+        "reason": "Explicit full-frame strategy; no automatic performance policy"
+      },
+      "tensor_max_abs_error": 4.607066512107849e-05,
+      "logit_max_abs_error": 5.435943603515625e-05,
+      "top5": [
+        285,
+        282,
+        281,
+        722,
+        793
+      ],
+      "top5_names": [
+        "Egyptian cat",
+        "tiger cat",
+        "tabby",
+        "ping-pong ball",
+        "shower cap"
+      ],
+      "baseline_group_probability": 0.9967070817947388,
+      "candidate_group_probability": 0.9967069625854492,
+      "diagnostic_seconds": 0.47920180670917034
+    }
+  ],
+  "gpu": "NVIDIA L4",
+  "cuda": "13.0",
+  "tf32": false
+}

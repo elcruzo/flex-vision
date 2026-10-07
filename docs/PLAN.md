@@ -23,7 +23,9 @@ The second-workload optimization gate remains pending; the 4K case is the immedi
 [Experiment 014](experiments/014-inspection-comparison.md) passed the matched L4 comparison: 42% lower 4K preprocessing latency through real classifier inference.
 Small-image preprocessing was slower. The [experimental fixed inspection API](INSPECTION_RUNTIME.md) now exposes explicit full and ROI plans.
 [Experiment 016](experiments/016-integrated-inspection.md) validated integrated CUDA correctness, ROI timing, and transfer traces on an L4.
-Next, validate stream ownership and retained outputs through inference before broader operator work.
+[Experiment 017](experiments/017-inspection-streams.md) passed 24 cross-stream classifier cases with explicit handoffs and retained-output checks.
+Its first timing run failed the small-image p99 guard. A revised run passed, with both results retained.
+Next, evaluate sustained concurrent streams and memory behavior. Do not infer throughput or tail stability from the finite correctness run.
 See [the backend contract](CUDA_BACKEND.md), [host evidence](experiments/004-cuda-host.md), and [fused execution evidence](experiments/005-fused-cuda.md).
 See [local development](LOCAL_DEVELOPMENT.md) and [source audit](SOURCE_AUDIT.md) for current evidence.
 

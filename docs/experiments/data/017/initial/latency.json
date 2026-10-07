@@ -1,0 +1,381 @@
+{
+  "status": "passed",
+  "scope": "matched full-frame versus ROI reference through PyTorch classifier",
+  "revision": "0aca9572a65edf3054b180c98ba0dfaa771ad020",
+  "python": "3.12.3",
+  "torch": "2.9.1+cu130",
+  "torchvision": "0.24.1+cu130",
+  "cuda": "13.0",
+  "gpu": "NVIDIA L4",
+  "weights_sha256": "047dcff4addef86ea5bc2eff13c9614dc11f47ab1160d0a71a25e7db994f4e1f",
+  "validation_sha256": "e850b91f47c6b42099a00055d3dc55d290ba46f54a4fd6f76bda1835ab01a130",
+  "runner_sha256": "5bcbe041a3c046745071e5a44dc2d081686c7fd36c6e38011c8fa7aed4b4e9b5",
+  "iterations": 300,
+  "repeats": 4,
+  "warmup": 30,
+  "tf32": false,
+  "timing": "CUDA events for stream stages; perf_counter_ns for completed host call; no outlier removal",
+  "cases": [
+    {
+      "case": "chelsea",
+      "repeat": 0,
+      "implementation": "baseline",
+      "allocated_before_bytes": 20260864,
+      "peak_allocated_bytes": 32377344,
+      "peak_above_start_bytes": 12116480,
+      "reserved_after_bytes": 52428800
+    },
+    {
+      "case": "chelsea",
+      "repeat": 0,
+      "implementation": "planned-roi",
+      "allocated_before_bytes": 20260864,
+      "peak_allocated_bytes": 32377344,
+      "peak_above_start_bytes": 12116480,
+      "reserved_after_bytes": 52428800
+    },
+    {
+      "case": "chelsea",
+      "repeat": 1,
+      "implementation": "planned-roi",
+      "allocated_before_bytes": 20260864,
+      "peak_allocated_bytes": 32377344,
+      "peak_above_start_bytes": 12116480,
+      "reserved_after_bytes": 52428800
+    },
+    {
+      "case": "chelsea",
+      "repeat": 1,
+      "implementation": "baseline",
+      "allocated_before_bytes": 20260864,
+      "peak_allocated_bytes": 32377344,
+      "peak_above_start_bytes": 12116480,
+      "reserved_after_bytes": 52428800
+    },
+    {
+      "case": "chelsea",
+      "repeat": 2,
+      "implementation": "baseline",
+      "allocated_before_bytes": 20260864,
+      "peak_allocated_bytes": 32377344,
+      "peak_above_start_bytes": 12116480,
+      "reserved_after_bytes": 52428800
+    },
+    {
+      "case": "chelsea",
+      "repeat": 2,
+      "implementation": "planned-roi",
+      "allocated_before_bytes": 20260864,
+      "peak_allocated_bytes": 32377344,
+      "peak_above_start_bytes": 12116480,
+      "reserved_after_bytes": 52428800
+    },
+    {
+      "case": "chelsea",
+      "repeat": 3,
+      "implementation": "planned-roi",
+      "allocated_before_bytes": 20260864,
+      "peak_allocated_bytes": 32377344,
+      "peak_above_start_bytes": 12116480,
+      "reserved_after_bytes": 52428800
+    },
+    {
+      "case": "chelsea",
+      "repeat": 3,
+      "implementation": "baseline",
+      "allocated_before_bytes": 20260864,
+      "peak_allocated_bytes": 32377344,
+      "peak_above_start_bytes": 12116480,
+      "reserved_after_bytes": 52428800
+    },
+    {
+      "case": "chelsea-odd-roi",
+      "repeat": 0,
+      "implementation": "baseline",
+      "allocated_before_bytes": 20344832,
+      "peak_allocated_bytes": 32461312,
+      "peak_above_start_bytes": 12116480,
+      "reserved_after_bytes": 52428800
+    },
+    {
+      "case": "chelsea-odd-roi",
+      "repeat": 0,
+      "implementation": "planned-roi",
+      "allocated_before_bytes": 20344832,
+      "peak_allocated_bytes": 32461312,
+      "peak_above_start_bytes": 12116480,
+      "reserved_after_bytes": 52428800
+    },
+    {
+      "case": "chelsea-odd-roi",
+      "repeat": 1,
+      "implementation": "planned-roi",
+      "allocated_before_bytes": 20344832,
+      "peak_allocated_bytes": 32461312,
+      "peak_above_start_bytes": 12116480,
+      "reserved_after_bytes": 52428800
+    },
+    {
+      "case": "chelsea-odd-roi",
+      "repeat": 1,
+      "implementation": "baseline",
+      "allocated_before_bytes": 20344832,
+      "peak_allocated_bytes": 32461312,
+      "peak_above_start_bytes": 12116480,
+      "reserved_after_bytes": 52428800
+    },
+    {
+      "case": "chelsea-odd-roi",
+      "repeat": 2,
+      "implementation": "baseline",
+      "allocated_before_bytes": 20344832,
+      "peak_allocated_bytes": 32461312,
+      "peak_above_start_bytes": 12116480,
+      "reserved_after_bytes": 52428800
+    },
+    {
+      "case": "chelsea-odd-roi",
+      "repeat": 2,
+      "implementation": "planned-roi",
+      "allocated_before_bytes": 20344832,
+      "peak_allocated_bytes": 32461312,
+      "peak_above_start_bytes": 12116480,
+      "reserved_after_bytes": 52428800
+    },
+    {
+      "case": "chelsea-odd-roi",
+      "repeat": 3,
+      "implementation": "planned-roi",
+      "allocated_before_bytes": 20344832,
+      "peak_allocated_bytes": 32461312,
+      "peak_above_start_bytes": 12116480,
+      "reserved_after_bytes": 52428800
+    },
+    {
+      "case": "chelsea-odd-roi",
+      "repeat": 3,
+      "implementation": "baseline",
+      "allocated_before_bytes": 20344832,
+      "peak_allocated_bytes": 32461312,
+      "peak_above_start_bytes": 12116480,
+      "reserved_after_bytes": 52428800
+    },
+    {
+      "case": "chelsea-4k-roi",
+      "repeat": 0,
+      "implementation": "baseline",
+      "allocated_before_bytes": 45020672,
+      "peak_allocated_bytes": 444282368,
+      "peak_above_start_bytes": 399261696,
+      "reserved_after_bytes": 505413632
+    },
+    {
+      "case": "chelsea-4k-roi",
+      "repeat": 0,
+      "implementation": "planned-roi",
+      "allocated_before_bytes": 45020672,
+      "peak_allocated_bytes": 221474816,
+      "peak_above_start_bytes": 176454144,
+      "reserved_after_bytes": 505413632
+    },
+    {
+      "case": "chelsea-4k-roi",
+      "repeat": 1,
+      "implementation": "planned-roi",
+      "allocated_before_bytes": 45020672,
+      "peak_allocated_bytes": 221474816,
+      "peak_above_start_bytes": 176454144,
+      "reserved_after_bytes": 505413632
+    },
+    {
+      "case": "chelsea-4k-roi",
+      "repeat": 1,
+      "implementation": "baseline",
+      "allocated_before_bytes": 45020672,
+      "peak_allocated_bytes": 444282368,
+      "peak_above_start_bytes": 399261696,
+      "reserved_after_bytes": 505413632
+    },
+    {
+      "case": "chelsea-4k-roi",
+      "repeat": 2,
+      "implementation": "baseline",
+      "allocated_before_bytes": 45020672,
+      "peak_allocated_bytes": 444282368,
+      "peak_above_start_bytes": 399261696,
+      "reserved_after_bytes": 505413632
+    },
+    {
+      "case": "chelsea-4k-roi",
+      "repeat": 2,
+      "implementation": "planned-roi",
+      "allocated_before_bytes": 45020672,
+      "peak_allocated_bytes": 221474816,
+      "peak_above_start_bytes": 176454144,
+      "reserved_after_bytes": 505413632
+    },
+    {
+      "case": "chelsea-4k-roi",
+      "repeat": 3,
+      "implementation": "planned-roi",
+      "allocated_before_bytes": 45020672,
+      "peak_allocated_bytes": 221474816,
+      "peak_above_start_bytes": 176454144,
+      "reserved_after_bytes": 505413632
+    },
+    {
+      "case": "chelsea-4k-roi",
+      "repeat": 3,
+      "implementation": "baseline",
+      "allocated_before_bytes": 45020672,
+      "peak_allocated_bytes": 444282368,
+      "peak_above_start_bytes": 399261696,
+      "reserved_after_bytes": 505413632
+    }
+  ],
+  "candidate_validation_sha256": "707751a5dd24c46ccc06d802c195b8b24cf9cf7e6cc1e402e93109753cf0ed38",
+  "candidate_implementation": "planned-roi",
+  "candidate_sha256": "cf792ffbfc5f5374556a0765f1f474a2b0f3a7a7d01dc6ab3fd7d24c6c2aeff3",
+  "order": "baseline/candidate on even repeats; candidate/baseline on odd repeats",
+  "percentiles": {
+    "chelsea": {
+      "baseline": {
+        "preprocess_ms": {
+          "p50": 0.13817599415779114,
+          "p95": 0.15024480372667312,
+          "p99": 0.1592655983567238
+        },
+        "inference_ms": {
+          "p50": 1.916991949081421,
+          "p95": 1.9557552278041839,
+          "p99": 1.9939526760578155
+        },
+        "stream_total_ms": {
+          "p50": 2.0571519136428833,
+          "p95": 2.095583963394165,
+          "p99": 2.1370102190971374
+        },
+        "host_total_ms": {
+          "p50": 2.069993,
+          "p95": 2.1093071,
+          "p99": 2.15090772
+        }
+      },
+      "planned-roi": {
+        "preprocess_ms": {
+          "p50": 0.150751993060112,
+          "p95": 0.16317279860377312,
+          "p99": 0.17203327864408494
+        },
+        "inference_ms": {
+          "p50": 1.9164639711380005,
+          "p95": 1.9528335869312285,
+          "p99": 1.988673231601715
+        },
+        "stream_total_ms": {
+          "p50": 2.069216012954712,
+          "p95": 2.1064112067222593,
+          "p99": 2.142848436832428
+        },
+        "host_total_ms": {
+          "p50": 2.0817055,
+          "p95": 2.119546,
+          "p99": 2.1553266
+        }
+      }
+    },
+    "chelsea-odd-roi": {
+      "baseline": {
+        "preprocess_ms": {
+          "p50": 0.13900800049304962,
+          "p95": 0.1509792022407055,
+          "p99": 0.16137631952762604
+        },
+        "inference_ms": {
+          "p50": 1.919215977191925,
+          "p95": 1.9646096527576447,
+          "p99": 2.056014075279236
+        },
+        "stream_total_ms": {
+          "p50": 2.059839963912964,
+          "p95": 2.1092799305915833,
+          "p99": 2.195860888957977
+        },
+        "host_total_ms": {
+          "p50": 2.0724265,
+          "p95": 2.1230919499999996,
+          "p99": 2.2091567199999997
+        }
+      },
+      "planned-roi": {
+        "preprocess_ms": {
+          "p50": 0.15308800339698792,
+          "p95": 0.16819999888539314,
+          "p99": 0.18577728629112242
+        },
+        "inference_ms": {
+          "p50": 1.921023964881897,
+          "p95": 1.976353633403778,
+          "p99": 2.3742560243606565
+        },
+        "stream_total_ms": {
+          "p50": 2.0756959915161133,
+          "p95": 2.1421326875686644,
+          "p99": 2.5518695282936092
+        },
+        "host_total_ms": {
+          "p50": 2.0885315,
+          "p95": 2.1564971,
+          "p99": 2.56827008
+        }
+      }
+    },
+    "chelsea-4k-roi": {
+      "baseline": {
+        "preprocess_ms": {
+          "p50": 8.015071868896484,
+          "p95": 8.075024366378784,
+          "p99": 8.099377737045288
+        },
+        "inference_ms": {
+          "p50": 1.0194079875946045,
+          "p95": 1.0400976419448853,
+          "p99": 1.048993637561798
+        },
+        "stream_total_ms": {
+          "p50": 9.035391807556152,
+          "p95": 9.115219259262085,
+          "p99": 9.145605010986328
+        },
+        "host_total_ms": {
+          "p50": 9.056839499999999,
+          "p95": 9.135553049999999,
+          "p99": 9.167765750000001
+        }
+      },
+      "planned-roi": {
+        "preprocess_ms": {
+          "p50": 4.662975788116455,
+          "p95": 4.691711902618408,
+          "p99": 4.701475968360901
+        },
+        "inference_ms": {
+          "p50": 1.0232160091400146,
+          "p95": 1.033377581834793,
+          "p99": 1.0391363716125488
+        },
+        "stream_total_ms": {
+          "p50": 5.68721604347229,
+          "p95": 5.723265814781189,
+          "p99": 5.737779264450073
+        },
+        "host_total_ms": {
+          "p50": 5.7050785,
+          "p95": 5.74251795,
+          "p99": 5.75717751
+        }
+      }
+    }
+  },
+  "samples_sha256": "92d47cc1ef7216beb53e426e9c5b64168ddfcf59e6b1c0c4afc16704aa5da9e9"
+}

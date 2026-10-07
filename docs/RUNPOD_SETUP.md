@@ -212,3 +212,16 @@ Experiment 016 used GPU `n2x2oog9mcnytl` and controller `nvah9ciyl9tjqq`.
 Both Pods and temporary secret `thh9dns536` were absent after verified export and cleanup.
 Reserve $0.10 including disk for experiment 016 until billing posts.
 Posted spending plus that reserve is approximately $5.25, leaving approximately $9.75.
+
+## Experiment 017 reserves
+
+The subsequent billing read still reported $5.153573568484717. Experiment 016 remained unposted, with its $0.10 reserve retained.
+Controller `tkgx9yijdp4iuj` disappeared during a session pause longer than the lease allowance.
+Its GPU creation was not observed. Provider reads confirmed no remaining Pods or temporary secret `zik53spr42`.
+Reserve $0.35 for that attempt until its charges can be reconciled.
+
+The successful retry used CPU controller `s704oi3w6pj60p` and GPU `jm0qabsvc1bfg2`.
+Both measured revisions used that lease. Verified export preceded GPU termination.
+Both Pods and temporary secret `3rqroevu1e` were absent after cleanup. Reserve $0.10 for this retry.
+Posted spending plus these three reserves is approximately $5.70, leaving approximately $9.30 of the $15 authorization.
+Replace reserves with corresponding posted charges before the next rental. Do not count both.
