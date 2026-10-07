@@ -24,7 +24,7 @@ os.execvp('python3',['python3','-u','runpod_controller.py','serve'])
 '''
 
 
-def launch(minutes, receipt_path):
+def launch(minutes, receipt_path, controller_data_center='EU-RO-1'):
     if minutes not in (2,30):
         raise ValueError('Lease must be 2 or 30 minutes')
     if receipt_path.exists():
@@ -33,8 +33,8 @@ def launch(minutes, receipt_path):
         raise RuntimeError('Account already has Pods; refusing overlapping rental')
     catalog = api('GET','catalog/cpus/cpu3c?include=AVAILABILITY&product=POD&vcpuCount=2')
     rate = catalog['price']['securePerVcpu']*2
-    if not 0 < rate <= .06 or not any(d['id']=='EU-RO-1' and d['availability'] in ('LOW','MEDIUM','HIGH') for d in catalog.get('dataCenters',[])):
-        raise RuntimeError('Approved CPU rate or EU-RO-1 capacity is unavailable')
+    if not 0 < rate <= .06 or not any(d['id']==controller_data_center and d['availability'] in ('LOW','MEDIUM','HIGH') for d in catalog.get('dataCenters',[])):
+        raise RuntimeError('Approved CPU rate or requested controller capacity is unavailable')
     public = os.environ.get('CPG_SSH_PUBLIC_KEY','').strip()
     if not public.startswith('ssh-ed25519 '):
         raise ValueError('Missing dedicated SSH public key')
@@ -47,7 +47,7 @@ def launch(minutes, receipt_path):
         'description':'Temporary credential for one CPG CPU controller',
     })
     # Save the exact secret ID before provisioning. Never save the value.
-    receipt = {'run':run,'secret_id':secret['id'],'minutes':minutes,'image':CPU_IMAGE,
+    receipt = {'run':run,'secret_id':secret['id'],'minutes':minutes,'image':CPU_IMAGE,'controller_data_center':controller_data_center,
                'source_sha256':{n:hashlib.sha256(s.encode()).hexdigest() for n,s in sources.items()}}
     try:
         receipt_path.parent.mkdir(parents=True,exist_ok=True)
@@ -58,7 +58,7 @@ def launch(minutes, receipt_path):
     try:
         pod = api('POST','pods',{
             'name':'cpg-controller-'+run, 'image':CPU_IMAGE, 'cloud':'SECURE',
-            'cpu':{'id':'cpu3c','vcpuCount':2}, 'dataCenterIds':['EU-RO-1'],
+            'cpu':{'id':'cpu3c','vcpuCount':2}, 'dataCenterIds':[controller_data_center],
             'disk':2,'ports':[], 'entrypoint':['python3','-u','-c',BOOT], 'cmd':[],
             'env':{'CPG_CONTROL_API_KEY':'{{ RUNPOD_SECRET_'+secret['name']+' }}',
                    'CPG_SECRET_ID':secret['id'],'CPG_LEASE_RUN':run,'CPG_SOURCE':payload,
@@ -115,6 +115,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('mode',choices=('launch','serve'))
     parser.add_argument('--minutes',type=int,choices=(2,30),default=2)
+    parser.add_argument('--controller-data-center',default='EU-RO-1')
     parser.add_argument('--receipt',type=Path,default=Path('.cache/runpod/controller.json'))
     args = parser.parse_args()
     def interrupted(signum, frame):
@@ -122,7 +123,7 @@ def main():
     signal.signal(signal.SIGTERM,interrupted)
     signal.signal(signal.SIGINT,interrupted)
     if args.mode == 'launch':
-        launch(args.minutes,args.receipt)
+        launch(args.minutes,args.receipt,args.controller_data_center)
     else:
         serve()
 

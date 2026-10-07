@@ -24,6 +24,9 @@ A failed CPU boot still requires manual cleanup. No GPU is created until the con
 
 The CPU request uses two `cpu3c` vCPUs, two GB of disposable disk, and no exposed ports or persistent volume.
 The current price guard is $0.06/hour for the CPU controller and $0.49/hour for one L4, excluding disk charges.
+Use `--controller-data-center EU-NL-1` when the controller's default region has no capacity.
+The launcher checks live CPU availability and preserves the same rate guard.
+Controller placement is independent of GPU placement. The GPU request remains restricted to EU-RO-1.
 Read current capacity, rates, and remaining total budget before every rental. These limits do not authorize new spending.
 The controller uses the official `python:3.12-slim-bookworm` image because it needs Python and CA certificates, not CUDA.
 Only the local lease/controller scripts are included in its startup payload. It does not clone a repository or install experiment dependencies.
