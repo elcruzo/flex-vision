@@ -65,3 +65,7 @@ def test_public_runtime_numerics_and_retention(strategy):
             prepared(resident.float())
         with torch.autocast('cpu'), pytest.raises(ValueError,match='autocast'):
             prepared(resident)
+        with pytest.raises(ValueError,match='requires CUDA'):
+            prepared.submit(resident)
+        with pytest.raises(ValueError,match='Input event'):
+            prepared(resident,ready_event=object())

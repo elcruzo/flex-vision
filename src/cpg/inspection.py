@@ -19,6 +19,23 @@ class InspectionPlan:
 
 
 @dataclass(frozen=True)
+class InspectionResult:
+    """CUDA output plus completion event. Use wait() on the consumer stream."""
+    tensor: object
+    ready: object
+
+    def wait(self, stream=None):
+        """Enqueue a device wait and protect output storage on the consumer."""
+        import torch
+        stream = torch.cuda.current_stream(self.tensor.device) if stream is None else stream
+        if stream.device != self.tensor.device:
+            raise ValueError('Consumer stream must use the output device')
+        stream.wait_event(self.ready)
+        self.tensor.record_stream(stream)
+        return self.tensor
+
+
+@dataclass(frozen=True)
 class InspectionPipeline:
     """Gaussian 5/1.2, sharpen, clamp, crop, 224-square resize, normalize.
 
@@ -88,8 +105,22 @@ class _PreparedInspection:
         self.kernel = torch.tensor([[0,-1,0],[-1,5,-1],[0,-1,0]],dtype=torch.float32,device=self.device).view(1,1,3,3).repeat(3,1,1,1)
         self.mean = torch.tensor([.485,.456,.406],dtype=torch.float32,device=self.device).view(1,3,1,1)
         self.std = torch.tensor([.229,.224,.225],dtype=torch.float32,device=self.device).view(1,3,1,1)
+        self._constants_ready = None
+        if self.device.type == 'cuda':
+            self._constants_ready = torch.cuda.Event()
+            self._constants_ready.record(torch.cuda.current_stream(self.device))
 
-    def __call__(self, frame):
+    def submit(self, frame, *, ready_event=None):
+        """Return a completion handle for a CUDA consumer on another stream."""
+        import torch
+        if self.device.type != 'cuda':
+            raise ValueError('submit requires CUDA execution')
+        tensor = self(frame,ready_event=ready_event)
+        ready = torch.cuda.Event()
+        ready.record(torch.cuda.current_stream(self.device))
+        return InspectionResult(tensor,ready)
+
+    def __call__(self, frame, *, ready_event=None):
         import torch
         import torch.nn.functional as F
         if not isinstance(frame,torch.Tensor) or frame.dtype != torch.uint8:
@@ -100,6 +131,17 @@ class _PreparedInspection:
             raise ValueError('Disable autocast for the FP32 inspection recipe')
         if self.device.type == 'cuda' and torch.backends.cudnn.allow_tf32:
             raise ValueError('Disable cuDNN TF32 for the FP32 inspection recipe')
+        if ready_event is not None:
+            if self.device.type != 'cuda' or not isinstance(ready_event,torch.cuda.Event) or ready_event.device != self.device:
+                raise ValueError('Input event must be recorded on the prepared CUDA device')
+        if self.device.type == 'cuda':
+            stream = torch.cuda.current_stream(self.device)
+            stream.wait_event(self._constants_ready)
+            if ready_event is not None:
+                stream.wait_event(ready_event)
+            # Waiting orders work. record_stream separately protects allocator lifetimes.
+            for tensor in (frame,self.horizontal,self.vertical,self.kernel,self.mean,self.std):
+                tensor.record_stream(stream)
         left,top,width,height = self.plan.work_box
         x,y,w,h = self.plan.roi
         x,y = x-left,y-top
