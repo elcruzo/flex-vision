@@ -15,6 +15,7 @@ import numpy as np
 import torch
 import torchvision
 from torchvision.models import mobilenet_v3_small
+from cpg import InspectionPipeline
 
 from inspection_reference import TorchInspectionBaseline
 from inspection_roi import TorchInspectionROI
@@ -41,12 +42,17 @@ def main():
         parser.error('Commit the measured source first')
     validations = {'baseline': json.loads(args.validation.read_text())}
     if args.candidate_validation:
-        validations['roi'] = json.loads(args.candidate_validation.read_text())
+        candidate = json.loads(args.candidate_validation.read_text())
+        candidate_name = candidate.get('implementation')
+        if candidate_name not in ('roi','planned-full','planned-roi'):
+            parser.error('Candidate validation must identify roi, planned-full, or planned-roi')
+        validations[candidate_name] = candidate
     for implementation, validation in validations.items():
       if (validation.get('status') != 'passed' or validation.get('negative_control') or
         validation.get('implementation', 'baseline') != implementation or
         validation.get('runner_sha256') != digest(Path('scripts/local_classifier.py')) or
         (implementation == 'roi' and validation.get('candidate_sha256') != digest(Path('scripts/inspection_roi.py'))) or
+        (implementation.startswith('planned-') and validation.get('inspection_runtime_sha256') != digest(Path('src/cpg/inspection.py'))) or
         validation.get('preprocessing_device') != 'cuda' or validation.get('inference_device') != 'cuda' or
         validation.get('revision') != revision or validation.get('dirty') or
         validation.get('torch') != torch.__version__ or validation.get('torchvision') != torchvision.__version__ or
@@ -65,7 +71,7 @@ def main():
     model = model.cuda()
     implementations = {'baseline': TorchInspectionBaseline('cuda')}
     if args.candidate_validation:
-        implementations['roi'] = TorchInspectionROI('cuda')
+        implementations[candidate_name] = TorchInspectionROI('cuda') if candidate_name == 'roi' else None
     report = {'status':'failed','scope':'serial unfused CUDA baseline through PyTorch classifier; not a CPG comparison',
               'revision':revision,'python':platform.python_version(),'torch':torch.__version__,'torchvision':torchvision.__version__,
               'cuda':torch.version.cuda,'gpu':torch.cuda.get_device_name(),'weights_sha256':WEIGHTS_SHA256,
@@ -76,8 +82,9 @@ def main():
     if args.candidate_validation:
         report.update(scope='matched full-frame versus ROI reference through PyTorch classifier',
                       candidate_validation_sha256=digest(args.candidate_validation),
-                      candidate_sha256=digest(Path('scripts/inspection_roi.py')),
-                      order='baseline/roi on even repeats; roi/baseline on odd repeats')
+                      candidate_implementation=candidate_name,
+                      candidate_sha256=digest(Path('scripts/inspection_roi.py') if candidate_name == 'roi' else Path('src/cpg/inspection.py')),
+                      order='baseline/candidate on even repeats; candidate/baseline on odd repeats')
     metrics = ['preprocess_ms','inference_ms','stream_total_ms','host_total_ms']
     columns = ['case','implementation','repeat','iteration',*metrics]
     try:
@@ -91,6 +98,12 @@ def main():
                     if checked.get('status') != 'passed' or checked.get('input_sha256') != hashlib.sha256(frame.tobytes()).hexdigest() or checked.get('roi_xywh') != list(roi):
                         raise ValueError('Fixture is not covered by the passing validation')
                 resident = torch.from_numpy(frame).cuda()
+                executors = {}
+                for implementation, prepared in implementations.items():
+                    if implementation.startswith('planned-'):
+                        executors[implementation] = InspectionPipeline(roi,implementation.removeprefix('planned-')).prepare(frame.shape)
+                    else:
+                        executors[implementation] = lambda image, prepared=prepared, roi=roi: prepared.from_bgr8(image,roi)
                 events = [torch.cuda.Event(enable_timing=True) for _ in range(3)]
                 rows = []
                 for repeat in range(args.repeats):
@@ -98,16 +111,16 @@ def main():
                   if repeat % 2:
                     order.reverse()
                   for implementation in order:
-                    prepared = implementations[implementation]
+                    execute = executors[implementation]
                     for _ in range(args.warmup):
-                        model(prepared.from_bgr8(resident,roi))
+                        model(execute(resident))
                     torch.cuda.synchronize()
                     start_allocated = torch.cuda.memory_allocated()
                     torch.cuda.reset_peak_memory_stats()
                     for iteration in range(args.iterations):
                         started = time.perf_counter_ns()
                         events[0].record()
-                        tensor = prepared.from_bgr8(resident,roi)
+                        tensor = execute(resident)
                         events[1].record()
                         logits = model(tensor)
                         events[2].record()
