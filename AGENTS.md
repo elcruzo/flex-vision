@@ -52,7 +52,10 @@ The matched CUDA comparison passed for the 4K case. Read docs/experiments/014-in
 The experimental InspectionPipeline exposes explicit full and ROI strategies. Read docs/INSPECTION_RUNTIME.md.
 Integrated CUDA correctness, ROI timing, and traces passed on an L4. Read docs/experiments/016-integrated-inspection.md.
 Explicit stream handoffs passed real classifier checks. Read docs/experiments/017-inspection-streams.md, including the initial p99 failure.
-Next, evaluate sustained concurrent streams and memory behavior before broadening graph support. Small-image preprocessing was slower.
+The short sustained inspection run passed. Read docs/experiments/018-sustained-inspection.md, including its initial allocation-growth finding.
+Persistent camera streams kept post-drain allocations stable across the revised repeats. This is not a long soak or reusable-workspace guarantee.
+Next, complete the required FP16 YOLO/TensorRT detector consumer and its matched measurement loop.
+Longer sustained runs, vendor comparisons, reusable workspace, batching, and robot/ROS acceptance remain pending. Small-image preprocessing was slower.
 Reference operators are not production CUDA support.
 
 GitHub Actions is optional. The default rental path uses a disposable Runpod CPU controller. Read docs/GPU_LEASE.md.

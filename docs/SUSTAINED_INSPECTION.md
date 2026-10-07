@@ -1,6 +1,7 @@
 # Sustained inspection experiment
 
-Status: harness prepared. CUDA execution and throughput acceptance remain pending.
+Status: the short CUDA run passed correctness and performance checks. See [experiment 018](experiments/018-sustained-inspection.md).
+The revised fixed-stream run showed stable post-drain allocations across repeats. Longer acceptance remains pending.
 This is the developer tier from TESTING.md. It does not satisfy the 10,000-frame comparison or 30-minute soak tiers.
 
 ## Question

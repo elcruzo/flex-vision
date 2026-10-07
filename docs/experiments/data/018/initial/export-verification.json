@@ -1,0 +1,140 @@
+[
+  {
+    "path": "benchmark-results/iteration-018-sustained/gpu.txt",
+    "exists": true,
+    "matches": true,
+    "sha256": "12eeeb6b4be697c0ac5f37262e05aa64fc20727c4def760beadb11f295c01614"
+  },
+  {
+    "path": "benchmark-results/iteration-018-sustained/packages.txt",
+    "exists": true,
+    "matches": true,
+    "sha256": "2257193a2d4c1aa80b7c774888ce513db1f7829deeaa6e20ff5d5839635fbec4"
+  },
+  {
+    "path": "benchmark-results/iteration-018-sustained/pip-check.txt",
+    "exists": true,
+    "matches": true,
+    "sha256": "9261363b733079a641c2e4cc9bc46ffa1d8336945a87f807b6cf68847dbc9b09"
+  },
+  {
+    "path": "benchmark-results/iteration-018-sustained/preflight.json",
+    "exists": true,
+    "matches": true,
+    "sha256": "31103c9b2b93ccdba741dfdba5ee47e3a97f17d8d183f09b7966743f2ab80892"
+  },
+  {
+    "path": "benchmark-results/iteration-018-sustained/streams/report.json",
+    "exists": true,
+    "matches": true,
+    "sha256": "147565b059337e33e83884c82b0d9069ee124e1954ba9bfcec471d061442ea19"
+  },
+  {
+    "path": "benchmark-results/iteration-018-sustained/sustained/1cams-baseline-0.csv",
+    "exists": true,
+    "matches": true,
+    "sha256": "73b6caed43322f5852a4d7a8cbfde3756d30f5305f907ddd389e82f843ebfd78"
+  },
+  {
+    "path": "benchmark-results/iteration-018-sustained/sustained/1cams-baseline-1.csv",
+    "exists": true,
+    "matches": true,
+    "sha256": "cf08c19e3c552302dd1499326ddf99700bb40338450c58699d0f9a5bcdba02ac"
+  },
+  {
+    "path": "benchmark-results/iteration-018-sustained/sustained/1cams-baseline-2.csv",
+    "exists": true,
+    "matches": true,
+    "sha256": "6462d31f69e4754aff3dabe9c569696201bdbdb393fd44406d07d404c4569e1e"
+  },
+  {
+    "path": "benchmark-results/iteration-018-sustained/sustained/1cams-baseline-3.csv",
+    "exists": true,
+    "matches": true,
+    "sha256": "4196e4be55c8e21b345adfc400ee01ce6800d0ec1e66d6246d29a3adebd08d25"
+  },
+  {
+    "path": "benchmark-results/iteration-018-sustained/sustained/1cams-roi-0.csv",
+    "exists": true,
+    "matches": true,
+    "sha256": "6a34cb4ff2ceb5c12ea6445f319264d24f2c14e4b18e9cc1fd35ec99ca9ca338"
+  },
+  {
+    "path": "benchmark-results/iteration-018-sustained/sustained/1cams-roi-1.csv",
+    "exists": true,
+    "matches": true,
+    "sha256": "1cd2295a29caf6e8d15b5efb1514eec6bffdbc8529583c0b395bbd8c09b90523"
+  },
+  {
+    "path": "benchmark-results/iteration-018-sustained/sustained/1cams-roi-2.csv",
+    "exists": true,
+    "matches": true,
+    "sha256": "8129a6f3bfd790077acb8ee30bad44e1daea87ca8a42e36209a9c31028f5ff20"
+  },
+  {
+    "path": "benchmark-results/iteration-018-sustained/sustained/1cams-roi-3.csv",
+    "exists": true,
+    "matches": true,
+    "sha256": "77e3aef1ca69f4272a803f2334364c25df304eaee3bccc9bb980dc4f8175d018"
+  },
+  {
+    "path": "benchmark-results/iteration-018-sustained/sustained/4cams-baseline-0.csv",
+    "exists": true,
+    "matches": true,
+    "sha256": "3c636adf36c11aeca6032ce340b9480cfc987b45f401cd80b5f63f9eca8e7a6e"
+  },
+  {
+    "path": "benchmark-results/iteration-018-sustained/sustained/4cams-baseline-1.csv",
+    "exists": true,
+    "matches": true,
+    "sha256": "1036a7e5dc900c7deea7781f1a8e4ad4f963d67762004a932b9abdb6a4772f3c"
+  },
+  {
+    "path": "benchmark-results/iteration-018-sustained/sustained/4cams-baseline-2.csv",
+    "exists": true,
+    "matches": true,
+    "sha256": "70524855c536c53425fedde2b654eaa961c82dc523c42b1380426fbb95a25f8d"
+  },
+  {
+    "path": "benchmark-results/iteration-018-sustained/sustained/4cams-baseline-3.csv",
+    "exists": true,
+    "matches": true,
+    "sha256": "1756e09d217bcdf081f895ab409684628bdcf20703e2473674ff93e2bbbf5b9b"
+  },
+  {
+    "path": "benchmark-results/iteration-018-sustained/sustained/4cams-roi-0.csv",
+    "exists": true,
+    "matches": true,
+    "sha256": "89e7b18dc79b2221f84a05f7b258f9cc5a0ddb16d98ea30a08d8ee9125fcd1f2"
+  },
+  {
+    "path": "benchmark-results/iteration-018-sustained/sustained/4cams-roi-1.csv",
+    "exists": true,
+    "matches": true,
+    "sha256": "33612e05953f4923198acb28561883e65689425a4eb4454e2603fd236125f550"
+  },
+  {
+    "path": "benchmark-results/iteration-018-sustained/sustained/4cams-roi-2.csv",
+    "exists": true,
+    "matches": true,
+    "sha256": "8ee57a87b57bff8babca01842e23e513d9953bd18df13dd47c983e8a0bd6e37f"
+  },
+  {
+    "path": "benchmark-results/iteration-018-sustained/sustained/4cams-roi-3.csv",
+    "exists": true,
+    "matches": true,
+    "sha256": "969fa863b45d5acb1eb84f048239934e145307addfc3eaec5e60b34821657c18"
+  },
+  {
+    "path": "benchmark-results/iteration-018-sustained/sustained/report.json",
+    "exists": true,
+    "matches": true,
+    "sha256": "a1f8c8ed693bae09fa1ece754888f9a46c7c806d864ef91366b9ed13ab1fef70"
+  },
+  {
+    "path": "benchmark-results/iteration-018-sustained/telemetry.csv",
+    "exists": true,
+    "matches": false,
+    "sha256": "a410ff61fb627eb0ba3e20a8dfaaa94f9c9dedf196e801f0a1c248dd30237230"
+  }
+]

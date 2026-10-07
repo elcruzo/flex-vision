@@ -25,11 +25,15 @@ Small-image preprocessing was slower. The [experimental fixed inspection API](IN
 [Experiment 016](experiments/016-integrated-inspection.md) validated integrated CUDA correctness, ROI timing, and transfer traces on an L4.
 [Experiment 017](experiments/017-inspection-streams.md) passed 24 cross-stream classifier cases with explicit handoffs and retained-output checks.
 Its first timing run failed the small-image p99 guard. A revised run passed, with both results retained.
-Next, evaluate sustained concurrent streams and memory behavior. Do not infer throughput or tail stability from the finite correctness run.
-The [sustained inspection protocol](SUSTAINED_INSPECTION.md) and bounded-load harness are prepared. GPU execution remains pending.
+The [sustained inspection experiment](experiments/018-sustained-inspection.md) passed its short CUDA correctness and performance checks.
+Its revised fixed-stream run measured 63.48% higher overload throughput and stable post-drain allocations across repeats.
+The initial run exposed allocation growth when the harness introduced new streams between blocks. Both runs remain in the evidence.
+The [sustained inspection protocol](SUSTAINED_INSPECTION.md) records the load, queue policy, validation overhead, and stream-lifetime correction.
 Treat its short runs as development evidence, not the comparison or soak tiers in TESTING.md.
 The measured SSDLite FP32 workload does not complete the required 640×640 FP16 YOLO/TensorRT scenario.
 The fixed inspection API does not complete configurable stencils, reusable workspace, batching, or general graph planning.
+Next, complete the required detector's FP16 YOLO/TensorRT consumer and matched measurement loop.
+Keep longer sustained runs, vendor comparisons, reusable workspace, batching, and the robot/ROS workloads open.
 See [the backend contract](CUDA_BACKEND.md), [host evidence](experiments/004-cuda-host.md), and [fused execution evidence](experiments/005-fused-cuda.md).
 See [local development](LOCAL_DEVELOPMENT.md) and [source audit](SOURCE_AUDIT.md) for current evidence.
 

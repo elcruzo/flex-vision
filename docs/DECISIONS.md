@@ -308,3 +308,18 @@ The caller remains responsible for input-buffer writes and model initialization 
 Experiment 017 passed 24 cross-stream inference cases. Its initial timing guard failed and the revised run passed.
 Keep both results and do not attribute variable small-image tails solely to the implementation change.
 Sustained concurrent throughput and memory bounds remain unmeasured.
+
+## D026 — Reuse camera streams in sustained comparisons
+
+Experiment 018 measured the inspection path under bounded resident-input arrivals through real classifier inference.
+The initial harness introduced new CUDA streams between blocks and showed increasing allocation baselines.
+No measured block grew above its own post-warmup allocation after drain.
+The revised harness reuses four streams across strategies and repeats, without clearing allocator caches.
+Post-drain allocations remained stable across the revised repeats, with a 63.48% median paired overload throughput gain for ROI execution.
+Both runs retain numerical checks, raw frames, drop records, and per-camera results.
+
+Use persistent streams for fixed camera lanes. Do not interpret a library's retained stream resources as a per-frame leak without attribution.
+The comparison used different hosts, so between-run timing changes do not isolate stream-lifetime effects.
+This short test includes GPU validation overhead. It does not establish uninstrumented deployment throughput or the required long soak.
+The public runtime still needs reusable workspace, batch support, and the broader graph contracts.
+Complete the FP16 YOLO/TensorRT detector path next, preserving the full remaining requirements.

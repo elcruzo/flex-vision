@@ -1,0 +1,814 @@
+{
+  "revision": "5109835f499d2fc88e8ca2ea87c55aa7d3709b48",
+  "runs": [
+    {
+      "cameras": 1,
+      "repeat": 0,
+      "strategy": "baseline",
+      "completed": 598,
+      "dropped": 2,
+      "max_inflight": 1,
+      "allocated_start": 71397376,
+      "allocated_after_drain": 71397376,
+      "peak_allocated": 470659072,
+      "peak_reserved": 509607936,
+      "completed_per_second_with_drain": 29.9,
+      "arrival_to_completion_ms": {
+        "p50": 8.993997828414368,
+        "p95": 9.737496237503063,
+        "p99": 10.294989770724357
+      },
+      "per_camera": [
+        {
+          "lane": 0,
+          "offered": 600,
+          "completed": 598,
+          "dropped": 2,
+          "arrival_to_completion_ms": {
+            "p50": 8.993997828414368,
+            "p95": 9.737496237503063,
+            "p99": 10.294989770724357
+          }
+        }
+      ]
+    },
+    {
+      "cameras": 1,
+      "repeat": 0,
+      "strategy": "roi",
+      "completed": 600,
+      "dropped": 0,
+      "max_inflight": 1,
+      "allocated_start": 80965632,
+      "allocated_after_drain": 80965632,
+      "peak_allocated": 257419776,
+      "peak_reserved": 713031680,
+      "completed_per_second_with_drain": 30.0,
+      "arrival_to_completion_ms": {
+        "p50": 5.823917664626199,
+        "p95": 9.64404658899487,
+        "p99": 9.805081193917488
+      },
+      "per_camera": [
+        {
+          "lane": 0,
+          "offered": 600,
+          "completed": 600,
+          "dropped": 0,
+          "arrival_to_completion_ms": {
+            "p50": 5.823917664626199,
+            "p95": 9.64404658899487,
+            "p99": 9.805081193917488
+          }
+        }
+      ]
+    },
+    {
+      "cameras": 1,
+      "repeat": 1,
+      "strategy": "roi",
+      "completed": 600,
+      "dropped": 0,
+      "max_inflight": 1,
+      "allocated_start": 90533888,
+      "allocated_after_drain": 90533888,
+      "peak_allocated": 266988032,
+      "peak_reserved": 916455424,
+      "completed_per_second_with_drain": 30.0,
+      "arrival_to_completion_ms": {
+        "p50": 5.711400336197769,
+        "p95": 7.224976344344542,
+        "p99": 9.456219131418244
+      },
+      "per_camera": [
+        {
+          "lane": 0,
+          "offered": 600,
+          "completed": 600,
+          "dropped": 0,
+          "arrival_to_completion_ms": {
+            "p50": 5.711400336197769,
+            "p95": 7.224976344344542,
+            "p99": 9.456219131418244
+          }
+        }
+      ]
+    },
+    {
+      "cameras": 1,
+      "repeat": 1,
+      "strategy": "baseline",
+      "completed": 600,
+      "dropped": 0,
+      "max_inflight": 1,
+      "allocated_start": 100102144,
+      "allocated_after_drain": 100102144,
+      "peak_allocated": 499363840,
+      "peak_reserved": 1348468736,
+      "completed_per_second_with_drain": 30.0,
+      "arrival_to_completion_ms": {
+        "p50": 9.004123678703735,
+        "p95": 9.782483393987285,
+        "p99": 9.977591748641341
+      },
+      "per_camera": [
+        {
+          "lane": 0,
+          "offered": 600,
+          "completed": 600,
+          "dropped": 0,
+          "arrival_to_completion_ms": {
+            "p50": 9.004123678703735,
+            "p95": 9.782483393987285,
+            "p99": 9.977591748641341
+          }
+        }
+      ]
+    },
+    {
+      "cameras": 1,
+      "repeat": 2,
+      "strategy": "baseline",
+      "completed": 600,
+      "dropped": 0,
+      "max_inflight": 1,
+      "allocated_start": 109670400,
+      "allocated_after_drain": 109670400,
+      "peak_allocated": 508932096,
+      "peak_reserved": 1780482048,
+      "completed_per_second_with_drain": 30.0,
+      "arrival_to_completion_ms": {
+        "p50": 8.87442050443532,
+        "p95": 8.989015704234093,
+        "p99": 9.014296022767434
+      },
+      "per_camera": [
+        {
+          "lane": 0,
+          "offered": 600,
+          "completed": 600,
+          "dropped": 0,
+          "arrival_to_completion_ms": {
+            "p50": 8.87442050443532,
+            "p95": 8.989015704234093,
+            "p99": 9.014296022767434
+          }
+        }
+      ]
+    },
+    {
+      "cameras": 1,
+      "repeat": 2,
+      "strategy": "roi",
+      "completed": 600,
+      "dropped": 0,
+      "max_inflight": 1,
+      "allocated_start": 119238656,
+      "allocated_after_drain": 119238656,
+      "peak_allocated": 295692800,
+      "peak_reserved": 1983905792,
+      "completed_per_second_with_drain": 30.0,
+      "arrival_to_completion_ms": {
+        "p50": 5.818016512785462,
+        "p95": 6.009582159167592,
+        "p99": 9.597331828536397
+      },
+      "per_camera": [
+        {
+          "lane": 0,
+          "offered": 600,
+          "completed": 600,
+          "dropped": 0,
+          "arrival_to_completion_ms": {
+            "p50": 5.818016512785462,
+            "p95": 6.009582159167592,
+            "p99": 9.597331828536397
+          }
+        }
+      ]
+    },
+    {
+      "cameras": 1,
+      "repeat": 3,
+      "strategy": "roi",
+      "completed": 600,
+      "dropped": 0,
+      "max_inflight": 1,
+      "allocated_start": 128806912,
+      "allocated_after_drain": 128806912,
+      "peak_allocated": 305261056,
+      "peak_reserved": 2187329536,
+      "completed_per_second_with_drain": 30.0,
+      "arrival_to_completion_ms": {
+        "p50": 6.09604682734588,
+        "p95": 10.051798438653343,
+        "p99": 10.616333135733418
+      },
+      "per_camera": [
+        {
+          "lane": 0,
+          "offered": 600,
+          "completed": 600,
+          "dropped": 0,
+          "arrival_to_completion_ms": {
+            "p50": 6.09604682734588,
+            "p95": 10.051798438653343,
+            "p99": 10.616333135733418
+          }
+        }
+      ]
+    },
+    {
+      "cameras": 1,
+      "repeat": 3,
+      "strategy": "baseline",
+      "completed": 600,
+      "dropped": 0,
+      "max_inflight": 1,
+      "allocated_start": 138375168,
+      "allocated_after_drain": 138375168,
+      "peak_allocated": 537636864,
+      "peak_reserved": 2619342848,
+      "completed_per_second_with_drain": 30.0,
+      "arrival_to_completion_ms": {
+        "p50": 9.093835832512553,
+        "p95": 10.707679504121081,
+        "p99": 11.364077815397948
+      },
+      "per_camera": [
+        {
+          "lane": 0,
+          "offered": 600,
+          "completed": 600,
+          "dropped": 0,
+          "arrival_to_completion_ms": {
+            "p50": 9.093835832512553,
+            "p95": 10.707679504121081,
+            "p99": 11.364077815397948
+          }
+        }
+      ]
+    },
+    {
+      "cameras": 4,
+      "repeat": 0,
+      "strategy": "baseline",
+      "completed": 2360,
+      "dropped": 2440,
+      "max_inflight": 8,
+      "allocated_start": 176659968,
+      "allocated_after_drain": 176659968,
+      "peak_allocated": 575921664,
+      "peak_reserved": 4347396096,
+      "completed_per_second_with_drain": 117.81219379695342,
+      "arrival_to_completion_ms": {
+        "p50": 63.04225402418506,
+        "p95": 68.90479812029939,
+        "p99": 69.62951616056202
+      },
+      "per_camera": [
+        {
+          "lane": 0,
+          "offered": 1200,
+          "completed": 590,
+          "dropped": 610,
+          "arrival_to_completion_ms": {
+            "p50": 63.07537467606927,
+            "p95": 69.07667457223127,
+            "p99": 69.70649017707939
+          }
+        },
+        {
+          "lane": 1,
+          "offered": 1200,
+          "completed": 590,
+          "dropped": 610,
+          "arrival_to_completion_ms": {
+            "p50": 62.992406842144135,
+            "p95": 68.92385766899704,
+            "p99": 69.74235994473597
+          }
+        },
+        {
+          "lane": 2,
+          "offered": 1200,
+          "completed": 590,
+          "dropped": 610,
+          "arrival_to_completion_ms": {
+            "p50": 63.01974118784237,
+            "p95": 68.79504358027324,
+            "p99": 69.64088746065211
+          }
+        },
+        {
+          "lane": 3,
+          "offered": 1200,
+          "completed": 590,
+          "dropped": 610,
+          "arrival_to_completion_ms": {
+            "p50": 63.09429900138641,
+            "p95": 68.87421015970175,
+            "p99": 69.52367078041434
+          }
+        }
+      ]
+    },
+    {
+      "cameras": 4,
+      "repeat": 0,
+      "strategy": "roi",
+      "completed": 3847,
+      "dropped": 953,
+      "max_inflight": 8,
+      "allocated_start": 214932992,
+      "allocated_after_drain": 214932992,
+      "peak_allocated": 391387136,
+      "peak_reserved": 5161091072,
+      "completed_per_second_with_drain": 192.2530754967152,
+      "arrival_to_completion_ms": {
+        "p50": 34.580254335498495,
+        "p95": 42.7735528803904,
+        "p99": 44.00192170171067
+      },
+      "per_camera": [
+        {
+          "lane": 0,
+          "offered": 1200,
+          "completed": 963,
+          "dropped": 237,
+          "arrival_to_completion_ms": {
+            "p50": 34.562109987019696,
+            "p95": 42.7319391242543,
+            "p99": 44.124884510025595
+          }
+        },
+        {
+          "lane": 1,
+          "offered": 1200,
+          "completed": 956,
+          "dropped": 244,
+          "arrival_to_completion_ms": {
+            "p50": 34.60224948939894,
+            "p95": 42.803494919886774,
+            "p99": 43.96478297644864
+          }
+        },
+        {
+          "lane": 2,
+          "offered": 1200,
+          "completed": 972,
+          "dropped": 228,
+          "arrival_to_completion_ms": {
+            "p50": 34.550185650974896,
+            "p95": 42.989948016572065,
+            "p99": 43.97650706733106
+          }
+        },
+        {
+          "lane": 3,
+          "offered": 1200,
+          "completed": 956,
+          "dropped": 244,
+          "arrival_to_completion_ms": {
+            "p50": 34.60707382376582,
+            "p95": 42.66261565887053,
+            "p99": 43.939995421872695
+          }
+        }
+      ]
+    },
+    {
+      "cameras": 4,
+      "repeat": 1,
+      "strategy": "roi",
+      "completed": 3833,
+      "dropped": 967,
+      "max_inflight": 8,
+      "allocated_start": 253206016,
+      "allocated_after_drain": 253206016,
+      "peak_allocated": 429660160,
+      "peak_reserved": 5974786048,
+      "completed_per_second_with_drain": 191.50070139010583,
+      "arrival_to_completion_ms": {
+        "p50": 33.7191820086451,
+        "p95": 42.604609263750426,
+        "p99": 43.98055294722619
+      },
+      "per_camera": [
+        {
+          "lane": 0,
+          "offered": 1200,
+          "completed": 969,
+          "dropped": 231,
+          "arrival_to_completion_ms": {
+            "p50": 33.63405300769884,
+            "p95": 42.523169459697385,
+            "p99": 44.04425763920969
+          }
+        },
+        {
+          "lane": 1,
+          "offered": 1200,
+          "completed": 947,
+          "dropped": 253,
+          "arrival_to_completion_ms": {
+            "p50": 33.86652967116488,
+            "p95": 42.595417730820536,
+            "p99": 44.0226177837463
+          }
+        },
+        {
+          "lane": 2,
+          "offered": 1200,
+          "completed": 950,
+          "dropped": 250,
+          "arrival_to_completion_ms": {
+            "p50": 33.80692300852384,
+            "p95": 42.61781674606018,
+            "p99": 43.773686441457315
+          }
+        },
+        {
+          "lane": 3,
+          "offered": 1200,
+          "completed": 967,
+          "dropped": 233,
+          "arrival_to_completion_ms": {
+            "p50": 33.41481732398588,
+            "p95": 42.6384586377146,
+            "p99": 43.86308822179359
+          }
+        }
+      ]
+    },
+    {
+      "cameras": 4,
+      "repeat": 1,
+      "strategy": "baseline",
+      "completed": 2340,
+      "dropped": 2460,
+      "max_inflight": 8,
+      "allocated_start": 291479040,
+      "allocated_after_drain": 291479040,
+      "peak_allocated": 690740736,
+      "peak_reserved": 7702839296,
+      "completed_per_second_with_drain": 116.761988946483,
+      "arrival_to_completion_ms": {
+        "p50": 63.08828432714408,
+        "p95": 69.56287339698385,
+        "p99": 70.84657003059175
+      },
+      "per_camera": [
+        {
+          "lane": 0,
+          "offered": 1200,
+          "completed": 585,
+          "dropped": 615,
+          "arrival_to_completion_ms": {
+            "p50": 63.080734664497484,
+            "p95": 69.45759126955448,
+            "p99": 70.48654191778026
+          }
+        },
+        {
+          "lane": 1,
+          "offered": 1200,
+          "completed": 585,
+          "dropped": 615,
+          "arrival_to_completion_ms": {
+            "p50": 63.09434966921579,
+            "p95": 69.54152285858619,
+            "p99": 70.3250382979556
+          }
+        },
+        {
+          "lane": 2,
+          "offered": 1200,
+          "completed": 585,
+          "dropped": 615,
+          "arrival_to_completion_ms": {
+            "p50": 63.07003132727296,
+            "p95": 69.54898467675487,
+            "p99": 71.00159431730077
+          }
+        },
+        {
+          "lane": 3,
+          "offered": 1200,
+          "completed": 585,
+          "dropped": 615,
+          "arrival_to_completion_ms": {
+            "p50": 63.10884367946201,
+            "p95": 69.60608660941907,
+            "p99": 70.68662488840833
+          }
+        }
+      ]
+    },
+    {
+      "cameras": 4,
+      "repeat": 2,
+      "strategy": "baseline",
+      "completed": 2355,
+      "dropped": 2445,
+      "max_inflight": 8,
+      "allocated_start": 329752064,
+      "allocated_after_drain": 329752064,
+      "peak_allocated": 729013760,
+      "peak_reserved": 9430892544,
+      "completed_per_second_with_drain": 117.54177990289203,
+      "arrival_to_completion_ms": {
+        "p50": 63.03365566224528,
+        "p95": 69.09303699212659,
+        "p99": 69.93764304198945
+      },
+      "per_camera": [
+        {
+          "lane": 0,
+          "offered": 1200,
+          "completed": 589,
+          "dropped": 611,
+          "arrival_to_completion_ms": {
+            "p50": 63.054777322880895,
+            "p95": 69.06663860078002,
+            "p99": 69.91963485178253
+          }
+        },
+        {
+          "lane": 1,
+          "offered": 1200,
+          "completed": 588,
+          "dropped": 612,
+          "arrival_to_completion_ms": {
+            "p50": 63.01147149933995,
+            "p95": 69.12184913613592,
+            "p99": 69.9371140544927
+          }
+        },
+        {
+          "lane": 2,
+          "offered": 1200,
+          "completed": 589,
+          "dropped": 611,
+          "arrival_to_completion_ms": {
+            "p50": 63.018551331091466,
+            "p95": 69.12005565982926,
+            "p99": 69.79117793838196
+          }
+        },
+        {
+          "lane": 3,
+          "offered": 1200,
+          "completed": 589,
+          "dropped": 611,
+          "arrival_to_completion_ms": {
+            "p50": 63.041901662169494,
+            "p95": 68.96680046260997,
+            "p99": 69.88228295906474
+          }
+        }
+      ]
+    },
+    {
+      "cameras": 4,
+      "repeat": 2,
+      "strategy": "roi",
+      "completed": 3829,
+      "dropped": 971,
+      "max_inflight": 8,
+      "allocated_start": 368025088,
+      "allocated_after_drain": 368025088,
+      "peak_allocated": 544479232,
+      "peak_reserved": 10244587520,
+      "completed_per_second_with_drain": 191.3094454191454,
+      "arrival_to_completion_ms": {
+        "p50": 34.63570799212901,
+        "p95": 42.530045206658684,
+        "p99": 44.027799253196704
+      },
+      "per_camera": [
+        {
+          "lane": 0,
+          "offered": 1200,
+          "completed": 948,
+          "dropped": 252,
+          "arrival_to_completion_ms": {
+            "p50": 34.65538184003283,
+            "p95": 42.36754569166745,
+            "p99": 43.97749333097179
+          }
+        },
+        {
+          "lane": 1,
+          "offered": 1200,
+          "completed": 954,
+          "dropped": 246,
+          "arrival_to_completion_ms": {
+            "p50": 34.57327632834995,
+            "p95": 42.52373562320537,
+            "p99": 44.01082659685438
+          }
+        },
+        {
+          "lane": 2,
+          "offered": 1200,
+          "completed": 964,
+          "dropped": 236,
+          "arrival_to_completion_ms": {
+            "p50": 34.61963099834975,
+            "p95": 42.581102846597304,
+            "p99": 44.062741409657285
+          }
+        },
+        {
+          "lane": 3,
+          "offered": 1200,
+          "completed": 963,
+          "dropped": 237,
+          "arrival_to_completion_ms": {
+            "p50": 34.663312003249125,
+            "p95": 42.58027806509433,
+            "p99": 43.94352016741621
+          }
+        }
+      ]
+    },
+    {
+      "cameras": 4,
+      "repeat": 3,
+      "strategy": "roi",
+      "completed": 3828,
+      "dropped": 972,
+      "max_inflight": 8,
+      "allocated_start": 368025088,
+      "allocated_after_drain": 368025088,
+      "peak_allocated": 544479232,
+      "peak_reserved": 10244587520,
+      "completed_per_second_with_drain": 191.2029002873519,
+      "arrival_to_completion_ms": {
+        "p50": 34.64423000114028,
+        "p95": 42.71028329783171,
+        "p99": 44.089921719531326
+      },
+      "per_camera": [
+        {
+          "lane": 0,
+          "offered": 1200,
+          "completed": 958,
+          "dropped": 242,
+          "arrival_to_completion_ms": {
+            "p50": 34.68631899741048,
+            "p95": 42.76925151973642,
+            "p99": 44.1773694632768
+          }
+        },
+        {
+          "lane": 1,
+          "offered": 1200,
+          "completed": 956,
+          "dropped": 244,
+          "arrival_to_completion_ms": {
+            "p50": 34.62841934427452,
+            "p95": 42.68801551806983,
+            "p99": 43.96865834326784
+          }
+        },
+        {
+          "lane": 2,
+          "offered": 1200,
+          "completed": 956,
+          "dropped": 244,
+          "arrival_to_completion_ms": {
+            "p50": 34.62073768702517,
+            "p95": 42.73221126059079,
+            "p99": 44.221477298027125
+          }
+        },
+        {
+          "lane": 3,
+          "offered": 1200,
+          "completed": 958,
+          "dropped": 242,
+          "arrival_to_completion_ms": {
+            "p50": 34.64178167438739,
+            "p95": 42.699369893429036,
+            "p99": 44.047423856507365
+          }
+        }
+      ]
+    },
+    {
+      "cameras": 4,
+      "repeat": 3,
+      "strategy": "baseline",
+      "completed": 2352,
+      "dropped": 2448,
+      "max_inflight": 8,
+      "allocated_start": 368025088,
+      "allocated_after_drain": 368025088,
+      "peak_allocated": 767286784,
+      "peak_reserved": 11049893888,
+      "completed_per_second_with_drain": 117.45776630908722,
+      "arrival_to_completion_ms": {
+        "p50": 63.07556182049101,
+        "p95": 69.02163962532848,
+        "p99": 69.85684763147356
+      },
+      "per_camera": [
+        {
+          "lane": 0,
+          "offered": 1200,
+          "completed": 588,
+          "dropped": 612,
+          "arrival_to_completion_ms": {
+            "p50": 63.08793265585955,
+            "p95": 69.02296441820602,
+            "p99": 69.95358290849283
+          }
+        },
+        {
+          "lane": 1,
+          "offered": 1200,
+          "completed": 588,
+          "dropped": 612,
+          "arrival_to_completion_ms": {
+            "p50": 63.06643349234964,
+            "p95": 68.97034213907371,
+            "p99": 69.81198065962731
+          }
+        },
+        {
+          "lane": 2,
+          "offered": 1200,
+          "completed": 588,
+          "dropped": 612,
+          "arrival_to_completion_ms": {
+            "p50": 63.075671493424856,
+            "p95": 69.06938127494251,
+            "p99": 69.80934640138521
+          }
+        },
+        {
+          "lane": 3,
+          "offered": 1200,
+          "completed": 588,
+          "dropped": 612,
+          "arrival_to_completion_ms": {
+            "p50": 63.075963817148526,
+            "p95": 68.98245102008022,
+            "p99": 69.75392776442447
+          }
+        }
+      ]
+    }
+  ],
+  "sample_sha256": {
+    "1cams-baseline-0.csv": "73b6caed43322f5852a4d7a8cbfde3756d30f5305f907ddd389e82f843ebfd78",
+    "1cams-roi-0.csv": "6a34cb4ff2ceb5c12ea6445f319264d24f2c14e4b18e9cc1fd35ec99ca9ca338",
+    "1cams-roi-1.csv": "1cd2295a29caf6e8d15b5efb1514eec6bffdbc8529583c0b395bbd8c09b90523",
+    "1cams-baseline-1.csv": "cf08c19e3c552302dd1499326ddf99700bb40338450c58699d0f9a5bcdba02ac",
+    "1cams-baseline-2.csv": "6462d31f69e4754aff3dabe9c569696201bdbdb393fd44406d07d404c4569e1e",
+    "1cams-roi-2.csv": "8129a6f3bfd790077acb8ee30bad44e1daea87ca8a42e36209a9c31028f5ff20",
+    "1cams-roi-3.csv": "77e3aef1ca69f4272a803f2334364c25df304eaee3bccc9bb980dc4f8175d018",
+    "1cams-baseline-3.csv": "4196e4be55c8e21b345adfc400ee01ce6800d0ec1e66d6246d29a3adebd08d25",
+    "4cams-baseline-0.csv": "3c636adf36c11aeca6032ce340b9480cfc987b45f401cd80b5f63f9eca8e7a6e",
+    "4cams-roi-0.csv": "89e7b18dc79b2221f84a05f7b258f9cc5a0ddb16d98ea30a08d8ee9125fcd1f2",
+    "4cams-roi-1.csv": "33612e05953f4923198acb28561883e65689425a4eb4454e2603fd236125f550",
+    "4cams-baseline-1.csv": "1036a7e5dc900c7deea7781f1a8e4ad4f963d67762004a932b9abdb6a4772f3c",
+    "4cams-baseline-2.csv": "70524855c536c53425fedde2b654eaa961c82dc523c42b1380426fbb95a25f8d",
+    "4cams-roi-2.csv": "8ee57a87b57bff8babca01842e23e513d9953bd18df13dd47c983e8a0bd6e37f",
+    "4cams-roi-3.csv": "969fa863b45d5acb1eb84f048239934e145307addfc3eaec5e60b34821657c18",
+    "4cams-baseline-3.csv": "1756e09d217bcdf081f895ab409684628bdcf20703e2473674ff93e2bbbf5b9b"
+  },
+  "scope": "resident synthetic arrivals with GPU validation overhead",
+  "status": "verified",
+  "median_stress_throughput_ratio": 1.6298522080218323,
+  "median_control_p99_ratio": 0.9500792790612526,
+  "performance_passed": true,
+  "post_drain_allocated_by_repeat": {
+    "1-baseline": [
+      71397376,
+      100102144,
+      109670400,
+      138375168
+    ],
+    "1-roi": [
+      80965632,
+      90533888,
+      119238656,
+      128806912
+    ],
+    "4-baseline": [
+      176659968,
+      291479040,
+      329752064,
+      368025088
+    ],
+    "4-roi": [
+      214932992,
+      253206016,
+      368025088,
+      368025088
+    ]
+  }
+}

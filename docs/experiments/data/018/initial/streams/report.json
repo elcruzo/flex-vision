@@ -1,0 +1,445 @@
+{
+  "status": "passed",
+  "revision": "5109835f499d2fc88e8ca2ea87c55aa7d3709b48",
+  "runtime_sha256": "455ca0447f32a33accf8993839fb0df3d873cd53f981f21a80e2105eb4ae751a",
+  "runner_sha256": "cc99c740f6fab3a496df63a270f637e1cc10971eb7682729cde8ddd29e9e006c",
+  "weights_sha256": "047dcff4addef86ea5bc2eff13c9614dc11f47ab1160d0a71a25e7db994f4e1f",
+  "torch": "2.9.1+cu130",
+  "cuda": "13.0",
+  "gpu": "NVIDIA L4",
+  "cases": [
+    {
+      "fixture": "chelsea",
+      "strategy": "full",
+      "iteration": 0,
+      "variant": 0,
+      "input_sha256": "2ae870185ec12f23e7f636043c834cdebe3f2a836d0769157047d4fcc3bb71f0",
+      "tensor_max_abs_error": 1.835078001022339e-05,
+      "logit_max_abs_error": 2.2649765014648438e-05,
+      "retained": true,
+      "top5": [
+        285,
+        282,
+        281,
+        287,
+        722
+      ],
+      "status": "passed"
+    },
+    {
+      "fixture": "chelsea",
+      "strategy": "full",
+      "iteration": 1,
+      "variant": 1,
+      "input_sha256": "cc6ca8b933a6a325799ac02651ecf813216408bb543f3ef82accb6b2915b0d10",
+      "tensor_max_abs_error": 2.092123031616211e-05,
+      "logit_max_abs_error": 2.384185791015625e-05,
+      "retained": false,
+      "top5": [
+        285,
+        281,
+        282,
+        793,
+        728
+      ],
+      "status": "passed"
+    },
+    {
+      "fixture": "chelsea",
+      "strategy": "full",
+      "iteration": 2,
+      "variant": 0,
+      "input_sha256": "2ae870185ec12f23e7f636043c834cdebe3f2a836d0769157047d4fcc3bb71f0",
+      "tensor_max_abs_error": 1.835078001022339e-05,
+      "logit_max_abs_error": 2.2649765014648438e-05,
+      "retained": true,
+      "top5": [
+        285,
+        282,
+        281,
+        287,
+        722
+      ],
+      "status": "passed"
+    },
+    {
+      "fixture": "chelsea",
+      "strategy": "full",
+      "iteration": 3,
+      "variant": 1,
+      "input_sha256": "cc6ca8b933a6a325799ac02651ecf813216408bb543f3ef82accb6b2915b0d10",
+      "tensor_max_abs_error": 2.092123031616211e-05,
+      "logit_max_abs_error": 2.384185791015625e-05,
+      "retained": false,
+      "top5": [
+        285,
+        281,
+        282,
+        793,
+        728
+      ],
+      "status": "passed"
+    },
+    {
+      "fixture": "chelsea",
+      "strategy": "roi",
+      "iteration": 0,
+      "variant": 0,
+      "input_sha256": "2ae870185ec12f23e7f636043c834cdebe3f2a836d0769157047d4fcc3bb71f0",
+      "tensor_max_abs_error": 1.835078001022339e-05,
+      "logit_max_abs_error": 2.2649765014648438e-05,
+      "retained": true,
+      "top5": [
+        285,
+        282,
+        281,
+        287,
+        722
+      ],
+      "status": "passed"
+    },
+    {
+      "fixture": "chelsea",
+      "strategy": "roi",
+      "iteration": 1,
+      "variant": 1,
+      "input_sha256": "cc6ca8b933a6a325799ac02651ecf813216408bb543f3ef82accb6b2915b0d10",
+      "tensor_max_abs_error": 2.092123031616211e-05,
+      "logit_max_abs_error": 2.384185791015625e-05,
+      "retained": false,
+      "top5": [
+        285,
+        281,
+        282,
+        793,
+        728
+      ],
+      "status": "passed"
+    },
+    {
+      "fixture": "chelsea",
+      "strategy": "roi",
+      "iteration": 2,
+      "variant": 0,
+      "input_sha256": "2ae870185ec12f23e7f636043c834cdebe3f2a836d0769157047d4fcc3bb71f0",
+      "tensor_max_abs_error": 1.835078001022339e-05,
+      "logit_max_abs_error": 2.2649765014648438e-05,
+      "retained": true,
+      "top5": [
+        285,
+        282,
+        281,
+        287,
+        722
+      ],
+      "status": "passed"
+    },
+    {
+      "fixture": "chelsea",
+      "strategy": "roi",
+      "iteration": 3,
+      "variant": 1,
+      "input_sha256": "cc6ca8b933a6a325799ac02651ecf813216408bb543f3ef82accb6b2915b0d10",
+      "tensor_max_abs_error": 2.092123031616211e-05,
+      "logit_max_abs_error": 2.384185791015625e-05,
+      "retained": false,
+      "top5": [
+        285,
+        281,
+        282,
+        793,
+        728
+      ],
+      "status": "passed"
+    },
+    {
+      "fixture": "chelsea-odd-roi",
+      "strategy": "full",
+      "iteration": 0,
+      "variant": 0,
+      "input_sha256": "710cde0e9de62ea638e120e59a437c3c1fc1bf76b740345df4fadcf44b70a7a4",
+      "tensor_max_abs_error": 1.835078001022339e-05,
+      "logit_max_abs_error": 2.288818359375e-05,
+      "retained": true,
+      "top5": [
+        285,
+        282,
+        281,
+        287,
+        722
+      ],
+      "status": "passed"
+    },
+    {
+      "fixture": "chelsea-odd-roi",
+      "strategy": "full",
+      "iteration": 1,
+      "variant": 1,
+      "input_sha256": "6afd9828a3da8e261219325d7111931b54b2584c17aad4ee054262b9c1c03266",
+      "tensor_max_abs_error": 1.9252300262451172e-05,
+      "logit_max_abs_error": 2.574920654296875e-05,
+      "retained": false,
+      "top5": [
+        285,
+        282,
+        281,
+        287,
+        722
+      ],
+      "status": "passed"
+    },
+    {
+      "fixture": "chelsea-odd-roi",
+      "strategy": "full",
+      "iteration": 2,
+      "variant": 0,
+      "input_sha256": "710cde0e9de62ea638e120e59a437c3c1fc1bf76b740345df4fadcf44b70a7a4",
+      "tensor_max_abs_error": 1.835078001022339e-05,
+      "logit_max_abs_error": 2.288818359375e-05,
+      "retained": true,
+      "top5": [
+        285,
+        282,
+        281,
+        287,
+        722
+      ],
+      "status": "passed"
+    },
+    {
+      "fixture": "chelsea-odd-roi",
+      "strategy": "full",
+      "iteration": 3,
+      "variant": 1,
+      "input_sha256": "6afd9828a3da8e261219325d7111931b54b2584c17aad4ee054262b9c1c03266",
+      "tensor_max_abs_error": 1.9252300262451172e-05,
+      "logit_max_abs_error": 2.574920654296875e-05,
+      "retained": false,
+      "top5": [
+        285,
+        282,
+        281,
+        287,
+        722
+      ],
+      "status": "passed"
+    },
+    {
+      "fixture": "chelsea-odd-roi",
+      "strategy": "roi",
+      "iteration": 0,
+      "variant": 0,
+      "input_sha256": "710cde0e9de62ea638e120e59a437c3c1fc1bf76b740345df4fadcf44b70a7a4",
+      "tensor_max_abs_error": 1.835078001022339e-05,
+      "logit_max_abs_error": 2.288818359375e-05,
+      "retained": true,
+      "top5": [
+        285,
+        282,
+        281,
+        287,
+        722
+      ],
+      "status": "passed"
+    },
+    {
+      "fixture": "chelsea-odd-roi",
+      "strategy": "roi",
+      "iteration": 1,
+      "variant": 1,
+      "input_sha256": "6afd9828a3da8e261219325d7111931b54b2584c17aad4ee054262b9c1c03266",
+      "tensor_max_abs_error": 1.9252300262451172e-05,
+      "logit_max_abs_error": 2.574920654296875e-05,
+      "retained": false,
+      "top5": [
+        285,
+        282,
+        281,
+        287,
+        722
+      ],
+      "status": "passed"
+    },
+    {
+      "fixture": "chelsea-odd-roi",
+      "strategy": "roi",
+      "iteration": 2,
+      "variant": 0,
+      "input_sha256": "710cde0e9de62ea638e120e59a437c3c1fc1bf76b740345df4fadcf44b70a7a4",
+      "tensor_max_abs_error": 1.835078001022339e-05,
+      "logit_max_abs_error": 2.288818359375e-05,
+      "retained": true,
+      "top5": [
+        285,
+        282,
+        281,
+        287,
+        722
+      ],
+      "status": "passed"
+    },
+    {
+      "fixture": "chelsea-odd-roi",
+      "strategy": "roi",
+      "iteration": 3,
+      "variant": 1,
+      "input_sha256": "6afd9828a3da8e261219325d7111931b54b2584c17aad4ee054262b9c1c03266",
+      "tensor_max_abs_error": 1.9252300262451172e-05,
+      "logit_max_abs_error": 2.574920654296875e-05,
+      "retained": false,
+      "top5": [
+        285,
+        282,
+        281,
+        287,
+        722
+      ],
+      "status": "passed"
+    },
+    {
+      "fixture": "chelsea-4k-roi",
+      "strategy": "full",
+      "iteration": 0,
+      "variant": 0,
+      "input_sha256": "73dc21146f6a5dc3f2b5e42b390a800e6981ad0cc476b985cdc76a2e6fab77cc",
+      "tensor_max_abs_error": 4.607066512107849e-05,
+      "logit_max_abs_error": 5.91278076171875e-05,
+      "retained": true,
+      "top5": [
+        285,
+        282,
+        281,
+        722,
+        793
+      ],
+      "status": "passed"
+    },
+    {
+      "fixture": "chelsea-4k-roi",
+      "strategy": "full",
+      "iteration": 1,
+      "variant": 1,
+      "input_sha256": "e115ed94fad81329f48b1a0032fd322974f88e6f8d20db1b54979b32aca273e9",
+      "tensor_max_abs_error": 6.306171417236328e-05,
+      "logit_max_abs_error": 4.863739013671875e-05,
+      "retained": false,
+      "top5": [
+        285,
+        282,
+        281,
+        793,
+        722
+      ],
+      "status": "passed"
+    },
+    {
+      "fixture": "chelsea-4k-roi",
+      "strategy": "full",
+      "iteration": 2,
+      "variant": 0,
+      "input_sha256": "73dc21146f6a5dc3f2b5e42b390a800e6981ad0cc476b985cdc76a2e6fab77cc",
+      "tensor_max_abs_error": 4.607066512107849e-05,
+      "logit_max_abs_error": 5.91278076171875e-05,
+      "retained": true,
+      "top5": [
+        285,
+        282,
+        281,
+        722,
+        793
+      ],
+      "status": "passed"
+    },
+    {
+      "fixture": "chelsea-4k-roi",
+      "strategy": "full",
+      "iteration": 3,
+      "variant": 1,
+      "input_sha256": "e115ed94fad81329f48b1a0032fd322974f88e6f8d20db1b54979b32aca273e9",
+      "tensor_max_abs_error": 6.306171417236328e-05,
+      "logit_max_abs_error": 4.863739013671875e-05,
+      "retained": false,
+      "top5": [
+        285,
+        282,
+        281,
+        793,
+        722
+      ],
+      "status": "passed"
+    },
+    {
+      "fixture": "chelsea-4k-roi",
+      "strategy": "roi",
+      "iteration": 0,
+      "variant": 0,
+      "input_sha256": "73dc21146f6a5dc3f2b5e42b390a800e6981ad0cc476b985cdc76a2e6fab77cc",
+      "tensor_max_abs_error": 4.607066512107849e-05,
+      "logit_max_abs_error": 5.91278076171875e-05,
+      "retained": true,
+      "top5": [
+        285,
+        282,
+        281,
+        722,
+        793
+      ],
+      "status": "passed"
+    },
+    {
+      "fixture": "chelsea-4k-roi",
+      "strategy": "roi",
+      "iteration": 1,
+      "variant": 1,
+      "input_sha256": "e115ed94fad81329f48b1a0032fd322974f88e6f8d20db1b54979b32aca273e9",
+      "tensor_max_abs_error": 6.306171417236328e-05,
+      "logit_max_abs_error": 4.863739013671875e-05,
+      "retained": false,
+      "top5": [
+        285,
+        282,
+        281,
+        793,
+        722
+      ],
+      "status": "passed"
+    },
+    {
+      "fixture": "chelsea-4k-roi",
+      "strategy": "roi",
+      "iteration": 2,
+      "variant": 0,
+      "input_sha256": "73dc21146f6a5dc3f2b5e42b390a800e6981ad0cc476b985cdc76a2e6fab77cc",
+      "tensor_max_abs_error": 4.607066512107849e-05,
+      "logit_max_abs_error": 5.91278076171875e-05,
+      "retained": true,
+      "top5": [
+        285,
+        282,
+        281,
+        722,
+        793
+      ],
+      "status": "passed"
+    },
+    {
+      "fixture": "chelsea-4k-roi",
+      "strategy": "roi",
+      "iteration": 3,
+      "variant": 1,
+      "input_sha256": "e115ed94fad81329f48b1a0032fd322974f88e6f8d20db1b54979b32aca273e9",
+      "tensor_max_abs_error": 6.306171417236328e-05,
+      "logit_max_abs_error": 4.863739013671875e-05,
+      "retained": false,
+      "top5": [
+        285,
+        282,
+        281,
+        793,
+        722
+      ],
+      "status": "passed"
+    }
+  ],
+  "scope": "same-device stream ordering and allocator lifetime stress; no throughput claim"
+}

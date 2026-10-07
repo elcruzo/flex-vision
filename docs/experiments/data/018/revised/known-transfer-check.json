@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "copies": [
+    [
+      2,
+      4096
+    ]
+  ],
+  "expected_d2h_bytes": 4096
+}
