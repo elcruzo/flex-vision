@@ -47,6 +47,12 @@ The default experiment uses these settings:
 | Streams | One processing/inference stream per camera |
 | Warmup | Ten frames per stream, outside measurement |
 
+Reuse the same four-stream pool across strategies and repeats. The one-camera workload uses its first stream.
+The first GPU run created streams per block and showed rising post-drain allocations across blocks.
+Retain that result. The revised protocol changes stream lifetime only, with the same loads, thresholds, and checks.
+PyTorch documents retained [cuBLAS workspaces per handle and stream](https://docs.pytorch.org/docs/2.9/notes/cuda.html#cublas-workspaces).
+Stream reuse tests that explanation without clearing caches or changing the production runtime.
+
 Arrivals are evenly staggered across cameras. Rotate the first camera between repeats.
 Drop an arrival when its dispatch slot expires or its camera queue is full.
 Do not replay missed arrivals as a burst. Drain accepted frames after the arrival window.

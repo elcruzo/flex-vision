@@ -21,8 +21,8 @@ from local_detector import digest
 
 
 def run(model, sources, expected, expected_logits, roi, strategy, cameras, fps,
-        seconds, depth, repeat):
-    streams = [torch.cuda.Stream() for _ in range(cameras)]
+        seconds, depth, repeat, stream_pool):
+    streams = stream_pool[:cameras]
     executors = []
     for stream in streams:
         with torch.cuda.stream(stream):
@@ -150,6 +150,7 @@ def main():
         parser.error('Commit the measured source first')
     args.output.mkdir(parents=True, exist_ok=False)
     report = {'status': 'failed', 'runs': [], 'scope': 'resident synthetic arrivals with GPU validation overhead',
+              'stream_policy': 'four persistent streams, shared across strategies and repeats',
               'revision': subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),
               'torch': torch.__version__, 'torchvision': torchvision.__version__,
               'cuda': torch.version.cuda, 'gpu': torch.cuda.get_device_name(),
@@ -179,12 +180,13 @@ def main():
             expected_logits = [x.cuda() for x in logits_cpu]
             sources = [torch.from_numpy(x).cuda() for x in variants]
             torch.cuda.synchronize()
+            stream_pool = [torch.cuda.Stream() for _ in range(4)]
             for cameras, fps in ((1,30), (4,60)):
                 for repeat in range(args.repeats):
                     order = ('baseline','roi') if repeat % 2 == 0 else ('roi','baseline')
                     for strategy in order:
                         result, rows = run(model, sources, expected, expected_logits, roi, strategy,
-                                           cameras, fps, args.seconds, args.depth, repeat)
+                                           cameras, fps, args.seconds, args.depth, repeat, stream_pool)
                         filename = f'{cameras}cams-{strategy}-{repeat}.csv'
                         with (args.output/filename).open('w', newline='') as handle:
                             writer = csv.DictWriter(handle, fieldnames=['frame','lane','variant','arrival_s',
