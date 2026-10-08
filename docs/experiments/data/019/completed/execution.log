@@ -1,0 +1,147 @@
+Cloning into 'flex-vision'...
+Note: switching to '26ed35b'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at 26ed35b Add continuous thermally conditioned inspection soak under independent lease
+Looking in indexes: https://download.pytorch.org/whl/cu130
+Requirement already satisfied: torch==2.9.1+cu130 in /usr/local/lib/python3.12/dist-packages (2.9.1+cu130)
+Collecting torchvision==0.24.1+cu130
+  Downloading https://download-r2.pytorch.org/whl/cu130/torchvision-0.24.1%2Bcu130-cp312-cp312-manylinux_2_28_x86_64.whl.metadata (5.9 kB)
+Requirement already satisfied: filelock in /usr/local/lib/python3.12/dist-packages (from torch==2.9.1+cu130) (3.29.4)
+Requirement already satisfied: typing-extensions>=4.10.0 in /usr/local/lib/python3.12/dist-packages (from torch==2.9.1+cu130) (4.15.0)
+Requirement already satisfied: setuptools in /usr/local/lib/python3.12/dist-packages (from torch==2.9.1+cu130) (82.0.1)
+Requirement already satisfied: sympy>=1.13.3 in /usr/local/lib/python3.12/dist-packages (from torch==2.9.1+cu130) (1.14.0)
+Requirement already satisfied: networkx>=2.5.1 in /usr/local/lib/python3.12/dist-packages (from torch==2.9.1+cu130) (3.6.1)
+Requirement already satisfied: jinja2 in /usr/local/lib/python3.12/dist-packages (from torch==2.9.1+cu130) (3.1.6)
+Requirement already satisfied: fsspec>=0.8.5 in /usr/local/lib/python3.12/dist-packages (from torch==2.9.1+cu130) (2026.4.0)
+Requirement already satisfied: nvidia-cuda-nvrtc==13.0.48 in /usr/local/lib/python3.12/dist-packages (from torch==2.9.1+cu130) (13.0.48)
+Requirement already satisfied: nvidia-cuda-runtime==13.0.48 in /usr/local/lib/python3.12/dist-packages (from torch==2.9.1+cu130) (13.0.48)
+Requirement already satisfied: nvidia-cuda-cupti==13.0.48 in /usr/local/lib/python3.12/dist-packages (from torch==2.9.1+cu130) (13.0.48)
+Requirement already satisfied: nvidia-cudnn-cu13==9.13.0.50 in /usr/local/lib/python3.12/dist-packages (from torch==2.9.1+cu130) (9.13.0.50)
+Requirement already satisfied: nvidia-cublas==13.0.0.19 in /usr/local/lib/python3.12/dist-packages (from torch==2.9.1+cu130) (13.0.0.19)
+Requirement already satisfied: nvidia-cufft==12.0.0.15 in /usr/local/lib/python3.12/dist-packages (from torch==2.9.1+cu130) (12.0.0.15)
+Requirement already satisfied: nvidia-curand==10.4.0.35 in /usr/local/lib/python3.12/dist-packages (from torch==2.9.1+cu130) (10.4.0.35)
+Requirement already satisfied: nvidia-cusolver==12.0.3.29 in /usr/local/lib/python3.12/dist-packages (from torch==2.9.1+cu130) (12.0.3.29)
+Requirement already satisfied: nvidia-cusparse==12.6.2.49 in /usr/local/lib/python3.12/dist-packages (from torch==2.9.1+cu130) (12.6.2.49)
+Requirement already satisfied: nvidia-cusparselt-cu13==0.8.0 in /usr/local/lib/python3.12/dist-packages (from torch==2.9.1+cu130) (0.8.0)
+Requirement already satisfied: nvidia-nccl-cu13==2.27.7 in /usr/local/lib/python3.12/dist-packages (from torch==2.9.1+cu130) (2.27.7)
+Requirement already satisfied: nvidia-nvshmem-cu13==3.3.24 in /usr/local/lib/python3.12/dist-packages (from torch==2.9.1+cu130) (3.3.24)
+Requirement already satisfied: nvidia-nvtx==13.0.39 in /usr/local/lib/python3.12/dist-packages (from torch==2.9.1+cu130) (13.0.39)
+Requirement already satisfied: nvidia-nvjitlink==13.0.39 in /usr/local/lib/python3.12/dist-packages (from torch==2.9.1+cu130) (13.0.39)
+Requirement already satisfied: nvidia-cufile==1.15.0.42 in /usr/local/lib/python3.12/dist-packages (from torch==2.9.1+cu130) (1.15.0.42)
+Requirement already satisfied: triton==3.5.1 in /usr/local/lib/python3.12/dist-packages (from torch==2.9.1+cu130) (3.5.1)
+Collecting numpy (from torchvision==0.24.1+cu130)
+  Downloading numpy-2.5.2-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (6.6 kB)
+Collecting pillow!=8.3.*,>=5.3.0 (from torchvision==0.24.1+cu130)
+  Downloading pillow-12.3.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (9.1 kB)
+Requirement already satisfied: mpmath<1.4,>=1.1.0 in /usr/local/lib/python3.12/dist-packages (from sympy>=1.13.3->torch==2.9.1+cu130) (1.3.0)
+Requirement already satisfied: MarkupSafe>=2.0 in /usr/local/lib/python3.12/dist-packages (from jinja2->torch==2.9.1+cu130) (3.0.3)
+Downloading https://download-r2.pytorch.org/whl/cu130/torchvision-0.24.1%2Bcu130-cp312-cp312-manylinux_2_28_x86_64.whl (7.5 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 7.5/7.5 MB 20.9 MB/s eta 0:00:00
+Downloading pillow-12.3.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (6.9 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.9/6.9 MB 24.7 MB/s eta 0:00:00
+Downloading numpy-2.5.2-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (16.7 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 16.7/16.7 MB 120.8 MB/s eta 0:00:00
+Installing collected packages: pillow, numpy, torchvision
+Successfully installed numpy-2.5.2 pillow-12.3.0 torchvision-0.24.1+cu130
+Obtaining file:///workspace/flex-vision
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Checking if build backend supports build_editable: started
+  Checking if build backend supports build_editable: finished with status 'done'
+  Getting requirements to build editable: started
+  Getting requirements to build editable: finished with status 'done'
+  Preparing editable metadata (pyproject.toml): started
+  Preparing editable metadata (pyproject.toml): finished with status 'done'
+Collecting numpy==2.2.6
+  Downloading numpy-2.2.6-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (62 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 62.0/62.0 kB 1.2 MB/s eta 0:00:00
+Requirement already satisfied: PyYAML>=6.0.2 in /usr/local/lib/python3.12/dist-packages (from cuda-preprocess-graph==0.0.1) (6.0.3)
+Downloading numpy-2.2.6-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (16.5 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 16.5/16.5 MB 113.2 MB/s eta 0:00:00
+Building wheels for collected packages: cuda-preprocess-graph
+  Building editable for cuda-preprocess-graph (pyproject.toml): started
+  Building editable for cuda-preprocess-graph (pyproject.toml): finished with status 'done'
+  Created wheel for cuda-preprocess-graph: filename=cuda_preprocess_graph-0.0.1-0.editable-py3-none-any.whl size=1778 sha256=1682b60db334b8b4f0b4548c5b57837d326eb9c9b46d13ec5a6eb38bf698b71b
+  Stored in directory: /tmp/pip-ephem-wheel-cache-cm3kk7f8/wheels/95/c4/81/232f54915c8d0d6b41f7ed518bb6851848bad8798d7b5bf4cc
+Successfully built cuda-preprocess-graph
+Installing collected packages: numpy, cuda-preprocess-graph
+  Attempting uninstall: numpy
+    Found existing installation: numpy 2.5.2
+    Uninstalling numpy-2.5.2:
+      Successfully uninstalled numpy-2.5.2
+Successfully installed cuda-preprocess-graph-0.0.1 numpy-2.2.6
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  9.8M  100  9.8M    0     0  20.0M      0 --:--:-- --:--:-- --:--:-- 20.0M
+{"status": "cuda_smoke_passed", "output": "benchmark-results/iteration-019c-soak/preflight.json"}
+{"status": "passed", "cases": 24}
+{"event": "progress", "strategy": "roi", "elapsed_s": 60.00412511918694, "offered": 14400, "pending": 7, "allocated": 100180992, "reserved": 891289600}
+{"event": "progress", "strategy": "roi", "elapsed_s": 120.00607434753329, "offered": 28801, "pending": 6, "allocated": 100180992, "reserved": 891289600}
+{"event": "progress", "strategy": "roi", "elapsed_s": 180.0095516173169, "offered": 43202, "pending": 6, "allocated": 100180992, "reserved": 891289600}
+{"event": "progress", "strategy": "roi", "elapsed_s": 240.01115926820785, "offered": 57602, "pending": 6, "allocated": 100180992, "reserved": 891289600}
+{"event": "progress", "strategy": "roi", "elapsed_s": 300.011215752922, "offered": 72000, "pending": 4, "allocated": 100180992, "reserved": 891289600}
+{"event": "thermal_conditioning", "samples": 120, "range_c": 3.0, "median_change_c": 0.0, "stable": false}
+{"event": "progress", "strategy": "roi", "elapsed_s": 60.004285875707865, "offered": 14400, "pending": 5, "allocated": 100180992, "reserved": 891289600}
+{"event": "progress", "strategy": "roi", "elapsed_s": 120.0059412876144, "offered": 28801, "pending": 1, "allocated": 100180992, "reserved": 891289600}
+{"event": "progress", "strategy": "roi", "elapsed_s": 180.0097648035735, "offered": 43202, "pending": 6, "allocated": 100180992, "reserved": 891289600}
+{"event": "progress", "strategy": "roi", "elapsed_s": 240.01323025114834, "offered": 57603, "pending": 6, "allocated": 100180992, "reserved": 891289600}
+{"event": "thermal_conditioning", "samples": 120, "range_c": 2.0, "median_change_c": 0.0, "stable": true}
+{"event": "continuous_soak_started", "seconds": 1800, "unix_s": 1791448708.4033122}
+{"event": "progress", "strategy": "roi", "elapsed_s": 60.001055671833456, "offered": 14400, "pending": 7, "allocated": 100540928, "reserved": 891289600}
+{"event": "progress", "strategy": "roi", "elapsed_s": 120.00561164971441, "offered": 28801, "pending": 7, "allocated": 100540928, "reserved": 891289600}
+{"event": "progress", "strategy": "roi", "elapsed_s": 180.00687993690372, "offered": 43201, "pending": 7, "allocated": 100540928, "reserved": 891289600}
+{"event": "progress", "strategy": "roi", "elapsed_s": 240.00741065386683, "offered": 57601, "pending": 7, "allocated": 100540928, "reserved": 891289600}
+{"event": "progress", "strategy": "roi", "elapsed_s": 300.0093596531078, "offered": 72002, "pending": 5, "allocated": 100540928, "reserved": 891289600}
+{"event": "progress", "strategy": "roi", "elapsed_s": 360.01418097224087, "offered": 86403, "pending": 6, "allocated": 100540928, "reserved": 891289600}
+{"event": "progress", "strategy": "roi", "elapsed_s": 420.0142000373453, "offered": 100804, "pending": 7, "allocated": 100540928, "reserved": 891289600}
+{"event": "progress", "strategy": "roi", "elapsed_s": 480.0182989742607, "offered": 115204, "pending": 6, "allocated": 100540928, "reserved": 891289600}
+{"event": "progress", "strategy": "roi", "elapsed_s": 540.0198713559657, "offered": 129604, "pending": 7, "allocated": 100540928, "reserved": 891289600}
+{"event": "progress", "strategy": "roi", "elapsed_s": 600.0223434045911, "offered": 144005, "pending": 6, "allocated": 100540928, "reserved": 891289600}
+{"event": "progress", "strategy": "roi", "elapsed_s": 660.0266083870083, "offered": 158406, "pending": 5, "allocated": 100540928, "reserved": 891289600}
+{"event": "progress", "strategy": "roi", "elapsed_s": 720.0303780296817, "offered": 172807, "pending": 7, "allocated": 100540928, "reserved": 891289600}
+{"event": "progress", "strategy": "roi", "elapsed_s": 780.0340699944645, "offered": 187208, "pending": 6, "allocated": 100540928, "reserved": 891289600}
+{"event": "progress", "strategy": "roi", "elapsed_s": 840.0353867104277, "offered": 201608, "pending": 6, "allocated": 100540928, "reserved": 891289600}
+{"event": "progress", "strategy": "roi", "elapsed_s": 900.037202003412, "offered": 216008, "pending": 7, "allocated": 100540928, "reserved": 891289600}
+{"event": "progress", "strategy": "roi", "elapsed_s": 960.043041924946, "offered": 230409, "pending": 7, "allocated": 100540928, "reserved": 891289600}
+{"event": "progress", "strategy": "roi", "elapsed_s": 1020.0463554402813, "offered": 244811, "pending": 6, "allocated": 100540928, "reserved": 891289600}
+{"event": "progress", "strategy": "roi", "elapsed_s": 1080.0475867455825, "offered": 259211, "pending": 6, "allocated": 100540928, "reserved": 891289600}
+{"event": "progress", "strategy": "roi", "elapsed_s": 1140.051301272586, "offered": 273612, "pending": 6, "allocated": 100540928, "reserved": 891289600}
+{"event": "progress", "strategy": "roi", "elapsed_s": 1200.0553599130362, "offered": 288013, "pending": 7, "allocated": 100540928, "reserved": 891289600}
+{"event": "progress", "strategy": "roi", "elapsed_s": 1260.0585659565404, "offered": 302413, "pending": 7, "allocated": 100540928, "reserved": 891289600}
+{"event": "progress", "strategy": "roi", "elapsed_s": 1320.0632266104221, "offered": 316814, "pending": 7, "allocated": 100540928, "reserved": 891289600}
+{"event": "progress", "strategy": "roi", "elapsed_s": 1380.0633635483682, "offered": 331216, "pending": 6, "allocated": 100540928, "reserved": 891289600}
+{"event": "progress", "strategy": "roi", "elapsed_s": 1440.067178009078, "offered": 345616, "pending": 6, "allocated": 100540928, "reserved": 891289600}
+{"event": "progress", "strategy": "roi", "elapsed_s": 1500.070386693813, "offered": 360016, "pending": 8, "allocated": 100540928, "reserved": 891289600}
+{"event": "progress", "strategy": "roi", "elapsed_s": 1560.0705070262775, "offered": 374417, "pending": 7, "allocated": 100540928, "reserved": 891289600}
+{"event": "progress", "strategy": "roi", "elapsed_s": 1620.0726398285478, "offered": 388817, "pending": 6, "allocated": 100540928, "reserved": 891289600}
+{"event": "progress", "strategy": "roi", "elapsed_s": 1680.0761154303327, "offered": 403218, "pending": 6, "allocated": 100540928, "reserved": 891289600}
+{"event": "progress", "strategy": "roi", "elapsed_s": 1740.0804563239217, "offered": 417619, "pending": 7, "allocated": 100540928, "reserved": 891289600}
+0918dc4a7b0be2243941060cb4f812c63f41bfe9824cb8838583efb49dbdbe94  benchmark-results/iteration-019c-soak/gpu.txt
+09c10537c65a3da86f18844e59b994e2617695cc19dbee5f2e239537291663b7  benchmark-results/iteration-019c-soak/packages.txt
+9261363b733079a641c2e4cc9bc46ffa1d8336945a87f807b6cf68847dbc9b09  benchmark-results/iteration-019c-soak/pip-check.txt
+5bb94a8bb3d51098e40ad8cc3f4e49febf1286241a439e1dbf97415a494d9cd0  benchmark-results/iteration-019c-soak/preflight.json
+74e55875af8048d6bb43136a613367a8b52f05def22e325e29fb1507ab917e7b  benchmark-results/iteration-019c-soak/streams/report.json
+0736ba613951284aa88d871d72796fe0605c1efb42c42ad650e93f7a00b8c9a9  benchmark-results/iteration-019c-soak/sustained/conditioning-0.csv
+5e372f24298dc3af106cc3554512f1b683d04404d1dd7d4ba7584ab4b7f74795  benchmark-results/iteration-019c-soak/sustained/conditioning-0.json
+bb26709f0d0a61427455664a980e4e98916ae2f83b3e4f66fe2c3896f534f531  benchmark-results/iteration-019c-soak/sustained/conditioning-1.csv
+3c52f84dfd881ca40390f73f40d1dbff6fa8c3e5a27262efab9323d3dd6452f3  benchmark-results/iteration-019c-soak/sustained/conditioning-1.json
+1c5401f67cc76754b81d326e6bcd2ba711e5af74d1a6d584f8d943778fed1c66  benchmark-results/iteration-019c-soak/sustained/report.json
+b54baedb31146f335d4e54294ba8ee9b14b622469e07b32bb8788f5242f2e3c5  benchmark-results/iteration-019c-soak/sustained/soak-status.json
+a0b0a34c0f0464b9c197c9cddbc9de2a926e3bccb7c90f607fa0d047c63d5aa3  benchmark-results/iteration-019c-soak/sustained/soak.csv
+d4b621b1ee2535697291a91c9d6d02b31484425802857f1ce9f58292afeb19ae  benchmark-results/iteration-019c-soak/sustained/soak.json
+cfa33a96ff7bfeeaa21313e1a3d6a4b54ac2ee36881391af06469f2651f38e4c  benchmark-results/iteration-019c-soak/sustained/telemetry.csv

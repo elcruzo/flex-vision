@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "platform": "Linux",
+  "architecture": "x86_64",
+  "python": "3.12.3",
+  "status": "cuda_smoke_passed",
+  "scope": "CUDA arithmetic/stream smoke only; not TensorRT inference, CPG, or tracing acceptance",
+  "nvidia_smi": {
+    "status": "passed",
+    "stdout": "NVIDIA L4, 580.159.04, 23034 MiB",
+    "stderr": ""
+  },
+  "nvcc": {
+    "status": "missing"
+  },
+  "nsys": {
+    "status": "missing"
+  },
+  "packages": {
+    "torch": "2.9.1+cu130",
+    "torchvision": "0.24.1+cu130",
+    "cupy-cuda13x": null,
+    "cupy-cuda12x": null,
+    "tensorrt": null,
+    "tensorrt-cu13": null,
+    "cuda-toolkit": null
+  },
+  "pending": [
+    "CuPy interoperability",
+    "TensorRT inference",
+    "actual Nsight trace inspection"
+  ],
+  "torch_cuda_build": "13.0",
+  "cuda_available": true,
+  "gpu": "NVIDIA L4",
+  "compute_capability": [
+    8,
+    9
+  ],
+  "known_d2h_bytes": 4096,
+  "reason": "CUDA arithmetic and explicit stream completion passed; inspect the separate trace next"
+}

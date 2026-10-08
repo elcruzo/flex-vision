@@ -1,0 +1,581 @@
+{
+  "status": "verified",
+  "soak_passed": true,
+  "revision": "26ed35b9483b982f94fd1001687714c6df42f128",
+  "sample_sha256": "a0b0a34c0f0464b9c197c9cddbc9de2a926e3bccb7c90f607fa0d047c63d5aa3",
+  "summary_script_sha256": "ddcd3a7e50a902756e33169ae8048eb7be1545c84aea50ea33bc1561906dee54",
+  "offered": 432000,
+  "completed": 338155,
+  "dropped": 93845,
+  "drop_reasons": {
+    "dropped_dispatch_late": 37843,
+    "dropped_queue_full": 56002
+  },
+  "elapsed_with_drain_s": 1800.0068637700751,
+  "latest_completion_s": 1800.0067040771246,
+  "completed_fps_with_drain": 187.86317252798787,
+  "arrival_to_completion_ms": {
+    "p50": 34.956957586132376,
+    "p95": 42.9600712843353,
+    "p99": 46.66707818583064
+  },
+  "gpu_pipeline_ms": {
+    "p50": 20.888288497924805,
+    "p95": 31.348274612426756,
+    "p99": 36.265926895141604
+  },
+  "memory_growth_bytes": {
+    "post_drain_allocated": 0,
+    "sampled_allocated_floor": 0,
+    "sampled_reserved_ceiling": 0
+  },
+  "max_memory_sample_gap_s": 0.10743782203644514,
+  "minutes": [
+    {
+      "minute": 0,
+      "offered": 14400,
+      "completed": 11285,
+      "drops": {
+        "dropped_dispatch_late": 1339,
+        "dropped_queue_full": 1776
+      },
+      "arrival_to_completion_ms": {
+        "p50": 34.724118001761894,
+        "p95": 42.807854997614925,
+        "p99": 44.989378484590354
+      },
+      "completed_fps": 188.08333333333334
+    },
+    {
+      "minute": 1,
+      "offered": 14400,
+      "completed": 11292,
+      "drops": {
+        "dropped_queue_full": 1951,
+        "dropped_dispatch_late": 1157
+      },
+      "arrival_to_completion_ms": {
+        "p50": 35.14078625788386,
+        "p95": 42.919936959317084,
+        "p99": 46.81883111533665
+      },
+      "completed_fps": 188.2
+    },
+    {
+      "minute": 2,
+      "offered": 14400,
+      "completed": 11239,
+      "drops": {
+        "dropped_queue_full": 1851,
+        "dropped_dispatch_late": 1310
+      },
+      "arrival_to_completion_ms": {
+        "p50": 34.92032196373884,
+        "p95": 43.02919020876175,
+        "p99": 45.7777004030925
+      },
+      "completed_fps": 187.31666666666666
+    },
+    {
+      "minute": 3,
+      "offered": 14400,
+      "completed": 11286,
+      "drops": {
+        "dropped_dispatch_late": 1216,
+        "dropped_queue_full": 1898
+      },
+      "arrival_to_completion_ms": {
+        "p50": 35.06028754637214,
+        "p95": 42.88242020024313,
+        "p99": 45.013701471819445
+      },
+      "completed_fps": 188.1
+    },
+    {
+      "minute": 4,
+      "offered": 14400,
+      "completed": 11224,
+      "drops": {
+        "dropped_dispatch_late": 1245,
+        "dropped_queue_full": 1931
+      },
+      "arrival_to_completion_ms": {
+        "p50": 35.00556064147986,
+        "p95": 43.00606156077009,
+        "p99": 46.71558454570175
+      },
+      "completed_fps": 187.06666666666666
+    },
+    {
+      "minute": 5,
+      "offered": 14400,
+      "completed": 11243,
+      "drops": {
+        "dropped_dispatch_late": 1244,
+        "dropped_queue_full": 1913
+      },
+      "arrival_to_completion_ms": {
+        "p50": 35.099782484280695,
+        "p95": 43.186501612251504,
+        "p99": 47.04384259756807
+      },
+      "completed_fps": 187.38333333333333
+    },
+    {
+      "minute": 6,
+      "offered": 14400,
+      "completed": 11288,
+      "drops": {
+        "dropped_queue_full": 1864,
+        "dropped_dispatch_late": 1248
+      },
+      "arrival_to_completion_ms": {
+        "p50": 35.0316277084346,
+        "p95": 42.915118184566836,
+        "p99": 46.66393868561442
+      },
+      "completed_fps": 188.13333333333333
+    },
+    {
+      "minute": 7,
+      "offered": 14400,
+      "completed": 11281,
+      "drops": {
+        "dropped_queue_full": 1863,
+        "dropped_dispatch_late": 1256
+      },
+      "arrival_to_completion_ms": {
+        "p50": 35.01804911843465,
+        "p95": 42.974384936201204,
+        "p99": 45.703974887726424
+      },
+      "completed_fps": 188.01666666666668
+    },
+    {
+      "minute": 8,
+      "offered": 14400,
+      "completed": 11289,
+      "drops": {
+        "dropped_dispatch_late": 1233,
+        "dropped_queue_full": 1878
+      },
+      "arrival_to_completion_ms": {
+        "p50": 35.05320263411704,
+        "p95": 42.82526247204714,
+        "p99": 44.28974301368044
+      },
+      "completed_fps": 188.15
+    },
+    {
+      "minute": 9,
+      "offered": 14400,
+      "completed": 11276,
+      "drops": {
+        "dropped_dispatch_late": 1295,
+        "dropped_queue_full": 1829
+      },
+      "arrival_to_completion_ms": {
+        "p50": 34.902169307088116,
+        "p95": 42.86322391899944,
+        "p99": 44.96518652891268
+      },
+      "completed_fps": 187.93333333333334
+    },
+    {
+      "minute": 10,
+      "offered": 14400,
+      "completed": 11234,
+      "drops": {
+        "dropped_dispatch_late": 1360,
+        "dropped_queue_full": 1806
+      },
+      "arrival_to_completion_ms": {
+        "p50": 34.872430221525974,
+        "p95": 42.86443228525627,
+        "p99": 46.07759901138707
+      },
+      "completed_fps": 187.23333333333332
+    },
+    {
+      "minute": 11,
+      "offered": 14400,
+      "completed": 11297,
+      "drops": {
+        "dropped_dispatch_late": 1268,
+        "dropped_queue_full": 1835
+      },
+      "arrival_to_completion_ms": {
+        "p50": 34.912061877548695,
+        "p95": 42.9517692078889,
+        "p99": 46.747126708487464
+      },
+      "completed_fps": 188.28333333333333
+    },
+    {
+      "minute": 12,
+      "offered": 14400,
+      "completed": 11259,
+      "drops": {
+        "dropped_dispatch_late": 1279,
+        "dropped_queue_full": 1862
+      },
+      "arrival_to_completion_ms": {
+        "p50": 34.951298497617245,
+        "p95": 42.919351148168516,
+        "p99": 45.04491158329984
+      },
+      "completed_fps": 187.65
+    },
+    {
+      "minute": 13,
+      "offered": 14400,
+      "completed": 11298,
+      "drops": {
+        "dropped_dispatch_late": 1172,
+        "dropped_queue_full": 1930
+      },
+      "arrival_to_completion_ms": {
+        "p50": 35.15620517231355,
+        "p95": 42.94475945331442,
+        "p99": 46.52306958106013
+      },
+      "completed_fps": 188.3
+    },
+    {
+      "minute": 14,
+      "offered": 14400,
+      "completed": 11255,
+      "drops": {
+        "dropped_queue_full": 1842,
+        "dropped_dispatch_late": 1303
+      },
+      "arrival_to_completion_ms": {
+        "p50": 34.92388750112241,
+        "p95": 43.074753563848844,
+        "p99": 46.85840308663955
+      },
+      "completed_fps": 187.58333333333334
+    },
+    {
+      "minute": 15,
+      "offered": 14400,
+      "completed": 11231,
+      "drops": {
+        "dropped_dispatch_late": 1379,
+        "dropped_queue_full": 1790
+      },
+      "arrival_to_completion_ms": {
+        "p50": 34.78381006664222,
+        "p95": 42.94737642635482,
+        "p99": 46.760981914872055
+      },
+      "completed_fps": 187.18333333333334
+    },
+    {
+      "minute": 16,
+      "offered": 14400,
+      "completed": 11288,
+      "drops": {
+        "dropped_dispatch_late": 1370,
+        "dropped_queue_full": 1742
+      },
+      "arrival_to_completion_ms": {
+        "p50": 34.71273478743342,
+        "p95": 42.68135153999992,
+        "p99": 44.62704208614012
+      },
+      "completed_fps": 188.13333333333333
+    },
+    {
+      "minute": 17,
+      "offered": 14400,
+      "completed": 11282,
+      "drops": {
+        "dropped_dispatch_late": 1582,
+        "dropped_queue_full": 1536
+      },
+      "arrival_to_completion_ms": {
+        "p50": 34.374261337120515,
+        "p95": 42.494612361099364,
+        "p99": 44.21004741519482
+      },
+      "completed_fps": 188.03333333333333
+    },
+    {
+      "minute": 18,
+      "offered": 14400,
+      "completed": 11292,
+      "drops": {
+        "dropped_queue_full": 1821,
+        "dropped_dispatch_late": 1287
+      },
+      "arrival_to_completion_ms": {
+        "p50": 34.87786014250105,
+        "p95": 42.85395257178379,
+        "p99": 46.79664387991579
+      },
+      "completed_fps": 188.2
+    },
+    {
+      "minute": 19,
+      "offered": 14400,
+      "completed": 11144,
+      "drops": {
+        "dropped_dispatch_late": 1600,
+        "dropped_queue_full": 1656
+      },
+      "arrival_to_completion_ms": {
+        "p50": 34.46191273008026,
+        "p95": 42.73468448469657,
+        "p99": 45.22347365688573
+      },
+      "completed_fps": 185.73333333333332
+    },
+    {
+      "minute": 20,
+      "offered": 14400,
+      "completed": 11296,
+      "drops": {
+        "dropped_queue_full": 1930,
+        "dropped_dispatch_late": 1174
+      },
+      "arrival_to_completion_ms": {
+        "p50": 35.10253187278067,
+        "p95": 43.17265641878976,
+        "p99": 46.74295842957007
+      },
+      "completed_fps": 188.26666666666668
+    },
+    {
+      "minute": 21,
+      "offered": 14400,
+      "completed": 11293,
+      "drops": {
+        "dropped_queue_full": 1925,
+        "dropped_dispatch_late": 1182
+      },
+      "arrival_to_completion_ms": {
+        "p50": 35.099557104331325,
+        "p95": 42.996057582377034,
+        "p99": 46.67389959106913
+      },
+      "completed_fps": 188.21666666666667
+    },
+    {
+      "minute": 22,
+      "offered": 14400,
+      "completed": 11224,
+      "drops": {
+        "dropped_dispatch_late": 1291,
+        "dropped_queue_full": 1885
+      },
+      "arrival_to_completion_ms": {
+        "p50": 34.93695628526439,
+        "p95": 43.085844569463916,
+        "p99": 47.05926403034255
+      },
+      "completed_fps": 187.06666666666666
+    },
+    {
+      "minute": 23,
+      "offered": 14400,
+      "completed": 11301,
+      "drops": {
+        "dropped_queue_full": 1931,
+        "dropped_dispatch_late": 1168
+      },
+      "arrival_to_completion_ms": {
+        "p50": 35.02708797645937,
+        "p95": 43.08007626491417,
+        "p99": 47.11648151283043
+      },
+      "completed_fps": 188.35
+    },
+    {
+      "minute": 24,
+      "offered": 14400,
+      "completed": 11296,
+      "drops": {
+        "dropped_dispatch_late": 1097,
+        "dropped_queue_full": 2007
+      },
+      "arrival_to_completion_ms": {
+        "p50": 35.19775038591888,
+        "p95": 43.1043811452696,
+        "p99": 47.111413823461135
+      },
+      "completed_fps": 188.26666666666668
+    },
+    {
+      "minute": 25,
+      "offered": 14400,
+      "completed": 11307,
+      "drops": {
+        "dropped_queue_full": 2069,
+        "dropped_dispatch_late": 1024
+      },
+      "arrival_to_completion_ms": {
+        "p50": 35.373408595660294,
+        "p95": 43.31295605129526,
+        "p99": 47.2343543296256
+      },
+      "completed_fps": 188.45
+    },
+    {
+      "minute": 26,
+      "offered": 14400,
+      "completed": 11297,
+      "drops": {
+        "dropped_queue_full": 2043,
+        "dropped_dispatch_late": 1060
+      },
+      "arrival_to_completion_ms": {
+        "p50": 35.21155472844839,
+        "p95": 43.196790702631915,
+        "p99": 46.96586777281481
+      },
+      "completed_fps": 188.28333333333333
+    },
+    {
+      "minute": 27,
+      "offered": 14400,
+      "completed": 11298,
+      "drops": {
+        "dropped_dispatch_late": 1046,
+        "dropped_queue_full": 2056
+      },
+      "arrival_to_completion_ms": {
+        "p50": 35.33101569246355,
+        "p95": 43.271508319401164,
+        "p99": 47.24938988755185
+      },
+      "completed_fps": 188.3
+    },
+    {
+      "minute": 28,
+      "offered": 14400,
+      "completed": 11295,
+      "drops": {
+        "dropped_dispatch_late": 1224,
+        "dropped_queue_full": 1881
+      },
+      "arrival_to_completion_ms": {
+        "p50": 35.01708377166324,
+        "p95": 43.05985528981182,
+        "p99": 46.88473833979968
+      },
+      "completed_fps": 188.25
+    },
+    {
+      "minute": 29,
+      "offered": 14400,
+      "completed": 11265,
+      "drops": {
+        "dropped_dispatch_late": 1434,
+        "dropped_queue_full": 1701
+      },
+      "arrival_to_completion_ms": {
+        "p50": 34.60647501060521,
+        "p95": 42.81991887851291,
+        "p99": 44.93099686250389
+      },
+      "completed_fps": 187.75
+    }
+  ],
+  "cameras": [
+    {
+      "lane": 0,
+      "offered": 108000,
+      "completed": 84647,
+      "drops": {
+        "dropped_queue_full": 13994,
+        "dropped_dispatch_late": 9359
+      },
+      "arrival_to_completion_ms": {
+        "p50": 34.94545749072131,
+        "p95": 42.93583642074168,
+        "p99": 46.615747075516076
+      },
+      "completed_fps": 47.02611111111111
+    },
+    {
+      "lane": 1,
+      "offered": 108000,
+      "completed": 84432,
+      "drops": {
+        "dropped_dispatch_late": 9546,
+        "dropped_queue_full": 14022
+      },
+      "arrival_to_completion_ms": {
+        "p50": 34.97532575079276,
+        "p95": 42.9602280320978,
+        "p99": 46.64302992204853
+      },
+      "completed_fps": 46.906666666666666
+    },
+    {
+      "lane": 2,
+      "offered": 108000,
+      "completed": 84657,
+      "drops": {
+        "dropped_dispatch_late": 9266,
+        "dropped_queue_full": 14077
+      },
+      "arrival_to_completion_ms": {
+        "p50": 34.95335057380089,
+        "p95": 42.971067279631825,
+        "p99": 46.701991198006006
+      },
+      "completed_fps": 47.031666666666666
+    },
+    {
+      "lane": 3,
+      "offered": 108000,
+      "completed": 84419,
+      "drops": {
+        "dropped_queue_full": 13909,
+        "dropped_dispatch_late": 9672
+      },
+      "arrival_to_completion_ms": {
+        "p50": 34.9602928386048,
+        "p95": 42.970194121176064,
+        "p99": 46.715694302047254
+      },
+      "completed_fps": 46.89944444444444
+    }
+  ],
+  "telemetry": {
+    "samples": 1790,
+    "first_elapsed_s": 0.5412843227386475,
+    "last_elapsed_s": 1799.305284500122,
+    "max_gap_s": 1.4859998226165771,
+    "statistics": {
+      "temperature_c": {
+        "min": 59.0,
+        "median": 60.0,
+        "max": 61.0
+      },
+      "sm_clock_mhz": {
+        "min": 1455.0,
+        "median": 1515.0,
+        "max": 1845.0
+      },
+      "power_w": {
+        "min": 60.35,
+        "median": 72.0,
+        "max": 73.46
+      },
+      "gpu_utilization_percent": {
+        "min": 87.0,
+        "median": 100.0,
+        "max": 100.0
+      },
+      "device_memory_mib": {
+        "min": 1106.0,
+        "median": 1106.0,
+        "max": 1300.0
+      }
+    }
+  },
+  "last_to_first_five_minute_p99_ratio": 1.02856488937727
+}

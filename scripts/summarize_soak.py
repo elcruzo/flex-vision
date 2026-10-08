@@ -141,7 +141,7 @@ def summarize(root):
     if (report['status'] == 'passed') != memory_passed:
         raise ValueError('Overall verdict differs')
     return {'status': 'verified', 'soak_passed': memory_passed, 'revision': report['revision'],
-            'sample_sha256': hashlib.sha256(path.read_bytes()).hexdigest(),
+            'sample_sha256': hashlib.sha256(gzip.decompress(path.read_bytes()) if path.suffix == '.gz' else path.read_bytes()).hexdigest(),
             'summary_script_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
             'offered': count, 'completed': completed, 'dropped': count-completed, 'drop_reasons': dict(drops),
             'elapsed_with_drain_s': run['elapsed_with_drain_s'], 'latest_completion_s': latest_completion,

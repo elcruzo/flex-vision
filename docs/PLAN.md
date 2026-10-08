@@ -30,10 +30,13 @@ Its revised fixed-stream run measured 63.48% higher overload throughput and stab
 The initial run exposed allocation growth when the harness introduced new streams between blocks. Both runs remain in the evidence.
 The [sustained inspection protocol](SUSTAINED_INSPECTION.md) records the load, queue policy, validation overhead, and stream-lifetime correction.
 Treat its short runs as development evidence, not the comparison or soak tiers in TESTING.md.
+The [continuous inspection soak](experiments/019-inspection-soak.md) now passes the 30-minute tier on one L4 configuration.
+All 338,155 completed frames passed, with zero declared allocator growth. The overload schedule dropped 21.72% of offered frames.
+This does not complete live-camera, Jetson, ROS, or detector soak coverage.
 The measured SSDLite FP32 workload does not complete the required 640×640 FP16 YOLO/TensorRT scenario.
 The fixed inspection API does not complete configurable stencils, reusable workspace, batching, or general graph planning.
 Next, complete the required detector's FP16 YOLO/TensorRT consumer and matched measurement loop.
-Keep longer sustained runs, vendor comparisons, reusable workspace, batching, and the robot/ROS workloads open.
+Keep broader sustained coverage, vendor comparisons, reusable workspace, batching, and the robot/ROS workloads open.
 See [the backend contract](CUDA_BACKEND.md), [host evidence](experiments/004-cuda-host.md), and [fused execution evidence](experiments/005-fused-cuda.md).
 See [local development](LOCAL_DEVELOPMENT.md) and [source audit](SOURCE_AUDIT.md) for current evidence.
 

@@ -273,3 +273,12 @@ The retry expired during a session pause before SSH submission. No measured soak
 Both Pods and its temporary secret were absent at the subsequent read.
 The next attempt uses automatic SSH submission and export under the same independent controller.
 Reserve $0.65 for it, giving $7.390124912896135 used or reserved and $7.609875087103865 remaining.
+
+## Experiment 019 completed reconciliation
+
+The successful automatic lease used GPU `czpobr6j1rnf3t` and controller `y8yfpgzwyckpn8`.
+Its GPU and disk posted $0.3577198227867484. Its controller and disk posted $0.04372778411197942.
+The combined $0.4014476068987278 replaces the $0.65 reserve.
+All 15 artifacts were hash-verified before termination. Both Pods and secret `tgqlhnjg8x` were absent after cleanup and at a later read.
+Total posted spending is $7.141572519794863 across 29 Pods. The remaining authorization is $7.858427480205137.
+There are no active Pods or outstanding rental reserves at this reconciliation.

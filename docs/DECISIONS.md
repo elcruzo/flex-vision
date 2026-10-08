@@ -323,3 +323,15 @@ The comparison used different hosts, so between-run timing changes do not isolat
 This short test includes GPU validation overhead. It does not establish uninstrumented deployment throughput or the required long soak.
 The public runtime still needs reusable workspace, batch support, and the broader graph contracts.
 Complete the FP16 YOLO/TensorRT detector path next, preserving the full remaining requirements.
+
+## D027 — Complete thermal conditioning before counting soak time
+
+Experiment 019 passed a continuous 1,800-second inspection run after the declared thermal gate passed.
+The completed L4 run checked all 338,155 completed frames. All three declared allocator growth checks measured zero.
+The offered overload schedule dropped 21.72% of arrivals. Keep those drops and the measured 2.86% tail drift visible.
+This establishes stability for the fixed resident inspection workload, not a general memory bound or release-wide acceptance.
+
+The first rental could not finish conditioning and the soak within its remaining deadline. The second expired before experiment submission.
+Use automatic SSH submission, verified export, and exact GPU termination under the independent controller for subsequent prepared rentals.
+The local coordinator still depends on an awake Mac for submission and export. The cloud controller bounds the lease independently.
+The third lease completed and exported successfully during a chat-session pause, then verified all cleanup without another turn.

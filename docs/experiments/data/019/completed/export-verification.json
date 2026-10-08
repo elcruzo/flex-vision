@@ -1,0 +1,23 @@
+{
+  "status": "verified",
+  "files": [
+    "benchmark-results/iteration-019c-soak/execution.log",
+    "benchmark-results/iteration-019c-soak/gpu.txt",
+    "benchmark-results/iteration-019c-soak/packages.txt",
+    "benchmark-results/iteration-019c-soak/pip-check.txt",
+    "benchmark-results/iteration-019c-soak/preflight.json",
+    "benchmark-results/iteration-019c-soak/streams/report.json",
+    "benchmark-results/iteration-019c-soak/sustained/conditioning-0.csv",
+    "benchmark-results/iteration-019c-soak/sustained/conditioning-0.json",
+    "benchmark-results/iteration-019c-soak/sustained/conditioning-1.csv",
+    "benchmark-results/iteration-019c-soak/sustained/conditioning-1.json",
+    "benchmark-results/iteration-019c-soak/sustained/report.json",
+    "benchmark-results/iteration-019c-soak/sustained/soak-status.json",
+    "benchmark-results/iteration-019c-soak/sustained/soak.csv",
+    "benchmark-results/iteration-019c-soak/sustained/soak.json",
+    "benchmark-results/iteration-019c-soak/sustained/telemetry.csv"
+  ],
+  "experiment_exit_code": 0,
+  "pod": "czpobr6j1rnf3t",
+  "run": "1791447975-635095913722"
+}

@@ -1,8 +1,11 @@
 # Sustained inspection experiment
 
 Status: the short CUDA run passed correctness and performance checks. See [experiment 018](experiments/018-sustained-inspection.md).
-The revised fixed-stream run showed stable post-drain allocations across repeats. Longer acceptance remains pending.
-This is the developer tier from TESTING.md. It does not satisfy the 10,000-frame comparison or 30-minute soak tiers.
+The revised fixed-stream run showed stable post-drain allocations across repeats.
+Experiment 018 is the developer tier. It does not satisfy the 10,000-frame comparison or 30-minute soak tiers.
+The separate [experiment 019](experiments/019-inspection-soak.md) passed the 30-minute inspection soak on an L4.
+It retains the initial failed thermal gate and idle lease, plus all completed-run frames and drop records.
+Other platforms, workloads, and broader acceptance remain pending.
 
 ## Question
 
