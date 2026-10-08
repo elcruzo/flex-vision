@@ -252,3 +252,11 @@ The account inventory contains no Pods. This total includes all three experiment
 These posted amounts replace reserves for those attempts. No reserve remains for a running lease.
 The remaining authorization is $9.072274143738468 of the original $15.
 The earlier $5.81 progress figure excluded the failed startup and revised run. Use this reconciled total instead.
+
+## Experiment 019 active reserve
+
+The user requested the continuous 30-minute soak. Reserve $0.65 including disk for its 60-minute direct-controller lease.
+GPU `mlrt00axvzkm05` costs $0.49/hour. Controller `41k6ky75r5ao19` costs $0.06/hour.
+The controller armed the GPU deadline at 2026-10-08 02:53:50 UTC, independently of the Mac.
+The temporary secret is `txilc0n911`. Verify both Pods and that secret are absent after cleanup.
+Posted charges plus this reserve total $6.577725856261532, leaving $8.422274143738468 until reconciliation.
