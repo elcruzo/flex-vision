@@ -2,6 +2,7 @@
 import argparse
 from collections import Counter
 import csv
+from datetime import datetime, timezone
 import gzip
 import hashlib
 import json
@@ -13,6 +14,30 @@ import numpy as np
 
 def percentiles(values):
     return dict(zip(('p50', 'p95', 'p99'), np.percentile(values, [50, 95, 99]).tolist())) if values else None
+
+
+def summarize_telemetry(path, start):
+    samples = []
+    with path.open() as handle:
+        for row in csv.reader(handle):
+            timestamp = datetime.strptime(row[0].strip(), '%Y/%m/%d %H:%M:%S.%f').replace(tzinfo=timezone.utc).timestamp()
+            elapsed = timestamp - start
+            if 0 <= elapsed <= 1800:
+                values = [float(value) for value in row[1:]]
+                if len(values) != 5 or not all(math.isfinite(value) for value in values):
+                    raise ValueError('Invalid GPU telemetry values')
+                samples.append((elapsed, values))
+    if len(samples) < 2:
+        raise ValueError('Missing measured-window telemetry')
+    gaps = [b[0] - a[0] for a, b in zip(samples, samples[1:])]
+    if min(gaps) <= 0:
+        raise ValueError('Non-monotonic GPU telemetry')
+    fields = ('temperature_c', 'sm_clock_mhz', 'power_w', 'gpu_utilization_percent', 'device_memory_mib')
+    return {'samples': len(samples), 'first_elapsed_s': samples[0][0], 'last_elapsed_s': samples[-1][0],
+            'max_gap_s': max(gaps),
+            'statistics': {field: {'min': min(row[1][i] for row in samples),
+                                   'median': float(np.median([row[1][i] for row in samples])),
+                                   'max': max(row[1][i] for row in samples)} for i, field in enumerate(fields)}}
 
 
 def summarize(root):
@@ -124,6 +149,7 @@ def summarize(root):
             'arrival_to_completion_ms': measured, 'gpu_pipeline_ms': percentiles(gpu_latencies),
             'memory_growth_bytes': growth, 'max_memory_sample_gap_s': max(b['elapsed_s']-a['elapsed_s'] for a,b in zip(memory,memory[1:])),
             'minutes': minutes, 'cameras': lanes,
+            'telemetry': summarize_telemetry(root/'telemetry.csv', run['started_unix_s']),
             'last_to_first_five_minute_p99_ratio': float(np.percentile(late_latencies, 99) / np.percentile(early_latencies, 99))}
 
 
