@@ -1,5 +1,6 @@
 """Real YOLO inference through independent preprocessing paths on the Mac CPU."""
 import argparse
+import copy
 import json
 from pathlib import Path
 import subprocess
@@ -21,16 +22,22 @@ def main():
     report = {'status':'failed','scope':'CPU reference inference; no CUDA or TensorRT claim',
               'revision':subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),
               'limits':LIMITS,'weights_sha256':WEIGHTS_SHA256,
+              'dirty':bool(subprocess.check_output(['git','status','--porcelain'],text=True)),
+              'sources':{str(p):digest(p) for p in [Path(__file__),Path('scripts/yolo_common.py'),*Path('src/cpg').glob('*.py')]},
               'config_sha256':digest('examples/yolo.yaml'),'cases':[]}
     try:
         torch.set_num_threads(4)
         model = Dense(load_model(args.weights)).eval()
+        model_half = copy.deepcopy(model).half()
         pipe = pipeline()
         with torch.inference_mode():
             for name,rgb,expectation,provenance in cases():
                 frame = rgb[...,::-1]
                 expected,g = numpy_reference(pipe,frame)
                 actual,_ = torch_reference(pipe,frame)
+                ratio = min(640/frame.shape[0],640/frame.shape[1])
+                if (round(frame.shape[1]*ratio),round(frame.shape[0]*ratio)) != (g.resized_width,g.resized_height):
+                    raise ValueError('Native letterbox geometry differs; use its separate coordinate transform')
                 native = LetterBox((640,640),auto=False)(image=np.ascontiguousarray(frame))
                 native = torch.from_numpy(np.ascontiguousarray(native[...,::-1].transpose(2,0,1)[None])).float()/255
                 native = native.half().float()
@@ -42,6 +49,10 @@ def main():
                 actual_head = model(actual.float())
                 native_head = model(native)
                 case['dense'] = compare_dense(reference_head,actual_head)
+                half_head = model_half(torch.from_numpy(expected))
+                case['fp16_model_dense'] = compare_dense(reference_head,half_head)
+                case['fp16_model_detection_ious'] = compare_detections(decode(reference_head),decode(half_head))
+                case['fp16_model'] = detection_record(decode(half_head),g,expectation)
                 reference_detection,actual_detection = decode(reference_head),decode(actual_head)
                 case['matched_detection_ious'] = compare_detections(reference_detection,actual_detection)
                 case['reference'] = detection_record(reference_detection,g,expectation)
