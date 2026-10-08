@@ -103,6 +103,15 @@ def serve():
                      data_center=os.environ.get('CPG_GPU_DATA_CENTER','EU-RO-1'),
                      gpu=os.environ.get('CPG_GPU_MODEL','NVIDIA L4'))
         watch(gpu)
+    except Exception as exc:
+        # End any known GPU immediately. Keep only the CPU alive briefly so an
+        # external observer can collect the sanitized failure before self-deletion.
+        if gpu is not None:
+            terminate(gpu)
+            gpu = None
+        log('controller_failed', error_type=type(exc).__name__, error=str(exc))
+        time.sleep(30)
+        raise
     finally:
         try:
             if gpu is not None:
