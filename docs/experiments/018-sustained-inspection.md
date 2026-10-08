@@ -109,6 +109,37 @@ They are not isolated CPG workspace measurements or total device memory.
 The runtime still allocates fresh outputs and lacks a bounded reusable workspace pool.
 Stream reuse removes the observed changing allocation baseline in this short experiment. It does not prove a general memory bound.
 
+## Trace and artifact verification
+
+The revised export contains 41 files whose SHA-256 values match the remote manifest.
+The retained local bundle includes raw Nsight reports and SQLite exports in `benchmark-results/iteration-018b-sustained/`.
+Those large files are not committed. The repository contains the raw frame CSV files, environment records, and compact trace summaries.
+The earlier evidence commit omitted the revised CSV files. This correction restores them and the linked report directory.
+The duplicate `sustained-report.json` remains byte-identical to `sustained/report.json` for existing references.
+
+The known-transfer control detected one 4,096-byte device-to-host copy.
+Separate full and ROI classifier traces each contain three completed `inspection_to_classifier` ranges.
+Each range contains 199 kernels and zero recorded memcpy events or bytes.
+These synchronous traces do not prove residency during the concurrent sustained run.
+
+Recompute the revised summary from the committed raw frames:
+
+```bash
+python scripts/summarize_sustained.py docs/experiments/data/018/revised/sustained --output /tmp/revised-summary.json
+```
+
+Use a new output path. The verifier refuses to overwrite an existing file.
+It checks frame identities, dropped arrivals, per-camera counts, timing distributions, allocation growth, and the performance verdict.
+
+## Lease cleanup
+
+The initial lease expired during a Mac-session pause. Later reads found neither its Pods nor its temporary secret.
+Its unexported trace files were lost. Only verified exports support the initial results above.
+A subsequent Romanian GPU failed during container creation. It was terminated before any measurement.
+The successful revised lease used GPU `dv5dz5vttj0dae` and controller `f5gj60n0xexvw7`.
+All 41 artifacts were verified before GPU termination. Subsequent reads found no Pods and no temporary lease secret.
+See [the reconciled budget](../RUNPOD_SETUP.md) for all three attempts, including the failed startup.
+
 ## Interpretation and remaining work
 
 Retain the ROI strategy and use persistent camera streams for this workload.

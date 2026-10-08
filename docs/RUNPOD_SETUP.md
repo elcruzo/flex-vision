@@ -237,3 +237,18 @@ Billing also lists GPU `hv9r4melf995m4` at $0.2487150460947305 in the same perio
 Its creation receipt was not captured during the session pause, so attribution to that attempt remains unverified.
 Include it in the budget nevertheless. These amounts replace the prior three reserves, without double counting.
 The remaining authorization before experiment 018 is $9.466181638354101.
+
+## Reconciliation after experiment 018
+
+The billing read through October 8 reports $5.927725856261532 across 23 Pods.
+The account inventory contains no Pods. This total includes all three experiment 018 attempts:
+
+| Attempt | GPU | Controller | Combined posted cost |
+| --- | --- | --- | ---: |
+| Initial sustained run | `c4d7dsr6plg1i1` | `tjjpwmqgkv9bx7` | $0.27893270948334248 |
+| Failed container startup | `sh15th8cxptfxv` | `lcr83j97kot9zr` | $0.013208999997004866 |
+| Revised sustained run | `dv5dz5vttj0dae` | `f5gj60n0xexvw7` | $0.10176578513528511 |
+
+These posted amounts replace reserves for those attempts. No reserve remains for a running lease.
+The remaining authorization is $9.072274143738468 of the original $15.
+The earlier $5.81 progress figure excluded the failed startup and revised run. Use this reconciled total instead.
