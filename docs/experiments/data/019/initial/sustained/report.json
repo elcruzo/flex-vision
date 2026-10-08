@@ -1,0 +1,30 @@
+{
+  "status": "failed",
+  "runs": [],
+  "scope": "resident synthetic arrivals with GPU validation overhead",
+  "stream_policy": "four persistent streams, shared across strategies and repeats",
+  "revision": "26ed35b9483b982f94fd1001687714c6df42f128",
+  "torch": "2.9.1+cu130",
+  "torchvision": "0.24.1+cu130",
+  "cuda": "13.0",
+  "gpu": "NVIDIA L4",
+  "weights_sha256": "047dcff4addef86ea5bc2eff13c9614dc11f47ab1160d0a71a25e7db994f4e1f",
+  "source_sha256": {
+    "scripts/inspection_sustained.py": "cf352fcf5b450c86febff61f4763adf6a2de57c0cc6cc9f9eeb7978fe775cc16",
+    "scripts/inspection_reference.py": "d32a017237e4acdb069bd3d60007759909c920a9eceddd6ba21b89fb7bd11e28",
+    "scripts/inspection_soak.py": "2d2aeff2eb87ce11377bbd684168f75f13007f859abe2b51c6fd90eaf1746555",
+    "scripts/local_classifier.py": "56ff8dd7fb1d0363e25560028d003af6dd25b86f5d4b075d7b91b103576f2e30",
+    "src/cpg/inspection.py": "455ca0447f32a33accf8993839fb0df3d873cd53f981f21a80e2105eb4ae751a",
+    "tests/fixtures/images/manifest.json": "94479b9a1f629ca1d08af5459473cea2f817020743ee86d726f3a2ac14ff2ed7"
+  },
+  "input_sha256": [
+    "73dc21146f6a5dc3f2b5e42b390a800e6981ad0cc476b985cdc76a2e6fab77cc",
+    "e115ed94fad81329f48b1a0032fd322974f88e6f8d20db1b54979b32aca273e9"
+  ],
+  "roi": [
+    567,
+    180,
+    2706,
+    1800
+  ]
+}

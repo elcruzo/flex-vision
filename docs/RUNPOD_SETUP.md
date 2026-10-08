@@ -260,3 +260,7 @@ GPU `mlrt00axvzkm05` costs $0.49/hour. Controller `41k6ky75r5ao19` costs $0.06/h
 The controller armed the GPU deadline at 2026-10-08 02:53:50 UTC, independently of the Mac.
 The temporary secret is `txilc0n911`. Verify both Pods and that secret are absent after cleanup.
 Posted charges plus this reserve total $6.577725856261532, leaving $8.422274143738468 until reconciliation.
+
+The initial thermal check failed. Both Pods and secret `txilc0n911` were absent after verified export and cleanup.
+Retain its reserve until billing posts. The retry uses controller `gu2mqlrfefs9y0` and secret `jrdmqti3ir`.
+Reserve a further $0.65 for the retry, giving $7.227725856261532 used or reserved and $7.772274143738468 remaining.
