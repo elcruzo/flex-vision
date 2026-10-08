@@ -38,4 +38,7 @@ Both Pods and temporary secret `txilc0n911` were absent after GPU termination.
 The retry uses the same source, workload, thresholds, and 60-minute independent lease.
 Controller `gu2mqlrfefs9y0` uses EU-NL-1. Its requested GPU region is EUR-IS-1.
 Reserve a further $0.65 within the original $15 authorization. Do not count this as new budget.
-Results and cleanup are pending.
+The retry expired during a session pause before SSH submission. No experiment ran.
+Subsequent reads found no Pods and no temporary secret `jrdmqti3ir`.
+The next attempt uses an automatic local coordinator for SSH submission, verified export, and termination.
+Its cloud controller still enforces the independent deadline. The experiment source and thermal thresholds remain unchanged.

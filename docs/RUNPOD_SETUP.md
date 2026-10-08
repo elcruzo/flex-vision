@@ -264,3 +264,12 @@ Posted charges plus this reserve total $6.577725856261532, leaving $8.4222741437
 The initial thermal check failed. Both Pods and secret `txilc0n911` were absent after verified export and cleanup.
 Retain its reserve until billing posts. The retry uses controller `gu2mqlrfefs9y0` and secret `jrdmqti3ir`.
 Reserve a further $0.65 for the retry, giving $7.227725856261532 used or reserved and $7.772274143738468 remaining.
+
+## Experiment 019 reconciliation and automatic retry
+
+The first attempt posted $0.2547739035253471. The idle retry posted $0.5576251531092567.
+Both reservations are replaced by these charges. Total posted spending is $6.740124912896135, leaving $8.259875087103865.
+The retry expired during a session pause before SSH submission. No measured soak ran on that lease.
+Both Pods and its temporary secret were absent at the subsequent read.
+The next attempt uses automatic SSH submission and export under the same independent controller.
+Reserve $0.65 for it, giving $7.390124912896135 used or reserved and $7.609875087103865 remaining.

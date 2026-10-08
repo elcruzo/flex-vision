@@ -22,6 +22,10 @@ This includes setup, thermal conditioning, measurement, and export within one fi
 The optional Actions path still rejects 60 minutes because its job timeout is shorter.
 The launcher exits after recording the CPU Pod ID. The Mac does not execute the timer.
 The GPU deadline starts before GPU provisioning, so image startup uses the same lease allowance.
+Use `scripts/runpod_experiment.py` to coordinate a prepared remote shell script without waiting for another chat turn.
+It waits for SSH, submits the script once, exports completed artifacts, verifies hashes, and terminates its exact GPU.
+The local coordinator must remain awake for submission and export. The independent controller remains responsible for deadline cleanup.
+Keep the Mac awake for the bounded session. A session pause can otherwise consume a lease before useful work starts.
 The CPU controller refuses to create a GPU if its own startup is more than ten minutes late.
 A failed CPU boot still requires manual cleanup. No GPU is created until the controller executes.
 
