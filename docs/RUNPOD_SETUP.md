@@ -282,3 +282,14 @@ The combined $0.4014476068987278 replaces the $0.65 reserve.
 All 15 artifacts were hash-verified before termination. Both Pods and secret `tgqlhnjg8x` were absent after cleanup and at a later read.
 Total posted spending is $7.141572519794863 across 29 Pods. The remaining authorization is $7.858427480205137.
 There are no active Pods or outstanding rental reserves at this reconciliation.
+
+## YOLO experiment reservation
+
+The next fixed YOLO comparison reserves at most $1.10 within the existing $15 total authorization.
+The live catalog reported no CUDA 13 L4 capacity and a secure L4 rate of $0.59/hour.
+An RTX 4090 was available at $0.89/hour in EU-CZ-1 and EU-RO-1.
+The controller now accepts that explicitly selected GPU with a $0.89/hour bound.
+Its CPU bound remains $0.06/hour. The one-hour independent expiration and early cleanup remain mandatory.
+The existing default L4 bound remains $0.49/hour. This change does not authorize overlapping rentals.
+Treat the new GPU as a separate measurement platform. Do not compare absolute latency across these rentals.
+Reconcile the reservation against posted charges after termination.

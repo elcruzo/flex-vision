@@ -94,3 +94,19 @@ def test_controller_inventory_requires_run_marker(tmp_path):
         with pytest.raises(RuntimeError,match='identity'):
             lease.create(2,'123-1',controller_id='controller')
     assert [call.args[0] for call in api.call_args_list]==['GET']
+
+
+@pytest.mark.parametrize('rate,allowed', [(0.89, True), (0.90, False)])
+def test_4090_rate_and_identity_are_bounded(tmp_path, rate, allowed):
+    catalog = {'price': {'secure': rate}, 'dataCenters': [{'id':'EU-RO-1','availability':'LOW'}]}
+    with patch.object(lease,'RECEIPT',tmp_path/'lease.json'), patch.object(
+            lease,'api',side_effect=[{'pods':[]},catalog,dict(POD,cost=rate)]) as api, patch.dict(
+            'os.environ',CPG_SSH_PUBLIC_KEY='ssh-ed25519 test'):
+        if allowed:
+            receipt = lease.create(30,'123-1',gpu='NVIDIA GeForce RTX 4090')
+            assert receipt['gpu'] == 'NVIDIA GeForce RTX 4090'
+            assert api.call_args.args[2]['gpu']['id'] == receipt['gpu']
+        else:
+            with pytest.raises(RuntimeError,match='hourly rate'):
+                lease.create(30,'123-1',gpu='NVIDIA GeForce RTX 4090')
+            assert all(call.args[0] == 'GET' for call in api.call_args_list)

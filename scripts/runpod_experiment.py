@@ -17,14 +17,14 @@ from runpod_controller import launch
 from runpod_lease import api, log, terminate, verify
 
 
-def coordinate(receipt_path, setup, result_name, gpu_region, controller_region='EU-RO-1'):
+def coordinate(receipt_path, setup, result_name, gpu_region, controller_region='EU-RO-1', gpu='NVIDIA L4'):
     if not re.fullmatch(r'iteration-[a-zA-Z0-9-]+', result_name):
         raise ValueError('Invalid result directory name')
     target = Path('benchmark-results') / result_name
     if target.exists():
         raise ValueError('Result directory already exists')
     setup_bytes = setup.read_bytes()
-    launch(60, receipt_path, controller_region, gpu_region)
+    launch(60, receipt_path, controller_region, gpu_region, gpu)
     receipt = json.loads(receipt_path.read_text())
     gpu = None
     started = time.monotonic()
@@ -115,9 +115,10 @@ def main():
     parser.add_argument('--setup', type=Path, required=True)
     parser.add_argument('--result-name', required=True)
     parser.add_argument('--gpu-region', default='EUR-IS-1')
+    parser.add_argument('--gpu', choices=('NVIDIA L4','NVIDIA GeForce RTX 4090'), default='NVIDIA L4')
     parser.add_argument('--controller-region', default='EU-RO-1')
     args = parser.parse_args()
-    coordinate(args.receipt, args.setup, args.result_name, args.gpu_region, args.controller_region)
+    coordinate(args.receipt, args.setup, args.result_name, args.gpu_region, args.controller_region, args.gpu)
 
 
 if __name__ == '__main__':
