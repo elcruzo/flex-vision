@@ -68,3 +68,10 @@ An unsupported or incorrect vendor candidate must remain a reported limitation, 
 - [Pinned letterbox implementation](https://github.com/ultralytics/ultralytics/blob/v8.3.200/ultralytics/data/augment.py)
 - [CV-CUDA operators](https://cvcuda.github.io/CV-CUDA/modules/python/operators.html)
 - [TensorRT Python API](https://docs.nvidia.com/deeplearning/tensorrt/10.x.x/inference-library/python-api-docs.html)
+
+The local reference checks passed all six photo cases at source revision `d09b809` with the new experiment files present.
+The maximum NumPy/PyTorch tensor difference was 0.00048828125. Both 1080p cases had identical tensors.
+The native Ultralytics path also detected each expected object. Its tensor differences remain diagnostic.
+See the retained [local results](experiments/data/020/local/results.json) and [environment](experiments/data/020/local/environment.txt).
+The first local invocation completed inference but failed during environment export because `python` was absent from PATH.
+The corrected runner uses its own interpreter. The second invocation completed and saved its environment.

@@ -41,3 +41,18 @@ def test_export_precedes_exact_gpu_cleanup(tmp_path, monkeypatch):
             experiment, 'terminate', side_effect=cleanup) as terminate:
         experiment.coordinate(receipt_path, setup, 'iteration-test', 'EUR-IS-1')
     terminate.assert_called_once()
+
+
+def test_ended_controller_does_not_wait_for_absent_gpu(tmp_path, monkeypatch):
+    import pytest
+    monkeypatch.chdir(tmp_path)
+    setup = tmp_path/'setup.sh'
+    setup.write_text('true\n')
+    receipt_path = tmp_path/'receipt.json'
+    def launch(*args):
+        receipt_path.write_text(json.dumps({'id':'cpu','secret_id':'secret','run':'123-456'}))
+    with patch.object(experiment,'launch',side_effect=launch), patch.object(
+            experiment,'api',side_effect=[{'pods':[]},None]), patch.object(experiment.time,'sleep') as sleep:
+        with pytest.raises(RuntimeError,match='cleanup verified'):
+            experiment.coordinate(receipt_path,setup,'iteration-test','EU-CZ-1')
+        sleep.assert_not_called()

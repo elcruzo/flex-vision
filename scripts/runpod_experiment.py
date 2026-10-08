@@ -31,6 +31,9 @@ def coordinate(receipt_path, setup, result_name, gpu_region, controller_region='
     try:
         while time.monotonic() - started < 600:
             pods = api('GET', 'pods')['pods']
+            if not pods:
+                if api('GET', 'account/secrets/' + receipt['secret_id']) is None:
+                    raise RuntimeError('Controller ended before GPU SSH readiness; temporary secret cleanup verified')
             matches = [p for p in pods if p.get('env', {}).get('CPG_LEASE_RUN') == receipt['run']
                        and p['id'] != receipt['id']]
             if len(matches) > 1:
