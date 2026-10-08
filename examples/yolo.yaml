@@ -1,0 +1,16 @@
+# Fixed experimental detector contract. See docs/YOLO_VALIDATION.md.
+schema_version: 1
+input:
+  encoding: bgr8
+pipeline:
+  - letterbox:
+      width: 640
+      height: 640
+      value: 114
+  - normalize:
+      mean: [0, 0, 0]
+      std: [1, 1, 1]
+      scale: 0.00392156862745098
+output:
+  dtype: float16
+  layout: nchw

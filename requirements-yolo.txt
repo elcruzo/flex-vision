@@ -1,0 +1,9 @@
+# Experimental model/export dependencies, separate from the runtime package.
+# Select platform-appropriate pinned torch/torchvision before installation.
+ultralytics==8.3.200
+onnx==1.19.1
+opencv-python==5.0.0.93
+numpy==2.2.6
+# GPU experiment additionally requires cvcuda-cu13==0.18.0,
+# cupy-cuda13x==14.2.0, tensorrt-cu13==10.13.3.9.post1,
+# and cuda-toolkit[cudart]==13.0.0. These do not run on macOS.
