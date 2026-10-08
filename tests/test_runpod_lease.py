@@ -39,6 +39,23 @@ def test_invalid_duration_never_calls_provider():
     api.assert_not_called()
 
 
+def test_sixty_minutes_requires_independent_controller():
+    with patch.object(lease, 'api') as api:
+        with pytest.raises(ValueError):
+            lease.create(60, '123-1')
+    api.assert_not_called()
+
+
+def test_controller_soak_deadline_is_bounded(tmp_path):
+    controller = {'id': 'controller', 'cpu': {'id': 'cpu3c'}, 'env': {'CPG_LEASE_RUN': '123-1'}}
+    catalog = {'price': {'secure': .49}, 'dataCenters': [{'id': 'EU-RO-1', 'availability': 'LOW'}]}
+    with patch.object(lease, 'RECEIPT', tmp_path/'lease.json'), patch.object(
+            lease, 'api', side_effect=[{'pods': [controller]}, catalog, POD]), patch.dict(
+            'os.environ', CPG_SSH_PUBLIC_KEY='ssh-ed25519 test'), patch.object(lease.time, 'time', return_value=1000):
+        receipt = lease.create(60, '123-1', controller_id='controller')
+    assert receipt['deadline'] == 4600
+
+
 @pytest.mark.parametrize('available', [True, False])
 def test_explicit_gpu_region_preserves_capacity_guard(tmp_path, available):
     catalog = {'price': {'secure': .49}, 'dataCenters':

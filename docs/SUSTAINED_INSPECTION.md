@@ -94,6 +94,33 @@ Flag increasing post-drain allocations across repeats of the same strategy and c
 Do not call a fixed queue depth a hard GPU memory bound. Cached allocator blocks and library workspaces need separate interpretation.
 Host metadata and validation flags have fixed maximum sizes derived from the bounded experiment duration.
 
+## Continuous 30-minute soak
+
+Run `python scripts/inspection_sustained.py --soak --output benchmark-results/019-soak` on the guarded CUDA host.
+This mode fixes four cameras at 60 arrivals per second each, ROI strategy, and two pending frames per camera.
+It retains the same numerical checks, source images, model, and persistent streams.
+It does not run a new matched speed comparison.
+
+First, condition the GPU under the same load for five minutes.
+Require the last 120 one-second temperature samples to span at most 2 degrees Celsius.
+Their successive one-minute medians must differ by at most 1 degree Celsius.
+Allow one additional five-minute conditioning interval. Abort if temperature remains unstable.
+Then run one uninterrupted 1,800-second arrival window. Do not clear caches or restart the model during measurement.
+
+Keep all 432,000 offered-frame records, including drops, and sample GPU allocation every 100 milliseconds.
+Record temperature, SM clock, power, utilization, and device memory once per second.
+Require every accepted frame to pass inference checks and finish within the existing drain allowance.
+Require allocation growth of at most 1 MiB for each of these checks:
+
+- Allocated bytes after drain compared with the measured start.
+- Minimum sampled allocation in the last five minutes compared with the first five minutes.
+- Maximum reserved bytes in the last five minutes compared with the first five minutes.
+
+These checks detect growth in this workload. They do not establish a reusable workspace bound.
+Report per-minute and per-camera latency, throughput, drops, and thermal behavior without removing slow samples.
+Host result metadata accumulates within the fixed experiment size. This harness does not test bounded host memory for indefinite operation.
+Use a 60-minute direct-controller lease and terminate it after verified export.
+
 ## Limits and next evidence
 
 The shared read-only model and immutable resident sources avoid camera upload costs.

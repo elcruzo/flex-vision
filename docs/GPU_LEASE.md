@@ -17,6 +17,9 @@ python3 scripts/runpod_controller.py launch --minutes 2 --receipt .cache/runpod/
 ```
 
 After a verified cleanup test, use `--minutes 30` and a new receipt path for an experiment.
+For a continuous 30-minute soak, the direct controller also accepts `--minutes 60`.
+This includes setup, thermal conditioning, measurement, and export within one fixed deadline.
+The optional Actions path still rejects 60 minutes because its job timeout is shorter.
 The launcher exits after recording the CPU Pod ID. The Mac does not execute the timer.
 The GPU deadline starts before GPU provisioning, so image startup uses the same lease allowance.
 The CPU controller refuses to create a GPU if its own startup is more than ten minutes late.

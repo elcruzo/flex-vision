@@ -67,7 +67,7 @@ def terminate(receipt):
 
 
 def create(minutes, run, controller_id=None, data_center='EU-RO-1'):
-    if minutes not in (2,30) or not re.fullmatch(r'[0-9]+-[0-9]+',run):
+    if (minutes not in (2,30) and not (minutes == 60 and controller_id is not None)) or not re.fullmatch(r'[0-9]+-[0-9]+',run):
         raise ValueError('Expected a 2- or 30-minute lease and a numeric lease identifier')
     if RECEIPT.exists():
         raise RuntimeError('Creation receipt already exists; refusing another Pod')

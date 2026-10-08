@@ -48,16 +48,25 @@ def run(model, sources, expected, expected_logits, roi, strategy, cameras, fps,
         checks = torch.zeros(total, dtype=torch.bool, device='cuda')
         torch.cuda.synchronize()
         allocated_start = torch.cuda.memory_allocated()
+        reserved_start = torch.cuda.memory_reserved()
         torch.cuda.reset_peak_memory_stats()
         queues = [deque() for _ in streams]
         rows, memory = [], []
         start = time.perf_counter()
+        started_unix_s = time.time()
         interval = 1 / (cameras * fps)
         next_frame = 0
         max_pending = 0
         next_memory = start
+        next_progress = start + 60
         while next_frame < total or any(queues):
             now = time.perf_counter()
+            if now >= next_progress:
+                print(json.dumps({'event': 'progress', 'strategy': strategy, 'elapsed_s': now-start,
+                                  'offered': next_frame, 'pending': sum(map(len, queues)),
+                                  'allocated': torch.cuda.memory_allocated(),
+                                  'reserved': torch.cuda.memory_reserved()}), flush=True)
+                next_progress = now + 60
             if now > start + seconds + 30:
                 raise TimeoutError('Bounded workload did not drain within 30 seconds')
             for queue in queues:
@@ -113,6 +122,7 @@ def run(model, sources, expected, expected_logits, roi, strategy, cameras, fps,
     failures = [row['frame'] for row in completed if not flags[row['frame']]]
     latencies = [row['arrival_to_completion_ms'] for row in completed]
     report = {'strategy': strategy, 'cameras': cameras, 'fps_per_camera': fps,
+              'started_unix_s': started_unix_s,
               'seconds': seconds, 'repeat': repeat, 'queue_depth_per_camera': depth,
               'offered': total, 'completed': len(completed), 'dropped': total-len(completed),
               'drop_reasons': {reason: sum(row['status'] == reason for row in rows)
@@ -123,6 +133,7 @@ def run(model, sources, expected, expected_logits, roi, strategy, cameras, fps,
               'arrival_to_completion_ms': dict(zip(('p50','p95','p99'),
                   np.percentile(latencies, [50,95,99]).tolist())) if latencies else None,
               'max_inflight': max_pending, 'allocated_start': allocated_start,
+              'reserved_start': reserved_start, 'reserved_after_drain': torch.cuda.memory_reserved(),
               'allocated_after_drain': torch.cuda.memory_allocated(),
               'peak_allocated': torch.cuda.max_memory_allocated(),
               'peak_reserved': torch.cuda.max_memory_reserved(),
@@ -138,6 +149,7 @@ def main():
     parser.add_argument('--seconds', type=int, default=20)
     parser.add_argument('--repeats', type=int, default=4)
     parser.add_argument('--depth', type=int, default=2)
+    parser.add_argument('--soak', action='store_true', help='Thermal conditioning, then one continuous 1800-second ROI run')
     parser.add_argument('--weights', type=Path, default=Path('.cache/models/mobilenet_v3_small-047dcff4.pth'))
     args = parser.parse_args()
     if not 1 <= args.seconds <= 60 or not 1 <= args.repeats <= 8 or not 1 <= args.depth <= 4:
@@ -157,6 +169,7 @@ def main():
               'weights_sha256': WEIGHTS_SHA256,
               'source_sha256': {p: digest(Path(p)) for p in (
                   'scripts/inspection_sustained.py', 'scripts/inspection_reference.py',
+                  'scripts/inspection_soak.py',
                   'scripts/local_classifier.py', 'src/cpg/inspection.py',
                   'tests/fixtures/images/manifest.json')}}
     try:
@@ -181,6 +194,13 @@ def main():
             sources = [torch.from_numpy(x).cuda() for x in variants]
             torch.cuda.synchronize()
             stream_pool = [torch.cuda.Stream() for _ in range(4)]
+            if args.soak:
+                from inspection_soak import run_soak
+                report.update(run_soak(run, model, sources, expected, expected_logits, roi,
+                                       stream_pool, args.output))
+                if report['status'] != 'passed':
+                    raise AssertionError('Continuous soak acceptance failed')
+                return
             for cameras, fps in ((1,30), (4,60)):
                 for repeat in range(args.repeats):
                     order = ('baseline','roi') if repeat % 2 == 0 else ('roi','baseline')

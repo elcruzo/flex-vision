@@ -25,8 +25,8 @@ os.execvp('python3',['python3','-u','runpod_controller.py','serve'])
 
 
 def launch(minutes, receipt_path, controller_data_center='EU-RO-1', gpu_data_center='EU-RO-1'):
-    if minutes not in (2,30):
-        raise ValueError('Lease must be 2 or 30 minutes')
+    if minutes not in (2,30,60):
+        raise ValueError('Lease must be 2, 30, or 60 minutes')
     if receipt_path.exists():
         raise ValueError('Controller receipt already exists')
     if api('GET','pods')['pods']:
@@ -115,7 +115,7 @@ def serve():
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('mode',choices=('launch','serve'))
-    parser.add_argument('--minutes',type=int,choices=(2,30),default=2)
+    parser.add_argument('--minutes',type=int,choices=(2,30,60),default=2)
     parser.add_argument('--controller-data-center',default='EU-RO-1')
     parser.add_argument('--gpu-data-center',default='EU-RO-1')
     parser.add_argument('--receipt',type=Path,default=Path('.cache/runpod/controller.json'))
