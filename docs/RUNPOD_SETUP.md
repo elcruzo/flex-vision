@@ -306,3 +306,9 @@ GPU `w45z3wghznchc0` costs $0.89/hour. Controller `mebwvjzisbkdci` costs $0.06/h
 Its independent deadline is October 9 at 05:02:12 UTC (01:02:12 Eastern).
 The controller removes secret `otg2y0ntsu` after termination. Verify all three resources are absent before closing the lease.
 Posted spending plus this reservation is $8.241881919793377, leaving $6.758118080206623 unreserved.
+
+The first GPU execution failed the dense-output check before timing. Ten artifacts were exported and hash-verified.
+GPU `w45z3wghznchc0`, controller `mebwvjzisbkdci`, and secret `otg2y0ntsu` were verified absent at 04:05:51 UTC.
+Its billing has not posted yet. Retain its $1.10 reserve until reconciliation.
+Reserve another $1.10 for the corrected-model retry. Posted spend plus both reserves is $9.341881919793377.
+This leaves $5.658118080206623 unreserved within the $15 total authorization.

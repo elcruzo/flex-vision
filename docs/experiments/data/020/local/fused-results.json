@@ -1,0 +1,827 @@
+{
+  "status": "passed",
+  "scope": "CPU reference inference; no CUDA or TensorRT claim",
+  "revision": "e2c71175716e8388d0a655ab14739073132987bb",
+  "model_preparation": "FP32 convolution/batchnorm fusion before FP16 conversion",
+  "limits": {
+    "tensor_atol": 0.0005,
+    "dense_box_atol": 4.0,
+    "dense_box_rtol": 0.01,
+    "dense_score_atol": 0.03,
+    "dense_score_rtol": 0.03,
+    "detection_iou": 0.95,
+    "detection_score_atol": 0.03,
+    "confidence": 0.5,
+    "nms_iou": 0.7,
+    "max_detections": 300
+  },
+  "weights_sha256": "f59b3d833e2ff32e194b5bb8e08d211dc7c5bdf144b90d2c8412c47ccfc83b36",
+  "dirty": false,
+  "sources": {
+    "/Users/elcruzo/Documents/Code/flex-vision/scripts/yolo_local.py": "e7bd863fc2e49e23c3ac663f8281a05d5bef1ea32aa8ecdd9d0f55786193920b",
+    "scripts/yolo_common.py": "c5ec4c595f04ad5bf3648ed022d935ed89073de2bf5373bac979531c8210d1ec",
+    "src/cpg/config.py": "4b20e46d690bfba4cdd7f9927be1eb1b856871ad230348b4a676598aa7e3e0d9",
+    "src/cpg/__init__.py": "a2d26b90edda68b83290ac1ea4e518c4010a1ebc85d7914e1dfd7e4ab5b99ef0",
+    "src/cpg/inspection.py": "455ca0447f32a33accf8993839fb0df3d873cd53f981f21a80e2105eb4ae751a",
+    "src/cpg/cli.py": "d404077b001e7f78770425cbf2b00051c3b67a833b114359ece375e2a52ff5da",
+    "src/cpg/cuda.py": "09c9deecf3d25d902613d94f3f1f9993e8e2d50e9533287a3b1233c5a5c4a683",
+    "src/cpg/pipeline.py": "3c4d16cd562e95a2eba88e33e87765df5539cc52988640f1de487473a47accfc",
+    "src/cpg/reference.py": "030e11d0be7eff45779c703ad5fee0510cc9b1e53c9b143d928880eed7ed3b93",
+    "src/cpg/validation.py": "e95f7a243b9b2adb555759292540b2f5fa641699816ecde957369fb622028554"
+  },
+  "config_sha256": "a5121ee4b86bd688123424625e7f5bb2d21cc411935185111da6b20410aec106",
+  "cases": [
+    {
+      "id": "astronaut",
+      "status": "passed",
+      "provenance": {
+        "file": "astronaut.png",
+        "sha256": "88431cd9653ccd539741b555fb0a46b61558b301d4110412b5bc28b5e3ea6cb5",
+        "transform": "none"
+      },
+      "tensor_max_abs_error": 0.00048828125,
+      "fusion_dense": {
+        "box_max_abs_error": 0.0032958984375,
+        "score_max_abs_error": 4.079937934875488e-05
+      },
+      "fusion_detection_ious": [
+        0.9999997271977562
+      ],
+      "dense": {
+        "box_max_abs_error": 0.0653228759765625,
+        "score_max_abs_error": 0.0009329915046691895
+      },
+      "fp16_model_dense": {
+        "box_max_abs_error": 7.177154541015625,
+        "score_max_abs_error": 0.024573832750320435
+      },
+      "fp16_model_detection_ious": [
+        0.9987962754261795
+      ],
+      "fp16_model": {
+        "boxes": [
+          [
+            6.5,
+            17.0,
+            454.25,
+            639.0
+          ]
+        ],
+        "scores": [
+          0.712890625
+        ],
+        "labels": [
+          0
+        ],
+        "source_boxes": [
+          [
+            5.2,
+            13.6,
+            363.4,
+            511.2
+          ]
+        ],
+        "expected_object_iou": 0.9134520865759633
+      },
+      "matched_detection_ious": [
+        0.9999956005863646
+      ],
+      "reference": {
+        "boxes": [
+          [
+            6.70123291015625,
+            17.0889892578125,
+            454.16925048828125,
+            639.2685546875
+          ]
+        ],
+        "scores": [
+          0.7155874967575073
+        ],
+        "labels": [
+          0
+        ],
+        "source_boxes": [
+          [
+            5.360986328125,
+            13.67119140625,
+            363.335400390625,
+            511.41484375
+          ]
+        ],
+        "expected_object_iou": 0.9139258992366688
+      },
+      "candidate": {
+        "boxes": [
+          [
+            6.70086669921875,
+            17.0885009765625,
+            454.1679992675781,
+            639.2685546875
+          ]
+        ],
+        "scores": [
+          0.7155938148498535
+        ],
+        "labels": [
+          0
+        ],
+        "source_boxes": [
+          [
+            5.360693359375,
+            13.67080078125,
+            363.3343994140625,
+            511.41484375
+          ]
+        ],
+        "expected_object_iou": 0.9139233262196088
+      },
+      "native_ultralytics": {
+        "boxes": [
+          [
+            6.5584716796875,
+            17.13372802734375,
+            454.35565185546875,
+            639.2537841796875
+          ]
+        ],
+        "scores": [
+          0.7141071557998657
+        ],
+        "labels": [
+          0
+        ],
+        "source_boxes": [
+          [
+            5.24677734375,
+            13.706982421875,
+            363.484521484375,
+            511.40302734375
+          ]
+        ],
+        "expected_object_iou": 0.9139552442558165
+      },
+      "native_tensor_max_abs_difference": 0.00341796875
+    },
+    {
+      "id": "astronaut-padded",
+      "status": "passed",
+      "provenance": {
+        "file": "astronaut.png",
+        "sha256": "88431cd9653ccd539741b555fb0a46b61558b301d4110412b5bc28b5e3ea6cb5",
+        "transform": "pad bottom/right 44/74; top/left 17/29; value 114"
+      },
+      "tensor_max_abs_error": 0.00048828125,
+      "fusion_dense": {
+        "box_max_abs_error": 0.002532958984375,
+        "score_max_abs_error": 3.0249357223510742e-06
+      },
+      "fusion_detection_ious": [
+        0.9999999174691689
+      ],
+      "dense": {
+        "box_max_abs_error": 0.04278564453125,
+        "score_max_abs_error": 3.808736801147461e-05
+      },
+      "fp16_model_dense": {
+        "box_max_abs_error": 3.022705078125,
+        "score_max_abs_error": 0.001369386911392212
+      },
+      "fp16_model_detection_ious": [
+        0.9988019773844862
+      ],
+      "fp16_model": {
+        "boxes": [
+          [
+            41.5,
+            53.0,
+            411.0,
+            568.0
+          ]
+        ],
+        "scores": [
+          0.81787109375
+        ],
+        "labels": [
+          0
+        ],
+        "source_boxes": [
+          [
+            39.87890624999999,
+            29.803691275167782,
+            394.94531249999994,
+            524.9295302013422
+          ]
+        ],
+        "expected_object_iou": 0.9246682565103648
+      },
+      "matched_detection_ious": [
+        0.9999988765870742
+      ],
+      "reference": {
+        "boxes": [
+          [
+            41.34735107421875,
+            52.9818115234375,
+            411.11920166015625,
+            568.220458984375
+          ]
+        ],
+        "scores": [
+          0.8179588317871094
+        ],
+        "labels": [
+          0
+        ],
+        "source_boxes": [
+          [
+            39.73222017288207,
+            29.786204702902157,
+            395.05985784530634,
+            525.1414815403471
+          ]
+        ],
+        "expected_object_iou": 0.9257773587230455
+      },
+      "candidate": {
+        "boxes": [
+          [
+            41.347320556640625,
+            52.9818115234375,
+            411.11907958984375,
+            568.2208251953125
+          ]
+        ],
+        "scores": [
+          0.8179619312286377
+        ],
+        "labels": [
+          0
+        ],
+        "source_boxes": [
+          [
+            39.73219084739684,
+            29.786204702902157,
+            395.0597405433654,
+            525.1418336189832
+          ]
+        ],
+        "expected_object_iou": 0.9257777875127233
+      },
+      "native_ultralytics": {
+        "boxes": [
+          [
+            41.25628662109375,
+            53.00616455078125,
+            411.1114501953125,
+            568.2539672851562
+          ]
+        ],
+        "scores": [
+          0.8199895620346069
+        ],
+        "labels": [
+          0
+        ],
+        "source_boxes": [
+          [
+            39.64471292495727,
+            29.80961793221083,
+            395.05240917205805,
+            525.1736967355613
+          ]
+        ],
+        "expected_object_iou": 0.926002398690683
+      },
+      "native_tensor_max_abs_difference": 0.0029449462890625
+    },
+    {
+      "id": "chelsea",
+      "status": "passed",
+      "provenance": {
+        "file": "chelsea.png",
+        "sha256": "596aa1e7cb875eb79f437e310381d26b338a81c2da23439704a73c4651e8c4bb",
+        "transform": "none"
+      },
+      "tensor_max_abs_error": 0.00048828125,
+      "fusion_dense": {
+        "box_max_abs_error": 0.002288818359375,
+        "score_max_abs_error": 5.21540641784668e-06
+      },
+      "fusion_detection_ious": [
+        0.9999994239429004
+      ],
+      "dense": {
+        "box_max_abs_error": 0.0213623046875,
+        "score_max_abs_error": 3.6329030990600586e-05
+      },
+      "fp16_model_dense": {
+        "box_max_abs_error": 2.84747314453125,
+        "score_max_abs_error": 0.012925967574119568
+      },
+      "fp16_model_detection_ious": [
+        0.9983319959844188
+      ],
+      "fp16_model": {
+        "boxes": [
+          [
+            2.0,
+            102.5,
+            618.5,
+            525.5
+          ]
+        ],
+        "scores": [
+          0.88330078125
+        ],
+        "labels": [
+          15
+        ],
+        "source_boxes": [
+          [
+            1.4093749999999998,
+            0.0,
+            435.84921875,
+            294.71830985915494
+          ]
+        ],
+        "expected_object_iou": 0.8997172014017051
+      },
+      "matched_detection_ious": [
+        0.9999981284695604
+      ],
+      "reference": {
+        "boxes": [
+          [
+            2.080078125,
+            102.5810546875,
+            618.958740234375,
+            525.7556762695312
+          ]
+        ],
+        "scores": [
+          0.8833296298980713
+        ],
+        "labels": [
+          15
+        ],
+        "source_boxes": [
+          [
+            1.4658050537109373,
+            0.0,
+            436.1724872589111,
+            294.89836357009244
+          ]
+        ],
+        "expected_object_iou": 0.8994382320235189
+      },
+      "candidate": {
+        "boxes": [
+          [
+            2.08001708984375,
+            102.58111572265625,
+            618.9596557617188,
+            525.755615234375
+          ]
+        ],
+        "scores": [
+          0.8833281397819519
+        ],
+        "labels": [
+          15
+        ],
+        "source_boxes": [
+          [
+            1.4657620429992675,
+            0.0,
+            436.1731324195861,
+            294.89832058758805
+          ]
+        ],
+        "expected_object_iou": 0.8994368990818391
+      },
+      "native_ultralytics": {
+        "boxes": [
+          [
+            2.10504150390625,
+            102.61163330078125,
+            619.072998046875,
+            525.7734985351562
+          ]
+        ],
+        "scores": [
+          0.8830535411834717
+        ],
+        "labels": [
+          15
+        ],
+        "source_boxes": [
+          [
+            1.4833964347839355,
+            0.0,
+            436.2530033111572,
+            294.9109144613777
+          ]
+        ],
+        "expected_object_iou": 0.8992702677259706
+      },
+      "native_tensor_max_abs_difference": 0.00341796875
+    },
+    {
+      "id": "chelsea-padded",
+      "status": "passed",
+      "provenance": {
+        "file": "chelsea.png",
+        "sha256": "596aa1e7cb875eb79f437e310381d26b338a81c2da23439704a73c4651e8c4bb",
+        "transform": "pad bottom/right 44/74; top/left 17/29; value 114"
+      },
+      "tensor_max_abs_error": 0.00048828125,
+      "fusion_dense": {
+        "box_max_abs_error": 0.003662109375,
+        "score_max_abs_error": 8.344650268554688e-07
+      },
+      "fusion_detection_ious": [
+        0.9999998664351661
+      ],
+      "dense": {
+        "box_max_abs_error": 0.04425048828125,
+        "score_max_abs_error": 1.0371208190917969e-05
+      },
+      "fp16_model_dense": {
+        "box_max_abs_error": 2.3663330078125,
+        "score_max_abs_error": 0.001275777816772461
+      },
+      "fp16_model_detection_ious": [
+        0.9986755450936304
+      ],
+      "fp16_model": {
+        "boxes": [
+          [
+            35.625,
+            130.5,
+            499.375,
+            473.5
+          ]
+        ],
+        "scores": [
+          0.9228515625
+        ],
+        "labels": [
+          15
+        ],
+        "source_boxes": [
+          [
+            30.837890625,
+            16.881294964028775,
+            432.271484375,
+            313.8189448441247
+          ]
+        ],
+        "expected_object_iou": 0.9765603682311282
+      },
+      "matched_detection_ious": [
+        0.9999994250344991
+      ],
+      "reference": {
+        "boxes": [
+          [
+            35.5811767578125,
+            130.66270446777344,
+            499.17254638671875,
+            473.390380859375
+          ]
+        ],
+        "scores": [
+          0.9235919713973999
+        ],
+        "labels": [
+          15
+        ],
+        "source_boxes": [
+          [
+            30.799956130981446,
+            17.022149431333837,
+            432.0962354660034,
+            313.7240467391711
+          ]
+        ],
+        "expected_object_iou": 0.9770759084029279
+      },
+      "candidate": {
+        "boxes": [
+          [
+            35.58111572265625,
+            130.66265869140625,
+            499.1724853515625,
+            473.39044189453125
+          ]
+        ],
+        "scores": [
+          0.923589289188385
+        ],
+        "labels": [
+          15
+        ],
+        "source_boxes": [
+          [
+            30.79990329742432,
+            17.02210980239246,
+            432.0961826324463,
+            313.72409957775966
+          ]
+        ],
+        "expected_object_iou": 0.9770764669034498
+      },
+      "native_ultralytics": {
+        "boxes": [
+          [
+            35.48942565917969,
+            130.66871643066406,
+            499.18060302734375,
+            473.404052734375
+          ]
+        ],
+        "scores": [
+          0.9238190054893494
+        ],
+        "labels": [
+          15
+        ],
+        "source_boxes": [
+          [
+            30.720534086227417,
+            17.027354032301503,
+            432.10320949554443,
+            313.73588258299606
+          ]
+        ],
+        "expected_object_iou": 0.9772757407724502
+      },
+      "native_tensor_max_abs_difference": 0.0029296875
+    },
+    {
+      "id": "astronaut-1080p",
+      "status": "passed",
+      "provenance": {
+        "file": "astronaut.png",
+        "sha256": "88431cd9653ccd539741b555fb0a46b61558b301d4110412b5bc28b5e3ea6cb5",
+        "transform": "repeat 2x; pad top 28, left 448 to 1080x1920"
+      },
+      "tensor_max_abs_error": 0.0,
+      "fusion_dense": {
+        "box_max_abs_error": 0.0028076171875,
+        "score_max_abs_error": 1.1026859283447266e-06
+      },
+      "fusion_detection_ious": [
+        1.0
+      ],
+      "dense": {
+        "box_max_abs_error": 0.0,
+        "score_max_abs_error": 0.0
+      },
+      "fp16_model_dense": {
+        "box_max_abs_error": 2.03936767578125,
+        "score_max_abs_error": 0.0063246190547943115
+      },
+      "fp16_model_detection_ious": [
+        0.998677149944604
+      ],
+      "fp16_model": {
+        "boxes": [
+          [
+            158.4375,
+            160.25,
+            390.5625,
+            488.25
+          ]
+        ],
+        "scores": [
+          0.90576171875
+        ],
+        "labels": [
+          0
+        ],
+        "source_boxes": [
+          [
+            475.3125,
+            60.75,
+            1171.6875,
+            1044.75
+          ]
+        ],
+        "expected_object_iou": 0.9010295857988165
+      },
+      "matched_detection_ious": [
+        1.0
+      ],
+      "reference": {
+        "boxes": [
+          [
+            158.40374755859375,
+            160.32659912109375,
+            390.35308837890625,
+            488.23614501953125
+          ]
+        ],
+        "scores": [
+          0.9059117436408997
+        ],
+        "labels": [
+          0
+        ],
+        "source_boxes": [
+          [
+            475.21124267578125,
+            60.97979736328125,
+            1171.0592651367188,
+            1044.7084350585938
+          ]
+        ],
+        "expected_object_iou": 0.9000994440216638
+      },
+      "candidate": {
+        "boxes": [
+          [
+            158.40374755859375,
+            160.32659912109375,
+            390.35308837890625,
+            488.23614501953125
+          ]
+        ],
+        "scores": [
+          0.9059117436408997
+        ],
+        "labels": [
+          0
+        ],
+        "source_boxes": [
+          [
+            475.21124267578125,
+            60.97979736328125,
+            1171.0592651367188,
+            1044.7084350585938
+          ]
+        ],
+        "expected_object_iou": 0.9000994440216638
+      },
+      "native_ultralytics": {
+        "boxes": [
+          [
+            158.40374755859375,
+            160.32659912109375,
+            390.35308837890625,
+            488.23614501953125
+          ]
+        ],
+        "scores": [
+          0.9059117436408997
+        ],
+        "labels": [
+          0
+        ],
+        "source_boxes": [
+          [
+            475.21124267578125,
+            60.97979736328125,
+            1171.0592651367188,
+            1044.7084350585938
+          ]
+        ],
+        "expected_object_iou": 0.9000994440216638
+      },
+      "native_tensor_max_abs_difference": 0.0
+    },
+    {
+      "id": "chelsea-1080p",
+      "status": "passed",
+      "provenance": {
+        "file": "chelsea.png",
+        "sha256": "596aa1e7cb875eb79f437e310381d26b338a81c2da23439704a73c4651e8c4bb",
+        "transform": "repeat 2x; pad top 240, left 509 to 1080x1920"
+      },
+      "tensor_max_abs_error": 0.0,
+      "fusion_dense": {
+        "box_max_abs_error": 0.00244140625,
+        "score_max_abs_error": 1.0132789611816406e-06
+      },
+      "fusion_detection_ious": [
+        0.999999630334688
+      ],
+      "dense": {
+        "box_max_abs_error": 0.0,
+        "score_max_abs_error": 0.0
+      },
+      "fp16_model_dense": {
+        "box_max_abs_error": 3.111907958984375,
+        "score_max_abs_error": 0.001232251524925232
+      },
+      "fp16_model_detection_ious": [
+        0.9982697898604055
+      ],
+      "fp16_model": {
+        "boxes": [
+          [
+            170.25,
+            221.625,
+            432.25,
+            416.375
+          ]
+        ],
+        "scores": [
+          0.9228515625
+        ],
+        "labels": [
+          15
+        ],
+        "source_boxes": [
+          [
+            510.75,
+            244.875,
+            1296.75,
+            829.125
+          ]
+        ],
+        "expected_object_iou": 0.956709375
+      },
+      "matched_detection_ious": [
+        1.0
+      ],
+      "reference": {
+        "boxes": [
+          [
+            170.4125213623047,
+            221.63970947265625,
+            432.35723876953125,
+            416.25299072265625
+          ]
+        ],
+        "scores": [
+          0.9228819012641907
+        ],
+        "labels": [
+          15
+        ],
+        "source_boxes": [
+          [
+            511.23756408691406,
+            244.91912841796875,
+            1297.0717163085938,
+            828.7589721679688
+          ]
+        ],
+        "expected_object_iou": 0.9558360180135816
+      },
+      "candidate": {
+        "boxes": [
+          [
+            170.4125213623047,
+            221.63970947265625,
+            432.35723876953125,
+            416.25299072265625
+          ]
+        ],
+        "scores": [
+          0.9228819012641907
+        ],
+        "labels": [
+          15
+        ],
+        "source_boxes": [
+          [
+            511.23756408691406,
+            244.91912841796875,
+            1297.0717163085938,
+            828.7589721679688
+          ]
+        ],
+        "expected_object_iou": 0.9558360180135816
+      },
+      "native_ultralytics": {
+        "boxes": [
+          [
+            170.4125213623047,
+            221.63970947265625,
+            432.35723876953125,
+            416.25299072265625
+          ]
+        ],
+        "scores": [
+          0.9228819012641907
+        ],
+        "labels": [
+          15
+        ],
+        "source_boxes": [
+          [
+            511.23756408691406,
+            244.91912841796875,
+            1297.0717163085938,
+            828.7589721679688
+          ]
+        ],
+        "expected_object_iou": 0.9558360180135816
+      },
+      "native_tensor_max_abs_difference": 0.0
+    }
+  ]
+}

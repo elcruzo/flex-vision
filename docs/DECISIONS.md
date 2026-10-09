@@ -335,3 +335,14 @@ The first rental could not finish conditioning and the soak within its remaining
 Use automatic SSH submission, verified export, and exact GPU termination under the independent controller for subsequent prepared rentals.
 The local coordinator still depends on an awake Mac for submission and export. The cloud controller bounds the lease independently.
 The third lease completed and exported successfully during a chat-session pause, then verified all cleanup without another turn.
+
+## D028 — Match model preparation before comparing FP16 consumers
+
+The first FP16 YOLO TensorRT experiment failed its dense-output comparison before timing.
+PyTorch retained batch normalization. ONNX export folded that normalization into FP16 convolution weights.
+The pinned Ultralytics exporter explicitly fuses the FP32 model before converting it to FP16.
+Use that preparation for both the PyTorch reference and TensorRT export.
+Retain the original failure. Keep the original numerical limits for the rerun.
+Six local photo cases pass the corrected preparation, including fused/unfused FP32 and FP16 comparisons.
+GPU acceptance remains dependent on the complete rerun, not on those local results.
+See [the fixed YOLO protocol](YOLO_VALIDATION.md).
