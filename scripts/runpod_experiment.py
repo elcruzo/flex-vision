@@ -102,8 +102,17 @@ def coordinate(receipt_path, setup, result_name, gpu_region, controller_region='
     finally:
         if gpu is not None:
             terminate(gpu)
+        else:
+            # A container that never starts cannot execute its own startup guard.
+            # Abort the exact controller and remove its temporary credential.
+            terminate({'id': receipt['id'], 'run': receipt['run']})
+            api('DELETE', 'account/secrets/' + receipt['secret_id'])
+            # Reconcile a GPU that raced the final startup poll. Its unique run
+            # marker binds it to the source dispatched by this creation receipt.
+            for pending in api('GET', 'pods')['pods']:
+                if pending.get('env', {}).get('CPG_LEASE_RUN') == receipt['run']:
+                    terminate({'id': pending['id'], 'run': receipt['run']})
         # The controller removes its secret and itself after the GPU disappears.
-        # If GPU creation was never observed, keep its independent startup guard.
     for _ in range(12):
         if api('GET', 'pods/' + receipt['id']) is None and api('GET', 'account/secrets/' + receipt['secret_id']) is None:
             log('controller_cleanup_verified', pod=receipt['id'], secret_id=receipt['secret_id'])

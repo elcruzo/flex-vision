@@ -371,3 +371,15 @@ Retain all background errors and original-limit violations. Tighten same-engine 
 Preserve tensor, final detection, finiteness, probability, and box-validity checks.
 This is acceptance revision 3, not a retroactive pass for previous experiments.
 The next comparison also uses a two-pass planar CV-CUDA candidate to avoid an unnecessary layout pass.
+
+## D031 — Keep candidate equivalence stricter than approximate framework interpolation
+
+The original person fixture produced exact CPG tensor and TensorRT outputs.
+The PyTorch interpolation baseline differed by at most one FP16 step at 2,453 tensor elements.
+Its largest background class-score change was 0.01343, while the final detection matched at IoU 0.99944.
+
+Require bitwise FP16 tensor equality for CPG, unmasked dense box checks, and 0.003 dense score tolerances.
+For the library baselines, restore the original 0.03 score tolerances and preserve confidence-aware box checks.
+Keep every approximation, failed prior policy, and task-level detection check visible.
+Collect every numerical fixture before rejecting the experiment. Do not benchmark a failed run.
+This acceptance revision validates the fixed CPG contract and bounds the baselines' approximate interpolation behavior separately.

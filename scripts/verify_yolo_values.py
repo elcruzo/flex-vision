@@ -44,8 +44,11 @@ def verify(root):
             if (not np.isfinite(head).all() or (head[:,2:4]<0).any()
                     or (head[:,4:]<0).any() or (head[:,4:]>1).any()):
                 raise ValueError('Invalid dense values')
-            np.testing.assert_allclose(head[:,4:],reference[:,4:],atol=.003,rtol=.003)
-            relevant=np.maximum(head[:,4:].max(1),reference[:,4:].max(1)) >= .01
+            if candidate == 'cpg':
+                np.testing.assert_array_equal(tensor.view(np.uint16),expected.view(np.uint16))
+            score_tol = .003 if candidate == 'cpg' else .03
+            np.testing.assert_allclose(head[:,4:],reference[:,4:],atol=score_tol,rtol=score_tol)
+            relevant = np.ones((1,8400),dtype=bool) if candidate == 'cpg' else np.maximum(head[:,4:].max(1),reference[:,4:].max(1)) >= .01
             a,b=head[:,:4].transpose(0,2,1)[relevant],reference[:,:4].transpose(0,2,1)[relevant]
             np.testing.assert_allclose(a,b,atol=4,rtol=.01)
             boxes,scores,labels=decode_numpy(head)

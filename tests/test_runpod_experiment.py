@@ -52,7 +52,27 @@ def test_ended_controller_does_not_wait_for_absent_gpu(tmp_path, monkeypatch):
     def launch(*args):
         receipt_path.write_text(json.dumps({'id':'cpu','secret_id':'secret','run':'123-456'}))
     with patch.object(experiment,'launch',side_effect=launch), patch.object(
-            experiment,'api',side_effect=[{'pods':[]},None]), patch.object(experiment.time,'sleep') as sleep:
+            experiment,'api',side_effect=[{'pods':[]},None,None,{'pods':[]}]), patch.object(
+            experiment,'terminate') as terminate, patch.object(experiment.time,'sleep') as sleep:
         with pytest.raises(RuntimeError,match='cleanup verified'):
             experiment.coordinate(receipt_path,setup,'iteration-test','EU-CZ-1')
         sleep.assert_not_called()
+        terminate.assert_called_once_with({'id':'cpu','run':'123-456'})
+
+
+def test_startup_timeout_removes_controller_secret_and_raced_gpu(tmp_path,monkeypatch):
+    import pytest
+    monkeypatch.chdir(tmp_path)
+    setup=tmp_path/'setup.sh';setup.write_text('true\n')
+    receipt_path=tmp_path/'receipt.json'
+    receipt={'id':'cpu','secret_id':'secret','run':'123-456'}
+    pending={'id':'late-gpu','env':{'CPG_LEASE_RUN':'123-456'}}
+    def launch(*args): receipt_path.write_text(json.dumps(receipt))
+    with patch.object(experiment,'launch',side_effect=launch), patch.object(
+            experiment.time,'monotonic',side_effect=[0,601]), patch.object(
+            experiment,'api',side_effect=[None,{'pods':[pending]}]) as api, patch.object(
+            experiment,'terminate') as terminate:
+        with pytest.raises(TimeoutError):
+            experiment.coordinate(receipt_path,setup,'iteration-test','EU-CZ-1')
+    assert [call.args[0]['id'] for call in terminate.call_args_list] == ['cpu','late-gpu']
+    assert api.call_args_list[0].args == ('DELETE','account/secrets/secret')

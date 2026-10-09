@@ -105,7 +105,7 @@ def main():
     if args.blocks <= 0 or args.samples <= 0:
         parser.error('blocks and samples must be positive')
     args.output.mkdir(parents=True,exist_ok=False)
-    report = {'status':'failed','limits':LIMITS,'acceptance_policy':'v3: task-relevant boxes, tighter same-engine scores; all background differences reported','weights_sha256':WEIGHTS_SHA256,'cases':[],
+    report = {'status':'failed','limits':LIMITS,'acceptance_policy':'v4: exact CPG tensor and strict dense output; original baseline scores and relevant boxes','weights_sha256':WEIGHTS_SHA256,'cases':[],
               'revision':subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),
               'dirty':bool(subprocess.check_output(['git','status','--porcelain'],text=True)),
               'config_sha256':digest('examples/yolo.yaml'),
@@ -144,51 +144,65 @@ def main():
             with torch.cuda.stream(stream),cp.cuda.ExternalStream(stream.cuda_stream,device_id=0):
                 benchmark_cases = []
                 for name,rgb,expectation,provenance in cases():
-                    host = np.ascontiguousarray(rgb[...,::-1])
-                    expected,g = numpy_reference(pipe,host)
-                    frame = cp.asarray(host)
-                    stream.synchronize()
-                    reference_tensor = torch.from_numpy(expected).cuda()
-                    reference_head = model(reference_tensor)
-                    fp32_head = model_fp32(reference_tensor.float())
-                    reference_detection = decode(reference_head)
-                    reference_trt = consumer(cp.from_dlpack(reference_tensor))
-                    case = {'id':name,'status':'failed','provenance':provenance,
-                            'input_sha256':digest_bytes(host),'paths':{}}
-                    report['cases'].append(case)
-                    # Preserve dense values before assertions, including failing cases.
-                    np.savez_compressed(args.output/(name+'-controls.npz'),tensor=expected,
-                        fp32_dense=fp32_head.cpu().numpy(),fp16_dense=reference_head.cpu().numpy(),
-                        tensorrt_dense=reference_trt.cpu().numpy())
-                    case['fp16_vs_fp32_dense'] = compare_dense(fp32_head,reference_head)
-                    compare_detections(decode(fp32_head),reference_detection)
-                    case['same_input_trt_dense'] = compare_dense(reference_head,reference_trt,cross_engine=True)
-                    compare_detections(reference_detection,decode(reference_trt))
-                    runners = {'cpg':lambda:pipe(frame), 'torch':lambda:torch_preprocess(frame,g),
-                               'cvcuda':lambda:vendor_preprocess(frame,g,cvstream)}
-                    retained = []
-                    for path,run in runners.items():
-                        tensor = run()
-                        downloaded = cp.asnumpy(tensor)
-                        np.testing.assert_allclose(downloaded,expected,atol=LIMITS['tensor_atol'],rtol=0)
-                        head = consumer(tensor)
-                        detection = decode(head)
-                        np.savez_compressed(args.output/(name+'-'+path+'.npz'),tensor=downloaded,dense=head.cpu().numpy())
-                        case['paths'][path] = {'tensor_max_abs_error':float(np.abs(downloaded.astype(np.float32)-expected.astype(np.float32)).max()),
-                            'dense':compare_dense(reference_trt,head,preprocessing=True),'matched_ious':compare_detections(decode(reference_trt),detection),
-                            'detections':detection_record(detection,g,expectation)}
-                        retained.append((tensor,downloaded.copy()))
-                    # Actual inference also checks framework import and a negative channel stride.
-                    for path,value in [('torch_dlpack',torch.from_dlpack(frame)),('negative_stride',cp.asarray(rgb)[...,::-1])]:
-                        tensor = pipe(value)
-                        np.testing.assert_allclose(cp.asnumpy(tensor),expected,atol=LIMITS['tensor_atol'],rtol=0)
-                        case['paths'][path] = {'detections':detection_record(decode(consumer(tensor)),g,expectation)}
-                    for tensor,snapshot in retained:
-                        np.testing.assert_array_equal(cp.asnumpy(tensor),snapshot)
-                    case['status'] = 'passed'
-                    print('validated',name,flush=True)
-                    if name.endswith('1080p'):
-                        benchmark_cases.append((name,frame,g))
+                    stage = 'model_control'
+                    try:
+                        host = np.ascontiguousarray(rgb[...,::-1])
+                        expected,g = numpy_reference(pipe,host)
+                        frame = cp.asarray(host)
+                        stream.synchronize()
+                        reference_tensor = torch.from_numpy(expected).cuda()
+                        reference_head = model(reference_tensor)
+                        fp32_head = model_fp32(reference_tensor.float())
+                        reference_detection = decode(reference_head)
+                        reference_trt = consumer(cp.from_dlpack(reference_tensor))
+                        case = {'id':name,'status':'failed','provenance':provenance,
+                                'input_sha256':digest_bytes(host),'paths':{}}
+                        report['cases'].append(case)
+                        # Preserve dense values before assertions, including failing cases.
+                        np.savez_compressed(args.output/(name+'-controls.npz'),tensor=expected,
+                            fp32_dense=fp32_head.cpu().numpy(),fp16_dense=reference_head.cpu().numpy(),
+                            tensorrt_dense=reference_trt.cpu().numpy())
+                        case['fp16_vs_fp32_dense'] = compare_dense(fp32_head,reference_head,cross_engine=True)
+                        compare_detections(decode(fp32_head),reference_detection)
+                        case['same_input_trt_dense'] = compare_dense(reference_head,reference_trt,cross_engine=True)
+                        compare_detections(reference_detection,decode(reference_trt))
+                        runners = {'cpg':lambda:pipe(frame), 'torch':lambda:torch_preprocess(frame,g),
+                                   'cvcuda':lambda:vendor_preprocess(frame,g,cvstream)}
+                        retained = []
+                        for path,run in runners.items():
+                            stage = path
+                            tensor = run()
+                            downloaded = cp.asnumpy(tensor)
+                            np.savez_compressed(args.output/(name+'-'+path+'.npz'),tensor=downloaded)
+                            np.testing.assert_allclose(downloaded,expected,atol=LIMITS['tensor_atol'],rtol=0)
+                            if path == 'cpg':
+                                np.testing.assert_array_equal(downloaded.view(np.uint16),expected.view(np.uint16))
+                            head = consumer(tensor)
+                            detection = decode(head)
+                            np.savez_compressed(args.output/(name+'-'+path+'.npz'),tensor=downloaded,dense=head.cpu().numpy())
+                            case['paths'][path] = {'tensor_max_abs_error':float(np.abs(downloaded.astype(np.float32)-expected.astype(np.float32)).max()),
+                                'dense':compare_dense(reference_trt,head,strict_output=True) if path == 'cpg' else compare_dense(reference_trt,head,cross_engine=True),'matched_ious':compare_detections(decode(reference_trt),detection),
+                                'detections':detection_record(detection,g,expectation)}
+                            retained.append((tensor,downloaded.copy()))
+                        # Actual inference also checks framework import and a negative channel stride.
+                        for path,value in [('torch_dlpack',torch.from_dlpack(frame)),('negative_stride',cp.asarray(rgb)[...,::-1])]:
+                            tensor = pipe(value)
+                            np.testing.assert_allclose(cp.asnumpy(tensor),expected,atol=LIMITS['tensor_atol'],rtol=0)
+                            case['paths'][path] = {'detections':detection_record(decode(consumer(tensor)),g,expectation)}
+                        for tensor,snapshot in retained:
+                            np.testing.assert_array_equal(cp.asnumpy(tensor),snapshot)
+                        case['status'] = 'passed'
+                        print('validated',name,flush=True)
+                        if name.endswith('1080p'):
+                            benchmark_cases.append((name,frame,g))
+                    except AssertionError as exc:
+                        if not report['cases'] or report['cases'][-1]['id'] != name:
+                            report['cases'].append({'id':name,'status':'failed','paths':{}})
+                        report['cases'][-1]['error'] = str(exc)
+                        report['cases'][-1]['failed_stage'] = stage
+                        print('numerical failure',name,str(exc).splitlines()[0],flush=True)
+                if any(case['status'] != 'passed' for case in report['cases']):
+                    raise AssertionError('Numerical acceptance failed; all available cases retained; timing was not started')
                 if args.trace:
                     torch.cuda.profiler.start()
                     control = cp.arange(1024,dtype=cp.float32)

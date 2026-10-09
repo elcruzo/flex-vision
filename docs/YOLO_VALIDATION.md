@@ -133,3 +133,24 @@ This protocol validates inference behavior on smoke fixtures. It does not establ
 The next vendor baseline uses two passes: resize/channel conversion/scale/FP16/NCHW, then padding directly into an owned NCHW output.
 This removes the earlier separate layout pass. Verify this plan before measuring it.
 The earlier three-pass vendor results remain in the failed-run records, not as a claim about the fastest vendor plan.
+
+## Acceptance revision 4: keep CPG exact and diagnose library approximations
+
+Revision 3 failed the PyTorch baseline's tightened score gate on the original person fixture.
+Its largest score change was 0.01343 on a background proposal with reference confidence 0.24976.
+Its final detection still matched with IoU 0.99944. Its tensor differed at 2,453 elements by at most one FP16 step.
+CPG's tensor and all TensorRT dense outputs were identical to the independent input and same-engine reference on this case.
+The [strict-score failure](experiments/data/020/strict-score-failure/results.json) remains failed under revision 3.
+
+The next run preserves stronger candidate checks and explicit approximation checks for the baselines:
+
+- CPG must produce a bitwise-equal FP16 tensor against the independent NumPy oracle.
+- CPG keeps the original **unmasked** dense box limits and the tighter 0.003 dense score limits.
+- PyTorch and CV-CUDA keep the original 0.0005 tensor tolerance and original 0.03 dense score tolerances.
+- Their box comparisons use the explicit 0.01 proposal-score floor, with every background error retained.
+- All paths keep the same final detection counts, classes, IoU, confidence, source-coordinate, and validity checks.
+- Cross-precision and cross-engine model checks use the documented confidence-aware box policy.
+
+The tighter baseline score limit was an experimental guard, not a product requirement. This revision restores its original limit for approximate library interpolation.
+Do not call the baseline tensors identical. Do not report revision 3 as passed.
+Collect all numerical cases before rejecting a run. A failed run still cannot proceed into timing.

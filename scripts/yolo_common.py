@@ -93,7 +93,7 @@ def compare_detections(reference, actual):
     return matches
 
 
-def compare_dense(reference, actual, *, cross_engine=False, preprocessing=False):
+def compare_dense(reference, actual, *, cross_engine=False, preprocessing=False, strict_output=False):
     if not torch.isfinite(actual).all() or not torch.isfinite(reference).all():
         raise AssertionError('Non-finite dense output')
     if reference.shape != actual.shape or tuple(actual.shape) != (1,84,8400):
@@ -113,8 +113,8 @@ def compare_dense(reference, actual, *, cross_engine=False, preprocessing=False)
             result['background_box_limit_violations'] = int((violations & ~relevant[:,None,:]).sum())
             result['relevant_proposals'] = int(relevant.sum())
             a,b = a.permute(0,2,1)[relevant],b.permute(0,2,1)[relevant]
-        atol = LIMITS['same_engine_score_atol'] if preprocessing and name == 'score' else LIMITS['dense_'+name+'_atol']
-        rtol = LIMITS['same_engine_score_rtol'] if preprocessing and name == 'score' else LIMITS['dense_'+name+'_rtol']
+        atol = LIMITS['same_engine_score_atol'] if (preprocessing or strict_output) and name == 'score' else LIMITS['dense_'+name+'_atol']
+        rtol = LIMITS['same_engine_score_rtol'] if (preprocessing or strict_output) and name == 'score' else LIMITS['dense_'+name+'_rtol']
         torch.testing.assert_close(a,b,atol=atol,rtol=rtol)
     return result
 
