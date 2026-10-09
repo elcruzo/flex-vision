@@ -6,6 +6,7 @@ still enforces cleanup if this process, its SSH connection, or the Mac fails.
 import argparse
 import hashlib
 import json
+import math
 import os
 from pathlib import Path
 import re
@@ -59,7 +60,10 @@ def coordinate(receipt_path, setup, result_name, gpu_region, controller_region='
         # Do not retry experiment submission after an ambiguous SSH result.
         subprocess.run(ssh + ['cat > /workspace/cpg-experiment.sh'], input=setup_bytes,
                        check=True, timeout=30)
-        command = 'bash /workspace/cpg-experiment.sh; code=$?; echo "$code" > /workspace/cpg-experiment.exit'
+        deadline = float(pod.get('env', {}).get('CPG_LEASE_DEADLINE', 'nan'))
+        if not math.isfinite(deadline) or not time.time() < deadline <= time.time()+minutes*60:
+            raise ValueError('Missing or invalid independent GPU deadline')
+        command = 'export CPG_LEASE_DEADLINE=' + shlex.quote(str(deadline)) + '; bash /workspace/cpg-experiment.sh; code=$?; echo "$code" > /workspace/cpg-experiment.exit'
         subprocess.run(ssh + ['nohup bash -c ' + shlex.quote(command) +
             ' > /workspace/cpg-experiment.log 2>&1 < /dev/null &'], check=True, timeout=30)
         log('experiment_submitted', pod=gpu['id'], result=result_name,
@@ -81,7 +85,7 @@ def coordinate(receipt_path, setup, result_name, gpu_region, controller_region='
             raise TimeoutError('Experiment exceeded local export allowance')
         remote = '/workspace/flex-vision/benchmark-results/' + result_name
         # Preserve failed experiments too. Only complete files are hashed.
-        subprocess.run(ssh + [f'cp /workspace/cpg-experiment.log {remote}/execution.log'],
+        subprocess.run(ssh + [f'mkdir -p {remote}; cp /workspace/cpg-experiment.log {remote}/execution.log'],
                        check=True, timeout=30)
         manifest = subprocess.check_output(ssh + [
             f'cd /workspace/flex-vision; find benchmark-results/{result_name} -type f -print0 | sort -z | xargs -0 sha256sum'],
@@ -115,12 +119,13 @@ def coordinate(receipt_path, setup, result_name, gpu_region, controller_region='
                 if pending.get('env', {}).get('CPG_LEASE_RUN') == receipt['run']:
                     terminate({'id': pending['id'], 'run': receipt['run']})
         # The controller removes its secret and itself after the GPU disappears.
-    for _ in range(12):
-        if api('GET', 'pods/' + receipt['id']) is None and api('GET', 'account/secrets/' + receipt['secret_id']) is None:
-            log('controller_cleanup_verified', pod=receipt['id'], secret_id=receipt['secret_id'])
-            return
-        time.sleep(10)
-    raise RuntimeError('Controller cleanup requires an external follow-up read')
+        for _ in range(12):
+            if api('GET', 'pods/' + receipt['id']) is None and api('GET', 'account/secrets/' + receipt['secret_id']) is None:
+                log('controller_cleanup_verified', pod=receipt['id'], secret_id=receipt['secret_id'])
+                break
+            time.sleep(10)
+        else:
+            raise RuntimeError('Controller cleanup requires an external follow-up read')
 
 
 def main():

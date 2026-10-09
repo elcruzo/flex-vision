@@ -434,3 +434,12 @@ The conservative cumulative bound becomes $10.26405066073241, below the authoriz
 The live catalog reports secure RTX 4090 at $0.89/hour with HIGH availability in EU-RO-1.
 The pre-creation account inventory is empty. No overlapping rental is authorized.
 The next experiment checks caller-owned output through TensorRT before the unchanged default-output soak.
+
+The first soak dispatch failed before CUDA setup because the SSH shell lacked the Pod's deadline environment variable.
+GPU `jdq1fhfhe339we` was removed at 08:01:34 UTC on October 9.
+A subsequent API read found no Pods and confirmed secret `l3wvbbvzcd` absent.
+Retain that attempt's full $1.10 reservation until reconciliation.
+The coordinator now explicitly exports the validated Pod deadline into the remote shell.
+It creates the result directory for early failures and checks controller cleanup on exception paths.
+Reserve another $1.10 for the corrected retry. The conservative cumulative bound is $11.36405066073241.
+No numerical, reuse, or soak acceptance came from the failed dispatch.

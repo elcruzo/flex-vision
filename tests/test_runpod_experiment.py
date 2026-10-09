@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 import subprocess
 import sys
+import time
 from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).parents[1] / 'scripts'))
@@ -16,7 +17,7 @@ def test_export_precedes_exact_gpu_cleanup(tmp_path, monkeypatch):
     setup.write_text('true\n')
     receipt_path = tmp_path/'receipt.json'
     receipt = {'id': 'cpu', 'run': '123-456', 'secret_id': 'secret'}
-    pod = {'id': 'gpu', 'env': {'CPG_LEASE_RUN': '123-456'},
+    pod = {'id': 'gpu', 'env': {'CPG_LEASE_RUN': '123-456','CPG_LEASE_DEADLINE':str(time.time()+3500)},
            'ssh': {'direct': {'username': 'root', 'host': 'host', 'port': 22}}}
     relative = Path('benchmark-results/iteration-test/result.json')
     data = b'{"status":"passed"}\n'
@@ -25,6 +26,8 @@ def test_export_precedes_exact_gpu_cleanup(tmp_path, monkeypatch):
         receipt_path.write_text(json.dumps(receipt))
 
     def command(args, **kwargs):
+        if args[0]=='ssh' and 'nohup' in args[-1]:
+            assert 'export CPG_LEASE_DEADLINE=' in args[-1]
         if args[0] == 'scp':
             relative.parent.mkdir(parents=True)
             relative.write_bytes(data)
@@ -52,7 +55,7 @@ def test_ended_controller_does_not_wait_for_absent_gpu(tmp_path, monkeypatch):
     def launch(*args):
         receipt_path.write_text(json.dumps({'id':'cpu','secret_id':'secret','run':'123-456'}))
     with patch.object(experiment,'launch',side_effect=launch), patch.object(
-            experiment,'api',side_effect=[{'pods':[]},None,None,{'pods':[]}]), patch.object(
+            experiment,'api',side_effect=[{'pods':[]},None,None,{'pods':[]},None,None]), patch.object(
             experiment,'terminate') as terminate, patch.object(experiment.time,'sleep') as sleep:
         with pytest.raises(RuntimeError,match='cleanup verified'):
             experiment.coordinate(receipt_path,setup,'iteration-test','EU-CZ-1')
@@ -70,7 +73,7 @@ def test_startup_timeout_removes_controller_secret_and_raced_gpu(tmp_path,monkey
     def launch(*args): receipt_path.write_text(json.dumps(receipt))
     with patch.object(experiment,'launch',side_effect=launch), patch.object(
             experiment.time,'monotonic',side_effect=[0,601]), patch.object(
-            experiment,'api',side_effect=[None,{'pods':[pending]}]) as api, patch.object(
+            experiment,'api',side_effect=[None,{'pods':[pending]},None,None]) as api, patch.object(
             experiment,'terminate') as terminate:
         with pytest.raises(TimeoutError):
             experiment.coordinate(receipt_path,setup,'iteration-test','EU-CZ-1')
