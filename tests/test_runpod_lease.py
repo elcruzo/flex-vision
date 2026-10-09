@@ -52,10 +52,11 @@ def test_controller_soak_deadline_is_bounded(tmp_path, minutes):
     controller = {'id': 'controller', 'cpu': {'id': 'cpu3c'}, 'env': {'CPG_LEASE_RUN': '123-1'}}
     catalog = {'price': {'secure': .49}, 'dataCenters': [{'id': 'EU-RO-1', 'availability': 'LOW'}]}
     with patch.object(lease, 'RECEIPT', tmp_path/'lease.json'), patch.object(
-            lease, 'api', side_effect=[{'pods': [controller]}, catalog, POD]), patch.dict(
+            lease, 'api', side_effect=[{'pods': [controller]}, catalog, POD]) as api, patch.dict(
             'os.environ', CPG_SSH_PUBLIC_KEY='ssh-ed25519 test'), patch.object(lease.time, 'time', return_value=1000):
         receipt = lease.create(minutes, '123-1', controller_id='controller')
     assert receipt['deadline'] == 1000+minutes*60
+    assert float(api.call_args.args[2]['env']['CPG_LEASE_DEADLINE']) == receipt['deadline']
 
 
 @pytest.mark.parametrize('available', [True, False])

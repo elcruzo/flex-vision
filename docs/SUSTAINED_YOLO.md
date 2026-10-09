@@ -155,3 +155,12 @@ A 60-minute independently terminated lease must cover setup, model and engine pr
 Preserve five minutes for export. Do not launch if the prepared setup cannot meet that bound.
 The current $15 budget includes reservations for unposted charges. Reconcile those charges before reserving another lease.
 No detector soak rental was started for this preparation.
+
+The prepared remote entry point is `bash scripts/run_yolo_soak_experiment.sh`.
+Set `CPG_REVISION` to the full committed revision and `CPG_RESULT_NAME` to a new result directory.
+The independent lease injects `CPG_LEASE_DEADLINE` into the GPU environment.
+After preparation, the entry point requires at least 45 minutes before that deadline.
+It limits soak execution and preserves five minutes for export.
+It compresses retained CSV evidence on failure as well as success.
+This deadline check supplements the external termination controller. It does not replace that controller.
+The entry point and verifier require a future live GPU run before acceptance.

@@ -102,7 +102,7 @@ def create(minutes, run, controller_id=None, data_center='EU-RO-1', gpu=GPU):
         'gpu':{'id':gpu,'count':1,'minCudaVersion':'13.0'},
         'dataCenterIds':[data_center], 'disk':50, 'ports':['22/tcp'],
         'startSsh':True, 'startJupyter':False,
-        'env':{'PUBLIC_KEY':public_key,'CPG_LEASE_RUN':run},
+        'env':{'PUBLIC_KEY':public_key,'CPG_LEASE_RUN':run,'CPG_LEASE_DEADLINE':str(deadline)},
     })
     receipt = {'id':pod['id'],'run':run,'deadline':deadline,'image':IMAGE,'gpu_hourly_usd':price,'data_center':data_center,'gpu':gpu}
     # The only deletion authority is the ID returned by this POST.

@@ -55,6 +55,8 @@ It includes target APIs, configuration, every MVP operator, ROS contracts, tunin
 An early milestone subset does not replace the complete release scope.
 Changes to required outcomes need an explicit scope decision. Backend choices remain open to evidence.
 
+See [the current product assessment](STATUS.md) for completed evidence and remaining release gates.
+
 ## Rules for progress
 
 1. Start each milestone with its hypothesis and acceptance checks.

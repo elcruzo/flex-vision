@@ -400,3 +400,7 @@ New records include the two ended detector attempts. Their charges still may be 
 Offset the posted amounts for reserved Pods without releasing the remaining reservation ceilings.
 The conservative total remains about $14.77 against the $15 authorization.
 The 30-minute detector soak harness is prepared locally. No new rental was created.
+
+The latest October 9 read reports $8.033368132837495 in posted pod charges across 50 records.
+Both final-matrix resource IDs now have billing records. Posted records can still be incomplete.
+Keep the remaining reservation headroom until reconciliation. No new rental was created.
