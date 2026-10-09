@@ -1,0 +1,140 @@
+{
+  "status": "partial_run_audited_not_accepted",
+  "runs": [
+    {
+      "candidate": "cpg",
+      "fps_per_camera": 60,
+      "repeat": 0,
+      "offered": 7200,
+      "completed": 7188,
+      "dropped": 12,
+      "failed_frame_checks": 0,
+      "memory_growth": {
+        "torch_allocated": 0,
+        "torch_reserved": 0,
+        "cupy_used": 0,
+        "cupy_total": 0
+      }
+    },
+    {
+      "candidate": "torch",
+      "fps_per_camera": 60,
+      "repeat": 0,
+      "offered": 7200,
+      "completed": 7200,
+      "dropped": 0,
+      "failed_frame_checks": 0,
+      "memory_growth": {
+        "torch_allocated": 0,
+        "torch_reserved": 0,
+        "cupy_used": 0,
+        "cupy_total": 0
+      }
+    },
+    {
+      "candidate": "cvcuda",
+      "fps_per_camera": 60,
+      "repeat": 0,
+      "offered": 7200,
+      "completed": 7200,
+      "dropped": 0,
+      "failed_frame_checks": 0,
+      "memory_growth": {
+        "torch_allocated": 0,
+        "torch_reserved": 0,
+        "cupy_used": 0,
+        "cupy_total": 0
+      }
+    },
+    {
+      "candidate": "torch",
+      "fps_per_camera": 60,
+      "repeat": 1,
+      "offered": 7200,
+      "completed": 7200,
+      "dropped": 0,
+      "failed_frame_checks": 0,
+      "memory_growth": {
+        "torch_allocated": 0,
+        "torch_reserved": 0,
+        "cupy_used": 0,
+        "cupy_total": 0
+      }
+    },
+    {
+      "candidate": "cvcuda",
+      "fps_per_camera": 60,
+      "repeat": 1,
+      "offered": 7200,
+      "completed": 7200,
+      "dropped": 0,
+      "failed_frame_checks": 0,
+      "memory_growth": {
+        "torch_allocated": 0,
+        "torch_reserved": 0,
+        "cupy_used": 0,
+        "cupy_total": 0
+      }
+    },
+    {
+      "candidate": "cpg",
+      "fps_per_camera": 60,
+      "repeat": 1,
+      "offered": 7200,
+      "completed": 7200,
+      "dropped": 0,
+      "failed_frame_checks": 0,
+      "memory_growth": {
+        "torch_allocated": 0,
+        "torch_reserved": 0,
+        "cupy_used": 0,
+        "cupy_total": 0
+      }
+    },
+    {
+      "candidate": "cpg",
+      "fps_per_camera": 400,
+      "repeat": 0,
+      "offered": 48000,
+      "completed": 23744,
+      "dropped": 24256,
+      "failed_frame_checks": 0,
+      "memory_growth": {
+        "torch_allocated": 0,
+        "torch_reserved": 0,
+        "cupy_used": 0,
+        "cupy_total": 0
+      }
+    },
+    {
+      "candidate": "torch",
+      "fps_per_camera": 400,
+      "repeat": 0,
+      "offered": 48000,
+      "completed": 24069,
+      "dropped": 23931,
+      "failed_frame_checks": 0,
+      "memory_growth": {
+        "torch_allocated": 0,
+        "torch_reserved": 0,
+        "cupy_used": 0,
+        "cupy_total": 0
+      }
+    },
+    {
+      "candidate": "cvcuda",
+      "fps_per_camera": 400,
+      "repeat": 0,
+      "offered": 48000,
+      "completed": 23760,
+      "dropped": 24240,
+      "failed_frame_checks": 0,
+      "memory_growth": {
+        "torch_allocated": 0,
+        "torch_reserved": 0,
+        "cupy_used": 0,
+        "cupy_total": 2457600
+      }
+    }
+  ]
+}

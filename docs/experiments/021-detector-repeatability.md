@@ -1,7 +1,8 @@
 # Experiment 021 — Detector repeatability and bounded load
 
 Status: the first repeated comparison passed. The first sustained attempt failed its retained-pool growth guard.
-The revised checked-warmup GPU execution remains pending.
+The checked-warmup attempt passed control blocks but failed CV-CUDA retained-pool growth at saturation.
+A complete-matrix resource-lifetime investigation remains pending.
 
 ## Repeated comparison
 
@@ -52,3 +53,27 @@ The controller and temporary credential were absent at 05:50:15 UTC.
 The retry uses a new independently bounded lease within the original $15 authorization.
 
 This experiment does not complete detector soak, concurrent streams, batching, reusable workspace, live-camera, Jetson, or ROS acceptance.
+
+
+## Checked-warmup attempt
+
+Source `6b0af27` again passed the numerical, matched timing, and sanitized transfer-capture checks.
+All six control blocks and the first three overload blocks completed without a failed frame check.
+The nine completed blocks offered 187,200 frames and completed 114,761.
+Every declared post-drain allocator counter was unchanged except the retained CuPy pool in the CV-CUDA overload block.
+That block added 2,457,600 bytes at approximately 28.04 seconds, again exceeding the unchanged 1 MiB guard.
+Warmup correction therefore did not resolve the saturation result. Keep the overall sustained verdict failed.
+
+CPG completed 7,188 and 7,200 frames in its two control blocks, with twelve total drops.
+PyTorch and CV-CUDA completed all 14,400 control frames each.
+The first overload blocks completed 23,744 CPG, 24,069 PyTorch, and 23,760 CV-CUDA frames out of 48,000 offered per candidate.
+These checked, serial load results do not demonstrate a CPG throughput advantage.
+The second overload repeat was hidden by the first failure. The next harness retains all twelve blocks before rejecting a failed matrix.
+
+Pinned vendor source shows auxiliary-stream resource callbacks and cached external-buffer wrappers.
+This is a concrete lifetime hypothesis for the extra retained allocation, not proof of an unbounded leak.
+A separate private auxiliary-drain diagnostic will test it without changing the timed vendor baseline or clearing caches.
+See the [investigation protocol](../SUSTAINED_YOLO.md#saturation-resource-lifetime-investigation).
+
+All 77 artifacts were hash-verified before GPU removal at 06:01:23 UTC on October 9.
+The controller and temporary credential were absent at 06:01:34 UTC. The [checked-warmup evidence](data/021/checked-warmup/load-results.json) preserves the failed verdict.
