@@ -115,6 +115,7 @@ def main():
                           'cvcuda':cvcuda.__version__},'gpu':torch.cuda.get_device_name(0),
               'blocks':args.blocks,'samples_per_block':args.samples,'warmup':100,
               'unmeasured':['power','CPU utilization','GPU utilization','memory bandwidth','peak temporary memory'],
+              'model_preparation':'FP32 convolution/batchnorm fusion before FP16 conversion',
               'scope':'resident single-frame fixed FP16 dense TensorRT network with TorchVision CUDA NMS; synchronous fresh outputs'}
     try:
         torch.set_num_threads(4)
@@ -150,14 +151,18 @@ def main():
                     reference_tensor = torch.from_numpy(expected).cuda()
                     reference_head = model(reference_tensor)
                     fp32_head = model_fp32(reference_tensor.float())
-                    precision_error = compare_dense(fp32_head,reference_head)
-                    compare_detections(decode(fp32_head),decode(reference_head))
                     reference_detection = decode(reference_head)
                     reference_trt = consumer(cp.from_dlpack(reference_tensor))
-                    case = {'id':name,'provenance':provenance,'input_sha256':digest_bytes(host),
-                            'fp16_vs_fp32_dense':precision_error,
-                            'same_input_trt_dense':compare_dense(reference_head,reference_trt),'paths':{}}
+                    case = {'id':name,'status':'failed','provenance':provenance,
+                            'input_sha256':digest_bytes(host),'paths':{}}
                     report['cases'].append(case)
+                    # Preserve dense values before assertions, including failing cases.
+                    np.savez_compressed(args.output/(name+'-controls.npz'),tensor=expected,
+                        fp32_dense=fp32_head.cpu().numpy(),fp16_dense=reference_head.cpu().numpy(),
+                        tensorrt_dense=reference_trt.cpu().numpy())
+                    case['fp16_vs_fp32_dense'] = compare_dense(fp32_head,reference_head)
+                    compare_detections(decode(fp32_head),reference_detection)
+                    case['same_input_trt_dense'] = compare_dense(reference_head,reference_trt)
                     compare_detections(reference_detection,decode(reference_trt))
                     runners = {'cpg':lambda:pipe(frame), 'torch':lambda:torch_preprocess(frame,g),
                                'cvcuda':lambda:vendor_preprocess(frame,g,cvstream)}

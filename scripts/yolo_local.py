@@ -21,6 +21,7 @@ def main():
     args.output.mkdir(parents=True,exist_ok=False)
     report = {'status':'failed','scope':'CPU reference inference; no CUDA or TensorRT claim',
               'revision':subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),
+              'model_preparation':'FP32 convolution/batchnorm fusion before FP16 conversion',
               'limits':LIMITS,'weights_sha256':WEIGHTS_SHA256,
               'dirty':bool(subprocess.check_output(['git','status','--porcelain'],text=True)),
               'sources':{str(p):digest(p) for p in [Path(__file__),Path('scripts/yolo_common.py'),*Path('src/cpg').glob('*.py')]},
@@ -29,6 +30,7 @@ def main():
         torch.set_num_threads(4)
         model = Dense(load_model(args.weights)).eval()
         model_half = copy.deepcopy(model).half()
+        unfused = Dense(load_model(args.weights,fuse=False)).eval()
         pipe = pipeline()
         with torch.inference_mode():
             for name,rgb,expectation,provenance in cases():
@@ -46,6 +48,9 @@ def main():
                 case['tensor_max_abs_error'] = float(np.abs(expected.astype(np.float32)-actual.numpy().astype(np.float32)).max())
                 np.testing.assert_allclose(actual.numpy(),expected,atol=LIMITS['tensor_atol'],rtol=0)
                 reference_head = model(torch.from_numpy(expected).float())
+                unfused_head = unfused(torch.from_numpy(expected).float())
+                case['fusion_dense'] = compare_dense(unfused_head,reference_head)
+                case['fusion_detection_ious'] = compare_detections(decode(unfused_head),decode(reference_head))
                 actual_head = model(actual.float())
                 native_head = model(native)
                 case['dense'] = compare_dense(reference_head,actual_head)

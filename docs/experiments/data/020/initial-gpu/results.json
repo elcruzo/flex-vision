@@ -1,0 +1,74 @@
+{
+  "status": "failed",
+  "limits": {
+    "tensor_atol": 0.0005,
+    "dense_box_atol": 4.0,
+    "dense_box_rtol": 0.01,
+    "dense_score_atol": 0.03,
+    "dense_score_rtol": 0.03,
+    "detection_iou": 0.95,
+    "detection_score_atol": 0.03,
+    "confidence": 0.5,
+    "nms_iou": 0.7,
+    "max_detections": 300
+  },
+  "weights_sha256": "f59b3d833e2ff32e194b5bb8e08d211dc7c5bdf144b90d2c8412c47ccfc83b36",
+  "cases": [],
+  "revision": "e4d35bc39ab750845a56f0683ce8e8c56c4a3950",
+  "dirty": false,
+  "config_sha256": "a5121ee4b86bd688123424625e7f5bb2d21cc411935185111da6b20410aec106",
+  "sources": {
+    "/workspace/flex-vision/scripts/yolo_gpu.py": "9fd9e1beeffc64d6fbbbb93226149715ad2b37c1e414efe8d296c6f7a86c3844",
+    "scripts/yolo_common.py": "aa84c3088be3d5920a6f9f8d795dc468b6075e9c928e57d3605d0b46fc7a6b7b",
+    "src/cpg/__init__.py": "a2d26b90edda68b83290ac1ea4e518c4010a1ebc85d7914e1dfd7e4ab5b99ef0",
+    "src/cpg/cli.py": "d404077b001e7f78770425cbf2b00051c3b67a833b114359ece375e2a52ff5da",
+    "src/cpg/config.py": "4b20e46d690bfba4cdd7f9927be1eb1b856871ad230348b4a676598aa7e3e0d9",
+    "src/cpg/cuda.py": "09c9deecf3d25d902613d94f3f1f9993e8e2d50e9533287a3b1233c5a5c4a683",
+    "src/cpg/inspection.py": "455ca0447f32a33accf8993839fb0df3d873cd53f981f21a80e2105eb4ae751a",
+    "src/cpg/pipeline.py": "3c4d16cd562e95a2eba88e33e87765df5539cc52988640f1de487473a47accfc",
+    "src/cpg/reference.py": "030e11d0be7eff45779c703ad5fee0510cc9b1e53c9b143d928880eed7ed3b93",
+    "src/cpg/validation.py": "e95f7a243b9b2adb555759292540b2f5fa641699816ecde957369fb622028554"
+  },
+  "versions": {
+    "torch": "2.9.1+cu130",
+    "cupy": "14.2.0",
+    "tensorrt": "10.13.3.9.post1",
+    "cvcuda": "0.18.0"
+  },
+  "gpu": "NVIDIA GeForce RTX 4090",
+  "blocks": 10,
+  "samples_per_block": 1000,
+  "warmup": 100,
+  "unmeasured": [
+    "power",
+    "CPU utilization",
+    "GPU utilization",
+    "memory bandwidth",
+    "peak temporary memory"
+  ],
+  "scope": "resident single-frame fixed FP16 dense TensorRT network with TorchVision CUDA NMS; synchronous fresh outputs",
+  "onnx_sha256": "7432db56a7f59601478b6350e4ede0e3760a0bd2d601ff646a9f1a7cbdf55547",
+  "engine_io": {
+    "image": {
+      "shape": [
+        1,
+        3,
+        640,
+        640
+      ],
+      "dtype": "DataType.HALF",
+      "mode": "TensorIOMode.INPUT"
+    },
+    "predictions": {
+      "shape": [
+        1,
+        84,
+        8400
+      ],
+      "dtype": "DataType.HALF",
+      "mode": "TensorIOMode.OUTPUT"
+    }
+  },
+  "engine_sha256": "0efeed5bb6642284498c8b1705c21026566e1204c5def4a16028186a3810fea6",
+  "error": "AssertionError('Tensor-likes are not close!\\n\\nMismatched elements: 1 / 33600 (0.0%)\\nGreatest absolute difference: 9.5 at index (0, 2, 8388) (up to 4.0 allowed)\\nGreatest relative difference: 0.022809123620390892 at index (0, 2, 8388) (up to 0.01 allowed)')"
+}

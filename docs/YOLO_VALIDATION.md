@@ -81,3 +81,17 @@ The minimum matched detection IoU was 0.99857. Dense differences remained within
 The CPU ONNX export passed graph validation with FP16 input and output, shapes `[1,3,640,640]` and `[1,84,8400]`.
 These checks do not replace TensorRT execution on NVIDIA hardware.
 See the [FP16 results](experiments/data/020/local/fp16-results.json) and [export record](experiments/data/020/local/onnx-results.json).
+
+## GPU failure and model preparation correction
+
+The first GPU execution built the FP16 TensorRT engine, then failed its same-input dense comparison.
+One of 33,600 box coordinates exceeded the original limits. Its absolute difference was 9.5 pixels.
+No performance sample was collected. The failure and export checks remain in [the initial GPU record](experiments/data/020/initial-gpu/results.json).
+All ten artifacts were verified before the GPU, controller, and temporary credential were removed.
+
+The original PyTorch reference retained batch normalization, while ONNX export folded it into FP16 convolution weights.
+The pinned upstream exporter first fuses convolution and batch normalization in FP32, then converts the model to FP16.
+Use that same preparation for the reference and export. The [upstream source](https://github.com/ultralytics/ultralytics/blob/v8.3.200/ultralytics/engine/exporter.py) specifies this order.
+This is a correction to model preparation, not a numerical tolerance change.
+Compare fused and unfused FP32 outputs locally, then rerun all GPU checks with the original limits.
+Save control tensors before assertions so subsequent failures retain the actual dense values.

@@ -19,14 +19,16 @@ def digest(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
 
-def load_model(weights):
+def load_model(weights, *, fuse=True):
     import ultralytics
     from ultralytics import YOLO
     if ultralytics.__version__ != '8.3.200':
         raise ValueError('This experiment requires ultralytics==8.3.200')
     if digest(weights) != WEIGHTS_SHA256:
         raise ValueError('YOLO weights do not match the pinned checksum')
-    return YOLO(str(weights)).model.eval()
+    model = YOLO(str(weights)).model.float().eval()
+    # Match the pinned upstream export preparation before any FP16 conversion.
+    return model.fuse(verbose=False) if fuse else model
 
 
 def pipeline():

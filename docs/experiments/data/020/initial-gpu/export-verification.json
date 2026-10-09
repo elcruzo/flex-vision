@@ -1,0 +1,18 @@
+{
+  "status": "verified",
+  "files": [
+    "benchmark-results/iteration-020c-yolo/execution.log",
+    "benchmark-results/iteration-020c-yolo/gpu.txt",
+    "benchmark-results/iteration-020c-yolo/measured/engine-inspector.json",
+    "benchmark-results/iteration-020c-yolo/measured/packages.txt",
+    "benchmark-results/iteration-020c-yolo/measured/results.json",
+    "benchmark-results/iteration-020c-yolo/measured/yolo.engine",
+    "benchmark-results/iteration-020c-yolo/measured/yolo.onnx",
+    "benchmark-results/iteration-020c-yolo/packages.txt",
+    "benchmark-results/iteration-020c-yolo/pip-check.txt",
+    "benchmark-results/iteration-020c-yolo/preflight.json"
+  ],
+  "experiment_exit_code": 1,
+  "pod": "w45z3wghznchc0",
+  "run": "1791518525-688874762580"
+}
