@@ -23,7 +23,7 @@ nvidia-smi --query-gpu=name,driver_version,memory.total --format=csv,noheader > 
 .venv-gpu/bin/python -u scripts/yolo_gpu.py --output "$CPG_RESULTS/measured"
 apt-get update -qq
 apt-get install -y -qq nsight-systems-2025.3.2
-nsys profile --trace=cuda,nvtx --sample=none --cpuctxsw=none --capture-range=cudaProfilerApi -o "$CPG_RESULTS/trace" .venv-gpu/bin/python -u scripts/yolo_gpu.py --engine "$CPG_RESULTS/measured/yolo.engine" --trace --output "$CPG_RESULTS/traced"
+nsys profile --trace=cuda,nvtx --sample=none --cpuctxsw=none --capture-range=cudaProfilerApi --capture-range-end=stop --kill=none -o "$CPG_RESULTS/trace" .venv-gpu/bin/python -u scripts/yolo_gpu.py --engine "$CPG_RESULTS/measured/yolo.engine" --trace --output "$CPG_RESULTS/traced"
 nsys export --type sqlite -o "$CPG_RESULTS/trace.sqlite" "$CPG_RESULTS/trace.nsys-rep"
 for candidate in cpg torch cvcuda; do
   .venv-gpu/bin/python scripts/summarize_trace.py "$CPG_RESULTS/trace.sqlite" --range "yolo_${candidate}_complete" --expected-ranges 2 --output "$CPG_RESULTS/trace-${candidate}.json"

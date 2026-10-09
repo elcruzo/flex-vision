@@ -327,3 +327,14 @@ The next controller uses EU-CZ-1 with its GPU in EU-RO-1. No GPU allocation from
 Retain a conservative $1.10 reserve for each unposted attempt: four ended attempts and the current retry, $5.50 total.
 Posted spending plus these reserves is $12.641881919793377, leaving $2.358118080206623 unreserved.
 Each ended attempt will replace its reserve with its actual charge after billing posts.
+
+### Revision 4 reservation
+
+The provider now reports $7.248022670855789 posted across 35 Pods.
+The first two GPU attempts posted $0.10614075106241246, including their controllers. These charges replace their two reservations.
+Three ended attempts remain unposted. Retain their conservative $3.30 combined reservation.
+The revision 4 attempt reserves another $1.10. Posted spending plus reservations is $11.648022670855789.
+This leaves $3.351977329144211 unreserved within the $15 authorization.
+The account had no active Pods before this attempt. The RTX 4090 rate remains $0.89/hour.
+Controller `94k9vajfheu4g5` uses EU-CZ-1 and requests its GPU in EU-RO-1.
+Its independent lease is 60 minutes. Verify GPU, controller, and temporary credential removal after export.

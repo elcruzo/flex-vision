@@ -61,19 +61,27 @@ def execute(pipeline, frame):
     source = frame if isinstance(frame, cp.ndarray) else cp.from_dlpack(frame)
     if source.dtype != cp.uint8:
         raise TypeError('input must have dtype uint8')
-    plan = pipeline.plan(tuple(int(n) for n in source.shape), backend='cuda')
+    shape, dtype, count, constants = _launch_metadata(pipeline, tuple(int(n) for n in source.shape))
+    result = cp.empty(shape, dtype=dtype)
+    args = (source, result, *(np.int64(s) for s in source.strides), *constants)
+    stream = cp.cuda.get_current_stream()
+    _kernel(dtype)(((count+255)//256,), (256,), args, stream=stream)
+    # Keep source, imported owner, and output alive until their work completes.
+    stream.synchronize()
+    return result
+
+
+@lru_cache(maxsize=64)
+def _launch_metadata(pipeline, shape):
+    """Cache immutable host metadata only. Never retain arrays or stream owners."""
+    plan = pipeline.plan(shape, backend='cuda')
     g = plan['geometry']
     size, norm, output = pipeline.operations
     dims = [g[k] for k in ('input_height', 'input_width', 'output_height', 'output_width',
                            'resized_height', 'resized_width', 'top', 'left')]
     if any(n > np.iinfo(np.int32).max for n in dims):
         raise ValueError('image dimensions exceed the CUDA backend limit')
-    result = cp.empty(tuple(plan['output_shape']), dtype=output.dtype)
-    args = (source, result, *(np.int64(s) for s in source.strides),
-            *(np.int32(n) for n in dims), np.int32(pipeline.input_encoding == 'bgr8'),
-            *(np.float32(v) for v in (size.value, norm.scale, *norm.mean, *norm.std)))
-    stream = cp.cuda.get_current_stream()
-    _kernel(output.dtype)(((result.size+255)//256,), (256,), args, stream=stream)
-    # Keep source, imported owner, and output alive until their work completes.
-    stream.synchronize()
-    return result
+    constants = (*(np.int32(n) for n in dims), np.int32(pipeline.input_encoding == 'bgr8'),
+                 *(np.float32(v) for v in (size.value, norm.scale, *norm.mean, *norm.std)))
+    output_shape = tuple(plan['output_shape'])
+    return output_shape, output.dtype, int(np.prod(output_shape)), constants

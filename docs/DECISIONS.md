@@ -383,3 +383,13 @@ For the library baselines, restore the original 0.03 score tolerances and preser
 Keep every approximation, failed prior policy, and task-level detection check visible.
 Collect every numerical fixture before rejecting the experiment. Do not benchmark a failed run.
 This acceptance revision validates the fixed CPG contract and bounds the baselines' approximate interpolation behavior separately.
+
+## D032 — Measure immutable metadata caching after the fixed YOLO comparison
+
+The first completed YOLO comparison passed correctness but CPG preprocessing p50 was 8.4–8.5% slower than PyTorch.
+CPG rebuilt its inspection dictionary and scalar launch arguments on each call.
+Cache immutable metadata by the frozen pipeline and input shape, with at most 64 entries.
+Never cache arrays, strides, imported owners, or streams. Preserve allocation and synchronization behavior.
+The hypothesis requires another identical GPU comparison. It is not a measured speed claim yet.
+Also preserve the profiler target after capture ends so the trace report and SQLite export can complete.
+See [experiment 020](experiments/020-fp16-yolo.md).
