@@ -106,8 +106,8 @@ def compare_dense(reference, actual, *, cross_engine=False, preprocessing=False)
         a,b = reference[:,part].float(),actual[:,part].float()
         result[name+'_max_abs_error'] = float((a-b).abs().max())
         if (cross_engine or preprocessing) and name == 'box':
-            # Cross-engine FP16 background coordinates can drift despite unchanged detections.
-            # Keep all scores checked, and keep same-engine CPG comparisons unmasked.
+            # FP16 background coordinates can drift despite unchanged detections.
+            # Check every score and retain all excluded box-limit violations.
             relevant = torch.maximum(reference[:,4:].float().amax(1),actual[:,4:].float().amax(1)) >= LIMITS['box_score_floor']
             violations = (a-b).abs() > (LIMITS['dense_box_atol']+LIMITS['dense_box_rtol']*b.abs())
             result['background_box_limit_violations'] = int((violations & ~relevant[:,None,:]).sum())
