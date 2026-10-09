@@ -10,6 +10,7 @@ def main():
     parser.add_argument('--engine', type=Path, required=True)
     parser.add_argument('--controls', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--async-submit', action='store_true', help='Exercise experimental owned-output submission')
     args = parser.parse_args()
     if args.output.exists():
         raise ValueError('Output report already exists')
@@ -22,9 +23,11 @@ def main():
     report = {'status': 'failed', 'revision': subprocess.check_output(['git', 'rev-parse', 'HEAD'], text=True).strip(),
               'dirty': bool(subprocess.check_output(['git', 'status', '--porcelain'], text=True)),
               'engine_sha256': digest(args.engine), 'cases': [],
-              'scope': 'Explicit three-stream handoffs with synchronous CPG and TensorRT; not asynchronous runtime acceptance'}
+              'mode': 'async-submit' if args.async_submit else 'synchronous',
+              'scope': 'Three-stream owned-output correctness; TensorRT consumer synchronous; no overlap or performance acceptance'}
     # Keep stream, event, source, and destination owners alive through completion.
     streams = [torch.cuda.Stream() for _ in range(3)]
+    wrappers = [cp.cuda.Stream.from_external(stream) for stream in streams]
     producer, preprocess, consumer_stream = streams
     report['stream_handles'] = [int(stream.cuda_stream) for stream in streams]
     try:
@@ -54,7 +57,13 @@ def main():
                         ready.record(producer)
                     with torch.cuda.stream(preprocess), cp.cuda.ExternalStream(preprocess.cuda_stream):
                         preprocess.wait_event(ready)
-                        result = pipe(frame)
+                        if args.async_submit:
+                            pending = pipe.submit(frame, stream=wrappers[1])
+                            # Drop caller references before consumption. Submission retains owners.
+                            del frame, source
+                            result = pending.wait_on(wrappers[2])
+                        else:
+                            result = pipe(frame)
                     with torch.cuda.stream(consumer_stream), cp.cuda.ExternalStream(consumer_stream.cuda_stream):
                         # CPG is synchronous, so its return establishes readiness.
                         head = consumer(result)
@@ -72,8 +81,12 @@ def main():
                         retained.append((result, snapshot))
                     # References are intentionally retained through the consumer fence.
                     done.synchronize()
+                    if args.async_submit:
+                        pending.close()
+                        del pending
                     checks.append({'cycle': cycle, 'tensor_exact': True, 'dense_output': True,
-                                   'detections': True, 'retained_outputs': True, 'consumer_complete': True})
+                                   'detections': True, 'retained_outputs': True, 'consumer_complete': True,
+                                   'source_owner_release': bool(args.async_submit)})
                 report['cases'].append({'name': name, 'input': input_kind, 'cycles': 4,
                                         'retention': 'passed', 'status': 'passed', 'checks': checks})
         report['status'] = 'passed'

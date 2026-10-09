@@ -112,3 +112,8 @@ Device failure recovery is not established by this experimental path.
 Three local lifecycle checks verify retention across handoff, completion failure, and wrong-device rejection.
 They use fake events and streams. Real CUDA/TensorRT correctness, absence of host waits, and performance remain unmeasured.
 The next hardware harness must exercise this implementation through delayed producer and consumer work.
+
+The guarded async correctness entry point is scripts/run_yolo_async_experiment.sh.
+It tests 48 owned-output submissions and releases caller source references before TensorRT consumption.
+The TensorRT consumer remains synchronous. This scenario does not measure overlap or performance.
+Require the async-submit report mode and source-release checks when auditing this scenario.

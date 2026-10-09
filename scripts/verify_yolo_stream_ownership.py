@@ -7,7 +7,9 @@ import re
 FIXTURES = {'astronaut', 'astronaut-padded', 'chelsea', 'chelsea-padded', 'astronaut-1080p', 'chelsea-1080p'}
 
 
-def verify(report):
+def verify(report, *, expected_mode="synchronous"):
+    if report.get("mode", "synchronous") != expected_mode:
+        raise ValueError("Unexpected execution mode")
     if report.get('status') != 'passed' or report.get('dirty') is not False:
         raise ValueError('Require a passing clean-source GPU report')
     if not re.fullmatch(r'[0-9a-f]{40}', report.get('revision', '')):
@@ -32,13 +34,15 @@ def verify(report):
             if row.get('cycle') != cycle or any(row.get(field) is not True for field in
                     ('tensor_exact', 'dense_output', 'detections', 'retained_outputs', 'consumer_complete')):
                 raise ValueError('Missing per-cycle inference or ownership check')
+        if expected_mode == 'async-submit' and any(row.get('source_owner_release') is not True for row in rows):
+            raise ValueError('Require early caller source-owner release')
         executions += len(rows)
     if seen != expected:
         raise ValueError('Incomplete fixture/input coverage')
     if report.get('drain_status') != 'passed':
         raise ValueError('Stream shutdown did not complete')
     return {'status': 'coverage_verified', 'executions': executions, 'cases': len(seen),
-            'revision': report['revision'], 'engine_sha256': report['engine_sha256'],
+            'mode': expected_mode, 'revision': report['revision'], 'engine_sha256': report['engine_sha256'],
             'qualification': 'Audit of recorded GPU checks; not independent tensor recomputation or asynchronous acceptance'}
 
 
@@ -46,10 +50,11 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('report', type=Path)
     parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--mode', choices=('synchronous', 'async-submit'), default='synchronous')
     args = parser.parse_args()
     if args.output.exists():
         raise ValueError('Output audit already exists')
-    result = verify(json.loads(args.report.read_text()))
+    result = verify(json.loads(args.report.read_text()), expected_mode=args.mode)
     args.output.write_text(json.dumps(result, indent=2) + '\n')
     print(json.dumps(result))
 
