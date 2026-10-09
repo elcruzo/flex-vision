@@ -140,3 +140,9 @@ Do not infer allocation savings or latency improvements until measured.
 Keep the previously frozen detector soak on its default output path.
 Experiment 023 measured caller-owned output through matched inference. It removed pool requests but increased preprocessing host p50 about 5.2%.
 Keep it optional. Fresh owned output remains the default. See [the result](experiments/023-output-reuse.md).
+
+## Next stream validation
+
+Read [the asynchronous contract](ASYNC_EXECUTION.md) before changing completion behavior.
+`scripts/yolo_stream_ownership.py` prepares 48 inference executions with explicit three-stream handoffs and retained-output checks.
+It remains GPU-unvalidated. Public preprocessing and the fixed TensorRT harness still synchronize before returning.

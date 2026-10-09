@@ -75,3 +75,6 @@ An unavailable GitHub Actions runner is not a project prerequisite.
 An experimental synchronous caller-owned detector `out=` path is implemented. Read docs/CUDA_BACKEND.md and decision D036.
 Metadata checks passed locally. scripts/yolo_output_reuse.py passed six FP16 TensorRT fixtures and invalid-destination checks on RTX 4090. FP32 output and broader stream/device acceptance remain pending.
 Do not treat it as asynchronous workspace support or change the frozen default-output soak without a protocol decision.
+
+Read docs/ASYNC_EXECUTION.md before asynchronous execution work.
+scripts/yolo_stream_ownership.py is prepared but GPU-unvalidated. Do not claim async support from this harness.

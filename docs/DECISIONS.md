@@ -471,3 +471,12 @@ Preprocessing host p50 increased about 5.2%. Complete-host p99 increased about 0
 Keep fresh output as default. Do not select reuse as a speed optimization from this result.
 Do not weaken destination validation or claim independent peak-memory savings.
 Define consumer completion and lifetime before introducing asynchronous output reuse.
+
+## D040 — Establish stream ownership before removing host waits
+
+Keep the synchronous public call and serial TensorRT consumer unchanged.
+Prepare distinct producer, preprocessing, and consumer stream cases through real inference.
+Retain every buffer owner through its final consumer completion event.
+An asynchronous submission needs an explicit completion object and bounded slot generations.
+Do not infer consumer completion from preprocessing completion or Python reference counts.
+Read ASYNC_EXECUTION.md for acceptance. The new three-stream harness remains GPU-unvalidated.
