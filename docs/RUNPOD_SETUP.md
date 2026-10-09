@@ -319,3 +319,11 @@ The complete cleanup check finished at 04:10:58 UTC on October 9.
 Its charge is not posted yet. Retain both pending $1.10 reserves and add $1.10 for the acceptance-revision-2 execution.
 Posted spend plus these conservative reserves is $10.441881919793377, leaving $4.558118080206623 unreserved.
 The rate and one-hour expiration remain unchanged. Replace reserves with actual charges when the provider posts them.
+
+The acceptance-revision-2 rental ended after another numerical failure. All 16 artifacts were exported and verified before cleanup at 04:17:34 UTC.
+The revision-3 controller `9eut20ybvqoyxj` then stalled during startup without allocating a GPU.
+It and secret `f6rml6ieww` were explicitly removed at 05:01:28 UTC. The account inventory was empty afterward.
+The next controller uses EU-CZ-1 with its GPU in EU-RO-1. No GPU allocation from the stalled attempt is reused.
+Retain a conservative $1.10 reserve for each unposted attempt: four ended attempts and the current retry, $5.50 total.
+Posted spending plus these reserves is $12.641881919793377, leaving $2.358118080206623 unreserved.
+Each ended attempt will replace its reserve with its actual charge after billing posts.
