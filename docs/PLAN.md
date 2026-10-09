@@ -46,7 +46,8 @@ The [30-minute detector soak](experiments/022-detector-soak.md) passed: all 432,
 The synchronous caller-owned FP16 output scenario also passed six TensorRT fixtures. Experiment 023 measured zero output-pool requests with reuse, but preprocessing host p50 increased about 5.2%.
 Keep caller-owned output optional. Define consumer ordering before asynchronous execution.
 [The asynchronous contract](ASYNC_EXECUTION.md) defines ownership, slot states, shutdown, and acceptance.
-The prepared three-stream detector harness still requires real GPU validation.
+The three-stream detector harness passed 48 real TensorRT executions on RTX 4090.
+See [experiment 024](experiments/024-detector-streams.md). Asynchronous execution remains pending.
 See [experiment 023](experiments/023-output-reuse.md) for the matched inference result.
 Keep broader sustained coverage, vendor comparisons, reusable workspace, batching, and the robot/ROS workloads open.
 See [the backend contract](CUDA_BACKEND.md), [host evidence](experiments/004-cuda-host.md), and [fused execution evidence](experiments/005-fused-cuda.md).

@@ -469,3 +469,13 @@ GPU termination was verified at 16:22:13 UTC on October 9. Controller and secret
 The fresh 16:22:52 UTC inventory was empty. Posted billing remained $8.70408385734845.
 Retain the $0.65 reservation and the $12.014050660732413 conservative cumulative bound until charges reconcile.
 No rental remains active. See experiment 023 for measured latency and allocation limits.
+
+### Completed synchronous detector stream lease
+
+Experiment 024 used one independently terminated 30-minute RTX 4090 lease at $0.89/hour and CPU controller at $0.06/hour.
+All 48 real inference executions passed. The coordinator exported 69 hash-verified files.
+GPU cleanup completed at 23:03:53 UTC on October 9. Controller and secret cleanup completed at 23:04:14 UTC.
+A fresh 23:04:18 UTC inventory was empty. No rental remains active.
+Posted billing was $8.783250520227739. Retain old headroom and the new $0.65 reservation.
+Without offsetting the posted increase, the conservative cumulative bound is $12.743217323611702, within $15.
+See experiment 024 for scope and evidence. Reconcile before another paid rental.

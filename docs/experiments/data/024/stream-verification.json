@@ -1,0 +1,8 @@
+{
+  "status": "coverage_verified",
+  "executions": 48,
+  "cases": 12,
+  "revision": "aeb370fd24a5a237455592fb7e8a93be5ca7bb0b",
+  "engine_sha256": "f3fc87a450b85f8478334173c35709dc53aaebe99ca29409358e05a05d45878e",
+  "qualification": "Audit of recorded GPU checks; not independent tensor recomputation or asynchronous acceptance"
+}

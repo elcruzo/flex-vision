@@ -16,7 +16,7 @@ These waits prevent this baseline from demonstrating overlap.
 `scripts/yolo_stream_ownership.py` prepares 48 real-inference cases across six fixtures and two input frameworks.
 Each case uses distinct persistent producer, preprocessing, and consumer streams.
 It checks explicit producer handoff, exact tensors, dense outputs, final detections, and retained default outputs.
-This harness is prepared, not GPU-validated. It measures no overlap or performance benefit.
+Experiment 024 passed all 48 executions on RTX 4090. It measures no overlap or performance benefit.
 
 ## Proposed submission contract
 
@@ -78,7 +78,7 @@ This report audit does not independently recompute tensors. Retain the full nume
 
 The entry point requires the independent lease deadline and leaves five minutes for export.
 Use the existing direct controller and reconcile delayed charges before dispatch.
-No new rental ran for this preparation. GPU acceptance remains pending.
+[Experiment 024](experiments/024-detector-streams.md) completed the fixed synchronous scenario. Asynchronous acceptance remains pending.
 
 Local verification passed eight evidence fault checks, Python compilation, and shell syntax.
 Those checks validate the harness plumbing only. They do not establish event ordering on NVIDIA hardware.

@@ -1,0 +1,15 @@
+{
+  "run": "1791586692-807282839523",
+  "secret_id": "vwd2rxt8fq",
+  "minutes": 30,
+  "image": "python:3.12-slim-bookworm",
+  "controller_data_center": "EU-CZ-1",
+  "gpu_data_center": "EU-RO-1",
+  "gpu": "NVIDIA GeForce RTX 4090",
+  "source_sha256": {
+    "runpod_lease.py": "33239a66e16b41f63b9581d06355155a734034390ea3e62521ec341f31a5c20b",
+    "runpod_controller.py": "3f73e418b363cd22733cde695604c996ccc62374110124acac471b2133368419"
+  },
+  "id": "s3zi8nijcosqli",
+  "cpu_hourly_usd": 0.06
+}

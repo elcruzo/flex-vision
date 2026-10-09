@@ -77,4 +77,5 @@ Metadata checks passed locally. scripts/yolo_output_reuse.py passed six FP16 Ten
 Do not treat it as asynchronous workspace support or change the frozen default-output soak without a protocol decision.
 
 Read docs/ASYNC_EXECUTION.md before asynchronous execution work.
-scripts/yolo_stream_ownership.py is prepared but GPU-unvalidated. Do not claim async support from this harness.
+scripts/yolo_stream_ownership.py passed 48 synchronous TensorRT executions on RTX 4090. Read docs/experiments/024-detector-streams.md.
+Do not claim async support from this harness.

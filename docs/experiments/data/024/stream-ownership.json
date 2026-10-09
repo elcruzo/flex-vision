@@ -1,0 +1,507 @@
+{
+  "status": "passed",
+  "revision": "aeb370fd24a5a237455592fb7e8a93be5ca7bb0b",
+  "dirty": false,
+  "engine_sha256": "f3fc87a450b85f8478334173c35709dc53aaebe99ca29409358e05a05d45878e",
+  "cases": [
+    {
+      "name": "astronaut",
+      "input": "cupy",
+      "cycles": 4,
+      "retention": "passed",
+      "status": "passed",
+      "checks": [
+        {
+          "cycle": 0,
+          "tensor_exact": true,
+          "dense_output": true,
+          "detections": true,
+          "retained_outputs": true,
+          "consumer_complete": true
+        },
+        {
+          "cycle": 1,
+          "tensor_exact": true,
+          "dense_output": true,
+          "detections": true,
+          "retained_outputs": true,
+          "consumer_complete": true
+        },
+        {
+          "cycle": 2,
+          "tensor_exact": true,
+          "dense_output": true,
+          "detections": true,
+          "retained_outputs": true,
+          "consumer_complete": true
+        },
+        {
+          "cycle": 3,
+          "tensor_exact": true,
+          "dense_output": true,
+          "detections": true,
+          "retained_outputs": true,
+          "consumer_complete": true
+        }
+      ]
+    },
+    {
+      "name": "astronaut",
+      "input": "torch",
+      "cycles": 4,
+      "retention": "passed",
+      "status": "passed",
+      "checks": [
+        {
+          "cycle": 0,
+          "tensor_exact": true,
+          "dense_output": true,
+          "detections": true,
+          "retained_outputs": true,
+          "consumer_complete": true
+        },
+        {
+          "cycle": 1,
+          "tensor_exact": true,
+          "dense_output": true,
+          "detections": true,
+          "retained_outputs": true,
+          "consumer_complete": true
+        },
+        {
+          "cycle": 2,
+          "tensor_exact": true,
+          "dense_output": true,
+          "detections": true,
+          "retained_outputs": true,
+          "consumer_complete": true
+        },
+        {
+          "cycle": 3,
+          "tensor_exact": true,
+          "dense_output": true,
+          "detections": true,
+          "retained_outputs": true,
+          "consumer_complete": true
+        }
+      ]
+    },
+    {
+      "name": "astronaut-padded",
+      "input": "cupy",
+      "cycles": 4,
+      "retention": "passed",
+      "status": "passed",
+      "checks": [
+        {
+          "cycle": 0,
+          "tensor_exact": true,
+          "dense_output": true,
+          "detections": true,
+          "retained_outputs": true,
+          "consumer_complete": true
+        },
+        {
+          "cycle": 1,
+          "tensor_exact": true,
+          "dense_output": true,
+          "detections": true,
+          "retained_outputs": true,
+          "consumer_complete": true
+        },
+        {
+          "cycle": 2,
+          "tensor_exact": true,
+          "dense_output": true,
+          "detections": true,
+          "retained_outputs": true,
+          "consumer_complete": true
+        },
+        {
+          "cycle": 3,
+          "tensor_exact": true,
+          "dense_output": true,
+          "detections": true,
+          "retained_outputs": true,
+          "consumer_complete": true
+        }
+      ]
+    },
+    {
+      "name": "astronaut-padded",
+      "input": "torch",
+      "cycles": 4,
+      "retention": "passed",
+      "status": "passed",
+      "checks": [
+        {
+          "cycle": 0,
+          "tensor_exact": true,
+          "dense_output": true,
+          "detections": true,
+          "retained_outputs": true,
+          "consumer_complete": true
+        },
+        {
+          "cycle": 1,
+          "tensor_exact": true,
+          "dense_output": true,
+          "detections": true,
+          "retained_outputs": true,
+          "consumer_complete": true
+        },
+        {
+          "cycle": 2,
+          "tensor_exact": true,
+          "dense_output": true,
+          "detections": true,
+          "retained_outputs": true,
+          "consumer_complete": true
+        },
+        {
+          "cycle": 3,
+          "tensor_exact": true,
+          "dense_output": true,
+          "detections": true,
+          "retained_outputs": true,
+          "consumer_complete": true
+        }
+      ]
+    },
+    {
+      "name": "chelsea",
+      "input": "cupy",
+      "cycles": 4,
+      "retention": "passed",
+      "status": "passed",
+      "checks": [
+        {
+          "cycle": 0,
+          "tensor_exact": true,
+          "dense_output": true,
+          "detections": true,
+          "retained_outputs": true,
+          "consumer_complete": true
+        },
+        {
+          "cycle": 1,
+          "tensor_exact": true,
+          "dense_output": true,
+          "detections": true,
+          "retained_outputs": true,
+          "consumer_complete": true
+        },
+        {
+          "cycle": 2,
+          "tensor_exact": true,
+          "dense_output": true,
+          "detections": true,
+          "retained_outputs": true,
+          "consumer_complete": true
+        },
+        {
+          "cycle": 3,
+          "tensor_exact": true,
+          "dense_output": true,
+          "detections": true,
+          "retained_outputs": true,
+          "consumer_complete": true
+        }
+      ]
+    },
+    {
+      "name": "chelsea",
+      "input": "torch",
+      "cycles": 4,
+      "retention": "passed",
+      "status": "passed",
+      "checks": [
+        {
+          "cycle": 0,
+          "tensor_exact": true,
+          "dense_output": true,
+          "detections": true,
+          "retained_outputs": true,
+          "consumer_complete": true
+        },
+        {
+          "cycle": 1,
+          "tensor_exact": true,
+          "dense_output": true,
+          "detections": true,
+          "retained_outputs": true,
+          "consumer_complete": true
+        },
+        {
+          "cycle": 2,
+          "tensor_exact": true,
+          "dense_output": true,
+          "detections": true,
+          "retained_outputs": true,
+          "consumer_complete": true
+        },
+        {
+          "cycle": 3,
+          "tensor_exact": true,
+          "dense_output": true,
+          "detections": true,
+          "retained_outputs": true,
+          "consumer_complete": true
+        }
+      ]
+    },
+    {
+      "name": "chelsea-padded",
+      "input": "cupy",
+      "cycles": 4,
+      "retention": "passed",
+      "status": "passed",
+      "checks": [
+        {
+          "cycle": 0,
+          "tensor_exact": true,
+          "dense_output": true,
+          "detections": true,
+          "retained_outputs": true,
+          "consumer_complete": true
+        },
+        {
+          "cycle": 1,
+          "tensor_exact": true,
+          "dense_output": true,
+          "detections": true,
+          "retained_outputs": true,
+          "consumer_complete": true
+        },
+        {
+          "cycle": 2,
+          "tensor_exact": true,
+          "dense_output": true,
+          "detections": true,
+          "retained_outputs": true,
+          "consumer_complete": true
+        },
+        {
+          "cycle": 3,
+          "tensor_exact": true,
+          "dense_output": true,
+          "detections": true,
+          "retained_outputs": true,
+          "consumer_complete": true
+        }
+      ]
+    },
+    {
+      "name": "chelsea-padded",
+      "input": "torch",
+      "cycles": 4,
+      "retention": "passed",
+      "status": "passed",
+      "checks": [
+        {
+          "cycle": 0,
+          "tensor_exact": true,
+          "dense_output": true,
+          "detections": true,
+          "retained_outputs": true,
+          "consumer_complete": true
+        },
+        {
+          "cycle": 1,
+          "tensor_exact": true,
+          "dense_output": true,
+          "detections": true,
+          "retained_outputs": true,
+          "consumer_complete": true
+        },
+        {
+          "cycle": 2,
+          "tensor_exact": true,
+          "dense_output": true,
+          "detections": true,
+          "retained_outputs": true,
+          "consumer_complete": true
+        },
+        {
+          "cycle": 3,
+          "tensor_exact": true,
+          "dense_output": true,
+          "detections": true,
+          "retained_outputs": true,
+          "consumer_complete": true
+        }
+      ]
+    },
+    {
+      "name": "astronaut-1080p",
+      "input": "cupy",
+      "cycles": 4,
+      "retention": "passed",
+      "status": "passed",
+      "checks": [
+        {
+          "cycle": 0,
+          "tensor_exact": true,
+          "dense_output": true,
+          "detections": true,
+          "retained_outputs": true,
+          "consumer_complete": true
+        },
+        {
+          "cycle": 1,
+          "tensor_exact": true,
+          "dense_output": true,
+          "detections": true,
+          "retained_outputs": true,
+          "consumer_complete": true
+        },
+        {
+          "cycle": 2,
+          "tensor_exact": true,
+          "dense_output": true,
+          "detections": true,
+          "retained_outputs": true,
+          "consumer_complete": true
+        },
+        {
+          "cycle": 3,
+          "tensor_exact": true,
+          "dense_output": true,
+          "detections": true,
+          "retained_outputs": true,
+          "consumer_complete": true
+        }
+      ]
+    },
+    {
+      "name": "astronaut-1080p",
+      "input": "torch",
+      "cycles": 4,
+      "retention": "passed",
+      "status": "passed",
+      "checks": [
+        {
+          "cycle": 0,
+          "tensor_exact": true,
+          "dense_output": true,
+          "detections": true,
+          "retained_outputs": true,
+          "consumer_complete": true
+        },
+        {
+          "cycle": 1,
+          "tensor_exact": true,
+          "dense_output": true,
+          "detections": true,
+          "retained_outputs": true,
+          "consumer_complete": true
+        },
+        {
+          "cycle": 2,
+          "tensor_exact": true,
+          "dense_output": true,
+          "detections": true,
+          "retained_outputs": true,
+          "consumer_complete": true
+        },
+        {
+          "cycle": 3,
+          "tensor_exact": true,
+          "dense_output": true,
+          "detections": true,
+          "retained_outputs": true,
+          "consumer_complete": true
+        }
+      ]
+    },
+    {
+      "name": "chelsea-1080p",
+      "input": "cupy",
+      "cycles": 4,
+      "retention": "passed",
+      "status": "passed",
+      "checks": [
+        {
+          "cycle": 0,
+          "tensor_exact": true,
+          "dense_output": true,
+          "detections": true,
+          "retained_outputs": true,
+          "consumer_complete": true
+        },
+        {
+          "cycle": 1,
+          "tensor_exact": true,
+          "dense_output": true,
+          "detections": true,
+          "retained_outputs": true,
+          "consumer_complete": true
+        },
+        {
+          "cycle": 2,
+          "tensor_exact": true,
+          "dense_output": true,
+          "detections": true,
+          "retained_outputs": true,
+          "consumer_complete": true
+        },
+        {
+          "cycle": 3,
+          "tensor_exact": true,
+          "dense_output": true,
+          "detections": true,
+          "retained_outputs": true,
+          "consumer_complete": true
+        }
+      ]
+    },
+    {
+      "name": "chelsea-1080p",
+      "input": "torch",
+      "cycles": 4,
+      "retention": "passed",
+      "status": "passed",
+      "checks": [
+        {
+          "cycle": 0,
+          "tensor_exact": true,
+          "dense_output": true,
+          "detections": true,
+          "retained_outputs": true,
+          "consumer_complete": true
+        },
+        {
+          "cycle": 1,
+          "tensor_exact": true,
+          "dense_output": true,
+          "detections": true,
+          "retained_outputs": true,
+          "consumer_complete": true
+        },
+        {
+          "cycle": 2,
+          "tensor_exact": true,
+          "dense_output": true,
+          "detections": true,
+          "retained_outputs": true,
+          "consumer_complete": true
+        },
+        {
+          "cycle": 3,
+          "tensor_exact": true,
+          "dense_output": true,
+          "detections": true,
+          "retained_outputs": true,
+          "consumer_complete": true
+        }
+      ]
+    }
+  ],
+  "scope": "Explicit three-stream handoffs with synchronous CPG and TensorRT; not asynchronous runtime acceptance",
+  "stream_handles": [
+    425505840,
+    424663744,
+    425949024
+  ],
+  "drain_status": "passed"
+}

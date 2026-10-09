@@ -66,3 +66,8 @@ No GPU rental remains active.
 
 Matched output reuse passed 40,000 inference checks. Complete-host p99 increased about 0.2%, within the fixed 5% guard.
 Fresh owned output remains the default. See [experiment 023](experiments/023-output-reuse.md).
+
+The fixed detector stream scenario passed 48 TensorRT executions across six fixtures and CuPy/PyTorch inputs.
+Three distinct streams used explicit handoffs. Retained outputs and shutdown passed.
+Both preprocessing and TensorRT remain synchronous. Async execution remains open.
+See [experiment 024](experiments/024-detector-streams.md).

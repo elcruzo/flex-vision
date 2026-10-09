@@ -488,3 +488,12 @@ Record every cycle and drain result, rather than accepting a top-level passing l
 Require all twelve fixture/framework cases and 48 executions.
 Keep report coverage auditing distinct from numerical recomputation and actual GPU execution.
 The runner and local fault checks are prepared. No GPU acceptance comes from this commit.
+
+## D042 — Accept the fixed synchronous detector stream scenario
+
+Experiment 024 passed twelve fixture/framework cases and all 48 real TensorRT executions on RTX 4090.
+Three distinct streams, explicit producer handoff, retained output checks, and shutdown completed successfully.
+Accept that fixed synchronous contract. Preserve the public synchronous default.
+The explicit event also orders Torch inputs, so this does not isolate DLPack's implicit handoff.
+Both preprocessing and the consumer synchronize. No asynchronous overlap or pending-owner release is established.
+Require a completion object and delayed-consumer inference evidence before removing those waits.
