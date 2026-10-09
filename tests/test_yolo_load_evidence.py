@@ -33,3 +33,15 @@ def test_raw_verifier_rejects_missing_arrival_and_failed_frame(tmp_path):
     with pytest.raises(ValueError,match='arrival records'):summarize(tmp_path)
     target.write_text(original.replace('True','False',1))
     with pytest.raises(ValueError,match='failed completed frame'):summarize(tmp_path)
+
+    target.write_text(original)
+    record=json.loads((tmp_path/'results.json').read_text())
+    record['status']='failed'
+    block=record['runs'][0];block['status']='failed'
+    block['memory_after']['torch_allocated']=2457700
+    block['memory_growth']['torch_allocated']=2457600
+    (tmp_path/'results.json').write_text(json.dumps(record))
+    with pytest.raises(ValueError,match='passed load run'):summarize(tmp_path)
+    audit=summarize(tmp_path,audit_failures=True)
+    assert audit['status']=='verified_failed_experiment'
+    assert len(audit['failed_blocks'])==1

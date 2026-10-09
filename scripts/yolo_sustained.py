@@ -109,6 +109,7 @@ def main():
     parser.add_argument('--output',type=Path,required=True)
     parser.add_argument('--seconds',type=int,default=30)
     parser.add_argument('--repeats',type=int,default=2)
+    parser.add_argument('--diagnose-vendor-aux',action='store_true')
     args=parser.parse_args()
     if not 1<=args.seconds<=60 or not 1<=args.repeats<=4:parser.error('Invalid bounded run settings')
     args.output.mkdir(parents=True,exist_ok=False)
@@ -157,8 +158,25 @@ def main():
                             writer=csv.DictWriter(file,fieldnames=FIELDS);writer.writeheader();writer.writerows(rows)
                         result['samples']=filename;report['runs'].append(result)
                         (args.output/'results.json').write_text(json.dumps(report,indent=2)+'\n')
-                        if result['status']!='passed':raise AssertionError('Load correctness or allocation growth failed')
-        report['status']='passed'
+            if args.diagnose_vendor_aux:
+                # Version-pinned private API: diagnostic only, never a baseline
+                # strategy and never a production dependency.
+                sync_aux=getattr(getattr(cvcuda,'internal',None),'syncAuxStream',None)
+                if sync_aux is None:
+                    report['resource_diagnostic']={'status':'unsupported','reason':'Pinned auxiliary synchronization hook unavailable'}
+                else:
+                    def diagnostic_runner(variant):
+                        output=vendor_preprocess(sources[variant],geometries[variant],cvstream)
+                        sync_aux()
+                        return output
+                    diagnostic,rows=run('cvcuda_aux_diagnostic',diagnostic_runner,consumer,sources,expected,references,detections,args.seconds,400,2,0)
+                    with (args.output/'aux-diagnostic.csv').open('w',newline='') as file:
+                        writer=csv.DictWriter(file,fieldnames=FIELDS);writer.writeheader();writer.writerows(rows)
+                    diagnostic['samples']='aux-diagnostic.csv'
+                    diagnostic['qualification']='Private auxiliary-stream hook; resource-lifetime diagnostic only, excluded from performance comparison'
+                    report['resource_diagnostic']=diagnostic
+        report['status']='passed' if all(run['status']=='passed' for run in report['runs']) else 'failed'
+        if report['status']!='passed':raise AssertionError('Completed all load blocks; correctness or allocation growth failed')
     except Exception as exc:
         report['error']=repr(exc);raise
     finally:

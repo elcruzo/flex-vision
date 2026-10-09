@@ -81,3 +81,24 @@ The initial warmup omitted the per-frame validation path used during measurement
 The revised warmup checks all 100 frames through the same GPU validation and scalar completion path.
 This tests a first-use allocation explanation without changing the growth allowance or clearing allocator caches.
 The explanation remains a hypothesis until the revised GPU run completes.
+
+## Saturation resource-lifetime investigation
+
+The checked warmup passed all six control blocks but did not prevent CV-CUDA pool growth under overload.
+The first overload CV-CUDA block added one output allocation at approximately 28 seconds, with no failed frame checks or live-byte growth.
+Preserve this second failure. The warmup correction does not establish stable retained memory at saturation.
+
+The pinned CV-CUDA source at `b051f32d3e17669c456d588103f820e78af35832` uses auxiliary-stream callbacks to release resource holds.
+Its main `Stream.sync()` synchronizes only the submitted stream.
+See [resource retention](https://github.com/CVCUDA/CV-CUDA/blob/b051f32d3e17669c456d588103f820e78af35832/python/mod_cvcuda/nvcv/Stream.cpp) and [wrapper caching](https://github.com/CVCUDA/CV-CUDA/blob/b051f32d3e17669c456d588103f820e78af35832/python/mod_cvcuda/nvcv/Tensor.cpp).
+This provides a resource-lifetime hypothesis. It does not prove the source of the observed allocation by itself.
+
+The next run collects all twelve normal blocks before rejecting a failed matrix.
+No failed block becomes accepted. The verifier's explicit `--audit-failures` mode labels a complete failed matrix as `verified_failed_experiment`.
+Missing arrivals, unchecked completed frames, inconsistent reports, and incomplete matrices still cause verification errors.
+
+An optional final CV-CUDA overload diagnostic synchronizes its private auxiliary-stream hook after each preprocessing call.
+It uses the same numerical checks, queues, duration, and memory allowance.
+It does not clear allocator or vendor caches. The normal timed baseline remains unchanged.
+This private version-specific hook is an investigation control, not a production requirement or a recommended vendor implementation.
+Retain its result separately and exclude it from performance claims.

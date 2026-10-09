@@ -7,17 +7,17 @@ from pathlib import Path
 import numpy as np
 
 
-def summarize(root):
+def summarize(root, *, audit_failures=False):
     report=json.loads((root/'results.json').read_text())
-    if report['status']!='passed' or report['dirty']:raise ValueError('Require a clean passed load run')
+    if report['status'] not in ('passed','failed') or report['dirty'] or (report['status']!='passed' and not audit_failures):raise ValueError('Require a clean passed load run')
     if len(report['runs']) != 12:raise ValueError('Require two loads, two repeats, and three candidates')
-    seen=set();results=[]
+    seen=set();results=[];failed_blocks=[]
     for run in report['runs']:
         identity=(run['fps_per_camera'],run['repeat'],run['candidate'])
         if identity in seen or identity[0] not in (60,400) or identity[1] not in (0,1) or identity[2] not in ('cpg','torch','cvcuda'):
             raise ValueError('Duplicate or unexpected load block')
         seen.add(identity)
-        if run['status']!='passed' or run['failed_frames'] or run['seconds']!=30 or run['cameras']!=4 or run['depth']!=2:
+        if run['status'] not in ('passed','failed') or (run['status']!='passed' and not audit_failures) or run['failed_frames'] or run['seconds']!=30 or run['cameras']!=4 or run['depth']!=2:
             raise ValueError('Incomplete declared load protocol')
         path=root/run['samples']
         if not path.exists():path=Path(str(path)+'.gz')
@@ -43,10 +43,15 @@ def summarize(root):
             completed.append(row)
         if run['offered']!=total or run['completed']!=len(completed) or run['dropped']!=total-len(completed) or run['max_pending']>8:
             raise ValueError('Report counts differ from raw arrivals')
+        memory_failures=[]
         for key,before in run['memory_before'].items():
             growth=run['memory_after'][key]-before
-            if growth!=run['memory_growth'][key] or growth>report['allocation_growth_allowance_bytes']:
-                raise ValueError('Allocator growth exceeds declared allowance')
+            if growth!=run['memory_growth'][key]:raise ValueError('Incorrect allocator growth record')
+            if growth>report['allocation_growth_allowance_bytes']:
+                memory_failures.append(key)
+                if not audit_failures:raise ValueError('Allocator growth exceeds declared allowance')
+        if bool(memory_failures) != (run['status']=='failed'):raise ValueError('Block status disagrees with allocator evidence')
+        if memory_failures:failed_blocks.append({'identity':identity,'counters':memory_failures})
         if not completed or not run['memory_samples']:raise ValueError('Missing correctness or memory evidence')
         lanes={}
         for lane in range(4):
@@ -63,14 +68,16 @@ def summarize(root):
                         'arrival_to_completion_ms':dict(zip(('p50','p95','p99'),np.percentile(latency,[50,95,99]).tolist())),
                         'early_p99_ms':float(np.percentile(early,99)),'late_p99_ms':float(np.percentile(late,99)),
                         'memory_growth':run['memory_growth'],'lanes':lanes})
-    return {'status':'verified','runs':results,'scope':report['scope'],
+    if bool(failed_blocks) != (report['status']=='failed'):raise ValueError('Overall status disagrees with block evidence')
+    return {'status':'verified_failed_experiment' if failed_blocks else 'verified','failed_blocks':failed_blocks,'runs':results,'scope':report['scope'],
             'qualification':'30-second blocks with validation overhead; not concurrent streams, live cameras, or a soak'}
 
 
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('root',type=Path);parser.add_argument('--output',type=Path,required=True)
-    args=parser.parse_args();result=summarize(args.root)
+    parser.add_argument('--audit-failures',action='store_true',help='Audit a complete failed matrix without accepting it')
+    args=parser.parse_args();result=summarize(args.root,audit_failures=args.audit_failures)
     with args.output.open('x') as file:json.dump(result,file,indent=2);file.write('\n')
     print(json.dumps(result))
 

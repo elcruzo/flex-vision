@@ -408,3 +408,12 @@ Warmup omitted the GPU correctness path used during every measured frame.
 Exercise that complete checked path during all 100 warmup frames. Keep the original 1 MiB growth allowance and preserve the failed attempt.
 This is a first-use allocation hypothesis, not evidence that the failure is harmless or fixed.
 See [experiment 021](experiments/021-detector-repeatability.md).
+
+## D034 — Separate main-stream completion from vendor resource release
+
+Checked warmup removed the first control-block pool increase, but the CV-CUDA overload block still added one output allocation late in measurement.
+Pinned source shows resource holds released through auxiliary callbacks. Main-stream synchronization does not drain that auxiliary stream.
+Test an explicit auxiliary drain only as a separate diagnostic control. Keep the normal comparison and 1 MiB guard unchanged.
+Collect all load blocks before failing acceptance so one baseline failure cannot hide later candidate evidence.
+A complete failed matrix remains failed, even when its raw records are independently verified.
+See the [investigation protocol](SUSTAINED_YOLO.md#saturation-resource-lifetime-investigation).
