@@ -45,7 +45,7 @@ Evidence: [inspection comparison](experiments/014-inspection-comparison.md),
 ## Next sequence
 
 1. Reconcile pending cloud charges within the authorized budget.
-2. Measure caller-owned output against the default path through the same detector.
+2. Keep caller-owned output optional after experiment 023. It removed pool requests but increased preprocessing host p50 about 5.2%.
 3. Investigate service tails using the retained per-frame, telemetry, and allocator records.
 4. Define output-buffer ownership and asynchronous execution semantics before changing the runtime.
 5. Implement one measured runtime change, then repeat the complete detector inference scenario.
@@ -63,3 +63,6 @@ It cannot validate CUDA, TensorRT execution, or NVIDIA performance.
 The 30-minute detector soak and fixed caller-owned FP16 output scenario passed on RTX 4090.
 Lifetime-bounded reconciliation permitted the completed lease within the existing $15 authorization.
 No GPU rental remains active.
+
+Matched output reuse passed 40,000 inference checks. Complete-host p99 increased about 0.2%, within the fixed 5% guard.
+Fresh owned output remains the default. See [experiment 023](experiments/023-output-reuse.md).

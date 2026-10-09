@@ -461,3 +461,13 @@ Keep the slot alive for both candidates to preserve common memory state.
 Require the fresh-output hook as a positive control. Distinguish pool requests from actual device allocations.
 Reject adoption if complete-host p99 regresses more than 5% on either fixture.
 A neutral or slower result remains valid evidence. Do not require a speedup to accept correct optional output semantics.
+
+## D039 — Retain output reuse as an optional storage contract
+
+Experiment 023 passed all 40,000 sampled inference checks and the frozen 5% complete-host p99 guard.
+Reuse reduced CuPy pool requests from 100 to zero per 100 preprocessing calls.
+Both warm paths made zero observed underlying device allocations.
+Preprocessing host p50 increased about 5.2%. Complete-host p99 increased about 0.2%.
+Keep fresh output as default. Do not select reuse as a speed optimization from this result.
+Do not weaken destination validation or claim independent peak-memory savings.
+Define consumer completion and lifetime before introducing asynchronous output reuse.

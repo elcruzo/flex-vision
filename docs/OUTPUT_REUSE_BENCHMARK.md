@@ -49,4 +49,7 @@ python scripts/summarize_yolo_reuse.py reuse-benchmark --output reuse-verificati
 
 Use one independently terminated 30-minute GPU lease with export headroom.
 Check live capacity and rates before provisioning. Reconcile the existing $15 budget.
-This protocol is prepared. No timing or allocation benefit is measured yet.
+Experiment 023 completed this protocol. All 40,000 frames passed.
+Reuse removed pool requests but increased preprocessing host p50 by about 5.2%.
+Complete-host p99 increased by about 0.2%, within the fixed guard. Keep reuse optional and fresh output as default.
+See [the measured result](experiments/023-output-reuse.md).

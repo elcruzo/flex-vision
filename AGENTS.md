@@ -63,7 +63,8 @@ The detector comparison repeated, and the final short load matrix passed 187,279
 Read docs/experiments/021-detector-repeatability.md for both earlier vendor pool failures and variable throughput/tails.
 The private auxiliary-drain diagnostic is not production support.
 The detector soak harness and independent evidence verifier are prepared in scripts/yolo_soak.py and scripts/summarize_yolo_soak.py. The 30-minute RTX 4090 detector soak passed. Read docs/experiments/022-detector-soak.md and docs/SUSTAINED_YOLO.md.
-Next, measure caller-owned output through matched inference and define consumer completion before asynchronous execution.
+Matched output reuse passed 40,000 inference checks but increased preprocessing latency. Read docs/experiments/023-output-reuse.md.
+Keep out= optional and define consumer completion before asynchronous execution.
 Broader sustained coverage, vendor comparisons, reusable workspace, batching, and robot/ROS acceptance remain pending. Small-image preprocessing was slower.
 Reference operators are not production CUDA support.
 

@@ -1,0 +1,89 @@
+{
+  "status": "passed",
+  "revision": "e8cb4bf0dc3aa5b5df8e9b14ea2c117a2417e7f6",
+  "dirty": false,
+  "engine_sha256": "0969580b5e352f49bb7de7e38d8811c4b73e5fc2490c0a798aff4fe2b3911040",
+  "cases": [
+    {
+      "name": "astronaut",
+      "checked_reuses": 4,
+      "rejected_outputs": [
+        "dtype",
+        "shape",
+        "layout",
+        "type"
+      ],
+      "torch_input": "passed",
+      "default_output_retention": "passed",
+      "status": "passed"
+    },
+    {
+      "name": "astronaut-padded",
+      "checked_reuses": 4,
+      "rejected_outputs": [
+        "dtype",
+        "shape",
+        "layout",
+        "type"
+      ],
+      "torch_input": "passed",
+      "default_output_retention": "passed",
+      "status": "passed"
+    },
+    {
+      "name": "chelsea",
+      "checked_reuses": 4,
+      "rejected_outputs": [
+        "dtype",
+        "shape",
+        "layout",
+        "type"
+      ],
+      "torch_input": "passed",
+      "default_output_retention": "passed",
+      "status": "passed"
+    },
+    {
+      "name": "chelsea-padded",
+      "checked_reuses": 4,
+      "rejected_outputs": [
+        "dtype",
+        "shape",
+        "layout",
+        "type"
+      ],
+      "torch_input": "passed",
+      "default_output_retention": "passed",
+      "status": "passed"
+    },
+    {
+      "name": "astronaut-1080p",
+      "checked_reuses": 4,
+      "rejected_outputs": [
+        "dtype",
+        "shape",
+        "layout",
+        "type",
+        "alias"
+      ],
+      "torch_input": "passed",
+      "default_output_retention": "passed",
+      "status": "passed"
+    },
+    {
+      "name": "chelsea-1080p",
+      "checked_reuses": 4,
+      "rejected_outputs": [
+        "dtype",
+        "shape",
+        "layout",
+        "type",
+        "alias"
+      ],
+      "torch_input": "passed",
+      "default_output_retention": "passed",
+      "status": "passed"
+    }
+  ],
+  "qualification": "Synchronous caller-owned CuPy outputs; validation downloads explicit; no async or allocation performance claim"
+}

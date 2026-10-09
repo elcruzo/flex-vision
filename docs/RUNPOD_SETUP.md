@@ -463,3 +463,9 @@ The posted total remains $8.70408385734845. Keep all existing delayed-charge res
 The conservative cumulative bound with this new reservation is $12.014050660732413, within the authorized $15.
 The experiment regenerates controls, verifies output reuse, and measures fresh versus caller-owned output through the same TensorRT consumer.
 No overlapping rental is authorized. Verify exported evidence and cleanup before accepting the result.
+
+The matched experiment completed and exported 71 hash-verified files. All 40,000 reuse-comparison frames passed.
+GPU termination was verified at 16:22:13 UTC on October 9. Controller and secret cleanup completed at 16:22:24 UTC.
+The fresh 16:22:52 UTC inventory was empty. Posted billing remained $8.70408385734845.
+Retain the $0.65 reservation and the $12.014050660732413 conservative cumulative bound until charges reconcile.
+No rental remains active. See experiment 023 for measured latency and allocation limits.

@@ -138,4 +138,5 @@ python scripts/yolo_output_reuse.py \
 The six-fixture FP16 scenario passed on RTX 4090. FP32 destinations and other stream/device configurations remain pending.
 Do not infer allocation savings or latency improvements until measured.
 Keep the previously frozen detector soak on its default output path.
-Measure caller-owned output as a separate changed strategy after correctness acceptance.
+Experiment 023 measured caller-owned output through matched inference. It removed pool requests but increased preprocessing host p50 about 5.2%.
+Keep it optional. Fresh owned output remains the default. See [the result](experiments/023-output-reuse.md).

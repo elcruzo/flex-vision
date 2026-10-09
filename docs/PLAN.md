@@ -43,8 +43,9 @@ Its final twelve-block matrix checked 187,279 completed frames with zero declare
 Two earlier vendor-pool failures remain failed. Sustained throughput and tail gains varied by block.
 This is short serial load evidence, not concurrent camera streams or a detector soak.
 The [30-minute detector soak](experiments/022-detector-soak.md) passed: all 432,000 offered frames completed correctly, with zero drops and zero declared allocator growth.
-The synchronous caller-owned FP16 output scenario also passed six TensorRT fixtures. Allocation and latency benefits remain unmeasured.
-Next, measure caller-owned output and define consumer ordering before asynchronous execution.
+The synchronous caller-owned FP16 output scenario also passed six TensorRT fixtures. Experiment 023 measured zero output-pool requests with reuse, but preprocessing host p50 increased about 5.2%.
+Keep caller-owned output optional. Define consumer ordering before asynchronous execution.
+See [experiment 023](experiments/023-output-reuse.md) for the matched inference result.
 Keep broader sustained coverage, vendor comparisons, reusable workspace, batching, and the robot/ROS workloads open.
 See [the backend contract](CUDA_BACKEND.md), [host evidence](experiments/004-cuda-host.md), and [fused execution evidence](experiments/005-fused-cuda.md).
 See [local development](LOCAL_DEVELOPMENT.md) and [source audit](SOURCE_AUDIT.md) for current evidence.

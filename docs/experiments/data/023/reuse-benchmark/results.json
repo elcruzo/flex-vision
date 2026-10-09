@@ -1,0 +1,59 @@
+{
+  "status": "passed",
+  "revision": "e8cb4bf0dc3aa5b5df8e9b14ea2c117a2417e7f6",
+  "dirty": false,
+  "engine_sha256": "0969580b5e352f49bb7de7e38d8811c4b73e5fc2490c0a798aff4fe2b3911040",
+  "gpu": "NVIDIA GeForce RTX 4090",
+  "blocks": 10,
+  "samples_per_block": 1000,
+  "warmup": 100,
+  "fixtures": [
+    {
+      "name": "astronaut-1080p",
+      "allocations": {
+        "fresh": {
+          "frames": 100,
+          "pool_requests": 100,
+          "requested_bytes": 245760000,
+          "device_allocations": 0,
+          "device_bytes": 0
+        },
+        "reuse": {
+          "frames": 100,
+          "pool_requests": 0,
+          "requested_bytes": 0,
+          "device_allocations": 0,
+          "device_bytes": 0
+        }
+      },
+      "checked_frames": 20000,
+      "failed_frames": 0
+    },
+    {
+      "name": "chelsea-1080p",
+      "allocations": {
+        "fresh": {
+          "frames": 100,
+          "pool_requests": 100,
+          "requested_bytes": 245760000,
+          "device_allocations": 0,
+          "device_bytes": 0
+        },
+        "reuse": {
+          "frames": 100,
+          "pool_requests": 0,
+          "requested_bytes": 0,
+          "device_allocations": 0,
+          "device_bytes": 0
+        }
+      },
+      "checked_frames": 20000,
+      "failed_frames": 0
+    }
+  ],
+  "scope": "serial synchronous resident 1080p input; fixed FP16 TensorRT and CUDA NMS; validation after timing; no live capture",
+  "timing_boundary": "preprocess host/GPU and complete host/GPU stop before per-frame GPU validation; validation may condition subsequent samples",
+  "allocation_scope": "separate CuPy hooks around preprocessing only; pool requests differ from actual device allocations",
+  "common_memory_state": "one caller-owned slot remains allocated for both candidates; no pool clearing",
+  "acceptance": "all sampled frames correct; classify p99 host regression above 5% on either fixture before adoption; no minimum speedup assumed"
+}

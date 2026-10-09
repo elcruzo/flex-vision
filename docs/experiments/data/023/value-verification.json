@@ -1,0 +1,168 @@
+{
+  "status": "independently_verified",
+  "checks": [
+    {
+      "fixture": "astronaut",
+      "candidate": "cpg",
+      "tensor_max_abs_error": 0.0,
+      "matched_ious": [
+        1.0
+      ],
+      "expected_object_iou": 0.9134520865759633
+    },
+    {
+      "fixture": "astronaut",
+      "candidate": "torch",
+      "tensor_max_abs_error": 0.00048828125,
+      "matched_ious": [
+        0.9994416527079844
+      ],
+      "expected_object_iou": 0.9139245406102549
+    },
+    {
+      "fixture": "astronaut",
+      "candidate": "cvcuda",
+      "tensor_max_abs_error": 0.00048828125,
+      "matched_ious": [
+        0.9994416527079844
+      ],
+      "expected_object_iou": 0.9139245406102549
+    },
+    {
+      "fixture": "astronaut-padded",
+      "candidate": "cpg",
+      "tensor_max_abs_error": 0.0,
+      "matched_ious": [
+        1.0
+      ],
+      "expected_object_iou": 0.9252938777935247
+    },
+    {
+      "fixture": "astronaut-padded",
+      "candidate": "torch",
+      "tensor_max_abs_error": 0.00048828125,
+      "matched_ious": [
+        0.9983552458999192
+      ],
+      "expected_object_iou": 0.9255659926817342
+    },
+    {
+      "fixture": "astronaut-padded",
+      "candidate": "cvcuda",
+      "tensor_max_abs_error": 0.00048828125,
+      "matched_ious": [
+        0.9983552458999192
+      ],
+      "expected_object_iou": 0.9255659926817342
+    },
+    {
+      "fixture": "chelsea",
+      "candidate": "cpg",
+      "tensor_max_abs_error": 0.0,
+      "matched_ious": [
+        1.0
+      ],
+      "expected_object_iou": 0.8950583517738724
+    },
+    {
+      "fixture": "chelsea",
+      "candidate": "torch",
+      "tensor_max_abs_error": 0.00048828125,
+      "matched_ious": [
+        0.9807051588377357
+      ],
+      "expected_object_iou": 0.9014227655475181
+    },
+    {
+      "fixture": "chelsea",
+      "candidate": "cvcuda",
+      "tensor_max_abs_error": 0.00048828125,
+      "matched_ious": [
+        0.9807051588377357
+      ],
+      "expected_object_iou": 0.9014227655475181
+    },
+    {
+      "fixture": "chelsea-padded",
+      "candidate": "cpg",
+      "tensor_max_abs_error": 0.0,
+      "matched_ious": [
+        1.0
+      ],
+      "expected_object_iou": 0.9765577355325427
+    },
+    {
+      "fixture": "chelsea-padded",
+      "candidate": "torch",
+      "tensor_max_abs_error": 0.00048828125,
+      "matched_ious": [
+        1.0
+      ],
+      "expected_object_iou": 0.9765577355325427
+    },
+    {
+      "fixture": "chelsea-padded",
+      "candidate": "cvcuda",
+      "tensor_max_abs_error": 0.00048828125,
+      "matched_ious": [
+        1.0
+      ],
+      "expected_object_iou": 0.9765577355325427
+    },
+    {
+      "fixture": "astronaut-1080p",
+      "candidate": "cpg",
+      "tensor_max_abs_error": 0.0,
+      "matched_ious": [
+        1.0
+      ],
+      "expected_object_iou": 0.9010295857988165
+    },
+    {
+      "fixture": "astronaut-1080p",
+      "candidate": "torch",
+      "tensor_max_abs_error": 0.0,
+      "matched_ious": [
+        1.0
+      ],
+      "expected_object_iou": 0.9010295857988165
+    },
+    {
+      "fixture": "astronaut-1080p",
+      "candidate": "cvcuda",
+      "tensor_max_abs_error": 0.0,
+      "matched_ious": [
+        1.0
+      ],
+      "expected_object_iou": 0.9010295857988165
+    },
+    {
+      "fixture": "chelsea-1080p",
+      "candidate": "cpg",
+      "tensor_max_abs_error": 0.0,
+      "matched_ious": [
+        1.0
+      ],
+      "expected_object_iou": 0.95548125
+    },
+    {
+      "fixture": "chelsea-1080p",
+      "candidate": "torch",
+      "tensor_max_abs_error": 0.0,
+      "matched_ious": [
+        1.0
+      ],
+      "expected_object_iou": 0.95548125
+    },
+    {
+      "fixture": "chelsea-1080p",
+      "candidate": "cvcuda",
+      "tensor_max_abs_error": 0.0,
+      "matched_ious": [
+        1.0
+      ],
+      "expected_object_iou": 0.95548125
+    }
+  ],
+  "scope": "NumPy recheck of exported tensors, same-engine dense outputs, and independent CPU NMS; not a new GPU run"
+}
