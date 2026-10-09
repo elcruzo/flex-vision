@@ -371,3 +371,15 @@ GPU `ywq5838hv6uldi` was removed at 05:50:04 UTC on October 9. Controller and se
 Its charge remains unposted. Retain its $1.10 reserve and add $1.10 for the checked-warmup retry.
 The latest posted total remains $7.314297882954634. Six conservative $1.10 reserves now cover five ended unposted attempts and this retry.
 Posted spending plus reservations is $13.914297882954634, leaving $1.085702117045366 unreserved within the $15 authorization.
+
+### Complete-matrix diagnostic lease
+
+The checked-warmup attempt exported 77 verified files, then removed its GPU at 06:01:23 UTC on October 9.
+Controller `zu350lrr6rgzs0` and secret `mab7iw4sl4` were absent at 06:01:34 UTC. A later read found no active Pods.
+The latest provider posted total is $7.315671662643581. Keep all six earlier conservative reservations until reconciliation.
+The final matrix and auxiliary-resource diagnostic use a shorter 45-minute independent GPU lease.
+The GPU bound is $0.89/hour and the controller bound is $0.06/hour.
+Reserve $0.85 for this lease, including startup, cleanup, and ephemeral storage headroom.
+Posted spending plus earlier reserves and this new reserve is $14.765671662643581, below the authorized $15.
+The local export allowance is also shortened to preserve five minutes before the GPU deadline.
+No overlapping GPU is authorized. Export and verify evidence before termination.

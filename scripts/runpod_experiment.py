@@ -17,14 +17,16 @@ from runpod_controller import launch
 from runpod_lease import api, log, terminate, verify
 
 
-def coordinate(receipt_path, setup, result_name, gpu_region, controller_region='EU-RO-1', gpu='NVIDIA L4'):
+def coordinate(receipt_path, setup, result_name, gpu_region, controller_region='EU-RO-1', gpu='NVIDIA L4', minutes=60):
+    if minutes not in (30,45,60):
+        raise ValueError('Require a bounded 30, 45, or 60 minute lease')
     if not re.fullmatch(r'iteration-[a-zA-Z0-9-]+', result_name):
         raise ValueError('Invalid result directory name')
     target = Path('benchmark-results') / result_name
     if target.exists():
         raise ValueError('Result directory already exists')
     setup_bytes = setup.read_bytes()
-    launch(60, receipt_path, controller_region, gpu_region, gpu)
+    launch(minutes, receipt_path, controller_region, gpu_region, gpu)
     receipt = json.loads(receipt_path.read_text())
     gpu = None
     started = time.monotonic()
@@ -62,7 +64,7 @@ def coordinate(receipt_path, setup, result_name, gpu_region, controller_region='
             ' > /workspace/cpg-experiment.log 2>&1 < /dev/null &'], check=True, timeout=30)
         log('experiment_submitted', pod=gpu['id'], result=result_name,
             setup_sha256=hashlib.sha256(setup_bytes).hexdigest())
-        while time.monotonic() - started < 3300:
+        while time.monotonic() - started < min(3300,minutes*60-300):
             try:
                 completed = subprocess.run(ssh + [
                     'tail -2 /workspace/cpg-experiment.log; if test -f /workspace/cpg-experiment.exit; then '
@@ -129,8 +131,9 @@ def main():
     parser.add_argument('--gpu-region', default='EUR-IS-1')
     parser.add_argument('--gpu', choices=('NVIDIA L4','NVIDIA GeForce RTX 4090'), default='NVIDIA L4')
     parser.add_argument('--controller-region', default='EU-RO-1')
+    parser.add_argument('--minutes',type=int,choices=(30,45,60),default=60)
     args = parser.parse_args()
-    coordinate(args.receipt, args.setup, args.result_name, args.gpu_region, args.controller_region, args.gpu)
+    coordinate(args.receipt, args.setup, args.result_name, args.gpu_region, args.controller_region, args.gpu, args.minutes)
 
 
 if __name__ == '__main__':
