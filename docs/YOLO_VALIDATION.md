@@ -116,3 +116,20 @@ Use these explicitly revised acceptance rules for the next run:
 The 0.01 floor is 50 times below the final detection threshold. It protects near-threshold proposals while separating irrelevant background coordinates.
 This is an evidence-driven acceptance change, not a claim that revision 1 passed or that all FP16 engine outputs are equivalent.
 The revised policy still needs GPU execution. Smoke fixtures do not establish dataset accuracy.
+
+## Acceptance revision 3: preserve background drift for every path
+
+Revision 2 passed the original person fixture through all paths. On the padded person fixture, CPG passed but the PyTorch baseline failed.
+Its tensor remained within the declared FP16 tolerance. One background width exceeded the global dense-box limit by changing seven pixels.
+The independent reference score at that anchor was about 0.00014. The [baseline failure](experiments/data/020/baseline-failure/results.json) remains failed under revision 2.
+
+Use the same explicit 0.01 proposal-score floor for box checks in preprocessing comparisons.
+Keep every background difference and original-limit violation in the report.
+Tighten every same-engine dense score comparison to absolute 0.003 plus relative 0.003, from the earlier 0.03 plus 0.03.
+Keep the original tensor tolerance and final detection count, class, score, and coordinate checks.
+Require every output to remain finite, every box dimension nonnegative, and every probability in [0,1].
+This protocol validates inference behavior on smoke fixtures. It does not establish equality of low-confidence background coordinates.
+
+The next vendor baseline uses two passes: resize/channel conversion/scale/FP16/NCHW, then padding directly into an owned NCHW output.
+This removes the earlier separate layout pass. Verify this plan before measuring it.
+The earlier three-pass vendor results remain in the failed-run records, not as a claim about the fastest vendor plan.

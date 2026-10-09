@@ -359,3 +359,15 @@ For cross-engine checks, retain all score checks and apply box limits at a 0.01 
 Keep the original failures, report excluded background-coordinate violations, and preserve all final detection checks.
 This revises the experimental acceptance policy. It does not establish general model accuracy or equality between FP16 engines.
 See [the revised protocol](YOLO_VALIDATION.md).
+
+## D030 — Treat background box drift consistently across preprocessing paths
+
+Revision 2 failed the PyTorch baseline after CPG passed the same padded person input.
+The baseline tensor satisfied the FP16 tolerance. A proposal scoring about 0.00014 changed its width by seven pixels.
+A universal background-coordinate limit therefore confounds preprocessing equivalence with FP16 model sensitivity.
+
+Apply the explicit 0.01 score floor to box comparisons for every path.
+Retain all background errors and original-limit violations. Tighten same-engine dense class-score tolerance from 0.03 to 0.003, including relative tolerance.
+Preserve tensor, final detection, finiteness, probability, and box-validity checks.
+This is acceptance revision 3, not a retroactive pass for previous experiments.
+The next comparison also uses a two-pass planar CV-CUDA candidate to avoid an unnecessary layout pass.

@@ -1,0 +1,24 @@
+{
+  "status": "verified",
+  "files": [
+    "benchmark-results/iteration-020e-yolo/execution.log",
+    "benchmark-results/iteration-020e-yolo/gpu.txt",
+    "benchmark-results/iteration-020e-yolo/measured/astronaut-controls.npz",
+    "benchmark-results/iteration-020e-yolo/measured/astronaut-cpg.npz",
+    "benchmark-results/iteration-020e-yolo/measured/astronaut-cvcuda.npz",
+    "benchmark-results/iteration-020e-yolo/measured/astronaut-padded-controls.npz",
+    "benchmark-results/iteration-020e-yolo/measured/astronaut-padded-cpg.npz",
+    "benchmark-results/iteration-020e-yolo/measured/astronaut-torch.npz",
+    "benchmark-results/iteration-020e-yolo/measured/engine-inspector.json",
+    "benchmark-results/iteration-020e-yolo/measured/packages.txt",
+    "benchmark-results/iteration-020e-yolo/measured/results.json",
+    "benchmark-results/iteration-020e-yolo/measured/yolo.engine",
+    "benchmark-results/iteration-020e-yolo/measured/yolo.onnx",
+    "benchmark-results/iteration-020e-yolo/packages.txt",
+    "benchmark-results/iteration-020e-yolo/pip-check.txt",
+    "benchmark-results/iteration-020e-yolo/preflight.json"
+  ],
+  "experiment_exit_code": 1,
+  "pod": "g0ap9qtstva4jj",
+  "run": "1791519187-900901218625"
+}

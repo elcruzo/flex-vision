@@ -83,13 +83,12 @@ def vendor_preprocess(frame, g, stream):
     source = cvcuda.as_tensor(frame[None], 'NHWC')
     resized = cvcuda.resize_crop_convert_reformat(
         source,(g.resized_width,g.resized_height),cvcuda.Interp.LINEAR,
-        cvcuda.RectI(0,0,g.resized_width,g.resized_height),layout='NHWC',
+        cvcuda.RectI(0,0,g.resized_width,g.resized_height),layout='NCHW',
         data_type=cvcuda.Type.F16,manip=cvcuda.ChannelManip.REVERSE,
         scale=1/255,offset=0,srcCast=False,stream=stream)
-    padded = cvcuda.copymakeborder(resized,cvcuda.Border.CONSTANT,[114/255]*3,
-        top=g.top,bottom=640-g.resized_height-g.top,left=g.left,right=640-g.resized_width-g.left,stream=stream)
     output = cp.empty((1,3,640,640),dtype=cp.float16)
-    cvcuda.reformat_into(cvcuda.as_tensor(output,'NCHW'),padded,stream=stream)
+    cvcuda.copymakeborder_into(cvcuda.as_tensor(output,'NCHW'),resized,cvcuda.Border.CONSTANT,[114/255]*3,
+                             top=g.top,left=g.left,stream=stream)
     stream.sync()
     return output
 
@@ -106,7 +105,7 @@ def main():
     if args.blocks <= 0 or args.samples <= 0:
         parser.error('blocks and samples must be positive')
     args.output.mkdir(parents=True,exist_ok=False)
-    report = {'status':'failed','limits':LIMITS,'acceptance_policy':'v2: same-engine dense, confidence-aware cross-engine boxes','weights_sha256':WEIGHTS_SHA256,'cases':[],
+    report = {'status':'failed','limits':LIMITS,'acceptance_policy':'v3: task-relevant boxes, tighter same-engine scores; all background differences reported','weights_sha256':WEIGHTS_SHA256,'cases':[],
               'revision':subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),
               'dirty':bool(subprocess.check_output(['git','status','--porcelain'],text=True)),
               'config_sha256':digest('examples/yolo.yaml'),
@@ -116,6 +115,7 @@ def main():
               'blocks':args.blocks,'samples_per_block':args.samples,'warmup':100,
               'unmeasured':['power','CPU utilization','GPU utilization','memory bandwidth','peak temporary memory'],
               'model_preparation':'FP32 convolution/batchnorm fusion before FP16 conversion',
+              'vendor_plan':'resize/crop/convert/reformat to NCHW, then planar padding into owned output',
               'scope':'resident single-frame fixed FP16 dense TensorRT network with TorchVision CUDA NMS; synchronous fresh outputs'}
     try:
         torch.set_num_threads(4)
@@ -173,11 +173,11 @@ def main():
                         np.testing.assert_allclose(downloaded,expected,atol=LIMITS['tensor_atol'],rtol=0)
                         head = consumer(tensor)
                         detection = decode(head)
+                        np.savez_compressed(args.output/(name+'-'+path+'.npz'),tensor=downloaded,dense=head.cpu().numpy())
                         case['paths'][path] = {'tensor_max_abs_error':float(np.abs(downloaded.astype(np.float32)-expected.astype(np.float32)).max()),
-                            'dense':compare_dense(reference_trt,head),'matched_ious':compare_detections(decode(reference_trt),detection),
+                            'dense':compare_dense(reference_trt,head,preprocessing=True),'matched_ious':compare_detections(decode(reference_trt),detection),
                             'detections':detection_record(detection,g,expectation)}
                         retained.append((tensor,downloaded.copy()))
-                        np.savez_compressed(args.output/(name+'-'+path+'.npz'),tensor=downloaded,dense=head.cpu().numpy())
                     # Actual inference also checks framework import and a negative channel stride.
                     for path,value in [('torch_dlpack',torch.from_dlpack(frame)),('negative_stride',cp.asarray(rgb)[...,::-1])]:
                         tensor = pipe(value)
