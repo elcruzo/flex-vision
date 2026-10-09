@@ -1,7 +1,7 @@
 # Experiment 020 — FP16 YOLO through TensorRT
 
-Status: revision 4 passed numerical acceptance and the matched timing comparison on an RTX 4090.
-The trace capture exists, but SQLite export failed after the profiler terminated its target. Transfer verification remains pending.
+Status: both revision 4 comparisons passed numerical acceptance and matched timing on an RTX 4090.
+The cached-metadata follow-up also passed independent transfer-capture verification. The initial trace-export failure remains below.
 
 ## Contract and controls
 
@@ -61,3 +61,58 @@ Rerun identical numerical and timing checks. Do not change interpolation or prec
 
 This experiment does not validate ROS transport, live cameras, Jetson, asynchronous dispatch, reusable output workspace, batching, or detector soak behavior.
 GPU bandwidth, power, CPU utilization, peak temporary memory, and allocator stability were not measured by this run.
+
+
+## Cached-metadata follow-up
+
+Source `ea30dda` caches immutable launch metadata without retaining arrays or streams.
+The same six GPU cases, 18 independent NumPy comparisons, and 60,000 timing samples passed again.
+CPG remained bitwise equal to the NumPy FP16 oracle. No interpolation, precision, or acceptance rule changed.
+
+| Fixture | Candidate | Preprocess p50 / p95 / p99, ms | Complete host p50 / p95 / p99, ms |
+| --- | --- | --- | --- |
+| Person 1080p | CPG | 0.0840 / 0.0902 / 0.1037 | 0.8705 / 0.9074 / 1.0070 |
+| Person 1080p | PyTorch | 0.1003 / 0.1137 / 0.1690 | 0.8900 / 0.9382 / 1.1194 |
+| Person 1080p | CV-CUDA | 0.1116 / 0.1279 / 0.1720 | 0.9051 / 0.9476 / 1.1060 |
+| Cat 1080p | CPG | 0.0840 / 0.0911 / 0.1055 | 0.8708 / 0.9189 / 1.0429 |
+| Cat 1080p | PyTorch | 0.1004 / 0.1137 / 0.1677 | 0.8903 / 0.9424 / 1.0986 |
+| Cat 1080p | CV-CUDA | 0.1116 / 0.1270 / 0.1597 | 0.9051 / 0.9479 / 1.0578 |
+
+Within this matched run, CPG preprocessing p50 was 24.77% lower than CV-CUDA and 16.30–16.33% lower than PyTorch.
+CPG preprocessing p99 was 37.10–38.66% lower than PyTorch and 33.97–39.75% lower than CV-CUDA.
+Complete host p50 improved by 2.19–2.20% versus PyTorch and 3.78–3.83% versus CV-CUDA.
+Complete host p99 improved by 5.07–10.04% versus PyTorch and 1.41–8.95% versus CV-CUDA.
+The practical complete-pipeline improvement is smaller because network execution and NMS dominate service time.
+
+These results support the fixed detector optimization hypothesis on this GPU.
+The two photos are two inputs to one workload, not two distinct product workloads.
+Together with the earlier inspection result, this adds second-workload development evidence. It does not complete broad G0/G1/G3 acceptance or release readiness.
+A second independent matched run of this optimized source and detector sustained testing remain open.
+Do not use absolute changes between rentals to isolate the cache's causal effect. Engine choices and rental conditions can also differ.
+
+## Verified transfer capture
+
+The corrected profiler settings allowed target completion and SQLite export with exit code 0.
+The independent verifier found the exact known 4,096-byte device-to-host control and two completed ranges per candidate.
+Each range covers preprocessing, TensorRT, and CUDA NMS after input residency begins.
+
+| Candidate | Complete-range kernel launches, per fixture |
+| --- | ---: |
+| CPG | 169 |
+| PyTorch | 175 |
+| CV-CUDA | 172 |
+
+These are complete-range launch counts, including the network and NMS. They are not standalone preprocessing launch counts.
+All candidates recorded one 4-byte host-to-device transfer and four 4-byte device-to-host transfers per range.
+They also recorded three device-to-device copies totaling 144 bytes for the person and 160 bytes for the cat.
+No frame-sized host transfer appeared in these captured ranges. Small metadata copies prevent a claim of zero total host copies.
+The known transfer control makes an empty or failed capture detectable.
+Input uploads and numerical validation downloads occur outside the measured ranges and remain explicit.
+
+The [cached evidence bundle](data/020/cached/results.json) contains compressed raw samples, verifier outputs, and a sanitized SQLite export.
+The raw Nsight capture remains local because profiling also records environment credentials.
+The sanitized export removes environment rows and redacts credential-bearing strings. It preserves measured CUDA and NVTX events.
+Its hash differs from the original remote artifact, whose hash remains in the export manifest.
+The local ignored bundle retains raw candidate tensors and model artifacts for the independent value verifier.
+All 67 remote files matched their hashes before termination at 05:28:32 UTC on October 9.
+The controller and temporary credential were absent at 05:28:54 UTC. No cloud resources remain active.

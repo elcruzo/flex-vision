@@ -93,4 +93,6 @@ The detector runner compares actual model outputs and source-space object boxes 
 Validation uploads and downloads are explicit and occur outside the backend's residency claim.
 Use an Nsight trace to check actual launches and transfers within the `cpg_preprocess` range.
 
-This implementation does not yet establish a speedup, full G1 acceptance, Jetson support, or ROS GPU transport.
+The [fixed FP16 YOLO comparison](experiments/020-fp16-yolo.md) now records a preprocessing improvement on an RTX 4090 through actual TensorRT inference.
+Full G1 acceptance, Jetson support, and ROS GPU transport remain pending.
+A bounded cache retains immutable launch metadata by pipeline and input shape. It retains no arrays, strides, or stream owners.

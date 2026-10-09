@@ -338,3 +338,21 @@ This leaves $3.351977329144211 unreserved within the $15 authorization.
 The account had no active Pods before this attempt. The RTX 4090 rate remains $0.89/hour.
 Controller `94k9vajfheu4g5` uses EU-CZ-1 and requests its GPU in EU-RO-1.
 Its independent lease is 60 minutes. Verify GPU, controller, and temporary credential removal after export.
+
+### Completed comparison and cached-metadata follow-up
+
+The revision 4 run exported 61 verified files, then removed its GPU at 05:20:52 UTC on October 9.
+Controller `94k9vajfheu4g5` and secret `o3i24gpxr8` were absent at 05:21:03 UTC.
+The provider now reports $7.314297882954634 posted across 37 Pods.
+The revision 2 attempt posted $0.06627521209884435, replacing its reservation.
+The stalled controller, revision 3 attempt, and revision 4 comparison remain unposted. Retain $3.30 for those ended attempts.
+Reserve $1.10 for the cached-metadata follow-up under controller `8qkr7rggb9hvu5`.
+Posted spending plus all conservative reserves is $11.714297882954634. This leaves $3.285702117045366 unreserved.
+The account inventory was empty before creation. The GPU rate remains $0.89/hour with independent 60-minute expiration.
+
+The cached-metadata run exported and hash-verified 67 files with exit code 0.
+GPU `ieodtkhocuwbqm` was absent after termination at 05:28:32 UTC.
+Controller `8qkr7rggb9hvu5` and secret `tf2pkengxk` were absent at 05:28:54 UTC and at a later account read.
+There are no active Pods. The latest posted total remains $7.314297882954634.
+Four ended attempts remain unposted. Retain $4.40 until actual charges replace those reservations.
+Posted spending plus conservative reservations remains $11.714297882954634, with $3.285702117045366 unreserved.

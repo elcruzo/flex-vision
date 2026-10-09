@@ -1,0 +1,50 @@
+{
+  "range": "yolo_torch_complete",
+  "scope": "synchronous completed ranges; counts only, not performance timing",
+  "ranges": [
+    {
+      "kernels": 175,
+      "copies_by_cupti_kind": [
+        {
+          "kind": 1,
+          "count": 1,
+          "bytes": 4
+        },
+        {
+          "kind": 2,
+          "count": 4,
+          "bytes": 16
+        },
+        {
+          "kind": 8,
+          "count": 3,
+          "bytes": 144
+        }
+      ],
+      "overlapping_copy_events": 8,
+      "overlapping_copy_bytes": 164
+    },
+    {
+      "kernels": 175,
+      "copies_by_cupti_kind": [
+        {
+          "kind": 1,
+          "count": 1,
+          "bytes": 4
+        },
+        {
+          "kind": 2,
+          "count": 4,
+          "bytes": 16
+        },
+        {
+          "kind": 8,
+          "count": 3,
+          "bytes": 160
+        }
+      ],
+      "overlapping_copy_events": 8,
+      "overlapping_copy_bytes": 180
+    }
+  ]
+}

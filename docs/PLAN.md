@@ -35,7 +35,10 @@ All 338,155 completed frames passed, with zero declared allocator growth. The ov
 This does not complete live-camera, Jetson, ROS, or detector soak coverage.
 The measured SSDLite FP32 workload does not complete the required 640×640 FP16 YOLO/TensorRT scenario.
 The fixed inspection API does not complete configurable stencils, reusable workspace, batching, or general graph planning.
-Next, complete the required detector's FP16 YOLO/TensorRT consumer and matched measurement loop.
+The [FP16 YOLO/TensorRT experiment](experiments/020-fp16-yolo.md) passed six GPU cases, 60,000 matched samples, and an independent transfer capture.
+The cached path measured 24.77% lower preprocessing p50 versus CV-CUDA and 37.10–38.66% lower p99 versus PyTorch.
+Complete host p50 improved by 2.19–3.83%. This is fixed second-workload development evidence, not full release acceptance.
+Next, repeat the optimized matched comparison and establish detector sustained behavior.
 Keep broader sustained coverage, vendor comparisons, reusable workspace, batching, and the robot/ROS workloads open.
 See [the backend contract](CUDA_BACKEND.md), [host evidence](experiments/004-cuda-host.md), and [fused execution evidence](experiments/005-fused-cuda.md).
 See [local development](LOCAL_DEVELOPMENT.md) and [source audit](SOURCE_AUDIT.md) for current evidence.

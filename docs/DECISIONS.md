@@ -393,3 +393,8 @@ Never cache arrays, strides, imported owners, or streams. Preserve allocation an
 The hypothesis requires another identical GPU comparison. It is not a measured speed claim yet.
 Also preserve the profiler target after capture ends so the trace report and SQLite export can complete.
 See [experiment 020](experiments/020-fp16-yolo.md).
+
+The follow-up passed unchanged numerical checks and measured 24.77% lower preprocessing p50 versus CV-CUDA.
+Its complete host p50 improvement was 2.19–3.83%, depending on baseline.
+The trace recorded small metadata transfers but no frame-sized host transfer in completed ranges.
+Keep repeatability and sustained detector acceptance open. Do not infer broader support from this fixed workload.

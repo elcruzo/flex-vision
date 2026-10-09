@@ -154,3 +154,10 @@ The next run preserves stronger candidate checks and explicit approximation chec
 The tighter baseline score limit was an experimental guard, not a product requirement. This revision restores its original limit for approximate library interpolation.
 Do not call the baseline tensors identical. Do not report revision 3 as passed.
 Collect all numerical cases before rejecting a run. A failed run still cannot proceed into timing.
+
+## Completed revision 4 execution
+
+Both the initial and cached-metadata comparisons passed all six GPU cases and 60,000 matched samples.
+The independent NumPy verifier checked 18 candidate/fixture combinations in each run.
+The corrected Nsight capture passed its known-transfer control and complete-range checks.
+See [experiment 020](experiments/020-fp16-yolo.md) for mixed initial results, the optimized results, and transfer qualifications.

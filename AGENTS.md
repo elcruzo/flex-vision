@@ -56,7 +56,9 @@ The short sustained inspection run passed. Read docs/experiments/018-sustained-i
 Persistent camera streams kept post-drain allocations stable across the revised repeats. This is not a long soak or reusable-workspace guarantee.
 The 30-minute L4 inspection soak passed with 338,155 correct completed frames and zero declared allocator growth. Read docs/experiments/019-inspection-soak.md.
 Its overload schedule dropped 21.72% of offered frames. It does not validate live cameras, Jetson, ROS, or YOLO/TensorRT.
-Next, complete the required FP16 YOLO/TensorRT detector consumer and its matched measurement loop.
+The fixed FP16 YOLO/TensorRT comparison and verified transfer capture passed on an RTX 4090. Read docs/experiments/020-fp16-yolo.md.
+The cached path measured 24.77% lower preprocessing p50 versus CV-CUDA and 37.10–38.66% lower p99 versus PyTorch.
+Complete host p50 improved by only 2.19–3.83%. Next, repeat the optimized comparison and test detector sustained behavior.
 Broader sustained coverage, vendor comparisons, reusable workspace, batching, and robot/ROS acceptance remain pending. Small-image preprocessing was slower.
 Reference operators are not production CUDA support.
 
