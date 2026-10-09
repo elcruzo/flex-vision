@@ -1,0 +1,191 @@
+{
+  "items": [
+    {
+      "source": "system",
+      "line": "create container python:3.12-slim-bookworm",
+      "ts": "2026-10-09T04:02:07Z"
+    },
+    {
+      "source": "system",
+      "line": "3.12-slim-bookworm Pulling from library/python",
+      "ts": "2026-10-09T04:02:08Z"
+    },
+    {
+      "source": "system",
+      "line": "7fd1ebe418b5 Already exists",
+      "ts": "2026-10-09T04:02:09Z"
+    },
+    {
+      "source": "system",
+      "line": "6e0ba8ba0487 Pulling fs layer",
+      "ts": "2026-10-09T04:02:09Z"
+    },
+    {
+      "source": "system",
+      "line": "86a9e13e035d Pulling fs layer",
+      "ts": "2026-10-09T04:02:09Z"
+    },
+    {
+      "source": "system",
+      "line": "f9d2fb07d6f0 Pulling fs layer",
+      "ts": "2026-10-09T04:02:09Z"
+    },
+    {
+      "source": "system",
+      "line": "f9d2fb07d6f0 Downloading [==================================================>]     249B/249B",
+      "ts": "2026-10-09T04:02:09Z"
+    },
+    {
+      "source": "system",
+      "line": "f9d2fb07d6f0 Verifying Checksum",
+      "ts": "2026-10-09T04:02:09Z"
+    },
+    {
+      "source": "system",
+      "line": "f9d2fb07d6f0 Download complete",
+      "ts": "2026-10-09T04:02:09Z"
+    },
+    {
+      "source": "system",
+      "line": "6e0ba8ba0487 Downloading [>                                                  ]  48.55kB/3.342MB",
+      "ts": "2026-10-09T04:02:09Z"
+    },
+    {
+      "source": "system",
+      "line": "86a9e13e035d Downloading [>                                                  ]  163.2kB/15.97MB",
+      "ts": "2026-10-09T04:02:09Z"
+    },
+    {
+      "source": "system",
+      "line": "6e0ba8ba0487 Downloading [=====>                                             ]  343.5kB/3.342MB",
+      "ts": "2026-10-09T04:02:10Z"
+    },
+    {
+      "source": "system",
+      "line": "86a9e13e035d Downloading [==>                                                ]  818.6kB/15.97MB",
+      "ts": "2026-10-09T04:02:10Z"
+    },
+    {
+      "source": "system",
+      "line": "6e0ba8ba0487 Downloading [========================>                          ]  1.621MB/3.342MB",
+      "ts": "2026-10-09T04:02:10Z"
+    },
+    {
+      "source": "system",
+      "line": "86a9e13e035d Downloading [============>                                      ]  3.932MB/15.97MB",
+      "ts": "2026-10-09T04:02:10Z"
+    },
+    {
+      "source": "system",
+      "line": "6e0ba8ba0487 Verifying Checksum",
+      "ts": "2026-10-09T04:02:10Z"
+    },
+    {
+      "source": "system",
+      "line": "6e0ba8ba0487 Download complete",
+      "ts": "2026-10-09T04:02:10Z"
+    },
+    {
+      "source": "system",
+      "line": "6e0ba8ba0487 Extracting [>                                                  ]  65.54kB/3.342MB",
+      "ts": "2026-10-09T04:02:10Z"
+    },
+    {
+      "source": "system",
+      "line": "6e0ba8ba0487 Extracting [==================================================>]  3.342MB/3.342MB",
+      "ts": "2026-10-09T04:02:10Z"
+    },
+    {
+      "source": "system",
+      "line": "6e0ba8ba0487 Extracting [==================================================>]  3.342MB/3.342MB",
+      "ts": "2026-10-09T04:02:10Z"
+    },
+    {
+      "source": "system",
+      "line": "6e0ba8ba0487 Pull complete",
+      "ts": "2026-10-09T04:02:10Z"
+    },
+    {
+      "source": "system",
+      "line": "86a9e13e035d Verifying Checksum",
+      "ts": "2026-10-09T04:02:10Z"
+    },
+    {
+      "source": "system",
+      "line": "86a9e13e035d Download complete",
+      "ts": "2026-10-09T04:02:10Z"
+    },
+    {
+      "source": "system",
+      "line": "86a9e13e035d Extracting [>                                                  ]  163.8kB/15.97MB",
+      "ts": "2026-10-09T04:02:10Z"
+    },
+    {
+      "source": "system",
+      "line": "86a9e13e035d Extracting [==============>                                    ]  4.588MB/15.97MB",
+      "ts": "2026-10-09T04:02:10Z"
+    },
+    {
+      "source": "system",
+      "line": "86a9e13e035d Extracting [=======================================>           ]  12.62MB/15.97MB",
+      "ts": "2026-10-09T04:02:10Z"
+    },
+    {
+      "source": "system",
+      "line": "86a9e13e035d Extracting [==================================================>]  15.97MB/15.97MB",
+      "ts": "2026-10-09T04:02:10Z"
+    },
+    {
+      "source": "system",
+      "line": "86a9e13e035d Pull complete",
+      "ts": "2026-10-09T04:02:10Z"
+    },
+    {
+      "source": "system",
+      "line": "f9d2fb07d6f0 Extracting [==================================================>]     249B/249B",
+      "ts": "2026-10-09T04:02:10Z"
+    },
+    {
+      "source": "system",
+      "line": "f9d2fb07d6f0 Extracting [==================================================>]     249B/249B",
+      "ts": "2026-10-09T04:02:10Z"
+    },
+    {
+      "source": "system",
+      "line": "f9d2fb07d6f0 Pull complete",
+      "ts": "2026-10-09T04:02:10Z"
+    },
+    {
+      "source": "system",
+      "line": "Digest: sha256:34386ef0cb081344d7ec1c103ba398e6e9f64e9ab3a1509accc92a4e24a07258",
+      "ts": "2026-10-09T04:02:10Z"
+    },
+    {
+      "source": "system",
+      "line": "Status: Downloaded newer image for python:3.12-slim-bookworm",
+      "ts": "2026-10-09T04:02:10Z"
+    },
+    {
+      "source": "system",
+      "line": "start container for python:3.12-slim-bookworm: begin",
+      "ts": "2026-10-09T04:02:10Z"
+    },
+    {
+      "source": "container",
+      "line": "{\"time\": \"2026-10-09T04:02:11.648557+00:00\", \"event\": \"controller_ready\", \"id\": \"mebwvjzisbkdci\", \"run\": \"1791518525-688874762580\"}",
+      "ts": "2026-10-09T04:02:11.648746091Z"
+    },
+    {
+      "source": "container",
+      "line": "{\"time\": \"2026-10-09T04:02:12.595686+00:00\", \"event\": \"creating\", \"run\": \"1791518525-688874762580\", \"deadline\": 1791522132.595681, \"gpu_hourly_usd\": 0.89}",
+      "ts": "2026-10-09T04:02:12.595787465Z"
+    },
+    {
+      "source": "container",
+      "line": "{\"time\": \"2026-10-09T04:02:14.877187+00:00\", \"event\": \"armed\", \"id\": \"w45z3wghznchc0\", \"run\": \"1791518525-688874762580\", \"deadline\": 1791522132.595681, \"image\": \"runpod/pytorch:1.0.7-cu1300-torch291-ubuntu2404-cluster\", \"gpu_hourly_usd\": 0.89, \"data_center\": \"EU-RO-1\", \"gpu\": \"NVIDIA GeForce RTX 4090\"}",
+      "ts": "2026-10-09T04:02:14.877330746Z"
+    }
+  ],
+  "count": 37,
+  "truncated": false
+}

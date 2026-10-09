@@ -1,0 +1,26 @@
+{
+  "status": "passed",
+  "scope": "CPU FP16 ONNX export and graph validation only; TensorRT remains unverified",
+  "torch": "2.8.0",
+  "onnx": "1.19.1",
+  "onnx_sha256": "c6a08bce69722ce93a9259defd3376ad2105ade4d372c2c12321a7009c347f06",
+  "output_shape": [
+    1,
+    84,
+    8400
+  ],
+  "output_dtype": "torch.float16",
+  "finite": true,
+  "inputs": [
+    [
+      "image",
+      "FLOAT16"
+    ]
+  ],
+  "outputs": [
+    [
+      "predictions",
+      "FLOAT16"
+    ]
+  ]
+}

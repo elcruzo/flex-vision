@@ -75,3 +75,9 @@ The native Ultralytics path also detected each expected object. Its tensor diffe
 See the retained [local results](experiments/data/020/local/results.json) and [environment](experiments/data/020/local/environment.txt).
 The first local invocation completed inference but failed during environment export because `python` was absent from PATH.
 The corrected runner uses its own interpreter. The second invocation completed and saved its environment.
+
+At committed revision `ad1fef0`, CPU FP16 model inference also passed all six cases against the FP32 model.
+The minimum matched detection IoU was 0.99857. Dense differences remained within the declared limits.
+The CPU ONNX export passed graph validation with FP16 input and output, shapes `[1,3,640,640]` and `[1,84,8400]`.
+These checks do not replace TensorRT execution on NVIDIA hardware.
+See the [FP16 results](experiments/data/020/local/fp16-results.json) and [export record](experiments/data/020/local/onnx-results.json).

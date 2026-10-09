@@ -1,0 +1,46 @@
+{
+  "checked_utc": "2026-10-08T18:27:57.783080+00:00",
+  "pods": [],
+  "attempts": [
+    {
+      "receipt": {
+        "run": "1791483705-481092010872",
+        "secret_id": "qy4fu3lsx2",
+        "minutes": 60,
+        "image": "python:3.12-slim-bookworm",
+        "controller_data_center": "EU-CZ-1",
+        "gpu_data_center": "EU-CZ-1",
+        "gpu": "NVIDIA GeForce RTX 4090",
+        "source_sha256": {
+          "runpod_lease.py": "c860a56eaeab11341734cf292ce0a0d045cf31199479bb9563d4b51c81c2ed6a",
+          "runpod_controller.py": "caed408a2fd64fecc8876e4584a0496ca54ddc334228df8ccc0f4e838052ee9a"
+        },
+        "id": "e1qknfwvebjena",
+        "cpu_hourly_usd": 0.06
+      },
+      "controller_absent": true,
+      "secret_absent": true,
+      "gpu_readiness_observed": false
+    },
+    {
+      "receipt": {
+        "run": "1791483867-975716480693",
+        "secret_id": "1zb8bxh6lo",
+        "minutes": 60,
+        "image": "python:3.12-slim-bookworm",
+        "controller_data_center": "EU-CZ-1",
+        "gpu_data_center": "EU-CZ-1",
+        "gpu": "NVIDIA GeForce RTX 4090",
+        "source_sha256": {
+          "runpod_lease.py": "c860a56eaeab11341734cf292ce0a0d045cf31199479bb9563d4b51c81c2ed6a",
+          "runpod_controller.py": "caed408a2fd64fecc8876e4584a0496ca54ddc334228df8ccc0f4e838052ee9a"
+        },
+        "id": "ncgt88glfy47ok",
+        "cpu_hourly_usd": 0.06
+      },
+      "controller_absent": true,
+      "secret_absent": true,
+      "gpu_readiness_observed": false
+    }
+  ]
+}

@@ -293,3 +293,16 @@ Its CPU bound remains $0.06/hour. The one-hour independent expiration and early 
 The existing default L4 bound remains $0.49/hour. This change does not authorize overlapping rentals.
 Treat the new GPU as a separate measurement platform. Do not compare absolute latency across these rentals.
 Reconcile the reservation against posted charges after termination.
+
+### October 9 reconciliation and active retry
+
+The first two YOLO controllers ended before GPU readiness. Both controllers and temporary credentials were absent afterward.
+Their posted charges were $0.00015130000247154385 and $0.00015809999604243785, with no GPU charges.
+These charges replace their reservations. Total posted spending is $7.141881919793377 across 31 Pods.
+The remaining authorization before the next lease is $7.858118080206623.
+
+Reserve $1.10 for the current Romania retry, including the bounded controller and disk costs.
+GPU `w45z3wghznchc0` costs $0.89/hour. Controller `mebwvjzisbkdci` costs $0.06/hour.
+Its independent deadline is October 9 at 05:02:12 UTC (01:02:12 Eastern).
+The controller removes secret `otg2y0ntsu` after termination. Verify all three resources are absent before closing the lease.
+Posted spending plus this reservation is $8.241881919793377, leaving $6.758118080206623 unreserved.
