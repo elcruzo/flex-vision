@@ -1,0 +1,388 @@
+Cloning into 'flex-vision'...
+Note: switching to '6d396a37ec36c9725ab2a374c5c249de8df04ecc'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at 6d396a3 Add bounded detector load through checked TensorRT inference
+Looking in indexes: https://download.pytorch.org/whl/cu130
+Requirement already satisfied: torch==2.9.1+cu130 in /usr/local/lib/python3.12/dist-packages (2.9.1+cu130)
+Collecting torchvision==0.24.1+cu130
+  Downloading https://download-r2.pytorch.org/whl/cu130/torchvision-0.24.1%2Bcu130-cp312-cp312-manylinux_2_28_x86_64.whl.metadata (5.9 kB)
+Requirement already satisfied: filelock in /usr/local/lib/python3.12/dist-packages (from torch==2.9.1+cu130) (3.29.4)
+Requirement already satisfied: typing-extensions>=4.10.0 in /usr/local/lib/python3.12/dist-packages (from torch==2.9.1+cu130) (4.15.0)
+Requirement already satisfied: setuptools in /usr/local/lib/python3.12/dist-packages (from torch==2.9.1+cu130) (82.0.1)
+Requirement already satisfied: sympy>=1.13.3 in /usr/local/lib/python3.12/dist-packages (from torch==2.9.1+cu130) (1.14.0)
+Requirement already satisfied: networkx>=2.5.1 in /usr/local/lib/python3.12/dist-packages (from torch==2.9.1+cu130) (3.6.1)
+Requirement already satisfied: jinja2 in /usr/local/lib/python3.12/dist-packages (from torch==2.9.1+cu130) (3.1.6)
+Requirement already satisfied: fsspec>=0.8.5 in /usr/local/lib/python3.12/dist-packages (from torch==2.9.1+cu130) (2026.4.0)
+Requirement already satisfied: nvidia-cuda-nvrtc==13.0.48 in /usr/local/lib/python3.12/dist-packages (from torch==2.9.1+cu130) (13.0.48)
+Requirement already satisfied: nvidia-cuda-runtime==13.0.48 in /usr/local/lib/python3.12/dist-packages (from torch==2.9.1+cu130) (13.0.48)
+Requirement already satisfied: nvidia-cuda-cupti==13.0.48 in /usr/local/lib/python3.12/dist-packages (from torch==2.9.1+cu130) (13.0.48)
+Requirement already satisfied: nvidia-cudnn-cu13==9.13.0.50 in /usr/local/lib/python3.12/dist-packages (from torch==2.9.1+cu130) (9.13.0.50)
+Requirement already satisfied: nvidia-cublas==13.0.0.19 in /usr/local/lib/python3.12/dist-packages (from torch==2.9.1+cu130) (13.0.0.19)
+Requirement already satisfied: nvidia-cufft==12.0.0.15 in /usr/local/lib/python3.12/dist-packages (from torch==2.9.1+cu130) (12.0.0.15)
+Requirement already satisfied: nvidia-curand==10.4.0.35 in /usr/local/lib/python3.12/dist-packages (from torch==2.9.1+cu130) (10.4.0.35)
+Requirement already satisfied: nvidia-cusolver==12.0.3.29 in /usr/local/lib/python3.12/dist-packages (from torch==2.9.1+cu130) (12.0.3.29)
+Requirement already satisfied: nvidia-cusparse==12.6.2.49 in /usr/local/lib/python3.12/dist-packages (from torch==2.9.1+cu130) (12.6.2.49)
+Requirement already satisfied: nvidia-cusparselt-cu13==0.8.0 in /usr/local/lib/python3.12/dist-packages (from torch==2.9.1+cu130) (0.8.0)
+Requirement already satisfied: nvidia-nccl-cu13==2.27.7 in /usr/local/lib/python3.12/dist-packages (from torch==2.9.1+cu130) (2.27.7)
+Requirement already satisfied: nvidia-nvshmem-cu13==3.3.24 in /usr/local/lib/python3.12/dist-packages (from torch==2.9.1+cu130) (3.3.24)
+Requirement already satisfied: nvidia-nvtx==13.0.39 in /usr/local/lib/python3.12/dist-packages (from torch==2.9.1+cu130) (13.0.39)
+Requirement already satisfied: nvidia-nvjitlink==13.0.39 in /usr/local/lib/python3.12/dist-packages (from torch==2.9.1+cu130) (13.0.39)
+Requirement already satisfied: nvidia-cufile==1.15.0.42 in /usr/local/lib/python3.12/dist-packages (from torch==2.9.1+cu130) (1.15.0.42)
+Requirement already satisfied: triton==3.5.1 in /usr/local/lib/python3.12/dist-packages (from torch==2.9.1+cu130) (3.5.1)
+Collecting numpy (from torchvision==0.24.1+cu130)
+  Downloading numpy-2.5.2-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (6.6 kB)
+Collecting pillow!=8.3.*,>=5.3.0 (from torchvision==0.24.1+cu130)
+  Downloading pillow-12.3.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (9.1 kB)
+Requirement already satisfied: mpmath<1.4,>=1.1.0 in /usr/local/lib/python3.12/dist-packages (from sympy>=1.13.3->torch==2.9.1+cu130) (1.3.0)
+Requirement already satisfied: MarkupSafe>=2.0 in /usr/local/lib/python3.12/dist-packages (from jinja2->torch==2.9.1+cu130) (3.0.3)
+Downloading https://download-r2.pytorch.org/whl/cu130/torchvision-0.24.1%2Bcu130-cp312-cp312-manylinux_2_28_x86_64.whl (7.5 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 7.5/7.5 MB 40.7 MB/s eta 0:00:00
+Downloading pillow-12.3.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (6.9 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.9/6.9 MB 35.7 MB/s eta 0:00:00
+Downloading numpy-2.5.2-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (16.7 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 16.7/16.7 MB 177.0 MB/s eta 0:00:00
+Installing collected packages: pillow, numpy, torchvision
+Successfully installed numpy-2.5.2 pillow-12.3.0 torchvision-0.24.1+cu130
+Obtaining file:///workspace/flex-vision
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Checking if build backend supports build_editable: started
+  Checking if build backend supports build_editable: finished with status 'done'
+  Getting requirements to build editable: started
+  Getting requirements to build editable: finished with status 'done'
+  Preparing editable metadata (pyproject.toml): started
+  Preparing editable metadata (pyproject.toml): finished with status 'done'
+Collecting cupy-cuda13x==14.2.0
+  Downloading cupy_cuda13x-14.2.0-cp312-cp312-manylinux2014_x86_64.whl.metadata (2.8 kB)
+Collecting cvcuda-cu13==0.18.0
+  Downloading cvcuda_cu13-0.18.0-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (4.4 kB)
+Collecting tensorrt-cu13==10.13.3.9.post1
+  Downloading tensorrt_cu13-10.13.3.9.post1.tar.gz (18 kB)
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+  Installing backend dependencies: started
+  Installing backend dependencies: finished with status 'done'
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Collecting cuda-toolkit==13.0.0 (from cuda-toolkit[cudart]==13.0.0)
+  Downloading cuda_toolkit-13.0.0-py2.py3-none-any.whl.metadata (9.4 kB)
+Collecting ultralytics==8.3.200 (from -r requirements-yolo.txt (line 3))
+  Downloading ultralytics-8.3.200-py3-none-any.whl.metadata (37 kB)
+Collecting onnx==1.19.1 (from -r requirements-yolo.txt (line 4))
+  Downloading onnx-1.19.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (7.0 kB)
+Collecting opencv-python==5.0.0.93 (from -r requirements-yolo.txt (line 5))
+  Downloading opencv_python-5.0.0.93-cp37-abi3-manylinux_2_28_x86_64.whl.metadata (19 kB)
+Collecting numpy==2.2.6 (from -r requirements-yolo.txt (line 6))
+  Downloading numpy-2.2.6-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (62 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 62.0/62.0 kB 2.4 MB/s eta 0:00:00
+Collecting cuda-pathfinder==1.*,>=1.3.4 (from cupy-cuda13x==14.2.0)
+  Downloading cuda_pathfinder-1.8.3-py3-none-any.whl.metadata (1.9 kB)
+Collecting tensorrt_cu13_libs==10.13.3.9.post1 (from tensorrt-cu13==10.13.3.9.post1)
+  Downloading tensorrt_cu13_libs-10.13.3.9.post1.tar.gz (728 bytes)
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Collecting tensorrt_cu13_bindings==10.13.3.9.post1 (from tensorrt-cu13==10.13.3.9.post1)
+  Downloading tensorrt_cu13_bindings-10.13.3.9.post1-cp312-none-manylinux_2_28_x86_64.whl.metadata (612 bytes)
+Collecting matplotlib>=3.3.0 (from ultralytics==8.3.200->-r requirements-yolo.txt (line 3))
+  Downloading matplotlib-3.11.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (80 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80.3/80.3 kB 9.3 MB/s eta 0:00:00
+Requirement already satisfied: pillow>=7.1.2 in ./.venv-gpu/lib/python3.12/site-packages (from ultralytics==8.3.200->-r requirements-yolo.txt (line 3)) (12.3.0)
+Requirement already satisfied: pyyaml>=5.3.1 in /usr/local/lib/python3.12/dist-packages (from ultralytics==8.3.200->-r requirements-yolo.txt (line 3)) (6.0.3)
+Requirement already satisfied: requests>=2.23.0 in /usr/local/lib/python3.12/dist-packages (from ultralytics==8.3.200->-r requirements-yolo.txt (line 3)) (2.34.2)
+Collecting scipy>=1.4.1 (from ultralytics==8.3.200->-r requirements-yolo.txt (line 3))
+  Downloading scipy-1.18.1-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (62 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 62.4/62.4 kB 2.9 MB/s eta 0:00:00
+Requirement already satisfied: torch>=1.8.0 in /usr/local/lib/python3.12/dist-packages (from ultralytics==8.3.200->-r requirements-yolo.txt (line 3)) (2.9.1+cu130)
+Requirement already satisfied: torchvision>=0.9.0 in ./.venv-gpu/lib/python3.12/site-packages (from ultralytics==8.3.200->-r requirements-yolo.txt (line 3)) (0.24.1+cu130)
+Requirement already satisfied: psutil in /usr/local/lib/python3.12/dist-packages (from ultralytics==8.3.200->-r requirements-yolo.txt (line 3)) (7.2.2)
+Collecting polars (from ultralytics==8.3.200->-r requirements-yolo.txt (line 3))
+  Downloading polars-2.0.0-py3-none-any.whl.metadata (11 kB)
+Collecting ultralytics-thop>=2.0.0 (from ultralytics==8.3.200->-r requirements-yolo.txt (line 3))
+  Downloading ultralytics_thop-2.2.2-py3-none-any.whl.metadata (14 kB)
+Collecting protobuf>=4.25.1 (from onnx==1.19.1->-r requirements-yolo.txt (line 4))
+  Downloading protobuf-7.36.2-cp310-abi3-manylinux2014_x86_64.whl.metadata (595 bytes)
+Requirement already satisfied: typing_extensions>=4.7.1 in /usr/local/lib/python3.12/dist-packages (from onnx==1.19.1->-r requirements-yolo.txt (line 4)) (4.15.0)
+Collecting ml_dtypes>=0.5.0 (from onnx==1.19.1->-r requirements-yolo.txt (line 4))
+  Downloading ml_dtypes-0.6.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (8.8 kB)
+Requirement already satisfied: nvidia-cuda-runtime==13.0.48.* in /usr/local/lib/python3.12/dist-packages (from cuda-toolkit[cudart]==13.0.0) (13.0.48)
+Collecting contourpy>=1.0.1 (from matplotlib>=3.3.0->ultralytics==8.3.200->-r requirements-yolo.txt (line 3))
+  Downloading contourpy-1.4.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (3.8 kB)
+Collecting cycler>=0.10 (from matplotlib>=3.3.0->ultralytics==8.3.200->-r requirements-yolo.txt (line 3))
+  Downloading cycler-0.12.1-py3-none-any.whl.metadata (3.8 kB)
+Collecting fonttools>=4.28.2 (from matplotlib>=3.3.0->ultralytics==8.3.200->-r requirements-yolo.txt (line 3))
+  Downloading fonttools-4.66.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (130 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 130.1/130.1 kB 5.2 MB/s eta 0:00:00
+Collecting kiwisolver>=1.3.1 (from matplotlib>=3.3.0->ultralytics==8.3.200->-r requirements-yolo.txt (line 3))
+  Downloading kiwisolver-1.5.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (5.2 kB)
+Requirement already satisfied: packaging>=20.0 in /usr/local/lib/python3.12/dist-packages (from matplotlib>=3.3.0->ultralytics==8.3.200->-r requirements-yolo.txt (line 3)) (26.2)
+Requirement already satisfied: pyparsing>=3 in /usr/lib/python3/dist-packages (from matplotlib>=3.3.0->ultralytics==8.3.200->-r requirements-yolo.txt (line 3)) (3.1.1)
+Requirement already satisfied: python-dateutil>=2.7 in /usr/local/lib/python3.12/dist-packages (from matplotlib>=3.3.0->ultralytics==8.3.200->-r requirements-yolo.txt (line 3)) (2.9.0.post0)
+Requirement already satisfied: charset_normalizer<4,>=2 in /usr/local/lib/python3.12/dist-packages (from requests>=2.23.0->ultralytics==8.3.200->-r requirements-yolo.txt (line 3)) (3.4.7)
+Requirement already satisfied: idna<4,>=2.5 in /usr/local/lib/python3.12/dist-packages (from requests>=2.23.0->ultralytics==8.3.200->-r requirements-yolo.txt (line 3)) (3.18)
+Requirement already satisfied: urllib3<3,>=1.26 in /usr/local/lib/python3.12/dist-packages (from requests>=2.23.0->ultralytics==8.3.200->-r requirements-yolo.txt (line 3)) (2.7.0)
+Requirement already satisfied: certifi>=2023.5.7 in /usr/local/lib/python3.12/dist-packages (from requests>=2.23.0->ultralytics==8.3.200->-r requirements-yolo.txt (line 3)) (2026.6.17)
+Requirement already satisfied: filelock in /usr/local/lib/python3.12/dist-packages (from torch>=1.8.0->ultralytics==8.3.200->-r requirements-yolo.txt (line 3)) (3.29.4)
+Requirement already satisfied: setuptools in /usr/local/lib/python3.12/dist-packages (from torch>=1.8.0->ultralytics==8.3.200->-r requirements-yolo.txt (line 3)) (82.0.1)
+Requirement already satisfied: sympy>=1.13.3 in /usr/local/lib/python3.12/dist-packages (from torch>=1.8.0->ultralytics==8.3.200->-r requirements-yolo.txt (line 3)) (1.14.0)
+Requirement already satisfied: networkx>=2.5.1 in /usr/local/lib/python3.12/dist-packages (from torch>=1.8.0->ultralytics==8.3.200->-r requirements-yolo.txt (line 3)) (3.6.1)
+Requirement already satisfied: jinja2 in /usr/local/lib/python3.12/dist-packages (from torch>=1.8.0->ultralytics==8.3.200->-r requirements-yolo.txt (line 3)) (3.1.6)
+Requirement already satisfied: fsspec>=0.8.5 in /usr/local/lib/python3.12/dist-packages (from torch>=1.8.0->ultralytics==8.3.200->-r requirements-yolo.txt (line 3)) (2026.4.0)
+Requirement already satisfied: nvidia-cuda-nvrtc==13.0.48 in /usr/local/lib/python3.12/dist-packages (from torch>=1.8.0->ultralytics==8.3.200->-r requirements-yolo.txt (line 3)) (13.0.48)
+Requirement already satisfied: nvidia-cuda-cupti==13.0.48 in /usr/local/lib/python3.12/dist-packages (from torch>=1.8.0->ultralytics==8.3.200->-r requirements-yolo.txt (line 3)) (13.0.48)
+Requirement already satisfied: nvidia-cudnn-cu13==9.13.0.50 in /usr/local/lib/python3.12/dist-packages (from torch>=1.8.0->ultralytics==8.3.200->-r requirements-yolo.txt (line 3)) (9.13.0.50)
+Requirement already satisfied: nvidia-cublas==13.0.0.19 in /usr/local/lib/python3.12/dist-packages (from torch>=1.8.0->ultralytics==8.3.200->-r requirements-yolo.txt (line 3)) (13.0.0.19)
+Requirement already satisfied: nvidia-cufft==12.0.0.15 in /usr/local/lib/python3.12/dist-packages (from torch>=1.8.0->ultralytics==8.3.200->-r requirements-yolo.txt (line 3)) (12.0.0.15)
+Requirement already satisfied: nvidia-curand==10.4.0.35 in /usr/local/lib/python3.12/dist-packages (from torch>=1.8.0->ultralytics==8.3.200->-r requirements-yolo.txt (line 3)) (10.4.0.35)
+Requirement already satisfied: nvidia-cusolver==12.0.3.29 in /usr/local/lib/python3.12/dist-packages (from torch>=1.8.0->ultralytics==8.3.200->-r requirements-yolo.txt (line 3)) (12.0.3.29)
+Requirement already satisfied: nvidia-cusparse==12.6.2.49 in /usr/local/lib/python3.12/dist-packages (from torch>=1.8.0->ultralytics==8.3.200->-r requirements-yolo.txt (line 3)) (12.6.2.49)
+Requirement already satisfied: nvidia-cusparselt-cu13==0.8.0 in /usr/local/lib/python3.12/dist-packages (from torch>=1.8.0->ultralytics==8.3.200->-r requirements-yolo.txt (line 3)) (0.8.0)
+Requirement already satisfied: nvidia-nccl-cu13==2.27.7 in /usr/local/lib/python3.12/dist-packages (from torch>=1.8.0->ultralytics==8.3.200->-r requirements-yolo.txt (line 3)) (2.27.7)
+Requirement already satisfied: nvidia-nvshmem-cu13==3.3.24 in /usr/local/lib/python3.12/dist-packages (from torch>=1.8.0->ultralytics==8.3.200->-r requirements-yolo.txt (line 3)) (3.3.24)
+Requirement already satisfied: nvidia-nvtx==13.0.39 in /usr/local/lib/python3.12/dist-packages (from torch>=1.8.0->ultralytics==8.3.200->-r requirements-yolo.txt (line 3)) (13.0.39)
+Requirement already satisfied: nvidia-nvjitlink==13.0.39 in /usr/local/lib/python3.12/dist-packages (from torch>=1.8.0->ultralytics==8.3.200->-r requirements-yolo.txt (line 3)) (13.0.39)
+Requirement already satisfied: nvidia-cufile==1.15.0.42 in /usr/local/lib/python3.12/dist-packages (from torch>=1.8.0->ultralytics==8.3.200->-r requirements-yolo.txt (line 3)) (1.15.0.42)
+Requirement already satisfied: triton==3.5.1 in /usr/local/lib/python3.12/dist-packages (from torch>=1.8.0->ultralytics==8.3.200->-r requirements-yolo.txt (line 3)) (3.5.1)
+Collecting polars-runtime-32==2.0.0 (from polars->ultralytics==8.3.200->-r requirements-yolo.txt (line 3))
+  Downloading polars_runtime_32-2.0.0-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (1.5 kB)
+Requirement already satisfied: six>=1.5 in /usr/lib/python3/dist-packages (from python-dateutil>=2.7->matplotlib>=3.3.0->ultralytics==8.3.200->-r requirements-yolo.txt (line 3)) (1.16.0)
+Requirement already satisfied: mpmath<1.4,>=1.1.0 in /usr/local/lib/python3.12/dist-packages (from sympy>=1.13.3->torch>=1.8.0->ultralytics==8.3.200->-r requirements-yolo.txt (line 3)) (1.3.0)
+Requirement already satisfied: MarkupSafe>=2.0 in /usr/local/lib/python3.12/dist-packages (from jinja2->torch>=1.8.0->ultralytics==8.3.200->-r requirements-yolo.txt (line 3)) (3.0.3)
+Downloading cupy_cuda13x-14.2.0-cp312-cp312-manylinux2014_x86_64.whl (69.4 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 69.4/69.4 MB 59.6 MB/s eta 0:00:00
+Downloading cvcuda_cu13-0.18.0-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (99.0 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 99.0/99.0 MB 49.1 MB/s eta 0:00:00
+Downloading cuda_toolkit-13.0.0-py2.py3-none-any.whl (2.3 kB)
+Downloading ultralytics-8.3.200-py3-none-any.whl (1.1 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.1/1.1 MB 230.3 MB/s eta 0:00:00
+Downloading onnx-1.19.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (18.2 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 18.2/18.2 MB 200.0 MB/s eta 0:00:00
+Downloading opencv_python-5.0.0.93-cp37-abi3-manylinux_2_28_x86_64.whl (73.8 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 73.8/73.8 MB 104.1 MB/s eta 0:00:00
+Downloading numpy-2.2.6-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (16.5 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 16.5/16.5 MB 220.6 MB/s eta 0:00:00
+Downloading cuda_pathfinder-1.8.3-py3-none-any.whl (62 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 62.6/62.6 kB 26.4 MB/s eta 0:00:00
+Downloading tensorrt_cu13_bindings-10.13.3.9.post1-cp312-none-manylinux_2_28_x86_64.whl (1.2 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.2/1.2 MB 190.9 MB/s eta 0:00:00
+Downloading matplotlib-3.11.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (9.9 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 9.9/9.9 MB 244.9 MB/s eta 0:00:00
+Downloading ml_dtypes-0.6.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (409 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 409.9/409.9 kB 95.5 MB/s eta 0:00:00
+Downloading protobuf-7.36.2-cp310-abi3-manylinux2014_x86_64.whl (343 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 343.2/343.2 kB 130.4 MB/s eta 0:00:00
+Downloading scipy-1.18.1-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (35.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 35.3/35.3 MB 152.4 MB/s eta 0:00:00
+Downloading ultralytics_thop-2.2.2-py3-none-any.whl (32 kB)
+Downloading polars-2.0.0-py3-none-any.whl (876 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 876.6/876.6 kB 184.9 MB/s eta 0:00:00
+Downloading polars_runtime_32-2.0.0-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (54.5 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 54.5/54.5 MB 151.9 MB/s eta 0:00:00
+Downloading contourpy-1.4.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (383 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 383.2/383.2 kB 139.6 MB/s eta 0:00:00
+Downloading cycler-0.12.1-py3-none-any.whl (8.3 kB)
+Downloading fonttools-4.66.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (5.4 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.4/5.4 MB 218.9 MB/s eta 0:00:00
+Downloading kiwisolver-1.5.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (1.5 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.5/1.5 MB 147.0 MB/s eta 0:00:00
+Building wheels for collected packages: tensorrt-cu13, tensorrt_cu13_libs, cuda-preprocess-graph
+  Building wheel for tensorrt-cu13 (pyproject.toml): started
+  Building wheel for tensorrt-cu13 (pyproject.toml): finished with status 'done'
+  Created wheel for tensorrt-cu13: filename=tensorrt_cu13-10.13.3.9.post1-py2.py3-none-any.whl size=17624 sha256=a8a2625807e39c1b703e8d5f4cff9ed4340fe8ead7e278f9a712e8594efd3934
+  Stored in directory: /root/.cache/pip/wheels/e8/1f/80/0c88665376d0578d2e0139bbfa40900cb27788394503d54ae4
+  Building wheel for tensorrt_cu13_libs (pyproject.toml): started
+  Building wheel for tensorrt_cu13_libs (pyproject.toml): finished with status 'done'
+  Created wheel for tensorrt_cu13_libs: filename=tensorrt_cu13_libs-10.13.3.9.post1-py2.py3-none-manylinux_2_28_x86_64.whl size=2741128436 sha256=f5b010fc16982cb131cd3cf171ef9074f01876c21ec5797ed1802fc43fe09b6d
+  Stored in directory: /root/.cache/pip/wheels/1c/a0/23/9ae8ee734d3ee179a4a0d5fc8b2ad9a85443a006e12f380bb6
+  Building editable for cuda-preprocess-graph (pyproject.toml): started
+  Building editable for cuda-preprocess-graph (pyproject.toml): finished with status 'done'
+  Created wheel for cuda-preprocess-graph: filename=cuda_preprocess_graph-0.0.1-0.editable-py3-none-any.whl size=1778 sha256=4d0459b83a278fdbed94f6c0e7e7e3dd7aac81277432ba808d9c4713e19b9e96
+  Stored in directory: /tmp/pip-ephem-wheel-cache-vj2z8eqo/wheels/95/c4/81/232f54915c8d0d6b41f7ed518bb6851848bad8798d7b5bf4cc
+Successfully built tensorrt-cu13 tensorrt_cu13_libs cuda-preprocess-graph
+Installing collected packages: tensorrt_cu13_bindings, cuda-toolkit, protobuf, polars-runtime-32, numpy, kiwisolver, fonttools, cycler, cuda-pathfinder, tensorrt_cu13_libs, scipy, polars, opencv-python, ml_dtypes, cvcuda-cu13, cupy-cuda13x, cuda-preprocess-graph, contourpy, tensorrt-cu13, onnx, matplotlib, ultralytics-thop, ultralytics
+  Attempting uninstall: numpy
+    Found existing installation: numpy 2.5.2
+    Uninstalling numpy-2.5.2:
+      Successfully uninstalled numpy-2.5.2
+Successfully installed contourpy-1.4.0 cuda-pathfinder-1.8.3 cuda-preprocess-graph-0.0.1 cuda-toolkit-13.0.0 cupy-cuda13x-14.2.0 cvcuda-cu13-0.18.0 cycler-0.12.1 fonttools-4.66.1 kiwisolver-1.5.1 matplotlib-3.11.2 ml_dtypes-0.6.0 numpy-2.2.6 onnx-1.19.1 opencv-python-5.0.0.93 polars-2.0.0 polars-runtime-32-2.0.0 protobuf-7.36.2 scipy-1.18.1 tensorrt-cu13-10.13.3.9.post1 tensorrt_cu13_bindings-10.13.3.9.post1 tensorrt_cu13_libs-10.13.3.9.post1 ultralytics-8.3.200 ultralytics-thop-2.2.2
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+100 6396k  100 6396k    0     0  12.0M      0 --:--:-- --:--:-- --:--:-- 12.0M
+{"status": "cuda_smoke_passed", "output": "benchmark-results/iteration-021-yolo/preflight.json"}
+Creating new Ultralytics Settings v0.0.6 file ✅ 
+View Ultralytics Settings with 'yolo settings' or at '/workspace/flex-vision/.cache/ultralytics/Ultralytics/settings.json'
+Update Settings with 'yolo settings key=value', i.e. 'yolo settings runs_dir=path/to/dir'. For help see https://docs.ultralytics.com/quickstart/#ultralytics-settings.
+/workspace/flex-vision/scripts/yolo_gpu.py:132: DeprecationWarning: You are using the legacy TorchScript-based ONNX export. Starting in PyTorch 2.9, the new torch.export-based ONNX exporter will be the default. To switch now, set dynamo=True in torch.onnx.export. This new exporter supports features like exporting LLMs with DynamicCache. We encourage you to try it and share feedback to help improve the experience. Learn more about the new export logic: https://pytorch.org/docs/stable/onnx_dynamo.html. For exporting control flow: https://pytorch.org/tutorials/beginner/onnx/export_control_flow_model_to_onnx_tutorial.html.
+  torch.onnx.export(model,sample,str(onnx_path),input_names=['image'],output_names=['predictions'],opset_version=17,dynamo=False)
+/workspace/flex-vision/.venv-gpu/lib/python3.12/site-packages/ultralytics/nn/modules/head.py:165: TracerWarning: Converting a tensor to a Python boolean might cause the trace to be incorrect. We can't record the data flow of Python values, so this value will be treated as a constant in the future. This means that the trace might not generalize to other inputs!
+  if self.dynamic or self.shape != shape:
+/workspace/flex-vision/scripts/yolo_gpu.py:262: DeprecationWarning: ExternalStream is deprecated. Use Stream.from_external() instead to interoperate with external streams that implement the CUDA stream protocol.
+  main()
+validated astronaut
+validated astronaut-padded
+validated chelsea
+validated chelsea-padded
+validated astronaut-1080p
+validated chelsea-1080p
+timed astronaut-1080p 0
+timed astronaut-1080p 1
+timed astronaut-1080p 2
+timed astronaut-1080p 3
+timed astronaut-1080p 4
+timed astronaut-1080p 5
+timed astronaut-1080p 6
+timed astronaut-1080p 7
+timed astronaut-1080p 8
+timed astronaut-1080p 9
+timed chelsea-1080p 0
+timed chelsea-1080p 1
+timed chelsea-1080p 2
+timed chelsea-1080p 3
+timed chelsea-1080p 4
+timed chelsea-1080p 5
+timed chelsea-1080p 6
+timed chelsea-1080p 7
+timed chelsea-1080p 8
+timed chelsea-1080p 9
+W: https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2404/x86_64/InRelease: Key is stored in legacy trusted.gpg keyring (/etc/apt/trusted.gpg), see the DEPRECATION section in apt-key(8) for details.
+debconf: delaying package configuration, since apt-utils is not installed
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 50075 files and directories currently installed.)
+Preparing to unpack .../00-libgl1-mesa-dri_25.2.8-0ubuntu0.24.04.4_amd64.deb ...
+Unpacking libgl1-mesa-dri:amd64 (25.2.8-0ubuntu0.24.04.4) over (25.2.8-0ubuntu0.24.04.2) ...
+Preparing to unpack .../01-libglx-mesa0_25.2.8-0ubuntu0.24.04.4_amd64.deb ...
+Unpacking libglx-mesa0:amd64 (25.2.8-0ubuntu0.24.04.4) over (25.2.8-0ubuntu0.24.04.2) ...
+Preparing to unpack .../02-libgbm1_25.2.8-0ubuntu0.24.04.4_amd64.deb ...
+Unpacking libgbm1:amd64 (25.2.8-0ubuntu0.24.04.4) over (25.2.8-0ubuntu0.24.04.2) ...
+Preparing to unpack .../03-mesa-libgallium_25.2.8-0ubuntu0.24.04.4_amd64.deb ...
+Unpacking mesa-libgallium:amd64 (25.2.8-0ubuntu0.24.04.4) over (25.2.8-0ubuntu0.24.04.2) ...
+Selecting previously unselected package libegl-mesa0:amd64.
+Preparing to unpack .../04-libegl-mesa0_25.2.8-0ubuntu0.24.04.4_amd64.deb ...
+Unpacking libegl-mesa0:amd64 (25.2.8-0ubuntu0.24.04.4) ...
+Selecting previously unselected package libnspr4:amd64.
+Preparing to unpack .../05-libnspr4_2%3a4.35-1.1build1_amd64.deb ...
+Unpacking libnspr4:amd64 (2:4.35-1.1build1) ...
+Selecting previously unselected package libnss3:amd64.
+Preparing to unpack .../06-libnss3_2%3a3.98-1ubuntu0.2_amd64.deb ...
+Unpacking libnss3:amd64 (2:3.98-1ubuntu0.2) ...
+Selecting previously unselected package libxcb-xinerama0:amd64.
+Preparing to unpack .../07-libxcb-xinerama0_1.15-1ubuntu2_amd64.deb ...
+Unpacking libxcb-xinerama0:amd64 (1.15-1ubuntu2) ...
+Selecting previously unselected package libxcb-xinput0:amd64.
+Preparing to unpack .../08-libxcb-xinput0_1.15-1ubuntu2_amd64.deb ...
+Unpacking libxcb-xinput0:amd64 (1.15-1ubuntu2) ...
+Selecting previously unselected package libxcb-xkb1:amd64.
+Preparing to unpack .../09-libxcb-xkb1_1.15-1ubuntu2_amd64.deb ...
+Unpacking libxcb-xkb1:amd64 (1.15-1ubuntu2) ...
+Selecting previously unselected package libxkbcommon-x11-0:amd64.
+Preparing to unpack .../10-libxkbcommon-x11-0_1.6.0-1build1_amd64.deb ...
+Unpacking libxkbcommon-x11-0:amd64 (1.6.0-1build1) ...
+Selecting previously unselected package libxtst6:amd64.
+Preparing to unpack .../11-libxtst6_2%3a1.2.3-1.1build1_amd64.deb ...
+Unpacking libxtst6:amd64 (2:1.2.3-1.1build1) ...
+Selecting previously unselected package libxcb-icccm4:amd64.
+Preparing to unpack .../12-libxcb-icccm4_0.4.1-1.1build3_amd64.deb ...
+Unpacking libxcb-icccm4:amd64 (0.4.1-1.1build3) ...
+Selecting previously unselected package libxcb-util1:amd64.
+Preparing to unpack .../13-libxcb-util1_0.4.0-1build3_amd64.deb ...
+Unpacking libxcb-util1:amd64 (0.4.0-1build3) ...
+Selecting previously unselected package libxcb-image0:amd64.
+Preparing to unpack .../14-libxcb-image0_0.4.0-2build1_amd64.deb ...
+Unpacking libxcb-image0:amd64 (0.4.0-2build1) ...
+Selecting previously unselected package libxcb-keysyms1:amd64.
+Preparing to unpack .../15-libxcb-keysyms1_0.4.0-1build4_amd64.deb ...
+Unpacking libxcb-keysyms1:amd64 (0.4.0-1build4) ...
+Selecting previously unselected package libxcb-render-util0:amd64.
+Preparing to unpack .../16-libxcb-render-util0_0.3.9-1build4_amd64.deb ...
+Unpacking libxcb-render-util0:amd64 (0.3.9-1build4) ...
+Selecting previously unselected package libxcb-cursor0:amd64.
+Preparing to unpack .../17-libxcb-cursor0_0.1.4-1build1_amd64.deb ...
+Unpacking libxcb-cursor0:amd64 (0.1.4-1build1) ...
+Selecting previously unselected package libopengl0:amd64.
+Preparing to unpack .../18-libopengl0_1.7.0-1build1_amd64.deb ...
+Unpacking libopengl0:amd64 (1.7.0-1build1) ...
+Selecting previously unselected package libegl1:amd64.
+Preparing to unpack .../19-libegl1_1.7.0-1build1_amd64.deb ...
+Unpacking libegl1:amd64 (1.7.0-1build1) ...
+Selecting previously unselected package nsight-systems-2025.3.2.
+Preparing to unpack .../20-nsight-systems-2025.3.2_2025.3.2.474-253236389321v0_amd64.deb ...
+Unpacking nsight-systems-2025.3.2 (2025.3.2.474-253236389321v0) ...
+Setting up mesa-libgallium:amd64 (25.2.8-0ubuntu0.24.04.4) ...
+Setting up libxcb-xinput0:amd64 (1.15-1ubuntu2) ...
+Setting up libgbm1:amd64 (25.2.8-0ubuntu0.24.04.4) ...
+Setting up libxtst6:amd64 (2:1.2.3-1.1build1) ...
+Setting up libgl1-mesa-dri:amd64 (25.2.8-0ubuntu0.24.04.4) ...
+Setting up libxcb-keysyms1:amd64 (0.4.0-1build4) ...
+Setting up libxcb-render-util0:amd64 (0.3.9-1build4) ...
+Setting up libxcb-icccm4:amd64 (0.4.1-1.1build3) ...
+Setting up libopengl0:amd64 (1.7.0-1build1) ...
+Setting up libxcb-util1:amd64 (0.4.0-1build3) ...
+Setting up libxcb-xkb1:amd64 (1.15-1ubuntu2) ...
+Setting up libxcb-image0:amd64 (0.4.0-2build1) ...
+Setting up libegl-mesa0:amd64 (25.2.8-0ubuntu0.24.04.4) ...
+Setting up libxcb-xinerama0:amd64 (1.15-1ubuntu2) ...
+Setting up libnspr4:amd64 (2:4.35-1.1build1) ...
+Setting up libxcb-cursor0:amd64 (0.1.4-1build1) ...
+Setting up libxkbcommon-x11-0:amd64 (1.6.0-1build1) ...
+Setting up libegl1:amd64 (1.7.0-1build1) ...
+Setting up libglx-mesa0:amd64 (25.2.8-0ubuntu0.24.04.4) ...
+Setting up libnss3:amd64 (2:3.98-1ubuntu0.2) ...
+Setting up nsight-systems-2025.3.2 (2025.3.2.474-253236389321v0) ...
+update-alternatives: using /opt/nvidia/nsight-systems/2025.3.2/target-linux-x64/nsys to provide /usr/local/bin/nsys (nsys) in auto mode
+update-alternatives: using /opt/nvidia/nsight-systems/2025.3.2/host-linux-x64/nsys-ui to provide /usr/local/bin/nsys-ui (nsys-ui) in auto mode
+Processing triggers for libc-bin (2.39-0ubuntu8.7) ...
+/workspace/flex-vision/scripts/yolo_gpu.py:262: DeprecationWarning: ExternalStream is deprecated. Use Stream.from_external() instead to interoperate with external streams that implement the CUDA stream protocol.
+  main()
+validated astronaut
+validated astronaut-padded
+validated chelsea
+validated chelsea-padded
+validated astronaut-1080p
+validated chelsea-1080p
+Capture range started in the application.
+Capture range ended in the application.
+Generating '/tmp/nsys-report-38e0.qdstrm'
+[1/1] [0%                          ] trace.nsys-repProcessing events...
+[1/1] [0%                          ] trace.nsys-rep[1/1] [====28%                     ] trace.nsys-rep[1/1] [============57%             ] trace.nsys-rep[1/1] [==================77%       ] trace.nsys-rep[1/1] [=======================96%  ] trace.nsys-rep[1/1] [==============63%           ] trace.nsys-rep[1/1] [==================76%       ] trace.nsys-rep[1/1] [========================100%] trace.nsys-rep[1/1] [========================100%] trace.nsys-rep
+Generated:
+	/workspace/flex-vision/benchmark-results/iteration-021-yolo/trace.nsys-rep
+Processing 4658 events: [1%                                                    ]Processing 4658 events: [2%                                                    ]Processing 4658 events: [3%                                                    ]Processing 4658 events: [4%                                                    ]Processing 4658 events: [5%                                                    ]Processing 4658 events: [=6%                                                   ]Processing 4658 events: [=7%                                                   ]Processing 4658 events: [==8%                                                  ]Processing 4658 events: [==9%                                                  ]Processing 4658 events: [==10%                                                 ]Processing 4658 events: [==11%                                                 ]Processing 4658 events: [===12%                                                ]Processing 4658 events: [====13%                                               ]Processing 4658 events: [====14%                                               ]Processing 4658 events: [=====15%                                              ]Processing 4658 events: [=====16%                                              ]Processing 4658 events: [======17%                                             ]Processing 4658 events: [======18%                                             ]Processing 4658 events: [=======19%                                            ]Processing 4658 events: [=======20%                                            ]Processing 4658 events: [========21%                                           ]Processing 4658 events: [========22%                                           ]Processing 4658 events: [=========23%                                          ]Processing 4658 events: [=========24%                                          ]Processing 4658 events: [==========25%                                         ]Processing 4658 events: [===========26%                                        ]Processing 4658 events: [===========27%                                        ]Processing 4658 events: [============28%                                       ]Processing 4658 events: [============29%                                       ]Processing 4658 events: [=============30%                                      ]Processing 4658 events: [=============31%                                      ]Processing 4658 events: [==============32%                                     ]Processing 4658 events: [==============33%                                     ]Processing 4658 events: [===============34%                                    ]Processing 4658 events: [===============35%                                    ]Processing 4658 events: [================36%                                   ]Processing 4658 events: [================37%                                   ]Processing 4658 events: [=================38%                                  ]Processing 4658 events: [==================39%                                 ]Processing 4658 events: [==================40%                                 ]Processing 4658 events: [===================41%                                ]Processing 4658 events: [===================42%                                ]Processing 4658 events: [====================43%                               ]Processing 4658 events: [====================44%                               ]Processing 4658 events: [=====================45%                              ]Processing 4658 events: [=====================46%                              ]Processing 4658 events: [======================47%                             ]Processing 4658 events: [======================48%                             ]Processing 4658 events: [=======================49%                            ]Processing 4658 events: [========================50%                           ]Processing 4658 events: [========================51%                           ]Processing 4658 events: [=========================52%                          ]Processing 4658 events: [=========================53%                          ]Processing 4658 events: [==========================54%                         ]Processing 4658 events: [==========================55%                         ]Processing 4658 events: [===========================56%                        ]Processing 4658 events: [===========================57%                        ]Processing 4658 events: [============================58%                       ]Processing 4658 events: [============================59%                       ]Processing 4658 events: [=============================60%                      ]Processing 4658 events: [=============================61%                      ]Processing 4658 events: [==============================62%                     ]Processing 4658 events: [===============================63%                    ]Processing 4658 events: [===============================64%                    ]Processing 4658 events: [================================65%                   ]Processing 4658 events: [================================66%                   ]Processing 4658 events: [=================================67%                  ]Processing 4658 events: [=================================68%                  ]Processing 4658 events: [==================================69%                 ]Processing 4658 events: [==================================70%                 ]Processing 4658 events: [===================================71%                ]Processing 4658 events: [===================================72%                ]Processing 4658 events: [====================================73%               ]Processing 4658 events: [====================================74%               ]Processing 4658 events: [=====================================75%              ]Processing 4658 events: [======================================76%             ]Processing 4658 events: [======================================77%             ]Processing 4658 events: [=======================================78%            ]Processing 4658 events: [=======================================79%            ]Processing 4658 events: [========================================80%           ]Processing 4658 events: [========================================81%           ]Processing 4658 events: [=========================================82%          ]Processing 4658 events: [=========================================83%          ]Processing 4658 events: [==========================================84%         ]Processing 4658 events: [==========================================85%         ]Processing 4658 events: [===========================================86%        ]Processing 4658 events: [===========================================87%        ]Processing 4658 events: [============================================88%       ]Processing 4658 events: [=============================================89%      ]Processing 4658 events: [=============================================90%      ]Processing 4658 events: [==============================================91%     ]Processing 4658 events: [==============================================92%     ]Processing 4658 events: [===============================================93%    ]Processing 4658 events: [===============================================94%    ]Processing 4658 events: [================================================95%   ]Processing 4658 events: [================================================96%   ]Processing 4658 events: [=================================================97%  ]Processing 4658 events: [=================================================98%  ]Processing 4658 events: [==================================================99% ]Processing 4658 events: [==================================================100%]
+{"range": "yolo_cpg_complete", "scope": "synchronous completed ranges; counts only, not performance timing", "ranges": [{"kernels": 168, "copies_by_cupti_kind": [{"kind": 1, "count": 1, "bytes": 4}, {"kind": 2, "count": 4, "bytes": 16}, {"kind": 8, "count": 3, "bytes": 144}], "overlapping_copy_events": 8, "overlapping_copy_bytes": 164}, {"kernels": 168, "copies_by_cupti_kind": [{"kind": 1, "count": 1, "bytes": 4}, {"kind": 2, "count": 4, "bytes": 16}, {"kind": 8, "count": 3, "bytes": 160}], "overlapping_copy_events": 8, "overlapping_copy_bytes": 180}]}
+{"range": "yolo_torch_complete", "scope": "synchronous completed ranges; counts only, not performance timing", "ranges": [{"kernels": 174, "copies_by_cupti_kind": [{"kind": 1, "count": 1, "bytes": 4}, {"kind": 2, "count": 4, "bytes": 16}, {"kind": 8, "count": 3, "bytes": 144}], "overlapping_copy_events": 8, "overlapping_copy_bytes": 164}, {"kernels": 174, "copies_by_cupti_kind": [{"kind": 1, "count": 1, "bytes": 4}, {"kind": 2, "count": 4, "bytes": 16}, {"kind": 8, "count": 3, "bytes": 160}], "overlapping_copy_events": 8, "overlapping_copy_bytes": 180}]}
+{"range": "yolo_cvcuda_complete", "scope": "synchronous completed ranges; counts only, not performance timing", "ranges": [{"kernels": 171, "copies_by_cupti_kind": [{"kind": 1, "count": 1, "bytes": 4}, {"kind": 2, "count": 4, "bytes": 16}, {"kind": 8, "count": 3, "bytes": 144}], "overlapping_copy_events": 8, "overlapping_copy_bytes": 164}, {"kernels": 171, "copies_by_cupti_kind": [{"kind": 1, "count": 1, "bytes": 4}, {"kind": 2, "count": 4, "bytes": 16}, {"kind": 8, "count": 3, "bytes": 160}], "overlapping_copy_events": 8, "overlapping_copy_bytes": 180}]}
+/workspace/flex-vision/scripts/yolo_sustained.py:165: DeprecationWarning: ExternalStream is deprecated. Use Stream.from_external() instead to interoperate with external streams that implement the CUDA stream protocol.
+  if __name__=='__main__':main()
+{"event": "load_progress", "candidate": "cpg", "fps": 60, "repeat": 0, "elapsed_s": 10.0000414182432, "offered": 2401}
+{"event": "load_progress", "candidate": "cpg", "fps": 60, "repeat": 0, "elapsed_s": 20.00011835200712, "offered": 4801}
+{"event": "load_progress", "candidate": "torch", "fps": 60, "repeat": 0, "elapsed_s": 10.000004368834198, "offered": 2401}
+{"event": "load_progress", "candidate": "torch", "fps": 60, "repeat": 0, "elapsed_s": 20.00008155312389, "offered": 4801}
+{"event": "load_progress", "candidate": "cvcuda", "fps": 60, "repeat": 0, "elapsed_s": 10.00010625924915, "offered": 2401}
+{"event": "load_progress", "candidate": "cvcuda", "fps": 60, "repeat": 0, "elapsed_s": 20.000113463029265, "offered": 4801}
+Traceback (most recent call last):
+  File "/workspace/flex-vision/scripts/yolo_sustained.py", line 165, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/workspace/flex-vision/scripts/yolo_sustained.py", line 157, in main
+    if result['status']!='passed':raise AssertionError('Load correctness or allocation growth failed')
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Load correctness or allocation growth failed

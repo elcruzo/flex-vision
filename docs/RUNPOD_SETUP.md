@@ -356,3 +356,18 @@ Controller `8qkr7rggb9hvu5` and secret `tf2pkengxk` were absent at 05:28:54 UTC 
 There are no active Pods. The latest posted total remains $7.314297882954634.
 Four ended attempts remain unposted. Retain $4.40 until actual charges replace those reservations.
 Posted spending plus conservative reservations remains $11.714297882954634, with $3.285702117045366 unreserved.
+
+### Detector repeatability and bounded-load reservation
+
+The next lease uses controller `0rogkq54tgxx9y` with its GPU in EU-RO-1.
+The account inventory was empty before creation. GPU and CPU rates remain $0.89/hour and $0.06/hour.
+Reserve $1.10 within the existing $15 authorization. The independent expiration remains 60 minutes.
+The latest posted total is $7.314297882954634. Retain $4.40 for four ended attempts whose billing remains unposted.
+With this new reserve, posted spending plus conservative reservations is $12.814297882954634.
+This leaves $2.185702117045366 unreserved. Reconcile actual charges after termination rather than treating reservations as spending.
+
+The first detector load attempt exported 72 verified artifacts and failed its allocation guard.
+GPU `ywq5838hv6uldi` was removed at 05:50:04 UTC on October 9. Controller and secret removal passed at 05:50:15 UTC.
+Its charge remains unposted. Retain its $1.10 reserve and add $1.10 for the checked-warmup retry.
+The latest posted total remains $7.314297882954634. Six conservative $1.10 reserves now cover five ended unposted attempts and this retry.
+Posted spending plus reservations is $13.914297882954634, leaving $1.085702117045366 unreserved within the $15 authorization.

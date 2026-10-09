@@ -398,3 +398,13 @@ The follow-up passed unchanged numerical checks and measured 24.77% lower prepro
 Its complete host p50 improvement was 2.19–3.83%, depending on baseline.
 The trace recorded small metadata transfers but no frame-sized host transfer in completed ranges.
 Keep repeatability and sustained detector acceptance open. Do not infer broader support from this fixed workload.
+
+## D033 — Warm the complete checked load path before allocator baselines
+
+The detector comparison repeated its scoped preprocessing improvement on another RTX 4090 rental.
+The initial load experiment passed all 21,591 completed-frame checks but failed CV-CUDA's retained CuPy pool guard.
+The retained pool grew by one output allocation, while live used bytes remained unchanged.
+Warmup omitted the GPU correctness path used during every measured frame.
+Exercise that complete checked path during all 100 warmup frames. Keep the original 1 MiB growth allowance and preserve the failed attempt.
+This is a first-use allocation hypothesis, not evidence that the failure is harmless or fixed.
+See [experiment 021](experiments/021-detector-repeatability.md).

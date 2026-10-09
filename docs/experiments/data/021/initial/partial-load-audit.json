@@ -1,0 +1,41 @@
+{
+  "status": "partial_run_audited_not_accepted",
+  "runs": [
+    {
+      "candidate": "cpg",
+      "completed": 7191,
+      "dropped": 9,
+      "failed_frame_checks": 0,
+      "memory_growth": {
+        "torch_allocated": 0,
+        "torch_reserved": 0,
+        "cupy_used": 0,
+        "cupy_total": 0
+      }
+    },
+    {
+      "candidate": "torch",
+      "completed": 7200,
+      "dropped": 0,
+      "failed_frame_checks": 0,
+      "memory_growth": {
+        "torch_allocated": 0,
+        "torch_reserved": 0,
+        "cupy_used": 0,
+        "cupy_total": 0
+      }
+    },
+    {
+      "candidate": "cvcuda",
+      "completed": 7200,
+      "dropped": 0,
+      "failed_frame_checks": 0,
+      "memory_growth": {
+        "torch_allocated": 0,
+        "torch_reserved": 0,
+        "cupy_used": 0,
+        "cupy_total": 2457600
+      }
+    }
+  ]
+}
