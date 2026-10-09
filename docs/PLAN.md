@@ -299,3 +299,10 @@ A cloud-only result does not complete Jetson camera, power, or transport accepta
 Do not spend on remote hardware during planning.
 Before paid provisioning, confirm account access, allowed spending, storage retention, and shutdown responsibility.
 Build the reproducible harness so the first rented session can test the real pipeline immediately.
+
+## Prepared detector soak gate
+
+The continuous detector soak harness is prepared. GPU execution remains pending.
+See [the frozen soak protocol](SUSTAINED_YOLO.md#continuous-detector-soak-prepared-not-measured).
+It requires measured thermal conditioning, thirty continuous minutes through TensorRT, per-frame checks, and independent evidence verification.
+Local fault checks do not complete this gate. Reconcile cloud reservations before another rental under the existing $15 budget.

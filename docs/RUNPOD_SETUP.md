@@ -394,3 +394,9 @@ Offset $0.23095904378169507 already posted for reserved Pods `69as2koczlkkmr`, `
 This avoids counting their posted charges twice without releasing their remaining reservation headroom.
 Posted spending plus remaining conservative reservations is $14.764297882954633, within the $15 authorization.
 No new rental is scheduled. Reconcile pending charges before another paid experiment.
+
+A later October 9 billing read reports $7.685433012959038 in posted pod charges across 48 records.
+New records include the two ended detector attempts. Their charges still may be incomplete.
+Offset the posted amounts for reserved Pods without releasing the remaining reservation ceilings.
+The conservative total remains about $14.77 against the $15 authorization.
+The 30-minute detector soak harness is prepared locally. No new rental was created.

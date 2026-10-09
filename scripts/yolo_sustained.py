@@ -12,11 +12,7 @@ import torch
 from cpg.reference import numpy_reference
 from yolo_common import pipeline,cases,decode,digest,LIMITS
 from yolo_gpu import Consumer,torch_preprocess,vendor_preprocess
-from yolo_load import Arrivals
-
-
-FIELDS = ['frame','lane','variant','arrival_s','status','submission_s','completion_s',
-          'arrival_to_completion_ms','gpu_pipeline_ms','correct']
+from yolo_load import Arrivals,FIELDS
 
 
 def memory():
@@ -61,7 +57,7 @@ def run(candidate,runner,consumer,sources,expected,references,detections,seconds
     events=[torch.cuda.Event(enable_timing=True) for _ in range(2)]
     samples=[]
     start=time.perf_counter(); next_memory=0.; next_progress=10.
-    while not arrivals.finished:
+    while not arrivals.finished or time.perf_counter()-start < seconds:
         elapsed=time.perf_counter()-start
         if elapsed > seconds+30:
             raise TimeoutError('Arrival schedule did not drain within 30 seconds')
@@ -110,8 +106,11 @@ def main():
     parser.add_argument('--seconds',type=int,default=30)
     parser.add_argument('--repeats',type=int,default=2)
     parser.add_argument('--diagnose-vendor-aux',action='store_true')
+    parser.add_argument('--soak',action='store_true',help='Thermal conditioning, then continuous 1800-second CPG detector run')
     args=parser.parse_args()
     if not 1<=args.seconds<=60 or not 1<=args.repeats<=4:parser.error('Invalid bounded run settings')
+    if args.soak and (args.diagnose_vendor_aux or args.seconds!=30 or args.repeats!=2):
+        parser.error('Soak uses a fixed protocol without short-matrix overrides')
     args.output.mkdir(parents=True,exist_ok=False)
     report={'status':'failed','revision':subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),
             'dirty':bool(subprocess.check_output(['git','status','--porcelain'],text=True)),
@@ -148,6 +147,12 @@ def main():
                     if not valid(tensor,head,d,expected[v],references[v],detections[v],candidate).item():
                         raise AssertionError('Initial load control failed')
             del tensor,head,d
+            if args.soak:
+                from yolo_soak import run_soak
+                report['soak']=run_soak(run,runners['cpg'],consumer,sources,expected,references,detections,args.output)
+                report['status']=report['soak']['status']
+                if report['status']!='passed':raise AssertionError('Detector soak failed')
+                return
             for fps in (60,400):
                 for repeat in range(args.repeats):
                     names=list(runners);names=names[repeat%3:]+names[:repeat%3]

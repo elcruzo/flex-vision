@@ -422,3 +422,12 @@ The complete-matrix run passed all normal allocator guards and 187,279 completed
 The auxiliary-drain diagnostic also passed, but ordinary CV-CUDA had zero growth in the same rental.
 This control therefore does not isolate the earlier resource-lifetime failure. Keep that explanation provisional.
 The lower preprocessing median repeated, while sustained throughput and tails varied. Do not claim a repeatable throughput gain.
+
+## D035 — Prepare the detector soak before another rental
+
+Use one continuous 30-minute CPG run after measured thermal conditioning.
+Reuse the existing detector controls, inference endpoint, GPU checks, and bounded admission policy.
+Retain five-minute latency summaries, per-frame rows, telemetry, and both post-drain and sampled allocator growth.
+This is a stability gate. It does not establish comparative throughput, concurrent CUDA streams, or live-camera behavior.
+Pending cloud charges leave insufficient unreserved room for another guarded lease under the existing $15 authorization.
+Prepare and check the harness locally. Mark GPU validation pending until a budget-safe rental can run it.

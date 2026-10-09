@@ -110,3 +110,48 @@ The independent verifier checked 331,200 offered records and 187,279 correct com
 All declared post-drain allocator growth counters were zero. Earlier failures remain failed.
 Normal CV-CUDA also had zero growth in this rental, so the auxiliary diagnostic does not isolate the earlier cause.
 See [experiment 021](experiments/021-detector-repeatability.md) for variable throughput, tails, drops, and the next soak gate.
+
+## Continuous detector soak: prepared, not measured
+
+Use `--soak` to run CPG through the same fixed detector and GPU correctness checks.
+This mode replaces the short comparative matrix. It does not run comparative vendor soak blocks.
+Keep the TensorRT context, resident fixtures, stream, and allocator pools alive throughout conditioning and measurement.
+
+1. Run five minutes at four logical feeds of 60 FPS each.
+2. Require the last 120 telemetry samples to span at most 2°C.
+3. Require the two consecutive 60-sample median temperatures to differ by at most 1°C.
+4. Allow one additional five-minute conditioning attempt if temperature does not stabilize.
+5. Run one continuous 1,800-second arrival schedule with two pending slots per feed.
+6. Check every completed frame through preprocessing, TensorRT, CUDA NMS, and GPU correctness checks.
+7. Retain every offered arrival, including queue drops, and collect allocator samples about twice per second.
+8. Retain GPU temperature, clocks, power, utilization, and device memory once per second.
+9. Independently audit the retained rows and telemetry before accepting the result.
+
+The measured schedule offers 432,000 frames. Completion count and drops remain measured outcomes.
+Do not reset queues, allocator pools, or the context during the measured interval.
+The final drain may extend execution by at most 30 seconds.
+Require no failed completed-frame checks and nonzero completion on all four feeds.
+Keep the 1 MiB post-drain allowance for all four declared allocator counters.
+Also compare sampled counter ceilings during the first and last five minutes against that allowance.
+Report six five-minute latency distributions without imposing a new tail-drift threshold after measurement.
+Require telemetry continuity and complete allocator sampling. Missing telemetry fails acceptance.
+These GPU counters do not measure Jetson power or prove thermal behavior on Jetson.
+
+```bash
+python scripts/yolo_sustained.py --soak \
+  --engine benchmark-results/iteration-022-yolo/measured/yolo.engine \
+  --controls benchmark-results/iteration-022-yolo/measured \
+  --output benchmark-results/iteration-022-yolo/soak
+python scripts/summarize_yolo_soak.py benchmark-results/iteration-022-yolo/soak \
+  --output soak-verification.json
+```
+
+The script retains host dictionaries for all arrivals until CSV export.
+The fixed control load bounds this at 432,000 rows. Record host memory during the first GPU run.
+Do not increase this mode to overload or extend its duration without reviewing host-memory requirements.
+The local fault checks validate the evidence verifier. They do not validate CUDA execution or complete the soak gate.
+
+A 60-minute independently terminated lease must cover setup, model and engine preparation, up to ten minutes of conditioning, and thirty minutes of measurement.
+Preserve five minutes for export. Do not launch if the prepared setup cannot meet that bound.
+The current $15 budget includes reservations for unposted charges. Reconcile those charges before reserving another lease.
+No detector soak rental was started for this preparation.

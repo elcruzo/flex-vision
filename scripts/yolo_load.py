@@ -1,6 +1,9 @@
 """Bounded admission for staggered synthetic cameras, independent of CUDA."""
 from collections import deque
 
+FIELDS = ['frame','lane','variant','arrival_s','status','submission_s','completion_s',
+          'arrival_to_completion_ms','gpu_pipeline_ms','correct']
+
 
 class Arrivals:
     def __init__(self, cameras, fps, seconds, depth, rotation=0):
