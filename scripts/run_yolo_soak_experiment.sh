@@ -12,6 +12,9 @@ mkdir -p "$CPG_RESULTS"
 # Compress partial evidence on failure too. The coordinator retains exit status.
 trap 'find "$CPG_RESULTS" -name "*.csv" -exec gzip {} \;' EXIT
 bash scripts/run_yolo_experiment.sh
+ .venv-gpu/bin/python -u scripts/yolo_output_reuse.py \
+  --engine "$CPG_RESULTS/measured/yolo.engine" --controls "$CPG_RESULTS/measured" \
+  --output "$CPG_RESULTS/output-reuse.json"
 CPG_SOAK_TIMEOUT=$(.venv-gpu/bin/python - <<'PY'
 import json,math,os,time
 from pathlib import Path

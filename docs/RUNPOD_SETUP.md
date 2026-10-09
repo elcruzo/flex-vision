@@ -404,3 +404,33 @@ The 30-minute detector soak harness is prepared locally. No new rental was creat
 The latest October 9 read reports $8.033368132837495 in posted pod charges across 50 records.
 Both final-matrix resource IDs now have billing records. Posted records can still be incomplete.
 Keep the remaining reservation headroom until reconciliation. No new rental was created.
+
+### Lifetime-bounded reconciliation for the detector soak
+
+Billing still reports $8.033368132837495 posted. A final invoice is not required to bound already terminated compute.
+Replace the seven remaining full-lease reservations with actual-lifetime upper bounds.
+Each run marker records a timestamp before controller creation. Each cleanup record bounds both controller and GPU lifetimes.
+Use an additional 60 seconds for timing headroom, plus $0.10 per attempt for storage and delayed adjustment.
+Charge both GPU and controller for that entire interval, even though the GPU starts later.
+Use $0.89/hour GPU and $0.06/hour CPU caps. The stalled 020f attempt allocated only its CPU controller.
+For 020g, use the subsequent 020h creation time as the cleanup upper bound because the intervening inventory was empty.
+For 021c, use the later 06:32:54 UTC empty-inventory read rather than its earlier cleanup.
+Keep any posted amount exceeding its lifetime bound instead of reducing it.
+
+| Attempt | Lifetime bound, including headroom | Total reservation ceiling |
+| --- | ---: | ---: |
+| 020f | 316 seconds, CPU only | $0.105267 |
+| 020g | 814 seconds | $0.314806 |
+| 020h | 434 seconds | $0.214528 |
+| 020i | 413 seconds | $0.208986 |
+| 021 | 525 seconds | $0.238542 |
+| 021b | 697 seconds | $0.283931 |
+| 021c | 1454 seconds | $0.483694 |
+
+Posted amounts already covered by these ceilings total $0.7190702498828614.
+Retain another $1.1306825278949164 against them. This avoids double counting their posted charges.
+Reserve $1.10 for one new independently terminated 60-minute RTX 4090 lease.
+The conservative cumulative bound becomes $10.26405066073241, below the authorized $15.
+The live catalog reports secure RTX 4090 at $0.89/hour with HIGH availability in EU-RO-1.
+The pre-creation account inventory is empty. No overlapping rental is authorized.
+The next experiment checks caller-owned output through TensorRT before the unchanged default-output soak.
