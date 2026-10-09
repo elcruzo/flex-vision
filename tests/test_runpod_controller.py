@@ -26,3 +26,19 @@ def test_unavailable_region_never_creates_secret(tmp_path):
         with pytest.raises(RuntimeError,match='capacity'):
             controller.launch(30,tmp_path/'receipt.json','EU-NL-1')
     assert all(call.args[0]=='GET' for call in api.call_args_list)
+
+
+def test_failed_gpu_is_terminated_before_diagnostic_window():
+    events = []
+    own = {'id':'cpu','env':{'CPG_LEASE_RUN':'123-456'},'cpu':{'id':'cpu3c'},'cost':.06}
+    gpu = {'id':'gpu','run':'123-456'}
+    def stop(receipt):
+        events.append(('stop',receipt['id']))
+    with patch.dict('os.environ',RUNPOD_POD_ID='cpu',CPG_LEASE_RUN='123-456',
+                    CPG_DISPATCH_EXPIRES='1100',LEASE_MINUTES='60',CPG_SECRET_ID='secret'), patch.object(
+            controller,'api',side_effect=[own,None]), patch.object(controller.time,'time',return_value=1000), patch.object(
+            controller,'create',return_value=gpu), patch.object(controller,'watch',side_effect=RuntimeError('test failure')), patch.object(
+            controller,'terminate',side_effect=stop), patch.object(controller.time,'sleep',side_effect=lambda seconds:events.append(('wait',seconds))):
+        with pytest.raises(RuntimeError,match='test failure'):
+            controller.serve()
+    assert events == [('stop','gpu'),('wait',30),('stop','cpu')]
