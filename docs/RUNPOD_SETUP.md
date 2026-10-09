@@ -312,3 +312,10 @@ GPU `w45z3wghznchc0`, controller `mebwvjzisbkdci`, and secret `otg2y0ntsu` were 
 Its billing has not posted yet. Retain its $1.10 reserve until reconciliation.
 Reserve another $1.10 for the corrected-model retry. Posted spend plus both reserves is $9.341881919793377.
 This leaves $5.658118080206623 unreserved within the $15 total authorization.
+
+The corrected-model rental also stopped before timing because of cross-engine background box differences.
+All 19 files were exported and verified. GPU `qjps1uowdsbdrx`, controller `qqeqvzrluw0ujb`, and secret `boxxq1i7jh` were removed.
+The complete cleanup check finished at 04:10:58 UTC on October 9.
+Its charge is not posted yet. Retain both pending $1.10 reserves and add $1.10 for the acceptance-revision-2 execution.
+Posted spend plus these conservative reserves is $10.441881919793377, leaving $4.558118080206623 unreserved.
+The rate and one-hour expiration remain unchanged. Replace reserves with actual charges when the provider posts them.
