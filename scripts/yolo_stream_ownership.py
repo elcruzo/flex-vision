@@ -26,6 +26,7 @@ def main():
     # Keep stream, event, source, and destination owners alive through completion.
     streams = [torch.cuda.Stream() for _ in range(3)]
     producer, preprocess, consumer_stream = streams
+    report['stream_handles'] = [int(stream.cuda_stream) for stream in streams]
     try:
         if report['dirty']:
             raise ValueError('Commit measured source first')
@@ -41,6 +42,7 @@ def main():
                     reference = torch.from_numpy(controls['tensorrt_dense']).cuda()
             for input_kind in ('cupy', 'torch'):
                 retained = []
+                checks = []
                 for cycle in range(4):
                     ready = torch.cuda.Event()
                     done = torch.cuda.Event()
@@ -70,8 +72,10 @@ def main():
                         retained.append((result, snapshot))
                     # References are intentionally retained through the consumer fence.
                     done.synchronize()
+                    checks.append({'cycle': cycle, 'tensor_exact': True, 'dense_output': True,
+                                   'detections': True, 'retained_outputs': True, 'consumer_complete': True})
                 report['cases'].append({'name': name, 'input': input_kind, 'cycles': 4,
-                                        'retention': 'passed', 'status': 'passed'})
+                                        'retention': 'passed', 'status': 'passed', 'checks': checks})
         report['status'] = 'passed'
     except Exception as exc:
         report['error'] = repr(exc)
@@ -81,6 +85,12 @@ def main():
         try:
             for stream in streams:
                 stream.synchronize()
+            report['drain_status'] = 'passed'
+        except Exception as exc:
+            report['status'] = 'failed'
+            report['drain_status'] = 'failed'
+            report['drain_error'] = repr(exc)
+            raise
         finally:
             args.output.parent.mkdir(parents=True, exist_ok=True)
             args.output.write_text(json.dumps(report, indent=2) + '\n')

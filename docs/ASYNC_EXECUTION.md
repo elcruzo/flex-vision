@@ -67,3 +67,18 @@ The stream APIs support event ordering through [CuPy Stream](https://docs.cupy.d
 Allocator lifetime and stream ordering are distinct concerns. Review [PyTorch record_stream](https://docs.pytorch.org/docs/stable/generated/torch.Tensor.record_stream.html) before Torch-owned async storage.
 Use the installed pinned versions when selecting the implementation.
 Raw TensorRT bindings require explicit owner retention. A pointer binding does not establish a Python owner.
+
+## Guarded experiment entry point
+
+`scripts/run_yolo_stream_experiment.sh` regenerates the engine, numerical controls, baseline timings, and transfer capture on the experiment host.
+It then runs the 48 stream executions and checks report coverage with `scripts/verify_yolo_stream_ownership.py`.
+The report records three distinct stream handles, every cycle's checks, and shutdown completion.
+The verifier rejects missing cases, duplicates, unchecked cycles, shared handles, dirty source, and failed stream drainage.
+This report audit does not independently recompute tensors. Retain the full numerical controls and use the existing numerical verifier separately.
+
+The entry point requires the independent lease deadline and leaves five minutes for export.
+Use the existing direct controller and reconcile delayed charges before dispatch.
+No new rental ran for this preparation. GPU acceptance remains pending.
+
+Local verification passed eight evidence fault checks, Python compilation, and shell syntax.
+Those checks validate the harness plumbing only. They do not establish event ordering on NVIDIA hardware.

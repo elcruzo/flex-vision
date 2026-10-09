@@ -480,3 +480,11 @@ Retain every buffer owner through its final consumer completion event.
 An asynchronous submission needs an explicit completion object and bounded slot generations.
 Do not infer consumer completion from preprocessing completion or Python reference counts.
 Read ASYNC_EXECUTION.md for acceptance. The new three-stream harness remains GPU-unvalidated.
+
+## D041 — Require complete stream evidence before asynchronous changes
+
+Connect the synchronous three-stream scenario to the independent lease workflow.
+Record every cycle and drain result, rather than accepting a top-level passing label alone.
+Require all twelve fixture/framework cases and 48 executions.
+Keep report coverage auditing distinct from numerical recomputation and actual GPU execution.
+The runner and local fault checks are prepared. No GPU acceptance comes from this commit.
