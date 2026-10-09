@@ -497,3 +497,13 @@ Accept that fixed synchronous contract. Preserve the public synchronous default.
 The explicit event also orders Torch inputs, so this does not isolate DLPack's implicit handoff.
 Both preprocessing and the consumer synchronize. No asynchronous overlap or pending-owner release is established.
 Require a completion object and delayed-consumer inference evidence before removing those waits.
+
+## D043 — Introduce explicit experimental owned-output submissions
+
+Keep the synchronous default and existing out= behavior unchanged.
+Add Pipeline.submit with explicit preprocessing stream and a completion object.
+Retain original and imported input owners until successful preprocessing completion.
+Queue consumer readiness with an event, and require callers to retain output through consumer completion.
+Do not add async caller-owned slots or recycling before consumer tracking exists.
+Explicit close is the normal drain path. A blocking destructor is a conservative fallback, not the scheduling mechanism.
+Local lifecycle fault checks passed. CUDA/TensorRT acceptance and performance remain pending.

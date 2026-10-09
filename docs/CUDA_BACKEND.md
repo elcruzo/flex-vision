@@ -147,3 +147,10 @@ Read [the asynchronous contract](ASYNC_EXECUTION.md) before changing completion 
 `scripts/yolo_stream_ownership.py` prepares 48 inference executions with explicit three-stream handoffs and retained-output checks.
 Experiment 024 passed all 48 executions on RTX 4090. Public preprocessing and the fixed TensorRT harness still synchronize before returning.
 See [the evidence](experiments/024-detector-streams.md). Asynchronous ownership and overlap remain unvalidated.
+
+## Experimental submission
+
+`Pipeline.submit(frame, stream=...)` returns an explicit preprocessing completion object.
+The owned-output path is implemented but not yet GPU-validated. Read [the contract](ASYNC_EXECUTION.md).
+The synchronous call and out= path retain their existing behavior.
+Do not claim async inference, reusable slots, or performance gains from local lifecycle checks.

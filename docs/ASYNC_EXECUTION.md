@@ -1,6 +1,7 @@
 # Stream ownership and asynchronous execution
 
-Status: proposed asynchronous contract. The public detector remains synchronous.
+Status: experimental owned-output submission implemented. GPU acceptance remains pending.
+The default detector call remains synchronous.
 Experiment 023 does not support selecting caller-owned output for faster execution.
 This document defines the next hypothesis: explicit dependencies can remove host waits without corrupting outputs or increasing tails.
 
@@ -28,7 +29,8 @@ The output owner must survive every consumer read, including work on another str
 DLPack transport does not replace that lifetime requirement.
 
 Use a separate explicit submission API. Keep `pipeline(frame)` synchronous until acceptance supports a default change.
-The proposed submission API and completion object are not implemented.
+`Pipeline.submit(frame, stream=...)` now implements an experimental completion object for fresh owned outputs.
+It requires an explicit CuPy stream on the current device. Default stream singletons are rejected.
 Do not return an ordinary array with an undocumented pending write.
 
 ## Reusable slot states
@@ -82,3 +84,31 @@ Use the existing direct controller and reconcile delayed charges before dispatch
 
 Local verification passed eight evidence fault checks, Python compilation, and shell syntax.
 Those checks validate the harness plumbing only. They do not establish event ordering on NVIDIA hardware.
+
+## Experimental submission API
+
+```python
+with pipeline.submit(frame, stream=preprocess_stream) as pending:
+    tensor = pending.wait_on(consumer_stream)
+    # Enqueue the consumer on consumer_stream and retain tensor until it finishes.
+    # The context exit waits for preprocessing, not consumer completion.
+```
+
+`wait()` establishes host completion and returns the owned output.
+`wait_on(stream)` queues a consumer dependency without a host wait. It does not release source owners.
+`close()` waits for preprocessing and releases source owners only after successful completion.
+The completion object retains output and stream owners. It does not track external consumers.
+The caller retains the returned tensor through consumer completion and does not mutate pending input.
+Caller-owned async output, slot recycling, concurrent host access, graph capture, and consumer cancellation are unsupported.
+Use a native CuPy stream, or a stream wrapper that retains its foreign owner.
+A raw ExternalStream pointer does not retain the foreign stream owner automatically.
+
+Use explicit close or a context manager. Object destruction has a conservative blocking fallback.
+Do not rely on garbage collection for normal completion or error reporting.
+A dispatch error drains the stream before local input owners are released.
+A completion error keeps source owners retained and propagates to the caller.
+Device failure recovery is not established by this experimental path.
+
+Three local lifecycle checks verify retention across handoff, completion failure, and wrong-device rejection.
+They use fake events and streams. Real CUDA/TensorRT correctness, absence of host waits, and performance remain unmeasured.
+The next hardware harness must exercise this implementation through delayed producer and consumer work.

@@ -1,4 +1,4 @@
-"""First fused CUDA backend. Calls synchronize their stream before returning."""
+"""Fused CUDA backend with synchronous calls and experimental submissions."""
 from functools import lru_cache
 import numpy as np
 
@@ -47,6 +47,21 @@ extern "C" __global__ void preprocess(
 
 
 def execute(pipeline, frame, *, out=None):
+    return _execute(pipeline, frame, out=out, asynchronous=False)
+
+
+def submit(pipeline, frame, *, stream):
+    """Experimental owned-output submission on an explicit CuPy stream."""
+    import cupy as cp
+    if not isinstance(stream, cp.cuda.Stream):
+        raise TypeError("stream must be a CuPy Stream")
+    if stream.device_id != cp.cuda.runtime.getDevice():
+        raise ValueError("stream must be an explicit current-device stream")
+    with stream:
+        return _execute(pipeline, frame, out=None, asynchronous=True)
+
+
+def _execute(pipeline, frame, *, out, asynchronous):
     """Return a CuPy NCHW allocation without host pixel copies.
 
     Accept CuPy or CUDA DLPack input on the current device. CuPy callers must
@@ -71,10 +86,19 @@ def execute(pipeline, frame, *, out=None):
         result = out
     args = (source, result, *(np.int64(s) for s in source.strides), *constants)
     stream = cp.cuda.get_current_stream()
-    _kernel(dtype)(((count+255)//256,), (256,), args, stream=stream)
-    # Keep source, imported owner, and output alive until their work completes.
-    stream.synchronize()
-    return result
+    # Create the completion owner before dispatch so errors cannot orphan a read.
+    event = cp.cuda.Event(disable_timing=True) if asynchronous else None
+    try:
+        _kernel(dtype)(((count+255)//256,), (256,), args, stream=stream)
+        if asynchronous:
+            event.record(stream)
+            return Submission(frame, source, result, stream, event, source.device.id)
+        stream.synchronize()
+        return result
+    except BaseException:
+        # Drain any submitted read before local owners leave this frame.
+        stream.synchronize()
+        raise
 
 
 @lru_cache(maxsize=64)
@@ -115,3 +139,52 @@ def _validate_output(out, source, shape, dtype, device):
     a,b = _byte_interval(source),_byte_interval(out)
     if a[0] < b[1] and b[0] < a[1]:
         raise ValueError('out must not overlap the input byte extent')
+
+
+class Submission:
+    """Experimental preprocessing completion. Does not track external consumers.
+
+    Use wait() for host completion or wait_on(stream) for a consumer dependency.
+    Retain the returned array until that consumer finishes. close() drains only
+    preprocessing; it never authorizes overwriting a consumer's output.
+    """
+    def __init__(self, frame, source, output, stream, event, device):
+        self._owners = (frame, source)
+        self._output = output
+        self._stream = stream
+        self._event = event
+        self._device = device
+        self._completed = False
+
+    def wait(self):
+        import cupy as cp
+        with cp.cuda.Device(self._device):
+            if not self._completed:
+                self._event.synchronize()
+                self._completed = True
+                self._owners = ()
+        return self._output
+
+    def wait_on(self, stream):
+        import cupy as cp
+        if not isinstance(stream, cp.cuda.Stream):
+            raise TypeError('consumer stream must be a CuPy Stream')
+        if stream.device_id != self._device:
+            raise ValueError('consumer stream must be on the submission device')
+        with cp.cuda.Device(self._device):
+            stream.wait_event(self._event)
+        return self._output
+
+    def close(self):
+        self.wait()
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *exc):
+        self.close()
+
+    def __del__(self):
+        # Conservative fallback only. Explicit close/context use is required.
+        if hasattr(self, '_completed') and not self._completed:
+            self.close()

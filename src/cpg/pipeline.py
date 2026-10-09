@@ -141,3 +141,8 @@ class Pipeline:
     def __call__(self, frame, *, out=None):
         from .cuda import execute
         return execute(self, frame, out=out)
+
+    def submit(self, frame, *, stream):
+        """Experimental async owned output. Requires explicit completion handling."""
+        from .cuda import submit
+        return submit(self, frame, stream=stream)
