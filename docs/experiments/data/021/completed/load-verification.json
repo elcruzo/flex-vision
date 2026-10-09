@@ -1,0 +1,536 @@
+{
+  "status": "verified",
+  "failed_blocks": [],
+  "runs": [
+    {
+      "fps_per_camera": 60,
+      "repeat": 0,
+      "candidate": "cpg",
+      "offered": 7200,
+      "completed": 7189,
+      "dropped": 11,
+      "completed_per_second": 239.63333333333333,
+      "arrival_to_completion_ms": {
+        "p50": 1.3433494915569,
+        "p95": 1.5560569614176956,
+        "p99": 1.8450265775128116
+      },
+      "early_p99_ms": 1.853040104111247,
+      "late_p99_ms": 1.8525874378766356,
+      "memory_growth": {
+        "torch_allocated": 0,
+        "torch_reserved": 0,
+        "cupy_used": 0,
+        "cupy_total": 0
+      },
+      "lanes": {
+        "0": {
+          "completed": 1797,
+          "offered": 1800,
+          "p99_ms": 1.8628165771563938
+        },
+        "1": {
+          "completed": 1798,
+          "offered": 1800,
+          "p99_ms": 1.8511443274707062
+        },
+        "2": {
+          "completed": 1797,
+          "offered": 1800,
+          "p99_ms": 1.8319643984242795
+        },
+        "3": {
+          "completed": 1797,
+          "offered": 1800,
+          "p99_ms": 1.8176605949794578
+        }
+      }
+    },
+    {
+      "fps_per_camera": 60,
+      "repeat": 0,
+      "candidate": "torch",
+      "offered": 7200,
+      "completed": 7200,
+      "dropped": 0,
+      "completed_per_second": 240.0,
+      "arrival_to_completion_ms": {
+        "p50": 1.3799283653499472,
+        "p95": 4.553857482969889,
+        "p99": 8.42684122795873
+      },
+      "early_p99_ms": 6.885411923130642,
+      "late_p99_ms": 7.81021523103234,
+      "memory_growth": {
+        "torch_allocated": 0,
+        "torch_reserved": 0,
+        "cupy_used": 0,
+        "cupy_total": 0
+      },
+      "lanes": {
+        "0": {
+          "completed": 1800,
+          "offered": 1800,
+          "p99_ms": 8.072686026493352
+        },
+        "1": {
+          "completed": 1800,
+          "offered": 1800,
+          "p99_ms": 8.637432126948532
+        },
+        "2": {
+          "completed": 1800,
+          "offered": 1800,
+          "p99_ms": 8.076610920329948
+        },
+        "3": {
+          "completed": 1800,
+          "offered": 1800,
+          "p99_ms": 8.398234887667844
+        }
+      }
+    },
+    {
+      "fps_per_camera": 60,
+      "repeat": 0,
+      "candidate": "cvcuda",
+      "offered": 7200,
+      "completed": 7200,
+      "dropped": 0,
+      "completed_per_second": 240.0,
+      "arrival_to_completion_ms": {
+        "p50": 1.39574867983705,
+        "p95": 5.482871904968077,
+        "p99": 9.569783141214957
+      },
+      "early_p99_ms": 9.672268694887222,
+      "late_p99_ms": 10.362315189092877,
+      "memory_growth": {
+        "torch_allocated": 0,
+        "torch_reserved": 0,
+        "cupy_used": 0,
+        "cupy_total": 0
+      },
+      "lanes": {
+        "0": {
+          "completed": 1800,
+          "offered": 1800,
+          "p99_ms": 9.361128908892441
+        },
+        "1": {
+          "completed": 1800,
+          "offered": 1800,
+          "p99_ms": 10.106134177495319
+        },
+        "2": {
+          "completed": 1800,
+          "offered": 1800,
+          "p99_ms": 9.555181601394267
+        },
+        "3": {
+          "completed": 1800,
+          "offered": 1800,
+          "p99_ms": 9.30523676301206
+        }
+      }
+    },
+    {
+      "fps_per_camera": 60,
+      "repeat": 1,
+      "candidate": "torch",
+      "offered": 7200,
+      "completed": 7200,
+      "dropped": 0,
+      "completed_per_second": 240.0,
+      "arrival_to_completion_ms": {
+        "p50": 1.3733920330799565,
+        "p95": 2.01318296293351,
+        "p99": 7.823306230207109
+      },
+      "early_p99_ms": 10.626393511891568,
+      "late_p99_ms": 1.8696733626209983,
+      "memory_growth": {
+        "torch_allocated": 0,
+        "torch_reserved": 0,
+        "cupy_used": 0,
+        "cupy_total": 0
+      },
+      "lanes": {
+        "0": {
+          "completed": 1800,
+          "offered": 1800,
+          "p99_ms": 8.060689600805553
+        },
+        "1": {
+          "completed": 1800,
+          "offered": 1800,
+          "p99_ms": 7.8233062302071055
+        },
+        "2": {
+          "completed": 1800,
+          "offered": 1800,
+          "p99_ms": 7.555547392616676
+        },
+        "3": {
+          "completed": 1800,
+          "offered": 1800,
+          "p99_ms": 7.548248063773032
+        }
+      }
+    },
+    {
+      "fps_per_camera": 60,
+      "repeat": 1,
+      "candidate": "cvcuda",
+      "offered": 7200,
+      "completed": 7200,
+      "dropped": 0,
+      "completed_per_second": 240.0,
+      "arrival_to_completion_ms": {
+        "p50": 1.3900442669791957,
+        "p95": 1.601980887353704,
+        "p99": 1.928965379793501
+      },
+      "early_p99_ms": 1.970673563579719,
+      "late_p99_ms": 1.8948922852677423,
+      "memory_growth": {
+        "torch_allocated": 0,
+        "torch_reserved": 0,
+        "cupy_used": 0,
+        "cupy_total": 0
+      },
+      "lanes": {
+        "0": {
+          "completed": 1800,
+          "offered": 1800,
+          "p99_ms": 1.9447199068964771
+        },
+        "1": {
+          "completed": 1800,
+          "offered": 1800,
+          "p99_ms": 1.9365263159079893
+        },
+        "2": {
+          "completed": 1800,
+          "offered": 1800,
+          "p99_ms": 1.8800423492976392
+        },
+        "3": {
+          "completed": 1800,
+          "offered": 1800,
+          "p99_ms": 1.912377250690085
+        }
+      }
+    },
+    {
+      "fps_per_camera": 60,
+      "repeat": 1,
+      "candidate": "cpg",
+      "offered": 7200,
+      "completed": 7200,
+      "dropped": 0,
+      "completed_per_second": 240.0,
+      "arrival_to_completion_ms": {
+        "p50": 1.3463492815694034,
+        "p95": 4.185240951676487,
+        "p99": 7.4893172420568295
+      },
+      "early_p99_ms": 6.108641142646158,
+      "late_p99_ms": 7.489317242056826,
+      "memory_growth": {
+        "torch_allocated": 0,
+        "torch_reserved": 0,
+        "cupy_used": 0,
+        "cupy_total": 0
+      },
+      "lanes": {
+        "0": {
+          "completed": 1800,
+          "offered": 1800,
+          "p99_ms": 7.498873088508127
+        },
+        "1": {
+          "completed": 1800,
+          "offered": 1800,
+          "p99_ms": 7.128986710061154
+        },
+        "2": {
+          "completed": 1800,
+          "offered": 1800,
+          "p99_ms": 7.4904890780654645
+        },
+        "3": {
+          "completed": 1800,
+          "offered": 1800,
+          "p99_ms": 7.422075069198541
+        }
+      }
+    },
+    {
+      "fps_per_camera": 400,
+      "repeat": 0,
+      "candidate": "cpg",
+      "offered": 48000,
+      "completed": 23450,
+      "dropped": 24550,
+      "completed_per_second": 781.4402123141539,
+      "arrival_to_completion_ms": {
+        "p50": 9.678628966211633,
+        "p95": 15.40938408672865,
+        "p99": 21.610967512428257
+      },
+      "early_p99_ms": 21.012419036776524,
+      "late_p99_ms": 21.612731969356176,
+      "memory_growth": {
+        "torch_allocated": 0,
+        "torch_reserved": 0,
+        "cupy_used": 0,
+        "cupy_total": 0
+      },
+      "lanes": {
+        "0": {
+          "completed": 5863,
+          "offered": 12000,
+          "p99_ms": 21.611833733321085
+        },
+        "1": {
+          "completed": 5863,
+          "offered": 12000,
+          "p99_ms": 21.610227578877854
+        },
+        "2": {
+          "completed": 5862,
+          "offered": 12000,
+          "p99_ms": 21.61283341646162
+        },
+        "3": {
+          "completed": 5862,
+          "offered": 12000,
+          "p99_ms": 21.466563703120382
+        }
+      }
+    },
+    {
+      "fps_per_camera": 400,
+      "repeat": 0,
+      "candidate": "torch",
+      "offered": 48000,
+      "completed": 24212,
+      "dropped": 23788,
+      "completed_per_second": 806.8476422770724,
+      "arrival_to_completion_ms": {
+        "p50": 9.757240749896035,
+        "p95": 11.059910517185934,
+        "p99": 15.914686053246594
+      },
+      "early_p99_ms": 21.509870211779962,
+      "late_p99_ms": 11.461146616934954,
+      "memory_growth": {
+        "torch_allocated": 0,
+        "torch_reserved": 0,
+        "cupy_used": 0,
+        "cupy_total": 0
+      },
+      "lanes": {
+        "0": {
+          "completed": 6053,
+          "offered": 12000,
+          "p99_ms": 16.315124547481425
+        },
+        "1": {
+          "completed": 6053,
+          "offered": 12000,
+          "p99_ms": 15.575382131338035
+        },
+        "2": {
+          "completed": 6053,
+          "offered": 12000,
+          "p99_ms": 15.761723795533117
+        },
+        "3": {
+          "completed": 6053,
+          "offered": 12000,
+          "p99_ms": 15.79424604773522
+        }
+      }
+    },
+    {
+      "fps_per_camera": 400,
+      "repeat": 0,
+      "candidate": "cvcuda",
+      "offered": 48000,
+      "completed": 24064,
+      "dropped": 23936,
+      "completed_per_second": 801.9251569812992,
+      "arrival_to_completion_ms": {
+        "p50": 9.9500519409777,
+        "p95": 11.128399845212499,
+        "p99": 11.865365158021309
+      },
+      "early_p99_ms": 11.619015596061981,
+      "late_p99_ms": 12.467992117256195,
+      "memory_growth": {
+        "torch_allocated": 0,
+        "torch_reserved": 0,
+        "cupy_used": 0,
+        "cupy_total": 0
+      },
+      "lanes": {
+        "0": {
+          "completed": 6016,
+          "offered": 12000,
+          "p99_ms": 11.683910112828233
+        },
+        "1": {
+          "completed": 6016,
+          "offered": 12000,
+          "p99_ms": 11.873243119567258
+        },
+        "2": {
+          "completed": 6016,
+          "offered": 12000,
+          "p99_ms": 11.95593841373893
+        },
+        "3": {
+          "completed": 6016,
+          "offered": 12000,
+          "p99_ms": 11.939901176841342
+        }
+      }
+    },
+    {
+      "fps_per_camera": 400,
+      "repeat": 1,
+      "candidate": "torch",
+      "offered": 48000,
+      "completed": 23100,
+      "dropped": 24900,
+      "completed_per_second": 769.7890032482948,
+      "arrival_to_completion_ms": {
+        "p50": 9.921427629888235,
+        "p95": 15.160421527922095,
+        "p99": 21.59467840492834
+      },
+      "early_p99_ms": 22.14073450639865,
+      "late_p99_ms": 20.017054047435636,
+      "memory_growth": {
+        "torch_allocated": 0,
+        "torch_reserved": 0,
+        "cupy_used": 0,
+        "cupy_total": 0
+      },
+      "lanes": {
+        "0": {
+          "completed": 5775,
+          "offered": 12000,
+          "p99_ms": 21.588975401223827
+        },
+        "1": {
+          "completed": 5775,
+          "offered": 12000,
+          "p99_ms": 21.399222974479535
+        },
+        "2": {
+          "completed": 5775,
+          "offered": 12000,
+          "p99_ms": 21.95638306587965
+        },
+        "3": {
+          "completed": 5775,
+          "offered": 12000,
+          "p99_ms": 21.508682817220805
+        }
+      }
+    },
+    {
+      "fps_per_camera": 400,
+      "repeat": 1,
+      "candidate": "cvcuda",
+      "offered": 48000,
+      "completed": 24084,
+      "dropped": 23916,
+      "completed_per_second": 802.5370013963791,
+      "arrival_to_completion_ms": {
+        "p50": 9.954678602516198,
+        "p95": 11.128689605744313,
+        "p99": 11.68822184503049
+      },
+      "early_p99_ms": 11.729098954051436,
+      "late_p99_ms": 11.59374150633852,
+      "memory_growth": {
+        "torch_allocated": 0,
+        "torch_reserved": 0,
+        "cupy_used": 0,
+        "cupy_total": 0
+      },
+      "lanes": {
+        "0": {
+          "completed": 6021,
+          "offered": 12000,
+          "p99_ms": 11.60736882686706
+        },
+        "1": {
+          "completed": 6021,
+          "offered": 12000,
+          "p99_ms": 11.581544086336493
+        },
+        "2": {
+          "completed": 6021,
+          "offered": 12000,
+          "p99_ms": 11.788874462246925
+        },
+        "3": {
+          "completed": 6021,
+          "offered": 12000,
+          "p99_ms": 11.845844089984686
+        }
+      }
+    },
+    {
+      "fps_per_camera": 400,
+      "repeat": 1,
+      "candidate": "cpg",
+      "offered": 48000,
+      "completed": 25180,
+      "dropped": 22820,
+      "completed_per_second": 839.0938057257995,
+      "arrival_to_completion_ms": {
+        "p50": 9.467721171676935,
+        "p95": 10.609944786876158,
+        "p99": 11.173693339525402
+      },
+      "early_p99_ms": 11.071983246505429,
+      "late_p99_ms": 11.268546902387442,
+      "memory_growth": {
+        "torch_allocated": 0,
+        "torch_reserved": 0,
+        "cupy_used": 0,
+        "cupy_total": 0
+      },
+      "lanes": {
+        "0": {
+          "completed": 6295,
+          "offered": 12000,
+          "p99_ms": 11.143116959929742
+        },
+        "1": {
+          "completed": 6295,
+          "offered": 12000,
+          "p99_ms": 11.173982392250034
+        },
+        "2": {
+          "completed": 6295,
+          "offered": 12000,
+          "p99_ms": 11.199783748389896
+        },
+        "3": {
+          "completed": 6295,
+          "offered": 12000,
+          "p99_ms": 11.136905696987055
+        }
+      }
+    }
+  ],
+  "scope": "four logical cameras, one persistent serial stream; resident synthetic inputs; GPU checks inside offered load",
+  "qualification": "30-second blocks with validation overhead; not concurrent streams, live cameras, or a soak"
+}

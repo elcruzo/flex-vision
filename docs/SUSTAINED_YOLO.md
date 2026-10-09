@@ -102,3 +102,11 @@ It uses the same numerical checks, queues, duration, and memory allowance.
 It does not clear allocator or vendor caches. The normal timed baseline remains unchanged.
 This private version-specific hook is an investigation control, not a production requirement or a recommended vendor implementation.
 Retain its result separately and exclude it from performance claims.
+
+## Completed short matrix
+
+The final GPU run passed all twelve normal blocks and a separate auxiliary-drain diagnostic.
+The independent verifier checked 331,200 offered records and 187,279 correct completed frames.
+All declared post-drain allocator growth counters were zero. Earlier failures remain failed.
+Normal CV-CUDA also had zero growth in this rental, so the auxiliary diagnostic does not isolate the earlier cause.
+See [experiment 021](experiments/021-detector-repeatability.md) for variable throughput, tails, drops, and the next soak gate.

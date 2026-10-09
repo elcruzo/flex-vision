@@ -38,7 +38,11 @@ The fixed inspection API does not complete configurable stencils, reusable works
 The [FP16 YOLO/TensorRT experiment](experiments/020-fp16-yolo.md) passed six GPU cases, 60,000 matched samples, and an independent transfer capture.
 The cached path measured 24.77% lower preprocessing p50 versus CV-CUDA and 37.10–38.66% lower p99 versus PyTorch.
 Complete host p50 improved by 2.19–3.83%. This is fixed second-workload development evidence, not full release acceptance.
-Next, repeat the optimized matched comparison and establish detector sustained behavior.
+The [detector repeatability and load experiment](experiments/021-detector-repeatability.md) repeated the preprocessing gain.
+Its final twelve-block matrix checked 187,279 completed frames with zero declared post-drain allocator growth.
+Two earlier vendor-pool failures remain failed. Sustained throughput and tail gains varied by block.
+This is short serial load evidence, not concurrent camera streams or a detector soak.
+Next, establish a thermally conditioned 30-minute detector soak and investigate service-tail variation.
 Keep broader sustained coverage, vendor comparisons, reusable workspace, batching, and the robot/ROS workloads open.
 See [the backend contract](CUDA_BACKEND.md), [host evidence](experiments/004-cuda-host.md), and [fused execution evidence](experiments/005-fused-cuda.md).
 See [local development](LOCAL_DEVELOPMENT.md) and [source audit](SOURCE_AUDIT.md) for current evidence.

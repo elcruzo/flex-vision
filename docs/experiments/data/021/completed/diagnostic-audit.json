@@ -1,0 +1,13 @@
+{
+  "status": "diagnostic_records_verified",
+  "offered": 48000,
+  "completed": 22284,
+  "failed_frame_checks": 0,
+  "memory_growth": {
+    "torch_allocated": 0,
+    "torch_reserved": 0,
+    "cupy_used": 0,
+    "cupy_total": 0
+  },
+  "qualification": "Private auxiliary-stream hook; resource-lifetime diagnostic only, excluded from performance comparison"
+}

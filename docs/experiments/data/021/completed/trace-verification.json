@@ -1,0 +1,157 @@
+{
+  "trace_sha256": "ec014ce54c6df0a6f8bf2485d20fabe9b3b8324f202e3cd79ef1c2de915bebb6",
+  "scope": "completed resident-input preprocessing, TensorRT, and CUDA NMS ranges; excludes uploads and validation downloads",
+  "ranges": {
+    "cpg": [
+      {
+        "kernel_launches": 168,
+        "copies": [
+          {
+            "cupti_kind": 1,
+            "count": 1,
+            "bytes": 4,
+            "largest_copy_bytes": 4
+          },
+          {
+            "cupti_kind": 2,
+            "count": 4,
+            "bytes": 16,
+            "largest_copy_bytes": 4
+          },
+          {
+            "cupti_kind": 8,
+            "count": 3,
+            "bytes": 144,
+            "largest_copy_bytes": 72
+          }
+        ]
+      },
+      {
+        "kernel_launches": 168,
+        "copies": [
+          {
+            "cupti_kind": 1,
+            "count": 1,
+            "bytes": 4,
+            "largest_copy_bytes": 4
+          },
+          {
+            "cupti_kind": 2,
+            "count": 4,
+            "bytes": 16,
+            "largest_copy_bytes": 4
+          },
+          {
+            "cupti_kind": 8,
+            "count": 3,
+            "bytes": 160,
+            "largest_copy_bytes": 80
+          }
+        ]
+      }
+    ],
+    "torch": [
+      {
+        "kernel_launches": 174,
+        "copies": [
+          {
+            "cupti_kind": 1,
+            "count": 1,
+            "bytes": 4,
+            "largest_copy_bytes": 4
+          },
+          {
+            "cupti_kind": 2,
+            "count": 4,
+            "bytes": 16,
+            "largest_copy_bytes": 4
+          },
+          {
+            "cupti_kind": 8,
+            "count": 3,
+            "bytes": 144,
+            "largest_copy_bytes": 72
+          }
+        ]
+      },
+      {
+        "kernel_launches": 174,
+        "copies": [
+          {
+            "cupti_kind": 1,
+            "count": 1,
+            "bytes": 4,
+            "largest_copy_bytes": 4
+          },
+          {
+            "cupti_kind": 2,
+            "count": 4,
+            "bytes": 16,
+            "largest_copy_bytes": 4
+          },
+          {
+            "cupti_kind": 8,
+            "count": 3,
+            "bytes": 160,
+            "largest_copy_bytes": 80
+          }
+        ]
+      }
+    ],
+    "cvcuda": [
+      {
+        "kernel_launches": 171,
+        "copies": [
+          {
+            "cupti_kind": 1,
+            "count": 1,
+            "bytes": 4,
+            "largest_copy_bytes": 4
+          },
+          {
+            "cupti_kind": 2,
+            "count": 4,
+            "bytes": 16,
+            "largest_copy_bytes": 4
+          },
+          {
+            "cupti_kind": 8,
+            "count": 3,
+            "bytes": 144,
+            "largest_copy_bytes": 72
+          }
+        ]
+      },
+      {
+        "kernel_launches": 171,
+        "copies": [
+          {
+            "cupti_kind": 1,
+            "count": 1,
+            "bytes": 4,
+            "largest_copy_bytes": 4
+          },
+          {
+            "cupti_kind": 2,
+            "count": 4,
+            "bytes": 16,
+            "largest_copy_bytes": 4
+          },
+          {
+            "cupti_kind": 8,
+            "count": 3,
+            "bytes": 160,
+            "largest_copy_bytes": 80
+          }
+        ]
+      }
+    ]
+  },
+  "known_control": {
+    "kind": 2,
+    "bytes": 4096,
+    "captured": true
+  },
+  "status": "capture_verified",
+  "qualification": "Copy counts are observations. Small metadata transfers must not be reported as zero host copies."
+}

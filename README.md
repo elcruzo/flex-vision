@@ -2,31 +2,35 @@
 
 **Camera frame → inference-ready GPU tensor.**
 
-First benchmark target:
+Measured experimental path on an RTX 4090:
 
 ```text
-1920 × 1080 RGB8 camera frame on the GPU
-    → letterbox to 640 × 640
-    → normalize
-    → FP16 NCHW tensor
-    → TensorRT inference
+Resident 1920 × 1080 BGR8 frame
+    → letterbox + RGB + scaling + FP16 NCHW 640 × 640
+    → TensorRT YOLOv8n
+    → TorchVision CUDA NMS
 ```
 
-**Status: initial fused CUDA detector preprocessing, plus a measured CUDA inspection reference. CPG's two-workload performance gate and full-platform acceptance remain pending.**
+| Implementation | Preprocess p50 / p99 | Complete host p50 / p99 |
+| --- | --- | --- |
+| CPG | 0.084 / 0.106 ms | 0.869 / 1.079 ms |
+| PyTorch | 0.100 / 0.162 ms | 0.889 / 1.070 ms |
+| Two-pass CV-CUDA | 0.113 / 0.175 ms | 0.907 / 1.117 ms |
 
+This table uses the person fixture from [experiment 021](docs/experiments/021-detector-repeatability.md), with 10,000 samples per candidate.
+The preprocessing gain repeated across rentals. Complete p99 did not improve against PyTorch in this table.
+The trace recorded no frame-sized host transfer in completed ranges, but small metadata transfers remained.
+These are resident synthetic frames, not live-camera or ROS latency.
+
+**Status: experimental fixed CUDA detector and inspection paths. Full runtime, platform, and release acceptance remain pending.**
+
+The [inspection comparison](docs/experiments/014-inspection-comparison.md) measured 42% lower 4K preprocessing latency through a real classifier.
+Small-image preprocessing was slower. See the [experimental inspection contract](docs/INSPECTION_RUNTIME.md).
+The [30-minute inspection soak](docs/experiments/019-inspection-soak.md) passed on an L4.
+The [short detector load matrix](docs/experiments/021-detector-repeatability.md) checked 187,279 completed frames and recorded zero declared post-drain allocator growth in its final run.
+Earlier vendor pool-growth failures remain in that report. Detector throughput and tail results varied across blocks.
 Read the [CUDA backend contract](docs/CUDA_BACKEND.md) for supported inputs, synchronous execution, and limitations.
-
-The [fused CUDA experiment](docs/experiments/005-fused-cuda.md) passed real detector checks.
-The [inspection CUDA baseline](docs/experiments/012-inspection-cuda.md) passed real MobileNetV3 inference and a zero-copy Nsight range; its measurements are reference evidence, not CPG gains.
-The [matched inspection experiment](docs/experiments/014-inspection-comparison.md) measured 42% lower 4K preprocessing latency with crop-aware execution through the same classifier.
-Small-image preprocessing was slower. The [experimental inspection API](docs/INSPECTION_RUNTIME.md) now exposes explicit plans.
-The [integrated CUDA experiment](docs/experiments/016-integrated-inspection.md) passed real classifier checks and measured the same approximate 42% 4K preprocessing gain.
-Its transfer traces recorded zero copies in the measured preprocessing-to-classifier ranges. Broader runtime acceptance remains pending.
-The fused detector trace shows one kernel and no memory-copy events within each preprocessing call.
-The [TensorRT experiment](docs/experiments/006-tensorrt.md) also passed on an L4, with no copies through the dense network boundary.
-The [first matched latency experiment](docs/experiments/007-latency.md) records 10,000 samples per candidate through a hybrid TensorRT detector.
-It shows a preprocessing gain on one L4 workload. [Attribution controls](docs/experiments/008-controls.md) support a preceding-memory-state effect in downstream timings.
-Vendor comparisons and the two-workload success gate remain pending.
+Jetson, ROS transport, broader vendor comparisons, and detector soak acceptance remain open.
 
 CUDA Preprocess Graph (CPG) aims to optimize the complete preprocessing pipeline.
 It should keep GPU input on the GPU, reuse memory, and combine compatible operations.
@@ -47,7 +51,7 @@ The graph-building calls below exist. Execution through `pipeline(frame)` uses t
 import cpg
 
 pipeline = (
-    cpg.Pipeline()
+    cpg.Pipeline(input_encoding="bgr8")
     .letterbox(640, 640, value=114)
     .normalize(mean=[0, 0, 0], std=[1, 1, 1], scale=1 / 255)
     .to(dtype="float16", layout="NCHW")
@@ -57,8 +61,8 @@ tensor = pipeline(frame)
 ```
 
 The pipeline records operations before execution.
-A planner chooses implementations, compatible fusion groups, and temporary buffers.
-The runtime then executes that plan on a CUDA stream.
+The current planner selects a fixed detector strategy. General operator planning and autotuning remain planned.
+The runtime executes the fixed fused path on a CUDA stream.
 
 ## Required behavior
 

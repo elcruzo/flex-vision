@@ -383,3 +383,14 @@ Reserve $0.85 for this lease, including startup, cleanup, and ephemeral storage 
 Posted spending plus earlier reserves and this new reserve is $14.765671662643581, below the authorized $15.
 The local export allowance is also shortened to preserve five minutes before the GPU deadline.
 No overlapping GPU is authorized. Export and verify evidence before termination.
+
+### Completed detector matrix: final cleanup and billing
+
+The final lease exported 81 hash-verified artifacts. GPU `is89917laka93x` was removed at 06:22:38 UTC on October 9.
+A fresh read at 06:32:54 UTC found no Pods. Controller `q6c8jo3c8obv8c` and secret `funi1dcb70` were absent.
+The posted pod-billing total is now $7.545256926736329. This is posted spending, not the final invoice.
+Keep the six earlier $1.10 reservation ceilings and the final $0.85 ceiling until charges are complete.
+Offset $0.23095904378169507 already posted for reserved Pods `69as2koczlkkmr`, `f80daayqa3d5sh`, `ldesb98veqbhlk`, `94k9vajfheu4g5`, `ieodtkhocuwbqm`, and `8qkr7rggb9hvu5`.
+This avoids counting their posted charges twice without releasing their remaining reservation headroom.
+Posted spending plus remaining conservative reservations is $14.764297882954633, within the $15 authorization.
+No new rental is scheduled. Reconcile pending charges before another paid experiment.

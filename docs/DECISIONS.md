@@ -417,3 +417,8 @@ Test an explicit auxiliary drain only as a separate diagnostic control. Keep the
 Collect all load blocks before failing acceptance so one baseline failure cannot hide later candidate evidence.
 A complete failed matrix remains failed, even when its raw records are independently verified.
 See the [investigation protocol](SUSTAINED_YOLO.md#saturation-resource-lifetime-investigation).
+
+The complete-matrix run passed all normal allocator guards and 187,279 completed-frame checks.
+The auxiliary-drain diagnostic also passed, but ordinary CV-CUDA had zero growth in the same rental.
+This control therefore does not isolate the earlier resource-lifetime failure. Keep that explanation provisional.
+The lower preprocessing median repeated, while sustained throughput and tails varied. Do not claim a repeatable throughput gain.

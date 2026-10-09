@@ -58,7 +58,11 @@ The 30-minute L4 inspection soak passed with 338,155 correct completed frames an
 Its overload schedule dropped 21.72% of offered frames. It does not validate live cameras, Jetson, ROS, or YOLO/TensorRT.
 The fixed FP16 YOLO/TensorRT comparison and verified transfer capture passed on an RTX 4090. Read docs/experiments/020-fp16-yolo.md.
 The cached path measured 24.77% lower preprocessing p50 versus CV-CUDA and 37.10–38.66% lower p99 versus PyTorch.
-Complete host p50 improved by only 2.19–3.83%. Next, repeat the optimized comparison and test detector sustained behavior.
+Complete host p50 improved by only 2.19–3.83% in that rental.
+The detector comparison repeated, and the final short load matrix passed 187,279 completed-frame checks with zero declared allocator growth.
+Read docs/experiments/021-detector-repeatability.md for both earlier vendor pool failures and variable throughput/tails.
+The private auxiliary-drain diagnostic is not production support.
+Next, establish a thermally conditioned 30-minute detector soak and investigate service-tail variation.
 Broader sustained coverage, vendor comparisons, reusable workspace, batching, and robot/ROS acceptance remain pending. Small-image preprocessing was slower.
 Reference operators are not production CUDA support.
 
