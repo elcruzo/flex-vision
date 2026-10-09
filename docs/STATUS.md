@@ -15,7 +15,7 @@ The detector and inspection measurements justify continued development. They do 
 | Lower overhead on two realistic workloads | About 26% lower detector preprocessing p50 versus CV-CUDA; about 42% lower 4K inspection preprocessing versus full-frame PyTorch | Full success-gate acceptance, broader baselines and tradeoff checks |
 | Stable long-running inspection | L4 30-minute soak: 338,155 correct completed frames | Target-platform repeats and live-camera coverage |
 | Stable detector load | RTX 4090 short matrix: 187,279 correct completed frames, zero declared post-drain growth | Prepared 30-minute detector soak, service-tail investigation, unresolved earlier vendor-pool increases |
-| Reusable asynchronous runtime | Synchronous owned detector output; inspection stream handoff experiments | Explicit reusable workspace, asynchronous lifetimes, batches, and concurrent detector streams |
+| Reusable asynchronous runtime | Synchronous owned detector output; experimental caller-owned output awaits GPU acceptance; inspection stream handoff experiments | Explicit reusable workspace, asynchronous lifetimes, batches, and concurrent detector streams |
 | Configurable pipeline compiler | Immutable graph, strict subset YAML, fixed detector plan, experimental inspection plans | User stencils, full required operator matrix, general fusion and backend selection |
 | Measured tuning and profiling | Experiment scripts, retained raw samples and sanitized transfer traces | Public tune/profile/benchmark commands, compatible plan cache, safe invalidation |
 | ROS camera-to-model path | Required contracts and tests documented | ROS node, CUDA-backed buffer integration, CPU-image upload path, live camera and downstream transport |

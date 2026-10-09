@@ -431,3 +431,13 @@ Retain five-minute latency summaries, per-frame rows, telemetry, and both post-d
 This is a stability gate. It does not establish comparative throughput, concurrent CUDA streams, or live-camera behavior.
 Pending cloud charges leave insufficient unreserved room for another guarded lease under the existing $15 authorization.
 Prepare and check the harness locally. Mark GPU validation pending until a budget-safe rental can run it.
+
+## D036 — Caller-owned output before asynchronous reuse
+
+Add an optional synchronous CuPy `out` destination to the fixed detector backend.
+Keep the existing owned-output default and numerical kernel unchanged.
+Validate destination metadata and conservative input aliasing before dispatch.
+The caller owns consumer-completion ordering and output lifetime.
+This step isolates output allocation from asynchronous execution and future workspace scheduling.
+Local metadata checks passed. Real TensorRT reuse validation is prepared and remains pending.
+Do not change the frozen soak strategy or claim a performance gain from this implementation alone.

@@ -33,7 +33,8 @@ CPU arrays are rejected. Upload camera frames explicitly when they start on the 
 Objects that implement only CUDA Array Interface are not supported yet.
 
 Each call allocates one output array and no intermediate image arrays.
-CuPy's allocator may reuse freed allocations. CPG does not yet expose a caller-provided output buffer or memory pool.
+CuPy's allocator may reuse freed allocations. An experimental caller-provided output path is implemented but awaits GPU validation.
+CPG does not yet provide an execution-context memory pool.
 A subsequent call does not overwrite a retained output.
 
 ## Stream and ownership contract
@@ -96,3 +97,44 @@ Use an Nsight trace to check actual launches and transfers within the `cpg_prepr
 The [fixed FP16 YOLO comparison](experiments/020-fp16-yolo.md) now records a preprocessing improvement on an RTX 4090 through actual TensorRT inference.
 Full G1 acceptance, Jetson support, and ROS GPU transport remain pending.
 A bounded cache retains immutable launch metadata by pipeline and input shape. It retains no arrays, strides, or stream owners.
+
+## Experimental caller-owned output
+
+Status: implemented with local metadata checks. CUDA and TensorRT validation remains pending.
+The existing measured default path still allocates a distinct owned output.
+
+```python
+output = cp.empty((1, 3, 320, 320), dtype=cp.float32)
+result = pipeline(frame, out=output)
+assert result is output
+```
+
+Use the shape and dtype from the selected pipeline plan.
+`out` must be a CuPy array on the current device with exact output shape and dtype.
+It must be C-contiguous and aligned to its dtype.
+The runtime rejects overlap with the input's conservative byte extent, including negative strides and gaps.
+This conservative check can reject disjoint views whose byte extents overlap.
+These checks read metadata, not pixel payloads.
+The CuPy layout contract is documented in [CuPy's array implementation](https://github.com/cupy/cupy/blob/main/cupy/_core/core.pyx).
+
+The call overwrites the supplied output and synchronizes its preprocessing stream before returning.
+The caller must ensure that earlier consumers of that output finished before reuse.
+For another consumer stream, wait for its completion event before submitting the next write.
+CPG cannot discover arbitrary external consumers or make a reused output immutable.
+Keep the output owner alive until every consumer finishes.
+No internal workspace, buffer ring, asynchronous handle, or consumer tracking is implied by this API.
+
+The prepared `scripts/yolo_output_reuse.py` scenario alternates two caller-owned slots through real TensorRT inference.
+It checks exact FP16 tensors, dense results, detections, retained alternate slots, default output retention, and Torch inputs.
+Run it against newly generated controls from the same committed revision:
+
+```bash
+python scripts/yolo_output_reuse.py \
+  --engine benchmark-results/iteration-022-yolo/measured/yolo.engine \
+  --controls benchmark-results/iteration-022-yolo/measured \
+  --output benchmark-results/iteration-022-yolo/output-reuse.json
+```
+
+This scenario is prepared, not passed. Do not infer allocation savings or latency improvements until measured.
+Keep the previously frozen detector soak on its default output path.
+Measure caller-owned output as a separate changed strategy after correctness acceptance.

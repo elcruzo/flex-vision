@@ -138,6 +138,6 @@ class Pipeline:
                 "synchronous": backend == 'cuda',
                 "temporary_arrays": 0 if backend == 'cuda' else None}
 
-    def __call__(self, frame):
+    def __call__(self, frame, *, out=None):
         from .cuda import execute
-        return execute(self, frame)
+        return execute(self, frame, out=out)

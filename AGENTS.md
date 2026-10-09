@@ -70,3 +70,7 @@ Reference operators are not production CUDA support.
 GitHub Actions is optional. The default rental path uses a disposable Runpod CPU controller. Read docs/GPU_LEASE.md.
 The controller cleanup test passed. Read docs/experiments/011-direct-lease.md for evidence and remaining failure limits.
 An unavailable GitHub Actions runner is not a project prerequisite.
+
+An experimental synchronous caller-owned detector `out=` path is implemented. Read docs/CUDA_BACKEND.md and decision D036.
+Metadata checks passed locally. scripts/yolo_output_reuse.py prepares real TensorRT reuse and invalid-destination checks, but GPU acceptance is pending.
+Do not treat it as asynchronous workspace support or change the frozen default-output soak without a protocol decision.

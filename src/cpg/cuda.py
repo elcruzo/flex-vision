@@ -46,7 +46,7 @@ extern "C" __global__ void preprocess(
     return cp.RawKernel(source, 'preprocess', options=('--fmad=false',))
 
 
-def execute(pipeline, frame):
+def execute(pipeline, frame, *, out=None):
     """Return a CuPy NCHW allocation without host pixel copies.
 
     Accept CuPy or CUDA DLPack input on the current device. CuPy callers must
@@ -62,7 +62,13 @@ def execute(pipeline, frame):
     if source.dtype != cp.uint8:
         raise TypeError('input must have dtype uint8')
     shape, dtype, count, constants = _launch_metadata(pipeline, tuple(int(n) for n in source.shape))
-    result = cp.empty(shape, dtype=dtype)
+    if out is None:
+        result = cp.empty(shape, dtype=dtype)
+    else:
+        if not isinstance(out, cp.ndarray):
+            raise TypeError('out must be a CuPy array')
+        _validate_output(out, source, shape, dtype, cp.cuda.runtime.getDevice())
+        result = out
     args = (source, result, *(np.int64(s) for s in source.strides), *constants)
     stream = cp.cuda.get_current_stream()
     _kernel(dtype)(((count+255)//256,), (256,), args, stream=stream)
@@ -85,3 +91,27 @@ def _launch_metadata(pipeline, shape):
                  *(np.float32(v) for v in (size.value, norm.scale, *norm.mean, *norm.std)))
     output_shape = tuple(plan['output_shape'])
     return output_shape, output.dtype, int(np.prod(output_shape)), constants
+
+
+def _byte_interval(array):
+    """Conservative byte extent, including negative input strides and gaps."""
+    pointer = int(array.data.ptr)
+    offsets = [(int(n)-1)*int(s) for n,s in zip(array.shape,array.strides)]
+    return pointer+sum(min(0,x) for x in offsets), pointer+sum(max(0,x) for x in offsets)+array.dtype.itemsize
+
+
+def _validate_output(out, source, shape, dtype, device):
+    """Validate metadata before dispatch. Do not read pixel payloads."""
+    if out.device.id != device:
+        raise ValueError('out must be on the current CUDA device')
+    if tuple(out.shape) != shape:
+        raise ValueError(f'out must have shape {shape}')
+    if out.dtype != np.dtype(dtype):
+        raise TypeError(f'out must have dtype {dtype}')
+    if not out.flags.c_contiguous:
+        raise ValueError('out must be C-contiguous NCHW')
+    if int(out.data.ptr) % out.dtype.itemsize:
+        raise ValueError('out pointer must be aligned to its dtype')
+    a,b = _byte_interval(source),_byte_interval(out)
+    if a[0] < b[1] and b[0] < a[1]:
+        raise ValueError('out must not overlap the input byte extent')
