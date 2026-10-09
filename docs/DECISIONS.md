@@ -346,3 +346,16 @@ Retain the original failure. Keep the original numerical limits for the rerun.
 Six local photo cases pass the corrected preparation, including fused/unfused FP32 and FP16 comparisons.
 GPU acceptance remains dependent on the complete rerun, not on those local results.
 See [the fixed YOLO protocol](YOLO_VALIDATION.md).
+
+## D029 — Isolate preprocessing equivalence from cross-engine background boxes
+
+The corrected YOLO model passed both person fixtures through every candidate.
+The cat fixture retained 12 background-coordinate mismatches between FP16 PyTorch and TensorRT.
+All affected proposals scored below 0.000001. The actual detection scores were equal and the box IoU was 0.99801.
+
+Use the same TensorRT consumer for independent NumPy input and every preprocessing candidate.
+Retain the original unmasked dense-output limits for this comparison, which isolates preprocessing changes.
+For cross-engine checks, retain all score checks and apply box limits at a 0.01 score floor in either engine.
+Keep the original failures, report excluded background-coordinate violations, and preserve all final detection checks.
+This revises the experimental acceptance policy. It does not establish general model accuracy or equality between FP16 engines.
+See [the revised protocol](YOLO_VALIDATION.md).

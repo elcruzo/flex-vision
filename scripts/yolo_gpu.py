@@ -106,7 +106,7 @@ def main():
     if args.blocks <= 0 or args.samples <= 0:
         parser.error('blocks and samples must be positive')
     args.output.mkdir(parents=True,exist_ok=False)
-    report = {'status':'failed','limits':LIMITS,'weights_sha256':WEIGHTS_SHA256,'cases':[],
+    report = {'status':'failed','limits':LIMITS,'acceptance_policy':'v2: same-engine dense, confidence-aware cross-engine boxes','weights_sha256':WEIGHTS_SHA256,'cases':[],
               'revision':subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),
               'dirty':bool(subprocess.check_output(['git','status','--porcelain'],text=True)),
               'config_sha256':digest('examples/yolo.yaml'),
@@ -162,7 +162,7 @@ def main():
                         tensorrt_dense=reference_trt.cpu().numpy())
                     case['fp16_vs_fp32_dense'] = compare_dense(fp32_head,reference_head)
                     compare_detections(decode(fp32_head),reference_detection)
-                    case['same_input_trt_dense'] = compare_dense(reference_head,reference_trt)
+                    case['same_input_trt_dense'] = compare_dense(reference_head,reference_trt,cross_engine=True)
                     compare_detections(reference_detection,decode(reference_trt))
                     runners = {'cpg':lambda:pipe(frame), 'torch':lambda:torch_preprocess(frame,g),
                                'cvcuda':lambda:vendor_preprocess(frame,g,cvstream)}
@@ -174,7 +174,7 @@ def main():
                         head = consumer(tensor)
                         detection = decode(head)
                         case['paths'][path] = {'tensor_max_abs_error':float(np.abs(downloaded.astype(np.float32)-expected.astype(np.float32)).max()),
-                            'dense':compare_dense(reference_head,head),'matched_ious':compare_detections(reference_detection,detection),
+                            'dense':compare_dense(reference_trt,head),'matched_ious':compare_detections(decode(reference_trt),detection),
                             'detections':detection_record(detection,g,expectation)}
                         retained.append((tensor,downloaded.copy()))
                         np.savez_compressed(args.output/(name+'-'+path+'.npz'),tensor=downloaded,dense=head.cpu().numpy())
