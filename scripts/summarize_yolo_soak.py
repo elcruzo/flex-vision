@@ -59,7 +59,11 @@ def summarize(root):
         if not early or not late:raise ValueError('Missing memory windows')
         growth=max(late)-max(early)
         if growth!=soak['sampled_memory_ceiling_growth'][key] or growth>1048576:raise ValueError('Sampled allocator growth failed')
-    telemetry=list(csv.reader((root/'telemetry.csv').read_text().splitlines()))
+    telemetry_path=root/'telemetry.csv'
+    if not telemetry_path.exists():telemetry_path=Path(str(telemetry_path)+'.gz')
+    telemetry_opener=gzip.open if telemetry_path.suffix=='.gz' else open
+    with telemetry_opener(telemetry_path,'rt',newline='') as handle:
+        telemetry=list(csv.reader(handle))
     start=soak['telemetry_start_row']
     if not isinstance(start,int) or start<120 or start>=len(telemetry):raise ValueError('Invalid telemetry boundary')
     conditioning=telemetry[start-120:start]

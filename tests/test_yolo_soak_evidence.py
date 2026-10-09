@@ -2,6 +2,7 @@
 import csv
 from datetime import datetime,timedelta
 import json
+import gzip
 from pathlib import Path
 import sys
 import pytest
@@ -35,6 +36,12 @@ def test_complete_soak_evidence_and_faults(tmp_path):
     telemetry=''.join((stamp+timedelta(seconds=i)).strftime('%Y/%m/%d %H:%M:%S.%f')+', 60, 1500, 100, 50, 2000\n' for i in range(1920))
     (tmp_path/'telemetry.csv').write_text(telemetry)
     assert summarize(tmp_path)['completed']==24
+    for name in ('soak.csv','telemetry.csv'):
+        p=tmp_path/name
+        with gzip.open(str(p)+'.gz','wb') as handle:handle.write(p.read_bytes())
+        p.unlink()
+    assert summarize(tmp_path)['completed']==24
+    (tmp_path/'telemetry.csv').write_text(telemetry)
     run['offered']=431999;save()
     with pytest.raises(ValueError,match='Counts'):summarize(tmp_path)
     run['offered']=432000;run['memory_growth']={**zeros,'cupy_total':1};save()
