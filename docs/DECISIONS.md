@@ -507,3 +507,11 @@ Queue consumer readiness with an event, and require callers to retain output thr
 Do not add async caller-owned slots or recycling before consumer tracking exists.
 Explicit close is the normal drain path. A blocking destructor is a conservative fallback, not the scheduling mechanism.
 Local lifecycle fault checks passed. CUDA/TensorRT acceptance and performance remain pending.
+
+## D044 — Retain native stream owners with pinned Torch 2.9.1
+
+The first async scenario failed before inference because Torch 2.9.1 streams lack __cuda_stream__.
+CuPy Stream.from_external documentation describes newer interoperable objects, not this pinned version.
+Use native CuPy streams retained by the harness and explicit Torch ExternalStream wrappers.
+Keep those native owners alive until every stream drains. Do not infer ownership from a raw pointer.
+Preserve the failed dispatch and require a fresh real-inference result before acceptance.

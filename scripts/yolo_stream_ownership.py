@@ -26,8 +26,9 @@ def main():
               'mode': 'async-submit' if args.async_submit else 'synchronous',
               'scope': 'Three-stream owned-output correctness; TensorRT consumer synchronous; no overlap or performance acceptance'}
     # Keep stream, event, source, and destination owners alive through completion.
-    streams = [torch.cuda.Stream() for _ in range(3)]
-    wrappers = [cp.cuda.Stream.from_external(stream) for stream in streams]
+    # Torch 2.9.1 lacks __cuda_stream__. Keep native CuPy owners explicitly.
+    wrappers = [cp.cuda.Stream(non_blocking=True) for _ in range(3)]
+    streams = [torch.cuda.ExternalStream(wrapper.ptr, device=0) for wrapper in wrappers]
     producer, preprocess, consumer_stream = streams
     report['stream_handles'] = [int(stream.cuda_stream) for stream in streams]
     try:

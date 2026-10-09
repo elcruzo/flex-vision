@@ -36,3 +36,14 @@ def test_reject_incomplete_evidence(fault):
     elif fault == 'drain': data['drain_status'] = 'failed'
     elif fault == 'dirty': data['dirty'] = True
     with pytest.raises(ValueError): module.verify(data)
+
+
+def test_async_mode_requires_source_release_evidence():
+    data = report()
+    data['mode'] = 'async-submit'
+    with pytest.raises(ValueError): module.verify(data)
+    with pytest.raises(ValueError): module.verify(data, expected_mode='async-submit')
+    for case in data['cases']:
+        for row in case['checks']:
+            row['source_owner_release'] = True
+    assert module.verify(data, expected_mode='async-submit')['executions'] == 48
