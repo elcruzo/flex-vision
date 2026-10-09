@@ -50,7 +50,10 @@ def valid(tensor,head,detection,expected,reference,reference_detection,candidate
 
 def run(candidate,runner,consumer,sources,expected,references,detections,seconds,fps,depth,repeat):
     for i in range(100):
-        tensor = runner(i%2);head=consumer(tensor);result=decode(head)
+        variant=i%2
+        tensor = runner(variant);head=consumer(tensor);result=decode(head)
+        if not valid(tensor,head,result,expected[variant],references[variant],detections[variant],candidate).item():
+            raise AssertionError('Checked warmup failed')
     del tensor,head,result
     torch.cuda.synchronize()
     before=memory()

@@ -16,7 +16,7 @@ Both 1080p fixtures had exact tensors across all three candidates in that experi
 1. Repeat all six numerical cases and 60,000 matched timing samples from YOLO_VALIDATION.md.
 2. Capture transfer evidence with its known control, separately from timing.
 3. Reuse that engine for CPG, PyTorch, and two-pass CV-CUDA sustained blocks.
-4. Warm each candidate for 100 frames before each block. Keep the stream and allocator pools across blocks.
+4. Warm each candidate for 100 fully checked frames before each block. Keep the stream and allocator pools across blocks.
 5. Offer four staggered feeds at 60 FPS each for control load and 400 FPS each for overload.
 6. Run each candidate for 30 seconds per load, with two repeats and rotated candidate order.
 7. Give each feed two pending slots. Drop arrivals when its queue is full.
@@ -70,3 +70,14 @@ python scripts/summarize_yolo_load.py benchmark-results/iteration-021-yolo/susta
 Raw Nsight reports contain environment data. Keep them local.
 Create a sanitized SQLite copy with `scripts/sanitize_trace.py` before sharing it.
 Run the trace verifier again against the sanitized copy. Retain both original and sanitized hashes.
+
+
+## Initial allocation finding
+
+The first three control blocks completed without a correctness failure.
+CV-CUDA's CuPy retained pool grew by one 2,457,600-byte FP16 output allocation. Live used bytes remained unchanged.
+The declared 1 MiB retained-pool gate failed. Keep this result rather than calling the attempt stable.
+The initial warmup omitted the per-frame validation path used during measurement.
+The revised warmup checks all 100 frames through the same GPU validation and scalar completion path.
+This tests a first-use allocation explanation without changing the growth allowance or clearing allocator caches.
+The explanation remains a hypothesis until the revised GPU run completes.
