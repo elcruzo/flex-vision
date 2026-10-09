@@ -17,7 +17,7 @@ def summarize(root):
         raise ValueError('Incorrect continuous soak protocol')
     if run['status']!='passed' or run['failed_frames'] or run['max_pending']>8:
         raise ValueError('Failed soak checks or queue bounds')
-    if not 1800<=run['elapsed_with_drain_s']<=1830:raise ValueError('Invalid soak duration')
+    if not np.isfinite(run['elapsed_with_drain_s']) or not 1800<=run['elapsed_with_drain_s']<=1830:raise ValueError('Invalid soak duration')
     path=root/run['samples']
     if not path.exists():path=Path(str(path)+'.gz')
     opener=gzip.open if path.suffix=='.gz' else open
@@ -25,6 +25,7 @@ def summarize(root):
     with opener(path,'rt',newline='') as handle:
         for index,row in enumerate(csv.DictReader(handle)):
             offered+=1;arrival=index/240
+            if not np.isfinite(float(row['arrival_s'])):raise ValueError('Invalid arrival timestamp')
             if int(row['frame'])!=index or int(row['lane'])!=index%4 or int(row['variant'])!=(index//4)%2 or abs(float(row['arrival_s'])-arrival)>1e-8:
                 raise ValueError('Incomplete or incorrect arrival identity')
             if row['status']=='dropped_queue_full':continue
@@ -38,9 +39,14 @@ def summarize(root):
         raise ValueError('Counts or coverage disagree')
     samples=run['memory_samples']
     sample_times=[x['elapsed_s'] for x in samples]
-    if not sample_times or sample_times[0]>2 or sample_times[-1]<1798 or any(not 0<b-a<=2 for a,b in zip(sample_times,sample_times[1:])):
+    if not sample_times or not np.isfinite(sample_times).all() or sample_times[0]<0 or sample_times[0]>2 or sample_times[-1]<1798 or any(not 0<b-a<=2 for a,b in zip(sample_times,sample_times[1:])):
         raise ValueError('Incomplete allocator sampling')
     expected_keys={'torch_allocated','torch_reserved','cupy_used','cupy_total'}
+    if any(set(run[k])!=expected_keys for k in ('memory_before','memory_after','memory_growth')) or set(soak['sampled_memory_ceiling_growth'])!=expected_keys:
+        raise ValueError('Missing allocator counters')
+    counter_values=[v for k in ('memory_before','memory_after','memory_growth') for v in run[k].values()]
+    counter_values+=list(soak['sampled_memory_ceiling_growth'].values())
+    if not np.isfinite(counter_values).all():raise ValueError('Invalid allocator values')
     if set(run['memory_before'])!=expected_keys or any(set(x)-{'elapsed_s'}!=expected_keys for x in samples):
         raise ValueError('Missing allocator counters')
     if not np.isfinite([x[k] for x in samples for k in expected_keys]).all():
@@ -55,8 +61,11 @@ def summarize(root):
         if growth!=soak['sampled_memory_ceiling_growth'][key] or growth>1048576:raise ValueError('Sampled allocator growth failed')
     telemetry=list(csv.reader((root/'telemetry.csv').read_text().splitlines()))
     start=soak['telemetry_start_row']
+    if not isinstance(start,int) or start<120 or start>=len(telemetry):raise ValueError('Invalid telemetry boundary')
     conditioning=telemetry[start-120:start]
     if len(conditioning)!=120:raise ValueError('Missing conditioning telemetry')
+    if any(len(x)!=6 for x in telemetry):raise ValueError('Invalid GPU telemetry columns')
+    if not np.isfinite([float(x) for row in telemetry for x in row[1:]]).all():raise ValueError('Invalid GPU telemetry values')
     temperatures=[float(x[1]) for x in conditioning]
     if max(temperatures)-min(temperatures)>2 or abs(np.median(temperatures[60:])-np.median(temperatures[:60]))>1:
         raise ValueError('Thermal stabilization failed')
