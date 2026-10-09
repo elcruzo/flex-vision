@@ -454,3 +454,12 @@ Retain $2.659966803383961 of reservation headroom after offsetting posted amount
 The conservative cumulative total remains $11.364050660732412 within the authorized $15.
 This includes both the failed startup and successful soak lease. Reservations are not actual spending.
 No new lease is active or scheduled. See experiment 022 for acceptance and retained evidence.
+
+### Output-reuse matched comparison reservation
+
+The live preflight found no Pods and reports secure RTX 4090 at $0.89/hour with LOW availability in EU-RO-1.
+Reserve $0.65 for one independently terminated 30-minute lease, including the CPU controller capped at $0.06/hour and storage headroom.
+The posted total remains $8.70408385734845. Keep all existing delayed-charge reservation headroom.
+The conservative cumulative bound with this new reservation is $12.014050660732413, within the authorized $15.
+The experiment regenerates controls, verifies output reuse, and measures fresh versus caller-owned output through the same TensorRT consumer.
+No overlapping rental is authorized. Verify exported evidence and cleanup before accepting the result.

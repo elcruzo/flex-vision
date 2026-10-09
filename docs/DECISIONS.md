@@ -452,3 +452,12 @@ Accept these fixed scenarios. Keep FP32 output, asynchronous consumers, broader 
 Measure output reuse before selecting it as a performance strategy. Do not infer its benefit from avoiding a call to `empty`.
 The first dispatch failed before CUDA setup. Preserve that failure and the corrected deadline handoff.
 Lifetime-bounded reconciliation allowed the experiment within the existing $15 budget, while retaining delayed-charge headroom.
+
+## D038 — Measure synchronous output reuse before asynchronous changes
+
+Compare fresh owned output and one caller-owned FP16 slot through matched TensorRT inference.
+Use alternating order, 40,000 checked samples, pooled and per-block statistics, and separate allocation-hook observations.
+Keep the slot alive for both candidates to preserve common memory state.
+Require the fresh-output hook as a positive control. Distinguish pool requests from actual device allocations.
+Reject adoption if complete-host p99 regresses more than 5% on either fixture.
+A neutral or slower result remains valid evidence. Do not require a speedup to accept correct optional output semantics.
