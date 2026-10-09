@@ -111,7 +111,7 @@ All declared post-drain allocator growth counters were zero. Earlier failures re
 Normal CV-CUDA also had zero growth in this rental, so the auxiliary diagnostic does not isolate the earlier cause.
 See [experiment 021](experiments/021-detector-repeatability.md) for variable throughput, tails, drops, and the next soak gate.
 
-## Continuous detector soak: prepared, not measured
+## Continuous detector soak
 
 Use `--soak` to run CPG through the same fixed detector and GPU correctness checks.
 This mode replaces the short comparative matrix. It does not run comparative vendor soak blocks.
@@ -154,7 +154,9 @@ The local fault checks validate the evidence verifier. They do not validate CUDA
 A 60-minute independently terminated lease must cover setup, model and engine preparation, up to ten minutes of conditioning, and thirty minutes of measurement.
 Preserve five minutes for export. Do not launch if the prepared setup cannot meet that bound.
 The current $15 budget includes reservations for unposted charges. Reconcile those charges before reserving another lease.
-No detector soak rental was started for this preparation.
+The protocol preparation itself allocated no hardware.
+A subsequent bounded rental passed this protocol in [experiment 022](experiments/022-detector-soak.md).
+All 432,000 offered frames completed correctly, with zero drops and zero declared allocator growth.
 
 The prepared remote entry point is `bash scripts/run_yolo_soak_experiment.sh`.
 Set `CPG_REVISION` to the full committed revision and `CPG_RESULT_NAME` to a new result directory.
@@ -163,4 +165,5 @@ After preparation, the entry point requires at least 45 minutes before that dead
 It limits soak execution and preserves five minutes for export.
 It compresses retained CSV evidence on failure as well as success.
 This deadline check supplements the external termination controller. It does not replace that controller.
-The entry point and verifier require a future live GPU run before acceptance.
+The entry point passed its corrected live run. The first dispatch failed the SSH deadline handoff and remains a failed dispatch.
+The local verifier reproduces the exported soak report from compressed arrivals and telemetry.

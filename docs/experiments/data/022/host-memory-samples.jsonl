@@ -1,0 +1,2 @@
+{"unix_s": 1791533792.5167947, "processes": [{"pid": "3712", "rss": "\t 1536112 kB", "peak_rss": "\t 1536112 kB"}], "qualification": "Linux process resident-memory observations; not GPU workspace"}
+{"unix_s": 1791535157.234185, "processes": [{"pid": "3712", "rss": "\t 1676720 kB", "peak_rss": "\t 1676720 kB"}], "qualification": "Linux process resident-memory observations; not GPU workspace"}

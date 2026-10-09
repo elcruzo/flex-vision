@@ -1,0 +1,6 @@
+{
+  "remaining_lease_seconds": 3359.974541425705,
+  "execution_timeout_seconds": 3059,
+  "export_reserve_seconds": 300,
+  "gpu_soak_status": "not_started"
+}

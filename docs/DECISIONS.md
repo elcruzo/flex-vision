@@ -441,3 +441,14 @@ The caller owns consumer-completion ordering and output lifetime.
 This step isolates output allocation from asynchronous execution and future workspace scheduling.
 Local metadata checks passed. Real TensorRT reuse validation is prepared and remains pending.
 Do not change the frozen soak strategy or claim a performance gain from this implementation alone.
+
+## D037 — Accept the fixed detector soak and synchronous FP16 output reuse
+
+The 30-minute RTX 4090 soak completed all 432,000 offered frames with passing checks and zero drops.
+All declared post-drain and sampled allocator growth counters were zero.
+The local audit reproduced the remote report from retained compressed records and telemetry.
+Caller-owned FP16 output passed all six TensorRT fixtures, including retention and invalid-destination checks.
+Accept these fixed scenarios. Keep FP32 output, asynchronous consumers, broader platforms, and release acceptance open.
+Measure output reuse before selecting it as a performance strategy. Do not infer its benefit from avoiding a call to `empty`.
+The first dispatch failed before CUDA setup. Preserve that failure and the corrected deadline handoff.
+Lifetime-bounded reconciliation allowed the experiment within the existing $15 budget, while retaining delayed-charge headroom.

@@ -1,0 +1,58 @@
+{
+  "status": "verified",
+  "offered": 432000,
+  "completed": 432000,
+  "dropped": 0,
+  "per_feed_completed": [
+    108000,
+    108000,
+    108000,
+    108000
+  ],
+  "five_minute_latency_ms": [
+    {
+      "p50": 1.3041144236964897,
+      "p95": 1.3767164573167179,
+      "p99": 1.4345644526107997
+    },
+    {
+      "p50": 1.304534450156325,
+      "p95": 1.3775225045861816,
+      "p99": 1.4342049397345134
+    },
+    {
+      "p50": 1.3038770606499384,
+      "p95": 1.3766650731781738,
+      "p99": 1.425648963706862
+    },
+    {
+      "p50": 1.3040024166457442,
+      "p95": 1.3774264789844892,
+      "p99": 1.441331271022361
+    },
+    {
+      "p50": 1.3044658427361355,
+      "p95": 1.3778890421122014,
+      "p99": 1.4420997948354817
+    },
+    {
+      "p50": 1.3043200597167015,
+      "p95": 1.3765441377358911,
+      "p99": 1.4277631404638658
+    }
+  ],
+  "memory_growth": {
+    "torch_allocated": 0,
+    "torch_reserved": 0,
+    "cupy_used": 0,
+    "cupy_total": 0
+  },
+  "sampled_memory_ceiling_growth": {
+    "torch_allocated": 0,
+    "torch_reserved": 0,
+    "cupy_used": 0,
+    "cupy_total": 0
+  },
+  "telemetry_rows": 1801,
+  "qualification": "CPG serial synthetic resident detector soak with correctness overhead; no comparative speed or live-camera claim"
+}

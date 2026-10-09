@@ -62,8 +62,8 @@ Complete host p50 improved by only 2.19–3.83% in that rental.
 The detector comparison repeated, and the final short load matrix passed 187,279 completed-frame checks with zero declared allocator growth.
 Read docs/experiments/021-detector-repeatability.md for both earlier vendor pool failures and variable throughput/tails.
 The private auxiliary-drain diagnostic is not production support.
-The detector soak harness and independent evidence verifier are prepared in scripts/yolo_soak.py and scripts/summarize_yolo_soak.py. GPU validation remains pending. Read docs/SUSTAINED_YOLO.md.
-Next, reconcile cloud reservations, then run the thermally conditioned 30-minute detector soak and investigate service-tail variation.
+The detector soak harness and independent evidence verifier are prepared in scripts/yolo_soak.py and scripts/summarize_yolo_soak.py. The 30-minute RTX 4090 detector soak passed. Read docs/experiments/022-detector-soak.md and docs/SUSTAINED_YOLO.md.
+Next, measure caller-owned output through matched inference and define consumer completion before asynchronous execution.
 Broader sustained coverage, vendor comparisons, reusable workspace, batching, and robot/ROS acceptance remain pending. Small-image preprocessing was slower.
 Reference operators are not production CUDA support.
 
@@ -72,5 +72,5 @@ The controller cleanup test passed. Read docs/experiments/011-direct-lease.md fo
 An unavailable GitHub Actions runner is not a project prerequisite.
 
 An experimental synchronous caller-owned detector `out=` path is implemented. Read docs/CUDA_BACKEND.md and decision D036.
-Metadata checks passed locally. scripts/yolo_output_reuse.py prepares real TensorRT reuse and invalid-destination checks, but GPU acceptance is pending.
+Metadata checks passed locally. scripts/yolo_output_reuse.py passed six FP16 TensorRT fixtures and invalid-destination checks on RTX 4090. FP32 output and broader stream/device acceptance remain pending.
 Do not treat it as asynchronous workspace support or change the frozen default-output soak without a protocol decision.

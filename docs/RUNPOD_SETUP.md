@@ -443,3 +443,14 @@ The coordinator now explicitly exports the validated Pod deadline into the remot
 It creates the result directory for early failures and checks controller cleanup on exception paths.
 Reserve another $1.10 for the corrected retry. The conservative cumulative bound is $11.36405066073241.
 No numerical, reuse, or soak acceptance came from the failed dispatch.
+
+### Completed detector soak and reuse lease
+
+The corrected run exported 78 hash-verified artifacts. GPU `2w8tzsvt2wr2wm` was removed at 08:44:52 UTC on October 9.
+Controller `rzexvi6tq4jb0p` and secret `7tx1ljwerw` were absent at 08:45:13 UTC.
+A fresh read at 14:05:48 UTC found no Pods and confirmed both absent.
+Provider billing now reports $8.70408385734845 posted across 54 records for 53 unique Pods.
+Retain $2.659966803383961 of reservation headroom after offsetting posted amounts for the reserved resources.
+The conservative cumulative total remains $11.364050660732412 within the authorized $15.
+This includes both the failed startup and successful soak lease. Reservations are not actual spending.
+No new lease is active or scheduled. See experiment 022 for acceptance and retained evidence.

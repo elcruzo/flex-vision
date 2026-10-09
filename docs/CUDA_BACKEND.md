@@ -33,7 +33,7 @@ CPU arrays are rejected. Upload camera frames explicitly when they start on the 
 Objects that implement only CUDA Array Interface are not supported yet.
 
 Each call allocates one output array and no intermediate image arrays.
-CuPy's allocator may reuse freed allocations. An experimental caller-provided output path is implemented but awaits GPU validation.
+CuPy's allocator may reuse freed allocations. An experimental caller-provided FP16 output path passed a fixed TensorRT scenario on RTX 4090.
 CPG does not yet provide an execution-context memory pool.
 A subsequent call does not overwrite a retained output.
 
@@ -100,7 +100,7 @@ A bounded cache retains immutable launch metadata by pipeline and input shape. I
 
 ## Experimental caller-owned output
 
-Status: implemented with local metadata checks. CUDA and TensorRT validation remains pending.
+Status: local metadata checks and the fixed FP16 TensorRT reuse scenario passed. See [experiment 022](experiments/022-detector-soak.md).
 The existing measured default path still allocates a distinct owned output.
 
 ```python
@@ -135,6 +135,7 @@ python scripts/yolo_output_reuse.py \
   --output benchmark-results/iteration-022-yolo/output-reuse.json
 ```
 
-This scenario is prepared, not passed. Do not infer allocation savings or latency improvements until measured.
+The six-fixture FP16 scenario passed on RTX 4090. FP32 destinations and other stream/device configurations remain pending.
+Do not infer allocation savings or latency improvements until measured.
 Keep the previously frozen detector soak on its default output path.
 Measure caller-owned output as a separate changed strategy after correctness acceptance.

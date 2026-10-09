@@ -42,7 +42,9 @@ The [detector repeatability and load experiment](experiments/021-detector-repeat
 Its final twelve-block matrix checked 187,279 completed frames with zero declared post-drain allocator growth.
 Two earlier vendor-pool failures remain failed. Sustained throughput and tail gains varied by block.
 This is short serial load evidence, not concurrent camera streams or a detector soak.
-Next, establish a thermally conditioned 30-minute detector soak and investigate service-tail variation.
+The [30-minute detector soak](experiments/022-detector-soak.md) passed: all 432,000 offered frames completed correctly, with zero drops and zero declared allocator growth.
+The synchronous caller-owned FP16 output scenario also passed six TensorRT fixtures. Allocation and latency benefits remain unmeasured.
+Next, measure caller-owned output and define consumer ordering before asynchronous execution.
 Keep broader sustained coverage, vendor comparisons, reusable workspace, batching, and the robot/ROS workloads open.
 See [the backend contract](CUDA_BACKEND.md), [host evidence](experiments/004-cuda-host.md), and [fused execution evidence](experiments/005-fused-cuda.md).
 See [local development](LOCAL_DEVELOPMENT.md) and [source audit](SOURCE_AUDIT.md) for current evidence.
@@ -302,9 +304,9 @@ Do not spend on remote hardware during planning.
 Before paid provisioning, confirm account access, allowed spending, storage retention, and shutdown responsibility.
 Build the reproducible harness so the first rented session can test the real pipeline immediately.
 
-## Prepared detector soak gate
+## Detector soak gate
 
-The continuous detector soak harness is prepared. GPU execution remains pending.
-See [the frozen soak protocol](SUSTAINED_YOLO.md#continuous-detector-soak-prepared-not-measured).
+The continuous detector soak passed on one RTX 4090 configuration. See [experiment 022](experiments/022-detector-soak.md).
+See [the frozen soak protocol](SUSTAINED_YOLO.md#continuous-detector-soak).
 It requires measured thermal conditioning, thirty continuous minutes through TensorRT, per-frame checks, and independent evidence verification.
 Local fault checks do not complete this gate. Reconcile cloud reservations before another rental under the existing $15 budget.

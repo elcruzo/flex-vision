@@ -30,7 +30,9 @@ The [30-minute inspection soak](docs/experiments/019-inspection-soak.md) passed 
 The [short detector load matrix](docs/experiments/021-detector-repeatability.md) checked 187,279 completed frames and recorded zero declared post-drain allocator growth in its final run.
 Earlier vendor pool-growth failures remain in that report. Detector throughput and tail results varied across blocks.
 Read the [CUDA backend contract](docs/CUDA_BACKEND.md) for supported inputs, synchronous execution, and limitations.
-Jetson, ROS transport, broader vendor comparisons, and detector soak acceptance remain open.
+The [30-minute detector soak](docs/experiments/022-detector-soak.md) passed on RTX 4090: 432,000 correct completed frames, zero drops, and zero declared allocator growth.
+The separate synchronous caller-owned FP16 output scenario passed six TensorRT fixtures. Its performance benefit remains unmeasured.
+Jetson, ROS transport, broader vendor comparisons, and full runtime acceptance remain open.
 
 CUDA Preprocess Graph (CPG) aims to optimize the complete preprocessing pipeline.
 It should keep GPU input on the GPU, reuse memory, and combine compatible operations.
