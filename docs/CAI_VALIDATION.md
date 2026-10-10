@@ -79,3 +79,24 @@ See experiments/030-cai-ready-reuse.md. Corrected cai-v2 GPU acceptance remains 
 
 Experiment 031 passed cai-v2 after the preserved failures in 029 and 030.
 See experiments/031-cai-inference.md for exact scope. Transfer capture remains pending.
+
+## Prepared complete-inference transfer capture
+
+The separate scripts/yolo_cai_trace.py runner prepares 16 completed ranges.
+It uses both 1080p fixtures, all four producer contracts, and sync/submit execution.
+The exporter exposes CAI only. Uploads, compilation, and warmup complete before the selected ranges.
+Each range includes preprocessing, TensorRT, CUDA NMS, and consumer completion.
+Validation downloads occur after the range closes.
+No input mutation or artificial delay occurs in this capture. The 144-case gate tests ordering separately.
+
+Require the complete cai-v2 report from the same clean source and engine before capture.
+Record and verify its file hash. A known 4096-byte D2H control tests capture sensitivity.
+The verifier requires one CPG preprocessing kernel and downstream GPU work in every range.
+It rejects an aggregate H2D/D2H byte count at least as large as the FP16 output tensor.
+This includes chunked transfers even when each individual copy is smaller.
+Keep all smaller copy observations in the report. Do not claim zero host copies from this size check.
+
+Use scripts/run_yolo_cai_trace_experiment.sh under the independent lease deadline.
+It regenerates numerical controls and the full correctness gate, then captures and sanitizes the Nsight export.
+Local evidence faults, shell syntax, and Python compilation passed. Hardware capture remains pending.
+This protocol provides no timing selection, overlap, allocator stability, or external-library acceptance.

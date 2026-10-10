@@ -138,3 +138,8 @@ Experiment 031 passed all 144 fixed CAI-only TensorRT correctness and ownership 
 Advertised streams fenced immediate reuse. Ready-input callers completed preprocessing before writing again.
 See experiments/031-cai-inference.md. CAI transfer capture and broader interoperability remain pending.
 All rental resources are absent. Keep the synchronous default and existing async limits.
+
+A focused CAI transfer-capture runner and evidence verifier are prepared.
+They bind 16 complete-inference ranges to the same clean 144-case gate and engine.
+The verifier rejects missing preprocessing, missing inference work, and aggregate pixel-sized host transfers.
+Local checks cannot establish residency. Hardware capture remains pending. See D059.

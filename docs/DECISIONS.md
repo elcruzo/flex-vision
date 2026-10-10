@@ -637,3 +637,12 @@ Experiment 031 passed the complete cai-v2 matrix through real TensorRT inference
 Accept this fixed correctness and ownership gate after preserving experiments 029 and 030.
 Do not infer CAI transfer absence, external-library support, or broader device/dtype acceptance.
 Collect a focused complete-inference transfer capture next. Keep the synchronous default.
+
+## D059 — Bind CAI residency capture to complete correctness evidence
+
+Prepare 16 completed inference ranges after a matching clean 144-case CAI gate.
+Keep uploads, warmup, and validation downloads outside each selected range.
+Require a known-transfer control, one preprocessing kernel, and downstream GPU work.
+Reject tensor-sized aggregate host bytes, including transfers split into small copies.
+Report remaining metadata copies explicitly. Hardware acceptance remains pending.
+See CAI_VALIDATION.md for execution and scope.
