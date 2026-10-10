@@ -1,0 +1,6 @@
+input: {encoding: bgr8}
+pipeline:
+  - convolution: {kernel: kernel-3.yaml}
+  - letterbox: {width: 224, height: 224}
+  - normalize: {mean: [0.485,0.456,0.406], std: [0.229,0.224,0.225], scale: 0.00392156862745098}
+output: {dtype: float32, layout: nchw}

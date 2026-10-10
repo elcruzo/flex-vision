@@ -46,3 +46,6 @@ Neither local reference execution nor metadata tests establish CUDA support or p
 
 Primary API reference: [PyTorch functional conv2d](https://docs.pytorch.org/docs/2.8/generated/torch.nn.functional.conv2d.html).
 CUDA specialization, unrolling, shared-memory/vendor comparisons, stream ownership, and complete-inference transfer capture remain required next work.
+
+Experiment 033 passed all four sizes through CPU and MPS reference preprocessing and real CPU classifier inference.
+See experiments/033-stencil-reference.md for errors, source identities, and exact scope. CUDA acceptance remains pending.
