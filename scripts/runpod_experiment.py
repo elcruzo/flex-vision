@@ -19,8 +19,8 @@ from runpod_lease import api, log, terminate, verify
 
 
 def coordinate(receipt_path, setup, result_name, gpu_region, controller_region='EU-RO-1', gpu='NVIDIA L4', minutes=60, export_config=None):
-    if minutes not in (30,45,60):
-        raise ValueError('Require a bounded 30, 45, or 60 minute lease')
+    if minutes not in (15,30,45,60):
+        raise ValueError('Require a bounded 15, 30, 45, or 60 minute lease')
     if not re.fullmatch(r'iteration-[a-zA-Z0-9-]+', result_name):
         raise ValueError('Invalid result directory name')
     target = Path('benchmark-results') / result_name
@@ -158,7 +158,7 @@ def main():
     parser.add_argument('--gpu-region', default='EUR-IS-1')
     parser.add_argument('--gpu', choices=('NVIDIA L4','NVIDIA GeForce RTX 4090'), default='NVIDIA L4')
     parser.add_argument('--controller-region', default='EU-RO-1')
-    parser.add_argument('--minutes',type=int,choices=(30,45,60),default=60)
+    parser.add_argument('--minutes',type=int,choices=(15,30,45,60),default=60)
     args = parser.parse_args()
     coordinate(args.receipt, args.setup, args.result_name, args.gpu_region, args.controller_region, args.gpu, args.minutes, args.export_config)
 

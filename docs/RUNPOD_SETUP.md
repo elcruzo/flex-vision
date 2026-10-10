@@ -593,3 +593,8 @@ See experiments/data/budget-after-030.json. The original $15 authorization remai
 Experiment 031 resources are absent. Its full-lifetime bound replaces only its $0.65 reservation.
 Including one CAI transfer-capture reservation, the conservative cumulative bound is $14.98270978906015.
 See experiments/data/budget-after-031.json. No additional budget is authorized.
+
+Experiment 032 is absent and now has a full-lifetime replacement bound.
+One 15-minute stencil gate is reserved at $0.40, including compute, controller boot, and storage headroom.
+The cumulative conservative bound is $14.967029233504595 within the original $15 authorization.
+Newly posted 027 charges are already covered by its retained ceiling. See experiments/data/budget-after-032.json.

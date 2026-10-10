@@ -68,8 +68,8 @@ def terminate(receipt):
 
 
 def create(minutes, run, controller_id=None, data_center='EU-RO-1', gpu=GPU):
-    if (minutes not in (2,30) and not (minutes in (45,60) and controller_id is not None)) or not re.fullmatch(r'[0-9]+-[0-9]+',run):
-        raise ValueError('Expected a 2- or 30-minute lease and a numeric lease identifier')
+    if (minutes not in (2,30) and not (minutes in (15,45,60) and controller_id is not None)) or not re.fullmatch(r'[0-9]+-[0-9]+',run):
+        raise ValueError('Require a bounded lease, an independent controller for 15/45/60 minutes, and a numeric lease identifier')
     if gpu not in GPU_RATE_LIMITS:
         raise ValueError('Unsupported experiment GPU')
     rate_limit = GPU_RATE_LIMITS[gpu]

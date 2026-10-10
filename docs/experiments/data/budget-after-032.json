@@ -1,0 +1,20 @@
+{
+  "posted_total": 9.847388904927357,
+  "newly_posted_027_total": 0.07726109990289842,
+  "newly_posted_027_covered_by_existing_ceiling": true,
+  "method": "Replace only 032 reservation using full run-to-confirmed-absence lifetime over both compute rates, plus 60 seconds and 0.10 disk headroom. New 027 billing rows are already covered by its existing lifetime ceiling; do not add them twice. Preserve all other ceilings.",
+  "pods": [
+    "bd6xta6ulsig8a",
+    "boltud6sx95qr6"
+  ],
+  "start_epoch": 1791610719,
+  "absence_utc": "2026-10-10T05:46:07.757741+00:00",
+  "seconds": 449,
+  "ceiling": 0.23431944444444444,
+  "previous_bound": 14.98270978906015,
+  "reconciled_bound": 14.567029233504595,
+  "new_reservation": 0.4,
+  "reserved_bound": 14.967029233504595,
+  "lease_minutes": 15,
+  "reservation_basis": "16 minutes at combined 0.95/hour plus 10-minute CPU boot headroom at 0.06/hour plus 0.10 storage = 0.36333333333333334, rounded upward to 0.40"
+}

@@ -674,3 +674,11 @@ Keep the stencil separate from resize. Preserve accumulation order and disable f
 Do not claim CUDA acceptance, shared-memory speed, workspace reuse, or a fastest-plan selection before measurements.
 Prepare a 192-execution real TensorRT gate with positive/negative coefficients and reversed-channel views.
 See STENCILS.md. Hardware acceptance and budget reconciliation remain pending.
+
+## D063 — Shorten the lease without reducing the stencil gate
+
+Add a 15-minute direct lease that requires the independent controller.
+Preserve the full 192-case stencil protocol and five-minute export allowance.
+Do not use the shorter lease for a soak or retry automatically after late setup.
+Reconcile only the ended lease ceiling and reserve $0.40 within the original $15 budget.
+Local duration, identity, and deadline tests passed. Fresh GPU execution remains pending.

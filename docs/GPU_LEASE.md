@@ -135,3 +135,14 @@ The coordinator accepts `--export-config` for a GPU-side signed-URL upload after
 See [independent evidence export](DURABLE_EXPORT.md) for setup and acceptance limits.
 Without this option, export still depends on the local Mac connection.
 Cloud export remains unvalidated. No storage resource was created by this preparation.
+
+## Short independently bounded experiment
+
+The direct controller and coordinator now accept 15 minutes for a complete short correctness experiment.
+The lease script permits this duration only with a verified independent CPU controller.
+The GPU deadline still starts before provisioning. Five minutes remain reserved for export.
+The experiment wrapper must refuse its gate when fewer than ten minutes remain after setup.
+This duration does not reduce correctness coverage or authorize a smaller soak.
+A late container or slow setup can fail this attempt. Preserve that failure and terminate the exact resources.
+Local deadline and rejection tests pass. The controller's existing independent cleanup proof remains in experiment 011.
+Hardware validation of this new duration remains pending.

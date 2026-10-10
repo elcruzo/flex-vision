@@ -39,7 +39,7 @@ def test_invalid_duration_never_calls_provider():
     api.assert_not_called()
 
 
-@pytest.mark.parametrize("minutes",[45,60])
+@pytest.mark.parametrize("minutes",[15,45,60])
 def test_long_lease_requires_independent_controller(minutes):
     with patch.object(lease, 'api') as api:
         with pytest.raises(ValueError):
@@ -47,7 +47,7 @@ def test_long_lease_requires_independent_controller(minutes):
     api.assert_not_called()
 
 
-@pytest.mark.parametrize("minutes",[45,60])
+@pytest.mark.parametrize("minutes",[15,45,60])
 def test_controller_soak_deadline_is_bounded(tmp_path, minutes):
     controller = {'id': 'controller', 'cpu': {'id': 'cpu3c'}, 'env': {'CPG_LEASE_RUN': '123-1'}}
     catalog = {'price': {'secure': .49}, 'dataCenters': [{'id': 'EU-RO-1', 'availability': 'LOW'}]}
