@@ -524,3 +524,12 @@ Accept this fixed scenario. Preserve the failed stream-protocol attempt and the 
 Keep the synchronous default. The consumer still synchronizes, and the retained trace covers the baseline only.
 No delayed-consumer, recycling, overlap, or async performance acceptance follows from this run.
 Define a matched performance protocol and test pending consumer lifetimes before selecting a strategy.
+
+## D046 — Test a genuinely pending consumer before performance selection
+
+Prepare a separate one-outstanding-enqueue TensorRT consumer with explicit retained owners and a completion fence.
+Reject context reuse before the preceding fence completes. Leave the synchronous baseline unchanged.
+Use a finite GPU delay solely to observe a pending reader after preprocessing completion closes.
+Reject a scenario where the reader already completed at that boundary.
+Check exact tensors, dense outputs, detections, subsequent allocations, and shutdown through real inference.
+The harness and local fault checks are prepared. GPU acceptance and performance remain pending.

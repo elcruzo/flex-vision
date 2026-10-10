@@ -84,3 +84,7 @@ Pipeline.submit implements experimental owned-output async preprocessing complet
 It passed 48 fixed TensorRT executions on RTX 4090 after a stream compatibility correction. Read docs/experiments/025-async-submission.md.
 Delayed-consumer behavior, async-specific traces, and performance acceptance remain pending. Read docs/ASYNC_EXECUTION.md and D043.
 Keep the synchronous default. Async caller-owned output and consumer tracking remain unsupported.
+
+The delayed-consumer gate is prepared in scripts/yolo_delayed_consumer.py and scripts/run_yolo_delayed_experiment.sh.
+Read docs/ASYNC_EXECUTION.md and D046. PendingConsumer is a harness, not production inference integration.
+Its local lifecycle/evidence checks passed. Real GPU acceptance remains pending.

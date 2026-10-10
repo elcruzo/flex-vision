@@ -122,3 +122,26 @@ Require the async-submit report mode and source-release checks when auditing thi
 
 [Experiment 025](experiments/025-async-submission.md) passed all 48 owned-output submissions after a pinned stream compatibility correction.
 The consumer still synchronizes. Keep the default unchanged and test delayed consumers before performance selection.
+
+## Prepared delayed-consumer gate
+
+`scripts/yolo_delayed_consumer.py` prepares 48 real-inference ownership checks.
+The separate PendingConsumer permits one outstanding TensorRT enqueue and retains its input, output, context, and native stream owner.
+It rejects another enqueue until completion succeeds. A failed completion keeps owners and the busy context retained.
+The synchronous baseline consumer is unchanged. This new harness consumer remains GPU-unvalidated.
+
+Warm the context before introducing a finite 500,000,000-cycle single-thread delay on the consumer stream.
+This delay uses CUDA clock64 and does not define a wall-clock duration or benchmark metric.
+After enqueue, close preprocessing and delete caller output references.
+Require the consumer event to remain incomplete at that observation. Reject a run where it already completed.
+Then reject context rebinding, allocate another preprocessing result, and check both tensors and real detector results.
+The pending consumer retains the original tensor until its own completion fence.
+Drain both streams and any outstanding jobs before shutdown.
+
+`scripts/run_yolo_delayed_experiment.sh` connects the scenario to the existing independent lease workflow.
+`scripts/verify_yolo_delayed_consumer.py` rejects missing cycles, completed readers, duplicate fixtures, and failed drainage.
+Local lifecycle and evidence checks passed. GPU acceptance, delayed-context behavior, and performance remain pending.
+No new rental ran for this preparation. Reconcile the existing budget before hardware execution.
+
+API references: [TensorRT Python runtime](https://docs.nvidia.com/deeplearning/tensorrt/10.x.x/inference-library/python-api-docs.html) and
+[CUDA 13.0 clock64](https://docs.nvidia.com/cuda/archive/13.0.0/cuda-c-programming-guide/index.html#time-function).
