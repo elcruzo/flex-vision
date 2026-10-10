@@ -1,0 +1,527 @@
+{
+  "status": "passed",
+  "revision": "a3ccdbcedccbc064fecc94bbac0d08789c7281f8",
+  "dirty": false,
+  "engine_sha256": "7af545f08980aae33f581abd43ddaa21cfb3b76a69482d4d5b3c2cba3d5f23ab",
+  "cases": [
+    {
+      "name": "astronaut",
+      "checks": [
+        {
+          "input": "cupy",
+          "cycle": 0,
+          "pending_after_close": true,
+          "rebind_rejected": true,
+          "dense_output": true,
+          "detections": true,
+          "input_tensor_exact": true,
+          "subsequent_tensor_exact": true
+        },
+        {
+          "input": "cupy",
+          "cycle": 1,
+          "pending_after_close": true,
+          "rebind_rejected": true,
+          "dense_output": true,
+          "detections": true,
+          "input_tensor_exact": true,
+          "subsequent_tensor_exact": true
+        },
+        {
+          "input": "cupy",
+          "cycle": 2,
+          "pending_after_close": true,
+          "rebind_rejected": true,
+          "dense_output": true,
+          "detections": true,
+          "input_tensor_exact": true,
+          "subsequent_tensor_exact": true
+        },
+        {
+          "input": "cupy",
+          "cycle": 3,
+          "pending_after_close": true,
+          "rebind_rejected": true,
+          "dense_output": true,
+          "detections": true,
+          "input_tensor_exact": true,
+          "subsequent_tensor_exact": true
+        },
+        {
+          "input": "torch",
+          "cycle": 0,
+          "pending_after_close": true,
+          "rebind_rejected": true,
+          "dense_output": true,
+          "detections": true,
+          "input_tensor_exact": true,
+          "subsequent_tensor_exact": true
+        },
+        {
+          "input": "torch",
+          "cycle": 1,
+          "pending_after_close": true,
+          "rebind_rejected": true,
+          "dense_output": true,
+          "detections": true,
+          "input_tensor_exact": true,
+          "subsequent_tensor_exact": true
+        },
+        {
+          "input": "torch",
+          "cycle": 2,
+          "pending_after_close": true,
+          "rebind_rejected": true,
+          "dense_output": true,
+          "detections": true,
+          "input_tensor_exact": true,
+          "subsequent_tensor_exact": true
+        },
+        {
+          "input": "torch",
+          "cycle": 3,
+          "pending_after_close": true,
+          "rebind_rejected": true,
+          "dense_output": true,
+          "detections": true,
+          "input_tensor_exact": true,
+          "subsequent_tensor_exact": true
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "name": "astronaut-padded",
+      "checks": [
+        {
+          "input": "cupy",
+          "cycle": 0,
+          "pending_after_close": true,
+          "rebind_rejected": true,
+          "dense_output": true,
+          "detections": true,
+          "input_tensor_exact": true,
+          "subsequent_tensor_exact": true
+        },
+        {
+          "input": "cupy",
+          "cycle": 1,
+          "pending_after_close": true,
+          "rebind_rejected": true,
+          "dense_output": true,
+          "detections": true,
+          "input_tensor_exact": true,
+          "subsequent_tensor_exact": true
+        },
+        {
+          "input": "cupy",
+          "cycle": 2,
+          "pending_after_close": true,
+          "rebind_rejected": true,
+          "dense_output": true,
+          "detections": true,
+          "input_tensor_exact": true,
+          "subsequent_tensor_exact": true
+        },
+        {
+          "input": "cupy",
+          "cycle": 3,
+          "pending_after_close": true,
+          "rebind_rejected": true,
+          "dense_output": true,
+          "detections": true,
+          "input_tensor_exact": true,
+          "subsequent_tensor_exact": true
+        },
+        {
+          "input": "torch",
+          "cycle": 0,
+          "pending_after_close": true,
+          "rebind_rejected": true,
+          "dense_output": true,
+          "detections": true,
+          "input_tensor_exact": true,
+          "subsequent_tensor_exact": true
+        },
+        {
+          "input": "torch",
+          "cycle": 1,
+          "pending_after_close": true,
+          "rebind_rejected": true,
+          "dense_output": true,
+          "detections": true,
+          "input_tensor_exact": true,
+          "subsequent_tensor_exact": true
+        },
+        {
+          "input": "torch",
+          "cycle": 2,
+          "pending_after_close": true,
+          "rebind_rejected": true,
+          "dense_output": true,
+          "detections": true,
+          "input_tensor_exact": true,
+          "subsequent_tensor_exact": true
+        },
+        {
+          "input": "torch",
+          "cycle": 3,
+          "pending_after_close": true,
+          "rebind_rejected": true,
+          "dense_output": true,
+          "detections": true,
+          "input_tensor_exact": true,
+          "subsequent_tensor_exact": true
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "name": "chelsea",
+      "checks": [
+        {
+          "input": "cupy",
+          "cycle": 0,
+          "pending_after_close": true,
+          "rebind_rejected": true,
+          "dense_output": true,
+          "detections": true,
+          "input_tensor_exact": true,
+          "subsequent_tensor_exact": true
+        },
+        {
+          "input": "cupy",
+          "cycle": 1,
+          "pending_after_close": true,
+          "rebind_rejected": true,
+          "dense_output": true,
+          "detections": true,
+          "input_tensor_exact": true,
+          "subsequent_tensor_exact": true
+        },
+        {
+          "input": "cupy",
+          "cycle": 2,
+          "pending_after_close": true,
+          "rebind_rejected": true,
+          "dense_output": true,
+          "detections": true,
+          "input_tensor_exact": true,
+          "subsequent_tensor_exact": true
+        },
+        {
+          "input": "cupy",
+          "cycle": 3,
+          "pending_after_close": true,
+          "rebind_rejected": true,
+          "dense_output": true,
+          "detections": true,
+          "input_tensor_exact": true,
+          "subsequent_tensor_exact": true
+        },
+        {
+          "input": "torch",
+          "cycle": 0,
+          "pending_after_close": true,
+          "rebind_rejected": true,
+          "dense_output": true,
+          "detections": true,
+          "input_tensor_exact": true,
+          "subsequent_tensor_exact": true
+        },
+        {
+          "input": "torch",
+          "cycle": 1,
+          "pending_after_close": true,
+          "rebind_rejected": true,
+          "dense_output": true,
+          "detections": true,
+          "input_tensor_exact": true,
+          "subsequent_tensor_exact": true
+        },
+        {
+          "input": "torch",
+          "cycle": 2,
+          "pending_after_close": true,
+          "rebind_rejected": true,
+          "dense_output": true,
+          "detections": true,
+          "input_tensor_exact": true,
+          "subsequent_tensor_exact": true
+        },
+        {
+          "input": "torch",
+          "cycle": 3,
+          "pending_after_close": true,
+          "rebind_rejected": true,
+          "dense_output": true,
+          "detections": true,
+          "input_tensor_exact": true,
+          "subsequent_tensor_exact": true
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "name": "chelsea-padded",
+      "checks": [
+        {
+          "input": "cupy",
+          "cycle": 0,
+          "pending_after_close": true,
+          "rebind_rejected": true,
+          "dense_output": true,
+          "detections": true,
+          "input_tensor_exact": true,
+          "subsequent_tensor_exact": true
+        },
+        {
+          "input": "cupy",
+          "cycle": 1,
+          "pending_after_close": true,
+          "rebind_rejected": true,
+          "dense_output": true,
+          "detections": true,
+          "input_tensor_exact": true,
+          "subsequent_tensor_exact": true
+        },
+        {
+          "input": "cupy",
+          "cycle": 2,
+          "pending_after_close": true,
+          "rebind_rejected": true,
+          "dense_output": true,
+          "detections": true,
+          "input_tensor_exact": true,
+          "subsequent_tensor_exact": true
+        },
+        {
+          "input": "cupy",
+          "cycle": 3,
+          "pending_after_close": true,
+          "rebind_rejected": true,
+          "dense_output": true,
+          "detections": true,
+          "input_tensor_exact": true,
+          "subsequent_tensor_exact": true
+        },
+        {
+          "input": "torch",
+          "cycle": 0,
+          "pending_after_close": true,
+          "rebind_rejected": true,
+          "dense_output": true,
+          "detections": true,
+          "input_tensor_exact": true,
+          "subsequent_tensor_exact": true
+        },
+        {
+          "input": "torch",
+          "cycle": 1,
+          "pending_after_close": true,
+          "rebind_rejected": true,
+          "dense_output": true,
+          "detections": true,
+          "input_tensor_exact": true,
+          "subsequent_tensor_exact": true
+        },
+        {
+          "input": "torch",
+          "cycle": 2,
+          "pending_after_close": true,
+          "rebind_rejected": true,
+          "dense_output": true,
+          "detections": true,
+          "input_tensor_exact": true,
+          "subsequent_tensor_exact": true
+        },
+        {
+          "input": "torch",
+          "cycle": 3,
+          "pending_after_close": true,
+          "rebind_rejected": true,
+          "dense_output": true,
+          "detections": true,
+          "input_tensor_exact": true,
+          "subsequent_tensor_exact": true
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "name": "astronaut-1080p",
+      "checks": [
+        {
+          "input": "cupy",
+          "cycle": 0,
+          "pending_after_close": true,
+          "rebind_rejected": true,
+          "dense_output": true,
+          "detections": true,
+          "input_tensor_exact": true,
+          "subsequent_tensor_exact": true
+        },
+        {
+          "input": "cupy",
+          "cycle": 1,
+          "pending_after_close": true,
+          "rebind_rejected": true,
+          "dense_output": true,
+          "detections": true,
+          "input_tensor_exact": true,
+          "subsequent_tensor_exact": true
+        },
+        {
+          "input": "cupy",
+          "cycle": 2,
+          "pending_after_close": true,
+          "rebind_rejected": true,
+          "dense_output": true,
+          "detections": true,
+          "input_tensor_exact": true,
+          "subsequent_tensor_exact": true
+        },
+        {
+          "input": "cupy",
+          "cycle": 3,
+          "pending_after_close": true,
+          "rebind_rejected": true,
+          "dense_output": true,
+          "detections": true,
+          "input_tensor_exact": true,
+          "subsequent_tensor_exact": true
+        },
+        {
+          "input": "torch",
+          "cycle": 0,
+          "pending_after_close": true,
+          "rebind_rejected": true,
+          "dense_output": true,
+          "detections": true,
+          "input_tensor_exact": true,
+          "subsequent_tensor_exact": true
+        },
+        {
+          "input": "torch",
+          "cycle": 1,
+          "pending_after_close": true,
+          "rebind_rejected": true,
+          "dense_output": true,
+          "detections": true,
+          "input_tensor_exact": true,
+          "subsequent_tensor_exact": true
+        },
+        {
+          "input": "torch",
+          "cycle": 2,
+          "pending_after_close": true,
+          "rebind_rejected": true,
+          "dense_output": true,
+          "detections": true,
+          "input_tensor_exact": true,
+          "subsequent_tensor_exact": true
+        },
+        {
+          "input": "torch",
+          "cycle": 3,
+          "pending_after_close": true,
+          "rebind_rejected": true,
+          "dense_output": true,
+          "detections": true,
+          "input_tensor_exact": true,
+          "subsequent_tensor_exact": true
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "name": "chelsea-1080p",
+      "checks": [
+        {
+          "input": "cupy",
+          "cycle": 0,
+          "pending_after_close": true,
+          "rebind_rejected": true,
+          "dense_output": true,
+          "detections": true,
+          "input_tensor_exact": true,
+          "subsequent_tensor_exact": true
+        },
+        {
+          "input": "cupy",
+          "cycle": 1,
+          "pending_after_close": true,
+          "rebind_rejected": true,
+          "dense_output": true,
+          "detections": true,
+          "input_tensor_exact": true,
+          "subsequent_tensor_exact": true
+        },
+        {
+          "input": "cupy",
+          "cycle": 2,
+          "pending_after_close": true,
+          "rebind_rejected": true,
+          "dense_output": true,
+          "detections": true,
+          "input_tensor_exact": true,
+          "subsequent_tensor_exact": true
+        },
+        {
+          "input": "cupy",
+          "cycle": 3,
+          "pending_after_close": true,
+          "rebind_rejected": true,
+          "dense_output": true,
+          "detections": true,
+          "input_tensor_exact": true,
+          "subsequent_tensor_exact": true
+        },
+        {
+          "input": "torch",
+          "cycle": 0,
+          "pending_after_close": true,
+          "rebind_rejected": true,
+          "dense_output": true,
+          "detections": true,
+          "input_tensor_exact": true,
+          "subsequent_tensor_exact": true
+        },
+        {
+          "input": "torch",
+          "cycle": 1,
+          "pending_after_close": true,
+          "rebind_rejected": true,
+          "dense_output": true,
+          "detections": true,
+          "input_tensor_exact": true,
+          "subsequent_tensor_exact": true
+        },
+        {
+          "input": "torch",
+          "cycle": 2,
+          "pending_after_close": true,
+          "rebind_rejected": true,
+          "dense_output": true,
+          "detections": true,
+          "input_tensor_exact": true,
+          "subsequent_tensor_exact": true
+        },
+        {
+          "input": "torch",
+          "cycle": 3,
+          "pending_after_close": true,
+          "rebind_rejected": true,
+          "dense_output": true,
+          "detections": true,
+          "input_tensor_exact": true,
+          "subsequent_tensor_exact": true
+        }
+      ],
+      "status": "passed"
+    }
+  ],
+  "delay_cycles": 500000000,
+  "scope": "Owned-output pending-consumer correctness; artificial delay; no performance claim",
+  "drain_status": "passed"
+}

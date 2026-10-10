@@ -1,0 +1,7 @@
+{
+  "status": "coverage_verified",
+  "executions": 48,
+  "revision": "a3ccdbcedccbc064fecc94bbac0d08789c7281f8",
+  "engine_sha256": "7af545f08980aae33f581abd43ddaa21cfb3b76a69482d4d5b3c2cba3d5f23ab",
+  "qualification": "Recorded pending-consumer correctness; not independent tensor recomputation or performance acceptance"
+}

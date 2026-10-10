@@ -128,7 +128,7 @@ The consumer still synchronizes. Keep the default unchanged and test delayed con
 `scripts/yolo_delayed_consumer.py` prepares 48 real-inference ownership checks.
 The separate PendingConsumer permits one outstanding TensorRT enqueue and retains its input, output, context, and native stream owner.
 It rejects another enqueue until completion succeeds. A failed completion keeps owners and the busy context retained.
-The synchronous baseline consumer is unchanged. This new harness consumer remains GPU-unvalidated.
+The synchronous baseline consumer is unchanged. Experiment 027 validated its fixed pending-reader scenario through real TensorRT inference.
 
 Warm the context before introducing a finite 500,000,000-cycle single-thread delay on the consumer stream.
 This delay uses CUDA clock64 and does not define a wall-clock duration or benchmark metric.
@@ -140,7 +140,7 @@ Drain both streams and any outstanding jobs before shutdown.
 
 `scripts/run_yolo_delayed_experiment.sh` connects the scenario to the existing independent lease workflow.
 `scripts/verify_yolo_delayed_consumer.py` rejects missing cycles, completed readers, duplicate fixtures, and failed drainage.
-Local lifecycle and evidence checks passed. GPU acceptance, delayed-context behavior, and performance remain pending.
+Local checks and the fixed GPU delayed-context gate passed. Broader acceptance remains pending.
 No new rental ran for this preparation. Reconcile the existing budget before hardware execution.
 
 API references: [TensorRT Python runtime](https://docs.nvidia.com/deeplearning/tensorrt/10.x.x/inference-library/python-api-docs.html) and
@@ -158,3 +158,9 @@ It builds the same engine and checks every existing candidate, framework import,
 It omits repeated baseline latency sampling and baseline trace installation before the pending-reader test.
 This is a correctness dispatch, not new comparison or trace evidence. The numerical policy remains unchanged.
 The matched comparison and async-specific trace still need separate execution and acceptance.
+
+
+Experiment 027 passed 48 delayed-consumer checks and 40,000 matched serial inference checks on RTX 4090.
+Complete-host p50 improved 9.38–9.42%, with p99 improved 8.99–10.37% in this run.
+See [experiment 027](experiments/027-delayed-and-async.md).
+Keep the synchronous default. Async traces, allocator observations, independent repeats, and concurrency remain pending.

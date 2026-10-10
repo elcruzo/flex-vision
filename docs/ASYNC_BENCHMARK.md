@@ -1,6 +1,6 @@
 # Matched asynchronous detector comparison
 
-Status: prepared harness and local evidence checks. NVIDIA execution remains pending.
+Status: first NVIDIA comparison passed. Independent repeats and broader async acceptance remain pending.
 This experiment advances G1 ownership and G3 pipeline overhead in PLAN.md.
 The product goal remains camera frame to inference-ready tensor, with measured reductions in overhead.
 
@@ -87,3 +87,9 @@ Use the measured result to decide whether submission reduces overhead before add
 Then evaluate bounded concurrent execution, configurable stencils, general planning, and measured tuning.
 ROS buffer transport and Jetson camera-to-TensorRT acceptance remain required for the flagship product.
 Supporting export and rental controls serve those measurements. They do not replace product milestones.
+
+
+Experiment 027 passed 48 delayed-consumer checks and 40,000 matched serial inference checks on RTX 4090.
+Complete-host p50 improved 9.38–9.42%, with p99 improved 8.99–10.37% in this run.
+See [experiment 027](experiments/027-delayed-and-async.md).
+Keep the synchronous default. Async traces, allocator observations, independent repeats, and concurrency remain pending.

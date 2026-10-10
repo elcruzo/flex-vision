@@ -1,0 +1,6 @@
+{
+  "scope": "Remote dispatch wrapper only; measured repository source unchanged",
+  "before_sha256": "ef8c6b5a122a5d9f27579ed7fb7901214e0bb90c7d1b685d7d6480fcd964da11",
+  "after_sha256": "5d2b0dda464844f1fe13a71d13ffa4666f8f2592a235f187caf2ff977e1a11c9",
+  "change": "Define parent-shell CPG_RESULTS for the optional matched comparison"
+}

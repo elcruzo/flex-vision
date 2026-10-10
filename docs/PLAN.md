@@ -318,3 +318,9 @@ Local fault checks do not complete this gate. Reconcile cloud reservations befor
 The experimental owned-output submission passed 48 fixed TensorRT executions in [experiment 025](experiments/025-async-submission.md).
 Caller input references were released before consumption. The completion object retained their owners.
 Keep the synchronous default. Delayed consumers, slot recycling, async traces, and matched performance remain pending.
+
+
+Experiment 027 passed 48 delayed-consumer checks and 40,000 matched serial inference checks on RTX 4090.
+Complete-host p50 improved 9.38–9.42%, with p99 improved 8.99–10.37% in this run.
+See [experiment 027](experiments/027-delayed-and-async.md).
+Keep the synchronous default. Async traces, allocator observations, independent repeats, and concurrency remain pending.

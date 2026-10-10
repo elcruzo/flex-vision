@@ -534,3 +534,7 @@ The conservative cumulative bound becomes $13.945168122393484 within the origina
 Regenerate all six numerical controls, then run the delayed-consumer gate.
 Only run the matched serial comparison if that gate passes and enough export allowance remains.
 Use ordinary local SSH export. It retains its Mac-session dependency. No bucket is required or created.
+
+Experiment 027 completed with 40 hash-verified exported files and exact GPU/controller/secret cleanup.
+Retain its $0.65 reservation. The conservative cumulative bound remains $13.945168122393484.
+No rental remains active. See experiments/027-delayed-and-async.md before choosing the next GPU gate.

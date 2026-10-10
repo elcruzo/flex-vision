@@ -1,0 +1,168 @@
+{
+  "status": "independently_verified",
+  "checks": [
+    {
+      "fixture": "astronaut",
+      "candidate": "cpg",
+      "tensor_max_abs_error": 0.0,
+      "matched_ious": [
+        1.0
+      ],
+      "expected_object_iou": 0.9134520865759633
+    },
+    {
+      "fixture": "astronaut",
+      "candidate": "torch",
+      "tensor_max_abs_error": 0.00048828125,
+      "matched_ious": [
+        0.9994416527079844
+      ],
+      "expected_object_iou": 0.9139245406102549
+    },
+    {
+      "fixture": "astronaut",
+      "candidate": "cvcuda",
+      "tensor_max_abs_error": 0.00048828125,
+      "matched_ious": [
+        0.9994416527079844
+      ],
+      "expected_object_iou": 0.9139245406102549
+    },
+    {
+      "fixture": "astronaut-padded",
+      "candidate": "cpg",
+      "tensor_max_abs_error": 0.0,
+      "matched_ious": [
+        1.0
+      ],
+      "expected_object_iou": 0.9259194990766846
+    },
+    {
+      "fixture": "astronaut-padded",
+      "candidate": "torch",
+      "tensor_max_abs_error": 0.00048828125,
+      "matched_ious": [
+        0.9993243243243243
+      ],
+      "expected_object_iou": 0.9252938777935247
+    },
+    {
+      "fixture": "astronaut-padded",
+      "candidate": "cvcuda",
+      "tensor_max_abs_error": 0.00048828125,
+      "matched_ious": [
+        0.9993243243243243
+      ],
+      "expected_object_iou": 0.9252938777935247
+    },
+    {
+      "fixture": "chelsea",
+      "candidate": "cpg",
+      "tensor_max_abs_error": 0.0,
+      "matched_ious": [
+        1.0
+      ],
+      "expected_object_iou": 0.899908853026144
+    },
+    {
+      "fixture": "chelsea",
+      "candidate": "torch",
+      "tensor_max_abs_error": 0.00048828125,
+      "matched_ious": [
+        0.9991889699918897
+      ],
+      "expected_object_iou": 0.9007050528764903
+    },
+    {
+      "fixture": "chelsea",
+      "candidate": "cvcuda",
+      "tensor_max_abs_error": 0.00048828125,
+      "matched_ious": [
+        0.9991889699918897
+      ],
+      "expected_object_iou": 0.9007050528764903
+    },
+    {
+      "fixture": "chelsea-padded",
+      "candidate": "cpg",
+      "tensor_max_abs_error": 0.0,
+      "matched_ious": [
+        1.0
+      ],
+      "expected_object_iou": 0.9765577355325427
+    },
+    {
+      "fixture": "chelsea-padded",
+      "candidate": "torch",
+      "tensor_max_abs_error": 0.00048828125,
+      "matched_ious": [
+        0.9981937112060663
+      ],
+      "expected_object_iou": 0.9769618758749371
+    },
+    {
+      "fixture": "chelsea-padded",
+      "candidate": "cvcuda",
+      "tensor_max_abs_error": 0.00048828125,
+      "matched_ious": [
+        0.9981937112060663
+      ],
+      "expected_object_iou": 0.9769618758749371
+    },
+    {
+      "fixture": "astronaut-1080p",
+      "candidate": "cpg",
+      "tensor_max_abs_error": 0.0,
+      "matched_ious": [
+        1.0
+      ],
+      "expected_object_iou": 0.9015147928994083
+    },
+    {
+      "fixture": "astronaut-1080p",
+      "candidate": "torch",
+      "tensor_max_abs_error": 0.0,
+      "matched_ious": [
+        1.0
+      ],
+      "expected_object_iou": 0.9015147928994083
+    },
+    {
+      "fixture": "astronaut-1080p",
+      "candidate": "cvcuda",
+      "tensor_max_abs_error": 0.0,
+      "matched_ious": [
+        1.0
+      ],
+      "expected_object_iou": 0.9015147928994083
+    },
+    {
+      "fixture": "chelsea-1080p",
+      "candidate": "cpg",
+      "tensor_max_abs_error": 0.0,
+      "matched_ious": [
+        1.0
+      ],
+      "expected_object_iou": 0.9560953125
+    },
+    {
+      "fixture": "chelsea-1080p",
+      "candidate": "torch",
+      "tensor_max_abs_error": 0.0,
+      "matched_ious": [
+        1.0
+      ],
+      "expected_object_iou": 0.9560953125
+    },
+    {
+      "fixture": "chelsea-1080p",
+      "candidate": "cvcuda",
+      "tensor_max_abs_error": 0.0,
+      "matched_ious": [
+        1.0
+      ],
+      "expected_object_iou": 0.9560953125
+    }
+  ],
+  "scope": "NumPy recheck of exported tensors, same-engine dense outputs, and independent CPU NMS; not a new GPU run"
+}

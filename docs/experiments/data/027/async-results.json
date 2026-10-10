@@ -1,0 +1,26 @@
+{
+  "status": "passed",
+  "revision": "a3ccdbcedccbc064fecc94bbac0d08789c7281f8",
+  "dirty": false,
+  "engine_sha256": "7af545f08980aae33f581abd43ddaa21cfb3b76a69482d4d5b3c2cba3d5f23ab",
+  "delayed_report_sha256": "40abc90219a7900603ba399ebfa83a44a11c14a707cbd38236584b98431b284d",
+  "mode": "serial-async-v1",
+  "blocks": 10,
+  "samples_per_block": 1000,
+  "warmup": 100,
+  "scope": "Resident 1080p input; fresh outputs; serial FP16 TensorRT and CUDA NMS; no camera acquisition or overlap",
+  "fixtures": [
+    {
+      "name": "astronaut-1080p",
+      "checked_frames": 20000,
+      "failed_frames": 0
+    },
+    {
+      "name": "chelsea-1080p",
+      "checked_frames": 20000,
+      "failed_frames": 0
+    }
+  ],
+  "p99_guard_fraction": 0.05,
+  "drain_status": "passed"
+}

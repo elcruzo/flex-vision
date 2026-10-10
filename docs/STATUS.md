@@ -1,6 +1,6 @@
 # Product progress
 
-Updated October 9, 2026. This assessment uses the full scope in REQUIREMENTS.md.
+Updated October 10, 2026. This assessment uses the full scope in REQUIREMENTS.md.
 No milestone percentage is assigned. The remaining gates differ substantially in effort and hardware needs.
 
 ## Where we are
@@ -45,15 +45,15 @@ Evidence: [inspection comparison](experiments/014-inspection-comparison.md),
 ## Next sequence
 
 1. Reconcile rental reservations within the existing $15 authorization and verify reliable evidence export.
-2. Complete the prepared delayed-consumer TensorRT gate. Experiment 026 exported no acceptance evidence.
-3. Run the matched serial sync/submission comparison in ASYNC_BENCHMARK.md after that gate passes.
+2. Preserve the passed delayed-consumer gate from experiment 027, including the missed export from experiment 026.
+3. Repeat the matched serial comparison after async trace and allocator evidence. The first comparison passed in experiment 027.
 4. Verify async-specific traces, allocator behavior, repeatability, and the complete-host p99 guard before selecting a strategy.
 5. Evaluate bounded concurrent execution and reusable workspace with explicit consumer completion.
 6. Add the configurable stencil path, general planning, and measured tuning as the plan requires.
 7. Develop and validate ROS transport and Jetson capture for the flagship camera-to-TensorRT path.
 
 Keep caller-owned output optional. Its measured allocation benefit did not produce a latency improvement.
-The submission API and fixed ownership scenario exist. They do not establish delayed-consumer or async performance acceptance.
+The submission API, fixed ownership, delayed-consumer gate, and first serial comparison passed their scoped checks.
 
 The existing two-workload evidence permits focused runtime development.
 It does not remove any required operator, integration, or release deliverable.
@@ -88,10 +88,16 @@ See [experiment 026](experiments/026-expired-delayed-consumer.md). Reconcile res
 Independent evidence export is prepared through an optional GPU-side signed PUT URL.
 The local archive/upload/retrieval check passed. The full local suite passed 139 checks.
 See [export setup](DURABLE_EXPORT.md). No storage destination or cloud export acceptance exists yet.
-Experiment 026 remains unvalidated. Reconcile budget and validate provider export before another rental.
+Experiment 026 remains unvalidated. Provider export needs validation only if that optional route is selected.
 
 The recent four ended leases now have lifetime-bounded replacement reservations.
 The cumulative conservative bound is $13.295168122393484 against the existing $15 authorization.
 No new rental was created. See RUNPOD_SETUP.md and its calculation record.
 The delayed-consumer runner now regenerates complete numerical controls without repeating baseline timing and trace capture first.
-GPU delayed-consumer acceptance remains pending. Numerical-only reports cannot count as performance evidence.
+Experiment 027 passed the fixed delayed-consumer gate. Numerical-only controls cannot count as performance evidence.
+
+
+Experiment 027 passed 48 delayed-consumer checks and 40,000 matched serial inference checks on RTX 4090.
+Complete-host p50 improved 9.38–9.42%, with p99 improved 8.99–10.37% in this run.
+See [experiment 027](experiments/027-delayed-and-async.md).
+Keep the synchronous default. Async traces, allocator observations, independent repeats, and concurrency remain pending.
