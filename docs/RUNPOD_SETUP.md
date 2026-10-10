@@ -538,3 +538,14 @@ Use ordinary local SSH export. It retains its Mac-session dependency. No bucket 
 Experiment 027 completed with 40 hash-verified exported files and exact GPU/controller/secret cleanup.
 Retain its $0.65 reservation. The conservative cumulative bound remains $13.945168122393484.
 No rental remains active. See experiments/027-delayed-and-async.md before choosing the next GPU gate.
+
+### Async diagnostic capture reservation
+
+The October 10 preflight found no Pods. Posted Pod billing remains $9.770127805024458.
+The live catalog reports secure RTX 4090 HIGH capacity in EU-RO-1 at $0.89/hour.
+Two cpu3c vCPUs have HIGH capacity in EU-CZ-1 at $0.06/hour.
+Reserve $0.65 for one independently terminated 30-minute diagnostics session.
+The conservative cumulative bound becomes $14.595168122393484 within the original $15 authorization.
+Run fresh numerical controls, pending-consumer checks, and separate async trace/allocator diagnostics.
+Retain results even when the capture or allocation gate fails. Keep ordinary local SSH export.
+No cloud storage or persistent volume is required.
