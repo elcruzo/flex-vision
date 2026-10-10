@@ -151,6 +151,6 @@ See [the evidence](experiments/024-detector-streams.md). Asynchronous ownership 
 ## Experimental submission
 
 `Pipeline.submit(frame, stream=...)` returns an explicit preprocessing completion object.
-The owned-output path is implemented but not yet GPU-validated. Read [the contract](ASYNC_EXECUTION.md).
+The owned-output path passed 48 fixed TensorRT executions on RTX 4090. Read [experiment 025](experiments/025-async-submission.md) and [the contract](ASYNC_EXECUTION.md).
 The synchronous call and out= path retain their existing behavior.
 Do not claim async inference, reusable slots, or performance gains from local lifecycle checks.

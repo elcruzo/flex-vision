@@ -81,5 +81,6 @@ scripts/yolo_stream_ownership.py passed 48 synchronous TensorRT executions on RT
 Do not claim async support from this harness.
 
 Pipeline.submit implements experimental owned-output async preprocessing completion.
-It is locally lifecycle-tested but not GPU-validated. Read docs/ASYNC_EXECUTION.md and D043.
+It passed 48 fixed TensorRT executions on RTX 4090 after a stream compatibility correction. Read docs/experiments/025-async-submission.md.
+Delayed-consumer behavior, async-specific traces, and performance acceptance remain pending. Read docs/ASYNC_EXECUTION.md and D043.
 Keep the synchronous default. Async caller-owned output and consumer tracking remain unsupported.

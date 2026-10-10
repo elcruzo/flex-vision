@@ -1,0 +1,9 @@
+{
+  "status": "coverage_verified",
+  "executions": 48,
+  "cases": 12,
+  "mode": "async-submit",
+  "revision": "003da1c3d2ecb1b2ef6e1b61d7aea4eb7dc1169e",
+  "engine_sha256": "8b95d4dbab4127f9340f8bed3d4ed5f659716b2bd6cbe8c619e918eb6f3e6678",
+  "qualification": "Audit of recorded GPU checks; not independent tensor recomputation or asynchronous acceptance"
+}

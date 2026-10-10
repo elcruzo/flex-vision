@@ -1,0 +1,8 @@
+{
+  "status": "failed_before_async_inference",
+  "revision": "ce776b7b1f8f01c15ab1190273b79f47acaf0852",
+  "reason": "Torch 2.9.1 Stream lacks __cuda_stream__; CuPy Stream.from_external rejected the object",
+  "gpu": "4q0ttle5butxnf",
+  "exported_files": 67,
+  "acceptance": "none for async submission"
+}

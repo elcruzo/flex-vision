@@ -71,3 +71,8 @@ The fixed detector stream scenario passed 48 TensorRT executions across six fixt
 Three distinct streams used explicit handoffs. Retained outputs and shutdown passed.
 Both preprocessing and TensorRT remain synchronous. Async execution remains open.
 See [experiment 024](experiments/024-detector-streams.md).
+
+The owned-output submission API passed 48 fixed TensorRT executions with early caller-source release.
+See [experiment 025](experiments/025-async-submission.md), including the first pinned stream compatibility failure.
+This is integration correctness progress, not a measured async latency gain.
+Delayed-consumer behavior, async traces, and matched performance are the next gates.

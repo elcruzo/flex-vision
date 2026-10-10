@@ -479,3 +479,15 @@ A fresh 23:04:18 UTC inventory was empty. No rental remains active.
 Posted billing was $8.783250520227739. Retain old headroom and the new $0.65 reservation.
 Without offsetting the posted increase, the conservative cumulative bound is $12.743217323611702, within $15.
 See experiment 024 for scope and evidence. Reconcile before another paid rental.
+
+### Async submission correctness attempts
+
+The first attempt failed before async inference because Torch 2.9.1 streams lacked __cuda_stream__.
+It exported 67 hash-verified files and removed GPU 4q0ttle5butxnf at 23:49:37 UTC on October 9.
+Controller and secret cleanup completed at 23:49:48 UTC. The subsequent inventory was empty.
+The corrected attempt passed all 48 async-submit TensorRT executions and exported 69 hash-verified files.
+GPU 0e3cultzi45uw0 was removed at 23:58:51 UTC. Controller and secret cleanup completed at 23:59:03 UTC.
+The fresh 23:59:19 UTC inventory was empty. No rental remains active.
+Posted billing remained $8.783250520227739. Retain both $0.65 reservations and all previous delayed-charge headroom.
+The conservative cumulative bound is $14.043217323611703 within $15. Reconcile before another rental.
+See experiment 025 for the failure, correction, scoped correctness, and remaining acceptance.

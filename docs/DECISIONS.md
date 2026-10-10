@@ -515,3 +515,12 @@ CuPy Stream.from_external documentation describes newer interoperable objects, n
 Use native CuPy streams retained by the harness and explicit Torch ExternalStream wrappers.
 Keep those native owners alive until every stream drains. Do not infer ownership from a raw pointer.
 Preserve the failed dispatch and require a fresh real-inference result before acceptance.
+
+## D045 — Accept fixed owned-output submission correctness only
+
+The corrected experiment 025 passed all 48 TensorRT executions with early caller-source release.
+Exact tensors, dense outputs, detections, retained outputs, and stream drainage passed.
+Accept this fixed scenario. Preserve the failed stream-protocol attempt and the native-owner correction.
+Keep the synchronous default. The consumer still synchronizes, and the retained trace covers the baseline only.
+No delayed-consumer, recycling, overlap, or async performance acceptance follows from this run.
+Define a matched performance protocol and test pending consumer lifetimes before selecting a strategy.

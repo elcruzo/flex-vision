@@ -1,6 +1,7 @@
 # Stream ownership and asynchronous execution
 
-Status: experimental owned-output submission implemented. GPU acceptance remains pending.
+Status: experimental owned-output submission passed the fixed 48-execution TensorRT scenario.
+Broader async acceptance and performance remain pending.
 The default detector call remains synchronous.
 Experiment 023 does not support selecting caller-owned output for faster execution.
 This document defines the next hypothesis: explicit dependencies can remove host waits without corrupting outputs or increasing tails.
@@ -110,10 +111,14 @@ A completion error keeps source owners retained and propagates to the caller.
 Device failure recovery is not established by this experimental path.
 
 Three local lifecycle checks verify retention across handoff, completion failure, and wrong-device rejection.
-They use fake events and streams. Real CUDA/TensorRT correctness, absence of host waits, and performance remain unmeasured.
+They use fake events and streams. Experiment 025 adds fixed CUDA/TensorRT correctness evidence.
+Absence of host waits, delayed-consumer behavior, and performance remain unmeasured.
 The next hardware harness must exercise this implementation through delayed producer and consumer work.
 
 The guarded async correctness entry point is scripts/run_yolo_async_experiment.sh.
 It tests 48 owned-output submissions and releases caller source references before TensorRT consumption.
 The TensorRT consumer remains synchronous. This scenario does not measure overlap or performance.
 Require the async-submit report mode and source-release checks when auditing this scenario.
+
+[Experiment 025](experiments/025-async-submission.md) passed all 48 owned-output submissions after a pinned stream compatibility correction.
+The consumer still synchronizes. Keep the default unchanged and test delayed consumers before performance selection.

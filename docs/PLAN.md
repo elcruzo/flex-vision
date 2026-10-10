@@ -314,3 +314,7 @@ The continuous detector soak passed on one RTX 4090 configuration. See [experime
 See [the frozen soak protocol](SUSTAINED_YOLO.md#continuous-detector-soak).
 It requires measured thermal conditioning, thirty continuous minutes through TensorRT, per-frame checks, and independent evidence verification.
 Local fault checks do not complete this gate. Reconcile cloud reservations before another rental under the existing $15 budget.
+
+The experimental owned-output submission passed 48 fixed TensorRT executions in [experiment 025](experiments/025-async-submission.md).
+Caller input references were released before consumption. The completion object retained their owners.
+Keep the synchronous default. Delayed consumers, slot recycling, async traces, and matched performance remain pending.

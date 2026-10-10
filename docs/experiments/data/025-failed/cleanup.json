@@ -1,0 +1,7 @@
+{
+  "checked_at": "2026-10-09T23:49:58.746705+00:00",
+  "pods": [],
+  "gpu_absent": true,
+  "controller_absent": true,
+  "secret_absent": true
+}
