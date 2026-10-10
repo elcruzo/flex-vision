@@ -1,0 +1,16 @@
+{
+  "posted_total": 9.770127805024458,
+  "method": "Replace only 029 reservation using full run-to-confirmed-absence lifetime over both compute rates, plus 60 seconds and 0.10 disk headroom; no posted rows for these two Pods. Keep all other ceilings.",
+  "pods": [
+    "ejzciarhjrsplv",
+    "f2l7aywblb3nn2"
+  ],
+  "start_epoch": 1791609293,
+  "absence_utc": "2026-10-10T05:19:14+00:00",
+  "seconds": 261,
+  "ceiling": 0.18470833333333334,
+  "previous_bound": 14.356279233504596,
+  "reconciled_bound": 13.890987566837929,
+  "new_reservation": 0.65,
+  "reserved_bound": 14.540987566837929
+}

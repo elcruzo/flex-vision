@@ -573,3 +573,15 @@ Retain failed evidence. No trace or performance acceptance follows from this cor
 Experiment 029 exported its failed CAI harness report and verified exact GPU/controller/secret cleanup.
 No CAI execution passed. Retain the $0.65 reservation until reconciliation.
 The conservative bound remains $14.356279233504596. The fresh inventory is empty.
+
+### Corrected CAI retry reservation
+
+The live Pod inventory is empty. Posted Pod billing remains $9.770127805024458.
+Replace only the ended 029 reservation using its 261-second full lifetime, both compute rates, 60 seconds, and $0.10 disk headroom.
+Its ceiling is $0.18470833333333334. The reconciled cumulative bound is $13.890987566837929.
+Keep all other ceilings. See experiments/data/budget-after-029.json.
+Secure RTX 4090 HIGH capacity is available in EU-RO-1 at $0.89/hour.
+Two cpu3c vCPUs have HIGH capacity in EU-CZ-1 at $0.06/hour.
+Reserve $0.65 for one independently bounded 30-minute corrected CAI session.
+The conservative cumulative bound becomes $14.540987566837929, within the original $15 authorization.
+Require all 144 scenarios. Preserve failures and verify export and exact cleanup.
