@@ -585,3 +585,7 @@ Two cpu3c vCPUs have HIGH capacity in EU-CZ-1 at $0.06/hour.
 Reserve $0.65 for one independently bounded 30-minute corrected CAI session.
 The conservative cumulative bound becomes $14.540987566837929, within the original $15 authorization.
 Require all 144 scenarios. Preserve failures and verify export and exact cleanup.
+
+Experiment 030 resources are absent. Its lifetime bound replaces only its $0.65 reservation.
+The cumulative conservative bound including one corrected 031 retry is $14.781640344615706.
+See experiments/data/budget-after-030.json. The original $15 authorization remains unchanged.

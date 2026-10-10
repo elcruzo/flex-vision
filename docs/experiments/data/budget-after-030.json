@@ -1,0 +1,16 @@
+{
+  "posted_total": 9.770127805024458,
+  "method": "Replace only 030 reservation with full run-to-confirmed-absence lifetime over both compute rates, plus 60 seconds and 0.10 disk headroom. Preserve all other ceilings. Live billing still has no 030 rows.",
+  "pods": [
+    "k0nh3at4u3f0bu",
+    "h5tw0m36rvwr9h"
+  ],
+  "start_epoch": 1791609658,
+  "absence_utc": "2026-10-10T05:28:50.715422+00:00",
+  "seconds": 473,
+  "ceiling": 0.24065277777777777,
+  "previous_bound": 14.540987566837929,
+  "reconciled_bound": 14.131640344615706,
+  "new_reservation": 0.65,
+  "reserved_bound": 14.781640344615706
+}
