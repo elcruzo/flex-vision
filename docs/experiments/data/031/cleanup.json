@@ -1,0 +1,9 @@
+{
+  "observed_utc": "2026-10-10T05:35:13.666238+00:00",
+  "pods": [],
+  "secrets": [],
+  "gpu": "0u7uvpr2thycpm",
+  "controller": "l1hvb3dik8r9us",
+  "secret": "5we70o6fd4",
+  "coordinator_cleanup_utc": "2026-10-10T05:34:38.136664+00:00"
+}

@@ -630,3 +630,10 @@ Require caller completion before future writes when no producer stream is advert
 Keep immediate producer reuse for advertised streams, with a fresh pending observation directly before reuse.
 Record both contracts in cai-v2 without reducing the 144-case matrix.
 Preserve the failed cai-v1 evidence. Corrected hardware acceptance remains pending.
+
+## D058 — Accept fixed CAI correctness separately from residency
+
+Experiment 031 passed the complete cai-v2 matrix through real TensorRT inference.
+Accept this fixed correctness and ownership gate after preserving experiments 029 and 030.
+Do not infer CAI transfer absence, external-library support, or broader device/dtype acceptance.
+Collect a focused complete-inference transfer capture next. Keep the synchronous default.

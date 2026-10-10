@@ -1,6 +1,6 @@
 # CUDA Array Interface real-inference gate
 
-Status: prepared harness and local coverage fault checks. NVIDIA execution remains pending.
+Status: experiment 031 passed the fixed 144-case correctness protocol on RTX 4090. Broader acceptance remains pending.
 This gate advances R05 interoperability and R10 ownership without expanding the filter catalog.
 
 ## Fixed scenario
@@ -76,3 +76,6 @@ See experiments/029-cai-event-failure.md. Require a fresh complete result before
 
 Experiment 030 passed seven scenarios before unordered stream=None reuse failed in the harness.
 See experiments/030-cai-ready-reuse.md. Corrected cai-v2 GPU acceptance remains pending.
+
+Experiment 031 passed cai-v2 after the preserved failures in 029 and 030.
+See experiments/031-cai-inference.md for exact scope. Transfer capture remains pending.

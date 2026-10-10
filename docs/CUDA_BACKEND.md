@@ -181,7 +181,8 @@ Primary references checked October 10, 2026:
 [CuPy 14.2 stream protocol import](https://docs.cupy.dev/en/stable/reference/generated/cupy.cuda.Stream.html).
 Avoid deprecated ExternalStream construction for this new path.
 
-Local metadata and handoff checks passed. CAI-only GPU inference acceptance remains pending.
+Local metadata and handoff checks passed. Experiment 031 passed the fixed 144-case CAI-only GPU inference scenario.
 Do not infer support from existing CuPy/PyTorch DLPack experiments.
-Next, run delayed producer writes, early exporter release, signed strides, default streams, sync/submit, and retained outputs through real TensorRT.
+Delayed producer writes, early exporter release, signed strides, default streams, sync/submit, and retained outputs passed in that scenario.
+For stream=None, input is ready at import. The caller must complete preprocessing before future writes.
 Include invalid-device/pointer controls and a transfer capture before a residency claim.

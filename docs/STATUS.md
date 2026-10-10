@@ -133,3 +133,8 @@ Experiment 030 passed seven CAI scenarios before the harness violated stream=Non
 Protocol cai-v2 now separates caller completion from advertised-stream completion fencing.
 See experiments/030-cai-ready-reuse.md and D057. All rental resources are absent.
 The full 144-case gate, CAI transfer capture, and broader interoperability remain pending.
+
+Experiment 031 passed all 144 fixed CAI-only TensorRT correctness and ownership scenarios on RTX 4090.
+Advertised streams fenced immediate reuse. Ready-input callers completed preprocessing before writing again.
+See experiments/031-cai-inference.md. CAI transfer capture and broader interoperability remain pending.
+All rental resources are absent. Keep the synchronous default and existing async limits.

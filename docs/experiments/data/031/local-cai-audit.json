@@ -1,0 +1,7 @@
+{
+  "status": "coverage_verified",
+  "executions": 144,
+  "revision": "0f8c12cf7bc56548e8daa4014a50f2fac8c48433",
+  "engine_sha256": "01078815d14db395b8dba0c7f7abb94db4e1bc72f1d8759ecb926971ff83fa7b",
+  "qualification": "Recorded real-inference CAI coverage; not independent tensor recomputation, invalid-device acceptance, or transfer proof"
+}
