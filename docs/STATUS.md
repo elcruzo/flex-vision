@@ -149,3 +149,7 @@ Each range contained one preprocessing kernel, downstream inference/NMS, and 20 
 No tensor-sized aggregate host transfer appeared. The known transfer control and local projection audit passed.
 See experiments/032-cai-residency.md. Broader CAI acceptance and full MVP gates remain pending.
 All rental resources are absent. Preserve the original total $15 budget and synchronous default.
+
+Configurable 3/5/7/9 stencils now have immutable Python/YAML construction and explicit independent references.
+CUDA graphs with stencils are explicitly rejected pending backend implementation and hardware acceptance.
+See STENCILS.md and D061. The real local classifier runner is prepared.

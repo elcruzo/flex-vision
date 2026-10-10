@@ -655,3 +655,12 @@ Report four H2D bytes and sixteen D2H bytes per range, rather than claiming zero
 The aggregate-copy check rejects tensor-sized chunked traffic but does not establish every possible partial-payload path.
 Retain sanitized selected ranges with provenance and keep full raw artifacts local.
 No performance, overlap, broad-platform, or general interoperability claim follows from this capture.
+
+## D061 — Define configurable convolution before CUDA specialization
+
+Add one leading stencil to the existing immutable detector graph and explicit references.
+Use flipped convolution, replicated borders, per-channel filtering, and finite canonical FP32 coefficients.
+Preserve negative intermediates without implicit clamping. Filter before resize and normalization.
+Support all four required sizes from literal rows and relative kernel files.
+Reject CUDA execution until the new backend and real-inference gate pass.
+See STENCILS.md. This new implementation does not import upstream source or resolve project licensing.

@@ -1,6 +1,7 @@
 """Immutable detector graph, independent of CUDA and tensor libraries."""
 from dataclasses import asdict, dataclass, replace
 import math
+import struct
 from numbers import Real
 
 
@@ -13,6 +14,30 @@ def _finite(value, name):
     if isinstance(value, bool) or not isinstance(value, Real) or not math.isfinite(value):
         raise ValueError(f"{name} must be finite numeric data")
     return float(value)
+
+
+@dataclass(frozen=True)
+class Conv2d:
+    kernel: tuple[tuple[float, ...], ...]
+
+    def __post_init__(self):
+        n = len(self.kernel)
+        if type(self.kernel) is not tuple or n not in (3, 5, 7, 9) or any(type(row) is not tuple or len(row) != n for row in self.kernel):
+            raise ValueError('kernel must be an immutable square 3, 5, 7, or 9 stencil')
+        coefficients = []
+        for row in self.kernel:
+            values = []
+            for value in row:
+                value = _finite(value, 'kernel coefficient')
+                try:
+                    converted = struct.unpack('f', struct.pack('f', value))[0]
+                except OverflowError as exc:
+                    raise ValueError('kernel coefficient must fit FP32') from exc
+                if not math.isfinite(converted):
+                    raise ValueError('kernel coefficient must fit finite FP32')
+                values.append(converted)
+            coefficients.append(tuple(values))
+        object.__setattr__(self, 'kernel', tuple(coefficients))
 
 
 @dataclass(frozen=True)
@@ -88,7 +113,7 @@ class Geometry:
 
 @dataclass(frozen=True)
 class Pipeline:
-    """Initial grammar: letterbox -> normalize -> to. Always outputs RGB."""
+    """Optional reference stencil -> letterbox -> normalize -> to. Outputs RGB."""
     operations: tuple = ()
     input_encoding: str = "rgb8"
 
@@ -97,9 +122,20 @@ class Pipeline:
             raise ValueError("input_encoding must be rgb8 or bgr8")
         if not isinstance(self.operations, tuple):
             raise ValueError("operations must be an immutable tuple")
+        offset = int(bool(self.operations) and type(self.operations[0]) is Conv2d)
         expected = (Letterbox, Normalize, Convert)
-        if len(self.operations) > 3 or any(type(op) is not expected[i] for i, op in enumerate(self.operations)):
-            raise ValueError("supported order is letterbox -> normalize -> to")
+        tail = self.operations[offset:]
+        if len(tail) > 3 or any(type(op) is not expected[i] for i, op in enumerate(tail)):
+            raise ValueError("supported order is optional conv2d -> letterbox -> normalize -> to")
+
+    def conv2d(self, kernel):
+        if self.operations:
+            raise ValueError('conv2d must be the first operation')
+        try:
+            kernel = tuple(tuple(row) for row in kernel)
+        except TypeError as exc:
+            raise ValueError('kernel must contain rows of coefficients') from exc
+        return replace(self, operations=(Conv2d(kernel),))
 
     def letterbox(self, width, height, value=114):
         value = _finite(value, "padding value")
@@ -121,9 +157,13 @@ class Pipeline:
         h, w, _ = shape
         _dimension(h, "input height")
         _dimension(w, "input width")
-        if len(self.operations) != 3:
+        stencil = self.operations[0] if self.operations and type(self.operations[0]) is Conv2d else None
+        tail = self.operations[1:] if stencil is not None else self.operations
+        if len(tail) != 3:
             raise ValueError("complete letterbox -> normalize -> to before planning")
-        size, _, output = self.operations
+        if stencil is not None and backend == 'cuda':
+            raise ValueError('CUDA stencil execution is not implemented; use an explicit reference path')
+        size, _, output = tail
         ratio = min(size.width / w, size.height / h)
         # Round half up and preserve at least one pixel on each axis.
         rw = min(size.width, max(1, math.floor(w * ratio + 0.5)))

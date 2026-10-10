@@ -58,12 +58,32 @@ def load_pipeline(path):
         except ValueError as exc:
             raise ConfigError(f"input.encoding: {exc}") from exc
         operations = data["pipeline"]
-        if not isinstance(operations, list) or len(operations) != 2:
-            raise ConfigError("pipeline: this initial subset requires letterbox then normalize")
+        if not isinstance(operations, list) or len(operations) not in (2, 3):
+            raise ConfigError("pipeline: require optional convolution, letterbox, then normalize")
+        offset = 0
+        if len(operations) == 3:
+            _fields(operations[0], {'convolution'}, set(), 'pipeline[0]')
+            parameters = _fields(operations[0]['convolution'], {'kernel'}, set(), 'pipeline[0].convolution')
+            kernel = parameters['kernel']
+            if isinstance(kernel, str):
+                kernel_path = path.parent / kernel
+                try:
+                    with kernel_path.open('rb') as source: raw_kernel = source.read(65_537)
+                    if len(raw_kernel) > 65_536: raise ConfigError('kernel file exceeds 64 KiB')
+                    kernel_data = yaml.load(raw_kernel, Loader=_Loader)
+                    kernel = _fields(kernel_data, {'kernel'}, set(), 'kernel file')['kernel']
+                except (OSError, yaml.YAMLError, ConfigError, UnicodeError) as exc:
+                    raise ConfigError(f'pipeline[0].convolution.kernel {kernel_path}: {exc}') from exc
+            try:
+                pipeline = pipeline.conv2d(kernel)
+            except (ValueError, TypeError) as exc:
+                raise ConfigError(f'pipeline[0].convolution: {exc}') from exc
+            offset = 1
         for i, (name, required, optional) in enumerate([
             ("letterbox", {"width", "height"}, {"value"}),
             ("normalize", {"mean", "std", "scale"}, set()),
         ]):
+            i += offset
             location = f"pipeline[{i}].{name}"
             _fields(operations[i], {name}, set(), f"pipeline[{i}]")
             parameters = _fields(operations[i][name], required, optional, location)
