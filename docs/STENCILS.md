@@ -44,5 +44,5 @@ It also compares literal and relative kernel-file descriptions.
 CPU/MPS preprocessing and CPU classifier inference are explicit reference paths.
 Neither local reference execution nor metadata tests establish CUDA support or performance.
 
-Primary API reference: [PyTorch functional conv2d](https://docs.pytorch.org/docs/stable/generated/torch.nn.functional.conv2d.html).
+Primary API reference: [PyTorch functional conv2d](https://docs.pytorch.org/docs/2.8/generated/torch.nn.functional.conv2d.html).
 CUDA specialization, unrolling, shared-memory/vendor comparisons, stream ownership, and complete-inference transfer capture remain required next work.

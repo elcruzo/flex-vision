@@ -2,6 +2,8 @@
 import argparse
 import hashlib
 import json
+import os
+import platform
 from pathlib import Path
 import subprocess
 import numpy as np
@@ -19,11 +21,16 @@ def main():
     parser.add_argument('--device',choices=('cpu','mps'),default='cpu')
     parser.add_argument('--output',type=Path,required=True)
     args=parser.parse_args()
+    if args.device=='mps' and os.environ.get('PYTORCH_ENABLE_MPS_FALLBACK')=='1':
+        raise ValueError('Disable MPS CPU fallback for this explicit reference experiment')
     weights=Path('.cache/models/mobilenet_v3_small-047dcff4.pth')
     if digest(weights)!=WEIGHTS_SHA256:raise ValueError('Require pinned classifier weights')
     args.output.mkdir(parents=True,exist_ok=False)
     report=dict(status='failed',revision=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),
                 dirty=bool(subprocess.check_output(['git','status','--porcelain'],text=True)),
+                torch_version=torch.__version__,platform=platform.platform(),python=platform.python_version(),
+                mps_fallback_environment=os.environ.get('PYTORCH_ENABLE_MPS_FALLBACK'),
+                fixture_manifest_sha256=digest(Path('tests/fixtures/images/manifest.json')),
                 preprocessing_device=args.device,inference_device='cpu',weights_sha256=WEIGHTS_SHA256,
                 scope='Explicit stencil reference and real classifier checks; no CUDA or performance acceptance',
                 tensor_atol=2e-4,logit_atol=.001,logit_rtol=1e-4,checks=[])
