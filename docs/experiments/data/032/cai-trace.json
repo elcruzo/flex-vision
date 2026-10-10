@@ -1,0 +1,141 @@
+{
+  "status": "passed",
+  "mode": "cai-trace-v1",
+  "dirty": false,
+  "revision": "fabc8fea87e4f8bb45ecb21b6c240fda9209b159",
+  "engine_sha256": "df9cd7e8fb41318178955c96a1c1ddd2728b64c5105877c147df6931672dc6f0",
+  "cai_report_sha256": "314dad1c6918922cbcfbed7b0753290b0b2ef2181168d7f5a10d232c3e33affe",
+  "checks": [
+    {
+      "fixture": "astronaut-1080p",
+      "producer": "explicit",
+      "execution": "sync",
+      "tensor_exact": true,
+      "dense_output": true,
+      "detections": true
+    },
+    {
+      "fixture": "astronaut-1080p",
+      "producer": "explicit",
+      "execution": "submit",
+      "tensor_exact": true,
+      "dense_output": true,
+      "detections": true
+    },
+    {
+      "fixture": "astronaut-1080p",
+      "producer": "legacy",
+      "execution": "sync",
+      "tensor_exact": true,
+      "dense_output": true,
+      "detections": true
+    },
+    {
+      "fixture": "astronaut-1080p",
+      "producer": "legacy",
+      "execution": "submit",
+      "tensor_exact": true,
+      "dense_output": true,
+      "detections": true
+    },
+    {
+      "fixture": "astronaut-1080p",
+      "producer": "ptds",
+      "execution": "sync",
+      "tensor_exact": true,
+      "dense_output": true,
+      "detections": true
+    },
+    {
+      "fixture": "astronaut-1080p",
+      "producer": "ptds",
+      "execution": "submit",
+      "tensor_exact": true,
+      "dense_output": true,
+      "detections": true
+    },
+    {
+      "fixture": "astronaut-1080p",
+      "producer": "ready",
+      "execution": "sync",
+      "tensor_exact": true,
+      "dense_output": true,
+      "detections": true
+    },
+    {
+      "fixture": "astronaut-1080p",
+      "producer": "ready",
+      "execution": "submit",
+      "tensor_exact": true,
+      "dense_output": true,
+      "detections": true
+    },
+    {
+      "fixture": "chelsea-1080p",
+      "producer": "explicit",
+      "execution": "sync",
+      "tensor_exact": true,
+      "dense_output": true,
+      "detections": true
+    },
+    {
+      "fixture": "chelsea-1080p",
+      "producer": "explicit",
+      "execution": "submit",
+      "tensor_exact": true,
+      "dense_output": true,
+      "detections": true
+    },
+    {
+      "fixture": "chelsea-1080p",
+      "producer": "legacy",
+      "execution": "sync",
+      "tensor_exact": true,
+      "dense_output": true,
+      "detections": true
+    },
+    {
+      "fixture": "chelsea-1080p",
+      "producer": "legacy",
+      "execution": "submit",
+      "tensor_exact": true,
+      "dense_output": true,
+      "detections": true
+    },
+    {
+      "fixture": "chelsea-1080p",
+      "producer": "ptds",
+      "execution": "sync",
+      "tensor_exact": true,
+      "dense_output": true,
+      "detections": true
+    },
+    {
+      "fixture": "chelsea-1080p",
+      "producer": "ptds",
+      "execution": "submit",
+      "tensor_exact": true,
+      "dense_output": true,
+      "detections": true
+    },
+    {
+      "fixture": "chelsea-1080p",
+      "producer": "ready",
+      "execution": "sync",
+      "tensor_exact": true,
+      "dense_output": true,
+      "detections": true
+    },
+    {
+      "fixture": "chelsea-1080p",
+      "producer": "ready",
+      "execution": "submit",
+      "tensor_exact": true,
+      "dense_output": true,
+      "detections": true
+    }
+  ],
+  "scope": "Resident contiguous 1080p CAI-only input through completed TensorRT and CUDA NMS; no performance claim",
+  "active_scenario": null,
+  "drain_status": "passed"
+}

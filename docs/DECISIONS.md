@@ -646,3 +646,12 @@ Require a known-transfer control, one preprocessing kernel, and downstream GPU w
 Reject tensor-sized aggregate host bytes, including transfers split into small copies.
 Report remaining metadata copies explicitly. Hardware acceptance remains pending.
 See CAI_VALIDATION.md for execution and scope.
+
+## D060 — Accept fixed CAI capture with explicit metadata-copy limits
+
+Experiment 032 passed the repeated cai-v2 gate and 16 completed inference ranges.
+Accept this fixed resident contiguous 1080p CAI scenario with its known-transfer control.
+Report four H2D bytes and sixteen D2H bytes per range, rather than claiming zero host copies.
+The aggregate-copy check rejects tensor-sized chunked traffic but does not establish every possible partial-payload path.
+Retain sanitized selected ranges with provenance and keep full raw artifacts local.
+No performance, overlap, broad-platform, or general interoperability claim follows from this capture.

@@ -78,7 +78,7 @@ Experiment 030 passed seven scenarios before unordered stream=None reuse failed 
 See experiments/030-cai-ready-reuse.md. Corrected cai-v2 GPU acceptance remains pending.
 
 Experiment 031 passed cai-v2 after the preserved failures in 029 and 030.
-See experiments/031-cai-inference.md for exact scope. Transfer capture remains pending.
+See experiments/031-cai-inference.md for exact scope. Experiment 032 subsequently passed the fixed transfer-capture protocol. Broader acceptance remains pending.
 
 ## Prepared complete-inference transfer capture
 
@@ -98,7 +98,7 @@ Keep all smaller copy observations in the report. Do not claim zero host copies 
 
 Use scripts/run_yolo_cai_trace_experiment.sh under the independent lease deadline.
 It regenerates numerical controls and the full correctness gate, then captures and sanitizes the Nsight export.
-Local evidence faults, shell syntax, and Python compilation passed. Hardware capture remains pending.
+Local evidence faults, shell syntax, and Python compilation passed. Experiment 032 passed this fixed hardware capture.
 This protocol provides no timing selection, overlap, allocator stability, or external-library acceptance.
 
 Use scripts/project_yolo_trace.py to retain a compact projection after sanitization.
@@ -109,3 +109,5 @@ Keep the full trace bundle locally. A projection does not represent the whole pr
 
 The projection also preserved experiment 028's actual Nsight range observations: 672 kernels and 33 copy events.
 All 201 local checks passed. This validates projection handling, not the pending CAI hardware capture.
+
+See experiments/032-cai-residency.md for complete capture evidence and copy observations.

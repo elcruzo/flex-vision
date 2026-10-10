@@ -1,0 +1,420 @@
+{
+  "status": "cai_capture_verified",
+  "checked_frames": 16,
+  "revision": "fabc8fea87e4f8bb45ecb21b6c240fda9209b159",
+  "engine_sha256": "df9cd7e8fb41318178955c96a1c1ddd2728b64c5105877c147df6931672dc6f0",
+  "trace": {
+    "trace_sha256": "b21449be8e968dbc36c369d527a76f84f744e6e4c44612bcf6203af2f17d812f",
+    "scope": "completed resident-input preprocessing, TensorRT, and CUDA NMS ranges; excludes uploads and validation downloads",
+    "ranges": {
+      "cai_explicit_sync": [
+        {
+          "kernel_launches": 168,
+          "copies": [
+            {
+              "cupti_kind": 1,
+              "count": 1,
+              "bytes": 4,
+              "largest_copy_bytes": 4
+            },
+            {
+              "cupti_kind": 2,
+              "count": 4,
+              "bytes": 16,
+              "largest_copy_bytes": 4
+            },
+            {
+              "cupti_kind": 8,
+              "count": 3,
+              "bytes": 144,
+              "largest_copy_bytes": 72
+            }
+          ],
+          "preprocess_launches": 1
+        },
+        {
+          "kernel_launches": 168,
+          "copies": [
+            {
+              "cupti_kind": 1,
+              "count": 1,
+              "bytes": 4,
+              "largest_copy_bytes": 4
+            },
+            {
+              "cupti_kind": 2,
+              "count": 4,
+              "bytes": 16,
+              "largest_copy_bytes": 4
+            },
+            {
+              "cupti_kind": 8,
+              "count": 3,
+              "bytes": 160,
+              "largest_copy_bytes": 80
+            }
+          ],
+          "preprocess_launches": 1
+        }
+      ],
+      "cai_explicit_submit": [
+        {
+          "kernel_launches": 168,
+          "copies": [
+            {
+              "cupti_kind": 1,
+              "count": 1,
+              "bytes": 4,
+              "largest_copy_bytes": 4
+            },
+            {
+              "cupti_kind": 2,
+              "count": 4,
+              "bytes": 16,
+              "largest_copy_bytes": 4
+            },
+            {
+              "cupti_kind": 8,
+              "count": 3,
+              "bytes": 144,
+              "largest_copy_bytes": 72
+            }
+          ],
+          "preprocess_launches": 1
+        },
+        {
+          "kernel_launches": 168,
+          "copies": [
+            {
+              "cupti_kind": 1,
+              "count": 1,
+              "bytes": 4,
+              "largest_copy_bytes": 4
+            },
+            {
+              "cupti_kind": 2,
+              "count": 4,
+              "bytes": 16,
+              "largest_copy_bytes": 4
+            },
+            {
+              "cupti_kind": 8,
+              "count": 3,
+              "bytes": 160,
+              "largest_copy_bytes": 80
+            }
+          ],
+          "preprocess_launches": 1
+        }
+      ],
+      "cai_legacy_sync": [
+        {
+          "kernel_launches": 168,
+          "copies": [
+            {
+              "cupti_kind": 1,
+              "count": 1,
+              "bytes": 4,
+              "largest_copy_bytes": 4
+            },
+            {
+              "cupti_kind": 2,
+              "count": 4,
+              "bytes": 16,
+              "largest_copy_bytes": 4
+            },
+            {
+              "cupti_kind": 8,
+              "count": 3,
+              "bytes": 144,
+              "largest_copy_bytes": 72
+            }
+          ],
+          "preprocess_launches": 1
+        },
+        {
+          "kernel_launches": 168,
+          "copies": [
+            {
+              "cupti_kind": 1,
+              "count": 1,
+              "bytes": 4,
+              "largest_copy_bytes": 4
+            },
+            {
+              "cupti_kind": 2,
+              "count": 4,
+              "bytes": 16,
+              "largest_copy_bytes": 4
+            },
+            {
+              "cupti_kind": 8,
+              "count": 3,
+              "bytes": 160,
+              "largest_copy_bytes": 80
+            }
+          ],
+          "preprocess_launches": 1
+        }
+      ],
+      "cai_legacy_submit": [
+        {
+          "kernel_launches": 168,
+          "copies": [
+            {
+              "cupti_kind": 1,
+              "count": 1,
+              "bytes": 4,
+              "largest_copy_bytes": 4
+            },
+            {
+              "cupti_kind": 2,
+              "count": 4,
+              "bytes": 16,
+              "largest_copy_bytes": 4
+            },
+            {
+              "cupti_kind": 8,
+              "count": 3,
+              "bytes": 144,
+              "largest_copy_bytes": 72
+            }
+          ],
+          "preprocess_launches": 1
+        },
+        {
+          "kernel_launches": 168,
+          "copies": [
+            {
+              "cupti_kind": 1,
+              "count": 1,
+              "bytes": 4,
+              "largest_copy_bytes": 4
+            },
+            {
+              "cupti_kind": 2,
+              "count": 4,
+              "bytes": 16,
+              "largest_copy_bytes": 4
+            },
+            {
+              "cupti_kind": 8,
+              "count": 3,
+              "bytes": 160,
+              "largest_copy_bytes": 80
+            }
+          ],
+          "preprocess_launches": 1
+        }
+      ],
+      "cai_ptds_sync": [
+        {
+          "kernel_launches": 168,
+          "copies": [
+            {
+              "cupti_kind": 1,
+              "count": 1,
+              "bytes": 4,
+              "largest_copy_bytes": 4
+            },
+            {
+              "cupti_kind": 2,
+              "count": 4,
+              "bytes": 16,
+              "largest_copy_bytes": 4
+            },
+            {
+              "cupti_kind": 8,
+              "count": 3,
+              "bytes": 144,
+              "largest_copy_bytes": 72
+            }
+          ],
+          "preprocess_launches": 1
+        },
+        {
+          "kernel_launches": 168,
+          "copies": [
+            {
+              "cupti_kind": 1,
+              "count": 1,
+              "bytes": 4,
+              "largest_copy_bytes": 4
+            },
+            {
+              "cupti_kind": 2,
+              "count": 4,
+              "bytes": 16,
+              "largest_copy_bytes": 4
+            },
+            {
+              "cupti_kind": 8,
+              "count": 3,
+              "bytes": 160,
+              "largest_copy_bytes": 80
+            }
+          ],
+          "preprocess_launches": 1
+        }
+      ],
+      "cai_ptds_submit": [
+        {
+          "kernel_launches": 168,
+          "copies": [
+            {
+              "cupti_kind": 1,
+              "count": 1,
+              "bytes": 4,
+              "largest_copy_bytes": 4
+            },
+            {
+              "cupti_kind": 2,
+              "count": 4,
+              "bytes": 16,
+              "largest_copy_bytes": 4
+            },
+            {
+              "cupti_kind": 8,
+              "count": 3,
+              "bytes": 144,
+              "largest_copy_bytes": 72
+            }
+          ],
+          "preprocess_launches": 1
+        },
+        {
+          "kernel_launches": 168,
+          "copies": [
+            {
+              "cupti_kind": 1,
+              "count": 1,
+              "bytes": 4,
+              "largest_copy_bytes": 4
+            },
+            {
+              "cupti_kind": 2,
+              "count": 4,
+              "bytes": 16,
+              "largest_copy_bytes": 4
+            },
+            {
+              "cupti_kind": 8,
+              "count": 3,
+              "bytes": 160,
+              "largest_copy_bytes": 80
+            }
+          ],
+          "preprocess_launches": 1
+        }
+      ],
+      "cai_ready_sync": [
+        {
+          "kernel_launches": 168,
+          "copies": [
+            {
+              "cupti_kind": 1,
+              "count": 1,
+              "bytes": 4,
+              "largest_copy_bytes": 4
+            },
+            {
+              "cupti_kind": 2,
+              "count": 4,
+              "bytes": 16,
+              "largest_copy_bytes": 4
+            },
+            {
+              "cupti_kind": 8,
+              "count": 3,
+              "bytes": 144,
+              "largest_copy_bytes": 72
+            }
+          ],
+          "preprocess_launches": 1
+        },
+        {
+          "kernel_launches": 168,
+          "copies": [
+            {
+              "cupti_kind": 1,
+              "count": 1,
+              "bytes": 4,
+              "largest_copy_bytes": 4
+            },
+            {
+              "cupti_kind": 2,
+              "count": 4,
+              "bytes": 16,
+              "largest_copy_bytes": 4
+            },
+            {
+              "cupti_kind": 8,
+              "count": 3,
+              "bytes": 160,
+              "largest_copy_bytes": 80
+            }
+          ],
+          "preprocess_launches": 1
+        }
+      ],
+      "cai_ready_submit": [
+        {
+          "kernel_launches": 168,
+          "copies": [
+            {
+              "cupti_kind": 1,
+              "count": 1,
+              "bytes": 4,
+              "largest_copy_bytes": 4
+            },
+            {
+              "cupti_kind": 2,
+              "count": 4,
+              "bytes": 16,
+              "largest_copy_bytes": 4
+            },
+            {
+              "cupti_kind": 8,
+              "count": 3,
+              "bytes": 144,
+              "largest_copy_bytes": 72
+            }
+          ],
+          "preprocess_launches": 1
+        },
+        {
+          "kernel_launches": 168,
+          "copies": [
+            {
+              "cupti_kind": 1,
+              "count": 1,
+              "bytes": 4,
+              "largest_copy_bytes": 4
+            },
+            {
+              "cupti_kind": 2,
+              "count": 4,
+              "bytes": 16,
+              "largest_copy_bytes": 4
+            },
+            {
+              "cupti_kind": 8,
+              "count": 3,
+              "bytes": 160,
+              "largest_copy_bytes": 80
+            }
+          ],
+          "preprocess_launches": 1
+        }
+      ]
+    },
+    "known_control": {
+      "kind": 2,
+      "bytes": 4096,
+      "captured": true
+    },
+    "status": "capture_verified",
+    "qualification": "Copy counts are observations. Small metadata transfers must not be reported as zero host copies."
+  },
+  "qualification": "Fixed completed ranges exclude uploads and validation downloads. Small metadata copies remain reported. No latency, overlap, invalid-device, or external-library acceptance."
+}

@@ -186,3 +186,7 @@ Do not infer support from existing CuPy/PyTorch DLPack experiments.
 Delayed producer writes, early exporter release, signed strides, default streams, sync/submit, and retained outputs passed in that scenario.
 For stream=None, input is ready at import. The caller must complete preprocessing before future writes.
 Include invalid-device/pointer controls and a transfer capture before a residency claim.
+
+Experiment 032 repeated the 144-case CAI gate and passed 16 complete-inference transfer ranges.
+See experiments/032-cai-residency.md. Small metadata host copies remain visible.
+This fixed contiguous 1080p capture does not establish all producer/device/dtype/platform contracts.

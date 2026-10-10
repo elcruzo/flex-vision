@@ -1,0 +1,23 @@
+{
+  "status": "projection_verified",
+  "source_sha256": "96e780a1d0332b133d33f17f5d139ddd68ec528a228ea788d0b25d416575c487",
+  "projection_sha256": "b21449be8e968dbc36c369d527a76f84f744e6e4c44612bcf6203af2f17d812f",
+  "rows": {
+    "NVTX_EVENTS": 17,
+    "CUPTI_ACTIVITY_KIND_KERNEL": 2688,
+    "CUPTI_ACTIVITY_KIND_MEMCPY": 129,
+    "CUPTI_ACTIVITY_KIND_RUNTIME": 4697,
+    "StringIds": 451
+  },
+  "candidates": [
+    "cai_explicit_sync",
+    "cai_explicit_submit",
+    "cai_legacy_sync",
+    "cai_legacy_submit",
+    "cai_ptds_sync",
+    "cai_ptds_submit",
+    "cai_ready_sync",
+    "cai_ready_submit"
+  ],
+  "scope": "Selected completed inference ranges and known transfer control only. Not a whole-process trace."
+}

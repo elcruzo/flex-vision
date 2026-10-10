@@ -143,3 +143,9 @@ A focused CAI transfer-capture runner and evidence verifier are prepared.
 They bind 16 complete-inference ranges to the same clean 144-case gate and engine.
 The verifier rejects missing preprocessing, missing inference work, and aggregate pixel-sized host transfers.
 Local checks cannot establish residency. Hardware capture remains pending. See D059.
+
+Experiment 032 repeated the 144-case CAI gate and passed the separate 16-range TensorRT transfer capture.
+Each range contained one preprocessing kernel, downstream inference/NMS, and 20 host metadata bytes.
+No tensor-sized aggregate host transfer appeared. The known transfer control and local projection audit passed.
+See experiments/032-cai-residency.md. Broader CAI acceptance and full MVP gates remain pending.
+All rental resources are absent. Preserve the original total $15 budget and synchronous default.
