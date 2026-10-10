@@ -154,3 +154,34 @@ See [the evidence](experiments/024-detector-streams.md). Asynchronous ownership 
 The owned-output path passed 48 fixed TensorRT executions on RTX 4090. Read [experiment 025](experiments/025-async-submission.md) and [the contract](ASYNC_EXECUTION.md).
 The synchronous call and out= path retain their existing behavior.
 Do not claim async inference, reusable slots, or performance gains from local lifecycle checks.
+
+
+## Experimental CUDA Array Interface input
+
+The detector adapter now accepts CAI-only producers with version-3 uint8 HWC metadata.
+DLPack remains preferred when the object exposes both protocols. CPU uploads remain explicit.
+Validate shape, pointer, dtype, strides, masks, and stream metadata before dispatch.
+Reject stream zero because it ambiguously describes a default stream.
+Read-only input is allowed because preprocessing never writes input pixels.
+Signed byte strides remain supported by the existing kernel indexing.
+
+Import a borrowed CuPy view without changing its pointer, shape, dtype, or strides.
+Retain the original exporter and immutable metadata snapshot through preprocessing completion.
+The snapshot hides the stream from CuPy only because the adapter queues its own readiness dependency.
+This ordering does not depend on CUPY_CUDA_ARRAY_INTERFACE_SYNC.
+Map stream 1 to the legacy default, stream 2 to the per-thread default, and other positive handles through a retained protocol wrapper.
+Record producer readiness, then make the preprocessing stream wait before reading.
+For submit, record preprocessing completion and queue a reverse wait on the advertised producer stream before returning.
+The synchronous path completes its read before returning.
+The exporter must retain the advertised stream and backing allocation as required by the CAI contract.
+Other producer streams and external writes require the caller's explicit ordering. CAI supplies only one advertised stream.
+
+Primary references checked October 10, 2026:
+[CAI version-3 synchronization and lifetime rules](https://numba.readthedocs.io/en/stable/cuda/cuda_array_interface.html),
+[CuPy 14.2 stream protocol import](https://docs.cupy.dev/en/stable/reference/generated/cupy.cuda.Stream.html).
+Avoid deprecated ExternalStream construction for this new path.
+
+Local metadata and handoff checks passed. CAI-only GPU inference acceptance remains pending.
+Do not infer support from existing CuPy/PyTorch DLPack experiments.
+Next, run delayed producer writes, early exporter release, signed strides, default streams, sync/submit, and retained outputs through real TensorRT.
+Include invalid-device/pointer controls and a transfer capture before a residency claim.

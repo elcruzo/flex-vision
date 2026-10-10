@@ -64,16 +64,26 @@ def submit(pipeline, frame, *, stream):
 def _execute(pipeline, frame, *, out, asynchronous):
     """Return a CuPy NCHW allocation without host pixel copies.
 
-    Accept CuPy or CUDA DLPack input on the current device. CuPy callers must
+    Accept CuPy, CUDA DLPack, or experimental version-3 CAI input. CuPy callers must
     order their producer on the current stream. DLPack performs its stream
-    handoff. Completion is synchronous to make input lifetime explicit.
+    handoff. Calls synchronize; submissions retain owners until completion.
     """
-    if not hasattr(frame, '__dlpack_device__') or frame.__dlpack_device__()[0] != 2:
+    dlpack = getattr(frame, '__dlpack_device__', None)
+    cai = hasattr(frame, '__cuda_array_interface__')
+    if dlpack is None and not cai:
+        raise TypeError('input must be a CUDA DLPack or CUDA Array Interface array; CPU uploads must be explicit')
+    if dlpack is not None and dlpack()[0] != 2:
         raise TypeError('input must be a CUDA DLPack array; CPU uploads must be explicit')
     import cupy as cp
-    if frame.__dlpack_device__()[1] != cp.cuda.runtime.getDevice():
-        raise ValueError('input must be on the current CUDA device')
-    source = frame if isinstance(frame, cp.ndarray) else cp.from_dlpack(frame)
+    owners = frame
+    producer = None
+    if dlpack is not None:
+        if dlpack()[1] != cp.cuda.runtime.getDevice():
+            raise ValueError('input must be on the current CUDA device')
+        source = frame if isinstance(frame, cp.ndarray) else cp.from_dlpack(frame)
+    else:
+        from .interop import import_cuda_interface
+        source, owners, producer = import_cuda_interface(frame, cp)
     if source.dtype != cp.uint8:
         raise TypeError('input must have dtype uint8')
     shape, dtype, count, constants = _launch_metadata(pipeline, tuple(int(n) for n in source.shape))
@@ -92,7 +102,9 @@ def _execute(pipeline, frame, *, out, asynchronous):
         _kernel(dtype)(((count+255)//256,), (256,), args, stream=stream)
         if asynchronous:
             event.record(stream)
-            return Submission(frame, source, result, stream, event, source.device.id)
+            if producer is not None:
+                producer.wait_event(event)
+            return Submission(owners, source, result, stream, event, source.device.id)
         stream.synchronize()
         return result
     except BaseException:

@@ -596,3 +596,12 @@ Exclude TensorRT internals, transient peaks, overlap, and long-soak acceptance f
 Hash decompressed sample bytes so export compression does not change the raw-row identity.
 Retain a sanitized range projection with matching copy/kernel counts and full-capture provenance.
 Keep the synchronous default until independent timing repeatability and broader execution acceptance pass.
+
+## D054 — Add explicit CAI producer ordering and retained ownership
+
+Add an experimental version-3 CAI-only detector input path while preserving DLPack preference.
+Validate immutable metadata and require a borrowed import with the same pointer and byte strides.
+Queue producer readiness before preprocessing and producer completion ordering before async return.
+Retain the exporter, imported view, producer wrapper, and readiness event through the read.
+Use the current CuPy stream protocol API with a retained adapter for raw CAI handles.
+Local metadata/handoff checks do not establish CUDA acceptance. Require real-inference ownership and transfer evidence next.

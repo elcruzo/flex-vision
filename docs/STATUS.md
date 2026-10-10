@@ -113,3 +113,8 @@ They do not establish hardware acceptance or production async support.
 Experiment 028 passed 4,000 async diagnostic inference checks, transfer capture, and declared post-drain pool observations.
 See [experiment 028](experiments/028-async-diagnostics.md). No latency selection follows from instrumented samples.
 The synchronous default remains unchanged. Independent performance repeats and bounded concurrency remain pending.
+
+
+An experimental version-3 CAI-only detector adapter now implements explicit producer and completion ordering.
+DLPack remains preferred for dual-protocol objects. Local checks passed, but real GPU inference acceptance remains pending.
+See CUDA_BACKEND.md and D054 before claiming CUDA Array Interface interoperability.
