@@ -605,3 +605,12 @@ Queue producer readiness before preprocessing and producer completion ordering b
 Retain the exporter, imported view, producer wrapper, and readiness event through the read.
 Use the current CuPy stream protocol API with a retained adapter for raw CAI handles.
 Local metadata/handoff checks do not establish CUDA acceptance. Require real-inference ownership and transfer evidence next.
+
+## D055 — Observe both pending boundaries in CAI inference validation
+
+Prepare 144 actual TensorRT executions across six fixtures, three layouts, four producer contracts, and two execution modes.
+Require a pending producer before import and a pending preprocessing read before producer reuse in submit mode.
+Use finite delays only to expose these correctness boundaries, not to claim performance.
+Release the caller's exporter reference, check retained outputs, and preserve explicit null observations where no lifetime boundary was measured.
+The report verifier and local fault checks are prepared. GPU correctness and transfer acceptance remain pending.
+See CAI_VALIDATION.md before dispatch. Reconcile budget first.

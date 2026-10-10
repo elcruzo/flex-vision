@@ -118,3 +118,7 @@ The synchronous default remains unchanged. Independent performance repeats and b
 An experimental version-3 CAI-only detector adapter now implements explicit producer and completion ordering.
 DLPack remains preferred for dual-protocol objects. Local checks passed, but real GPU inference acceptance remains pending.
 See CUDA_BACKEND.md and D054 before claiming CUDA Array Interface interoperability.
+
+The CAI-only TensorRT harness now prepares 144 bidirectional-ordering and retained-output scenarios.
+See CAI_VALIDATION.md and D055. Local coverage fault checks passed.
+Hardware execution, CAI-specific transfer capture, invalid-device controls, and broader interoperability remain pending.
