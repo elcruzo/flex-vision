@@ -1,0 +1,22 @@
+{
+  "source_sha256": "86705aba5215f826399a2b754933c4e109d8c8f1a400c32b4723b67b9b4e216a",
+  "projected_sha256": "a1e14c81c8bfff9a3932d59c2f047a778ea61626103cfb78d9888df754cf2a61",
+  "tables": {
+    "StringIds": 475,
+    "NVTX_EVENTS": 5,
+    "CUPTI_ACTIVITY_KIND_MEMCPY": 33,
+    "CUPTI_ACTIVITY_KIND_KERNEL": 672,
+    "CUPTI_ACTIVITY_KIND_RUNTIME": 1171
+  },
+  "selection": {
+    "NVTX_EVENTS": [
+      "known_4096_byte_d2h_control",
+      "yolo_sync_complete",
+      "yolo_submit_complete"
+    ],
+    "StringIds": "all sanitized strings",
+    "activity": "overlap with five selected completed spans"
+  },
+  "validation": "Known control and all per-range copy/kernel observations match full sanitized capture",
+  "limits": "Only selected range events retained; not a whole-process allocation or scheduling trace"
+}

@@ -549,3 +549,7 @@ The conservative cumulative bound becomes $14.595168122393484 within the origina
 Run fresh numerical controls, pending-consumer checks, and separate async trace/allocator diagnostics.
 Retain results even when the capture or allocation gate fails. Keep ordinary local SSH export.
 No cloud storage or persistent volume is required.
+
+Experiment 028 exported 43 verified files and confirmed exact GPU/controller/secret cleanup.
+The fresh inventory is empty. Keep its $0.65 reservation until reconciliation.
+The conservative cumulative bound remains $14.595168122393484. Reconcile before another rental.

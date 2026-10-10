@@ -1,0 +1,14 @@
+{
+  "fresh_inventory_confirmed_by_utc": "2026-10-10T05:05:39+00:00",
+  "gpu": "gpfuyl1s3zlfe4",
+  "gpu_absent_at_utc": "2026-10-10T05:05:21.506163+00:00",
+  "controller": "uadt87wrabbbso",
+  "secret": "zi0su5n07w",
+  "controller_cleanup_verified_at_utc": "2026-10-10T05:05:32.929526+00:00",
+  "fresh_inventory": {
+    "pods": [],
+    "secrets": []
+  },
+  "reservation_usd": 0.65,
+  "conservative_cumulative_bound_usd": 14.595168122393485
+}

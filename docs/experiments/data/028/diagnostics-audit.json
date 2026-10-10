@@ -1,0 +1,130 @@
+{
+  "status": "diagnostics_verified",
+  "checked_frames": 4000,
+  "trace": {
+    "trace_sha256": "86705aba5215f826399a2b754933c4e109d8c8f1a400c32b4723b67b9b4e216a",
+    "scope": "completed resident-input preprocessing, TensorRT, and CUDA NMS ranges; excludes uploads and validation downloads",
+    "ranges": {
+      "sync": [
+        {
+          "kernel_launches": 168,
+          "copies": [
+            {
+              "cupti_kind": 1,
+              "count": 1,
+              "bytes": 4,
+              "largest_copy_bytes": 4
+            },
+            {
+              "cupti_kind": 2,
+              "count": 4,
+              "bytes": 16,
+              "largest_copy_bytes": 4
+            },
+            {
+              "cupti_kind": 8,
+              "count": 3,
+              "bytes": 144,
+              "largest_copy_bytes": 72
+            }
+          ]
+        },
+        {
+          "kernel_launches": 168,
+          "copies": [
+            {
+              "cupti_kind": 1,
+              "count": 1,
+              "bytes": 4,
+              "largest_copy_bytes": 4
+            },
+            {
+              "cupti_kind": 2,
+              "count": 4,
+              "bytes": 16,
+              "largest_copy_bytes": 4
+            },
+            {
+              "cupti_kind": 8,
+              "count": 3,
+              "bytes": 160,
+              "largest_copy_bytes": 80
+            }
+          ]
+        }
+      ],
+      "submit": [
+        {
+          "kernel_launches": 168,
+          "copies": [
+            {
+              "cupti_kind": 1,
+              "count": 1,
+              "bytes": 4,
+              "largest_copy_bytes": 4
+            },
+            {
+              "cupti_kind": 2,
+              "count": 4,
+              "bytes": 16,
+              "largest_copy_bytes": 4
+            },
+            {
+              "cupti_kind": 8,
+              "count": 3,
+              "bytes": 144,
+              "largest_copy_bytes": 72
+            }
+          ]
+        },
+        {
+          "kernel_launches": 168,
+          "copies": [
+            {
+              "cupti_kind": 1,
+              "count": 1,
+              "bytes": 4,
+              "largest_copy_bytes": 4
+            },
+            {
+              "cupti_kind": 2,
+              "count": 4,
+              "bytes": 16,
+              "largest_copy_bytes": 4
+            },
+            {
+              "cupti_kind": 8,
+              "count": 3,
+              "bytes": 160,
+              "largest_copy_bytes": 80
+            }
+          ]
+        }
+      ]
+    },
+    "known_control": {
+      "kind": 2,
+      "bytes": 4096,
+      "captured": true
+    },
+    "status": "capture_verified",
+    "qualification": "Copy counts are observations. Small metadata transfers must not be reported as zero host copies."
+  },
+  "samples_sha256": "e4901c1f81b1f0ef2d113760668049b21faff6cda7148cfd1a7131c17270bc3f",
+  "post_drain_growth_bytes": {
+    "astronaut-1080p": {
+      "cupy_used_bytes": 0,
+      "cupy_total_bytes": 0,
+      "torch_allocated_bytes": 0,
+      "torch_reserved_bytes": 0
+    },
+    "chelsea-1080p": {
+      "cupy_used_bytes": 0,
+      "cupy_total_bytes": 0,
+      "torch_allocated_bytes": 0,
+      "torch_reserved_bytes": 0
+    }
+  },
+  "allocator_selection": "stable",
+  "qualification": "Declared allocator checkpoints exclude TensorRT internal/driver memory and transient peaks; no overlap, latency, or long-soak acceptance"
+}

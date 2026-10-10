@@ -324,3 +324,8 @@ Experiment 027 passed 48 delayed-consumer checks and 40,000 matched serial infer
 Complete-host p50 improved 9.38–9.42%, with p99 improved 8.99–10.37% in this run.
 See [experiment 027](experiments/027-delayed-and-async.md).
 Keep the synchronous default. Async traces, allocator observations, independent repeats, and concurrency remain pending.
+
+
+Experiment 028 passed 4,000 async diagnostic inference checks, transfer capture, and declared post-drain pool observations.
+See [experiment 028](experiments/028-async-diagnostics.md). No latency selection follows from instrumented samples.
+The synchronous default remains unchanged. Independent performance repeats and bounded concurrency remain pending.

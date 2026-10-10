@@ -587,3 +587,12 @@ Keep the accepted 40,000-frame timing protocol unchanged.
 Reject diagnostics reports as latency evidence and preserve pool growth without claiming global memory stability.
 Require fresh matching delayed-consumer evidence before hardware execution.
 Local evidence fault checks are preparation only. Async capture and allocator hardware acceptance remain pending.
+
+## D053 — Accept fixed async diagnostic evidence and stable sample identity
+
+Experiment 028 passed 4,000 real-inference diagnostic checks and the transfer control.
+Accept the recorded zero growth in CuPy/PyTorch pools and the four completed capture ranges.
+Exclude TensorRT internals, transient peaks, overlap, and long-soak acceptance from this decision.
+Hash decompressed sample bytes so export compression does not change the raw-row identity.
+Retain a sanitized range projection with matching copy/kernel counts and full-capture provenance.
+Keep the synchronous default until independent timing repeatability and broader execution acceptance pass.

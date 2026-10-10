@@ -118,4 +118,9 @@ Do not infer exact inter-stream event ordering from range counts alone.
 It bounds installation, tracing, sanitization, and verification by the independent deadline minus the export reserve.
 Raw traces can contain environment data. Publish only sanitized captures after inspection.
 The independent `verify_yolo_async_diagnostics.py` rejects missing raw frames, failed checks, mismatched gates, and incomplete checkpoints.
-Hardware acceptance remains pending. The earlier 027 comparison does not validate this new diagnostics mode.
+Experiment 028 passed this fixed diagnostic mode. The earlier 027 comparison remains separate uninstrumented timing evidence.
+
+
+Experiment 028 passed 4,000 async diagnostic inference checks, transfer capture, and declared post-drain pool observations.
+See [experiment 028](experiments/028-async-diagnostics.md). No latency selection follows from instrumented samples.
+The synchronous default remains unchanged. Independent performance repeats and bounded concurrency remain pending.

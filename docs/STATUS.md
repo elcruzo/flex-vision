@@ -105,6 +105,11 @@ Keep the synchronous default. Async traces, allocator observations, independent 
 
 The async diagnostic capture and allocator gate is prepared in `scripts/run_yolo_async_diagnostics.sh`.
 It runs 4,000 checked serial frames and audits capture controls, transfers, and post-drain pool observations.
-See ASYNC_BENCHMARK.md and D052. GPU execution remains pending.
+See ASYNC_BENCHMARK.md and D052/D053. Experiment 028 passed its fixed GPU diagnostic protocol.
 Local fault checks reject incomplete frames, missing checkpoints, engine mismatch, and tensor-sized host transfers.
 They do not establish hardware acceptance or production async support.
+
+
+Experiment 028 passed 4,000 async diagnostic inference checks, transfer capture, and declared post-drain pool observations.
+See [experiment 028](experiments/028-async-diagnostics.md). No latency selection follows from instrumented samples.
+The synchronous default remains unchanged. Independent performance repeats and bounded concurrency remain pending.

@@ -55,3 +55,13 @@ def test_incomplete_diagnostics_fail(tmp_path, fault):
     elif fault == 'wrong_engine': report['engine_sha256'] = '0' * 64
     (tmp_path / 'results.json').write_text(json.dumps(report))
     with pytest.raises(ValueError): verify(tmp_path, trace, gate)
+
+
+def test_compression_preserves_sample_identity(tmp_path):
+    import gzip
+    trace, gate, report = evidence(tmp_path)
+    before = verify(tmp_path, trace, gate)
+    path = tmp_path / 'samples.csv'
+    path.with_suffix('.csv.gz').write_bytes(gzip.compress(path.read_bytes()))
+    path.unlink()
+    assert verify(tmp_path, trace, gate) == before

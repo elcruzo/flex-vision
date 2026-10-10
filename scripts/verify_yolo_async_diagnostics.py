@@ -56,7 +56,7 @@ def verify(root, trace, gate):
             if any(c['cupti_kind'] in (1, 2) and c['largest_copy_bytes'] >= 2457600 for c in span['copies']):
                 raise ValueError('Frame/tensor-sized host transfer in completed inference range')
     return {'status': 'diagnostics_verified', 'checked_frames': 4000, 'trace': capture,
-            'samples_sha256': hashlib.sha256(samples.read_bytes()).hexdigest(),
+            'samples_sha256': hashlib.sha256(gzip.decompress(samples.read_bytes()) if samples.suffix == '.gz' else samples.read_bytes()).hexdigest(),
             'post_drain_growth_bytes': growth,
             'allocator_selection': 'stable' if all(v == 0 for row in growth.values() for v in row.values()) else 'growth_observed',
             'qualification': 'Declared allocator checkpoints exclude TensorRT internal/driver memory and transient peaks; no overlap, latency, or long-soak acceptance'}

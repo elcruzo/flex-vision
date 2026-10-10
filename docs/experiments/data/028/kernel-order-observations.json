@@ -1,0 +1,41 @@
+{
+  "ranges": [
+    {
+      "range": "yolo_sync_complete",
+      "preprocess_kernels": 1,
+      "preprocess_stream": 14,
+      "consumer_streams": [
+        15
+      ],
+      "first_consumer_start_minus_preprocess_end_ns": 66721
+    },
+    {
+      "range": "yolo_submit_complete",
+      "preprocess_kernels": 1,
+      "preprocess_stream": 14,
+      "consumer_streams": [
+        15
+      ],
+      "first_consumer_start_minus_preprocess_end_ns": 12320
+    },
+    {
+      "range": "yolo_sync_complete",
+      "preprocess_kernels": 1,
+      "preprocess_stream": 14,
+      "consumer_streams": [
+        15
+      ],
+      "first_consumer_start_minus_preprocess_end_ns": 53984
+    },
+    {
+      "range": "yolo_submit_complete",
+      "preprocess_kernels": 1,
+      "preprocess_stream": 14,
+      "consumer_streams": [
+        15
+      ],
+      "first_consumer_start_minus_preprocess_end_ns": 11744
+    }
+  ],
+  "scope": "Four observed completed ranges. Temporal kernel order is not independent reconstruction of event dependencies or an overlap claim."
+}
