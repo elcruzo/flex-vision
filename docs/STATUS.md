@@ -122,3 +122,9 @@ See CUDA_BACKEND.md and D054 before claiming CUDA Array Interface interoperabili
 The CAI-only TensorRT harness now prepares 144 bidirectional-ordering and retained-output scenarios.
 See CAI_VALIDATION.md and D055. Local coverage fault checks passed.
 Hardware execution, CAI-specific transfer capture, invalid-device controls, and broader interoperability remain pending.
+
+
+Experiment 029 failed in the CAI harness before its first import because CuPy Event lacks query().
+The corrected harness uses Event.done and preserves the required pending boundaries.
+The DLPack preference also avoids evaluating an unused CAI descriptor.
+See experiments/029-cai-event-failure.md. CAI GPU acceptance remains pending and all rental resources are absent.

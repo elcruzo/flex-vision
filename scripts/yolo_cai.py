@@ -14,6 +14,11 @@ class Exporter:
         self.__cuda_array_interface__ = dict(array.__cuda_array_interface__, version=3, stream=handle)
 
 
+def require_pending(event, boundary):
+    if event.done:
+        raise AssertionError(boundary + ' completed before its pending observation')
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--engine', type=Path, required=True)
@@ -76,7 +81,7 @@ def main():
                             cp.copyto(storage,uploaded)
                             ready = cp.cuda.Event(disable_timing=True)
                             ready.record(stream)
-                        if ready.query(): raise AssertionError('Producer was not pending before import')
+                        require_pending(ready, 'Producer')
                         if label=='ready': ready.synchronize()
                         with pre:
                             if mode=='submit':
@@ -85,8 +90,7 @@ def main():
                             else:
                                 pending = pipe.submit(frame,stream=pre)
                                 image = pending.wait_on(downstream)
-                                if pending._event.query():
-                                    raise AssertionError('Preprocessing was not pending before producer reuse')
+                                require_pending(pending._event, 'Preprocessing')
                         del frame, view
                         gc.collect()
                         if mode=='submit' and owner() is None:

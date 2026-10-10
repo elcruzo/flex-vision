@@ -614,3 +614,11 @@ Use finite delays only to expose these correctness boundaries, not to claim perf
 Release the caller's exporter reference, check retained outputs, and preserve explicit null observations where no lifetime boundary was measured.
 The report verifier and local fault checks are prepared. GPU correctness and transfer acceptance remain pending.
 See CAI_VALIDATION.md before dispatch. Reconcile budget first.
+
+## D056 — Correct CuPy completion inspection and lazy protocol preference
+
+Experiment 029 failed before the first CAI import because the harness used Event.query(), a Torch spelling.
+Use documented CuPy Event.done without weakening either required pending boundary.
+Preserve the zero-check failed report and require a fresh complete GPU result.
+Prefer DLPack without accessing a dual-protocol producer's unused CAI descriptor.
+Local fault checks pass. Neither this correction nor baseline DLPack controls establish CAI hardware acceptance.

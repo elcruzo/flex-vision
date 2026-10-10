@@ -58,3 +58,23 @@ def test_import_orders_producer_and_retains_owner(pointer):
         assert producer is {1:legacy,2:ptds,8:external}[pointer]
         assert current.waits[0].recorded is producer
         assert current.waits[0] in owners
+
+
+def test_dlpack_preference_never_reads_cai_property(monkeypatch):
+    import sys
+    from cpg import cuda
+    class Dual:
+        def __dlpack_device__(self):return (2,0)
+        @property
+        def __cuda_array_interface__(self):
+            raise AssertionError('Preferred DLPack import must not inspect CAI')
+    source=SimpleNamespace(dtype='uint8',shape=(5,7,3),strides=(21,3,1))
+    result=object()
+    stream=SimpleNamespace(synchronize=lambda:None)
+    cp=SimpleNamespace(ndarray=type(None),uint8='uint8',from_dlpack=lambda frame:source,
+        empty=lambda shape,dtype:result,cuda=SimpleNamespace(runtime=SimpleNamespace(getDevice=lambda:0),
+        get_current_stream=lambda:stream))
+    monkeypatch.setitem(sys.modules,'cupy',cp)
+    monkeypatch.setattr(cuda,'_launch_metadata',lambda *a:((1,3,2,2),'float16',12,()))
+    monkeypatch.setattr(cuda,'_kernel',lambda dtype:lambda *a,**k:None)
+    assert cuda.execute(object(),Dual()) is result

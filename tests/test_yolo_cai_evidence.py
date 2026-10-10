@@ -34,3 +34,11 @@ def test_incomplete_matrix_rejected(fault):
     elif fault=='dirty':report['dirty']=True
     else:report['mode']='async-submit'
     with pytest.raises(ValueError):verify(report)
+
+
+def test_cupy_pending_check_uses_documented_done_property():
+    from types import SimpleNamespace
+    from yolo_cai import require_pending
+    require_pending(SimpleNamespace(done=False), 'Producer')
+    with pytest.raises(AssertionError, match='completed before'):
+        require_pending(SimpleNamespace(done=True), 'Preprocessing')

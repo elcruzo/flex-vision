@@ -1,0 +1,13 @@
+{
+  "status": "failed",
+  "mode": "cai-v1",
+  "revision": "0a64f2afbc8567e9773fe1ff70c74c5f5c88166a",
+  "dirty": false,
+  "engine_sha256": "0c9a0518980bf8d37ee2a0d3be79318c556306a807e0d8dfba4c94577cd4318c",
+  "delay_cycles": 500000000,
+  "preprocessing_delay_cycles": 1000000000,
+  "checks": [],
+  "scope": "CAI-only input correctness and ownership; artificial producer delay; no performance claim",
+  "error": "AttributeError(\"'Event' object has no attribute 'query'\")",
+  "drain_status": "passed"
+}

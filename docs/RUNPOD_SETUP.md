@@ -569,3 +569,7 @@ Reserve $0.65 for one independently terminated 30-minute CAI inference session.
 The cumulative conservative bound becomes $14.356279233504596 within the existing $15 authorization.
 Regenerate six numerical controls and run the 144-case CAI protocol.
 Retain failed evidence. No trace or performance acceptance follows from this correctness run.
+
+Experiment 029 exported its failed CAI harness report and verified exact GPU/controller/secret cleanup.
+No CAI execution passed. Retain the $0.65 reservation until reconciliation.
+The conservative bound remains $14.356279233504596. The fresh inventory is empty.

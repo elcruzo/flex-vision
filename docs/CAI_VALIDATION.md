@@ -65,3 +65,8 @@ Read-only, zero-stride, invalid-device, invalid-pointer, external-library, and b
 Invalid pointer tests must avoid corrupting the main measured CUDA context.
 An exported stream handle still relies on the producer retaining its actual native owner.
 The runtime cannot reconstruct ownership from an integer alone.
+
+
+The first hardware attempt failed before CAI import because it used Torch's event query spelling on CuPy.
+The corrected harness uses documented CuPy Event.done at both pending boundaries.
+See experiments/029-cai-event-failure.md. Require a fresh complete result before acceptance.

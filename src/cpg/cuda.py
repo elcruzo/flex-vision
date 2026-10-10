@@ -69,7 +69,7 @@ def _execute(pipeline, frame, *, out, asynchronous):
     handoff. Calls synchronize; submissions retain owners until completion.
     """
     dlpack = getattr(frame, '__dlpack_device__', None)
-    cai = hasattr(frame, '__cuda_array_interface__')
+    cai = dlpack is None and hasattr(frame, '__cuda_array_interface__')
     if dlpack is None and not cai:
         raise TypeError('input must be a CUDA DLPack or CUDA Array Interface array; CPU uploads must be explicit')
     if dlpack is not None and dlpack()[0] != 2:
