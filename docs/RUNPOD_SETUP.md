@@ -553,3 +553,19 @@ No cloud storage or persistent volume is required.
 Experiment 028 exported 43 verified files and confirmed exact GPU/controller/secret cleanup.
 The fresh inventory is empty. Keep its $0.65 reservation until reconciliation.
 The conservative cumulative bound remains $14.595168122393484. Reconcile before another rental.
+
+### Reconciliation and CAI inference reservation
+
+The October 10 live Pod inventory is empty. Posted Pod billing remains $9.770127805024458.
+No posted row exists yet for the four experiment 027/028 Pods.
+Replace only their two $0.65 reservations with recorded full-lifetime ceilings.
+Apply both $0.89/$0.06 compute rates for the entire run-to-confirmed-absence interval, plus 60 seconds and $0.10 storage each.
+The reconciled conservative cumulative bound is $13.706279233504596. All other ceilings remain unchanged.
+See experiments/data/budget-after-028.json for exact identities and calculation.
+
+The live catalog reports secure RTX 4090 HIGH capacity in EU-RO-1 at $0.89/hour.
+Two cpu3c vCPUs have HIGH capacity in EU-CZ-1 at $0.06/hour.
+Reserve $0.65 for one independently terminated 30-minute CAI inference session.
+The cumulative conservative bound becomes $14.356279233504596 within the existing $15 authorization.
+Regenerate six numerical controls and run the 144-case CAI protocol.
+Retain failed evidence. No trace or performance acceptance follows from this correctness run.

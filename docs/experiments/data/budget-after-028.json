@@ -1,0 +1,36 @@
+{
+  "posted_total": 9.770127805024458,
+  "method": "Replace only two 0.65 ceilings with full run-to-confirmed-inventory lifetime at combined 0.95/hour, plus 60 seconds and 0.10 storage. No posted rows yet for these four Pods; retain all other ceilings.",
+  "rows": [
+    {
+      "experiment": "027",
+      "pods": [
+        "z7re87uacyl1by",
+        "8nv3n6zv03d514"
+      ],
+      "start_epoch": 1791607779,
+      "absence_utc": "2026-10-10T04:55:17+00:00",
+      "seconds": 338,
+      "posted": 0.0,
+      "previous_ceiling": 0.65,
+      "ceiling": 0.20502777777777775
+    },
+    {
+      "experiment": "028",
+      "pods": [
+        "gpfuyl1s3zlfe4",
+        "uadt87wrabbbso"
+      ],
+      "start_epoch": 1791608397,
+      "absence_utc": "2026-10-10T05:05:39+00:00",
+      "seconds": 342,
+      "posted": 0.0,
+      "previous_ceiling": 0.65,
+      "ceiling": 0.20608333333333334
+    }
+  ],
+  "previous_bound": 14.595168122393485,
+  "reconciled_bound": 13.706279233504596,
+  "prospective_029_reservation": 0.65,
+  "prospective_bound": 14.356279233504596
+}
