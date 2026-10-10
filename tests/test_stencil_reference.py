@@ -19,7 +19,8 @@ def test_asymmetric_flipped_convolution_and_edge_replication(size):
     np.testing.assert_array_equal(result[0].transpose(1,2,0),expected)
     actual,_=torch_reference(p,image)
     np.testing.assert_array_equal(actual.numpy(),result)
-    with pytest.raises(ValueError,match='CUDA stencil execution is not implemented'):p.plan(image.shape,backend='cuda')
+    plan=p.plan(image.shape,backend='cuda')
+    assert (plan['cuda_launches'],plan['temporary_arrays'])==(2,1)
 
 
 def test_negative_intermediate_is_not_clamped():

@@ -664,3 +664,13 @@ Preserve negative intermediates without implicit clamping. Filter before resize 
 Support all four required sizes from literal rows and relative kernel files.
 Reject CUDA execution until the new backend and real-inference gate pass.
 See STENCILS.md. This new implementation does not import upstream source or resolve project licensing.
+
+## D062 — Add an experimental two-pass specialized stencil backend
+
+D061 established semantics and rejected stencil CUDA graphs before backend implementation.
+Now expose an explicitly unvalidated direct specialization through the experimental runtime.
+Retain the FP32 intermediate through async completion and drain dispatched work before releasing it on errors.
+Keep the stencil separate from resize. Preserve accumulation order and disable fused multiply-add.
+Do not claim CUDA acceptance, shared-memory speed, workspace reuse, or a fastest-plan selection before measurements.
+Prepare a 192-execution real TensorRT gate with positive/negative coefficients and reversed-channel views.
+See STENCILS.md. Hardware acceptance and budget reconciliation remain pending.

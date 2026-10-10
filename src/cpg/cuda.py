@@ -1,10 +1,11 @@
 """Fused CUDA backend with synchronous calls and experimental submissions."""
 from functools import lru_cache
+import math
 import numpy as np
 
 
-@lru_cache(maxsize=2)
-def _kernel(dtype):
+@lru_cache(maxsize=4)
+def _kernel(dtype, input_dtype='uint8'):
     import cupy as cp
     output_type = 'half' if dtype == 'float16' else 'float'
     cast = '__float2half_rn(value)' if dtype == 'float16' else 'value'
@@ -43,6 +44,10 @@ extern "C" __global__ void preprocess(
     dst[i] = CAST;
 }
 '''.replace('OUT', output_type).replace('CAST', cast)
+    if input_dtype == 'float32':
+        source = source.replace('const unsigned char* src', 'const float* src')
+    elif input_dtype != 'uint8':
+        raise ValueError('Unsupported preprocessing source dtype')
     return cp.RawKernel(source, 'preprocess', options=('--fmad=false',))
 
 
@@ -94,17 +99,32 @@ def _execute(pipeline, frame, *, out, asynchronous):
             raise TypeError('out must be a CuPy array')
         _validate_output(out, source, shape, dtype, cp.cuda.runtime.getDevice())
         result = out
-    args = (source, result, *(np.int64(s) for s in source.strides), *constants)
     stream = cp.cuda.get_current_stream()
     # Create the completion owner before dispatch so errors cannot orphan a read.
     event = cp.cuda.Event(disable_timing=True) if asynchronous else None
+    temporary = None
     try:
-        _kernel(dtype)(((count+255)//256,), (256,), args, stream=stream)
+        from .pipeline import Conv2d
+        stencil = pipeline.operations[0] if type(pipeline.operations[0]) is Conv2d else None
+        launch_source = source
+        if stencil is not None:
+            from .stencil_cuda import kernel
+            temporary = cp.empty(source.shape, dtype=cp.float32)
+            stencil_count = int(source.size)
+            stencil_args = (source, temporary, *(np.int64(s) for s in source.strides),
+                            np.int32(source.shape[0]), np.int32(source.shape[1]))
+            kernel(stencil.kernel)(((stencil_count+255)//256,), (256,), stencil_args, stream=stream)
+            launch_source = temporary
+        args = (launch_source, result, *(np.int64(s//launch_source.dtype.itemsize) for s in launch_source.strides), *constants)
+        if stencil is None:
+            _kernel(dtype)(((count+255)//256,), (256,), args, stream=stream)
+        else:
+            _kernel(dtype, 'float32')(((count+255)//256,), (256,), args, stream=stream)
         if asynchronous:
             event.record(stream)
             if producer is not None:
                 producer.wait_event(event)
-            return Submission(owners, source, result, stream, event, source.device.id)
+            return Submission(owners if temporary is None else (owners, temporary), source, result, stream, event, source.device.id)
         stream.synchronize()
         return result
     except BaseException:
@@ -118,7 +138,7 @@ def _launch_metadata(pipeline, shape):
     """Cache immutable host metadata only. Never retain arrays or stream owners."""
     plan = pipeline.plan(shape, backend='cuda')
     g = plan['geometry']
-    size, norm, output = pipeline.operations
+    size, norm, output = pipeline.operations[-3:]
     dims = [g[k] for k in ('input_height', 'input_width', 'output_height', 'output_width',
                            'resized_height', 'resized_width', 'top', 'left')]
     if any(n > np.iinfo(np.int32).max for n in dims):
@@ -126,7 +146,10 @@ def _launch_metadata(pipeline, shape):
     constants = (*(np.int32(n) for n in dims), np.int32(pipeline.input_encoding == 'bgr8'),
                  *(np.float32(v) for v in (size.value, norm.scale, *norm.mean, *norm.std)))
     output_shape = tuple(plan['output_shape'])
-    return output_shape, output.dtype, int(np.prod(output_shape)), constants
+    count = math.prod(output_shape)
+    if count > np.iinfo(np.int64).max:
+        raise ValueError('output element count exceeds the CUDA backend limit')
+    return output_shape, output.dtype, count, constants
 
 
 def _byte_interval(array):

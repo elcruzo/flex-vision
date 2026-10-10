@@ -1,7 +1,7 @@
 # Configurable stencil contract
 
 Status: Python/YAML construction and explicit NumPy/PyTorch references are implemented.
-CUDA execution rejects this graph until its backend and hardware gate are implemented.
+An experimental specialized CUDA backend is implemented. CUDA compilation and hardware acceptance remain pending.
 This slice advances required custom stencils. It does not complete the operator matrix.
 
 Use one leading conv2d operation followed by letterbox, normalize, and output conversion.
@@ -49,3 +49,28 @@ CUDA specialization, unrolling, shared-memory/vendor comparisons, stream ownersh
 
 Experiment 033 passed all four sizes through CPU and MPS reference preprocessing and real CPU classifier inference.
 See experiments/033-stencil-reference.md for errors, source identities, and exact scope. CUDA acceptance remains pending.
+
+## Experimental specialized CUDA path
+
+The planner now exposes two passes and one FP32 HWC temporary for a leading stencil.
+The direct stencil source embeds canonical coefficients and emits separate multiply/add statements without runtime coefficient loops.
+It preserves coefficient-row accumulation order and disables fused multiply-add.
+The second pass fuses letterbox, normalization, output conversion, and NCHW layout.
+Original uint8 byte strides feed the stencil. The FP32 temporary uses element strides for its float-pointer consumer.
+
+Both passes use the same preprocessing stream. Submissions retain the original input and temporary until completion.
+Advertised CAI producer reuse waits for completion of both passes.
+An error after stencil dispatch drains the stream before local temporary owners leave.
+A cache retains at most 32 specialized kernel objects. It does not retain frame buffers.
+The output remains freshly owned or uses the existing synchronous out= contract.
+No reusable workspace, asynchronous out=, shared-memory strategy, automatic tuning, or performance claim is established by this implementation.
+
+The prepared GPU gate is scripts/run_yolo_stencil_experiment.sh.
+It covers 192 actual TensorRT executions: six fixtures, four sizes, positive/negative asymmetric kernels, two layouts, and sync/submit.
+It checks exact FP16 tensor bits against NumPy, dense inference, detections, retained outputs, and drainage.
+The report verifier rejects incomplete coverage and wrong implementation metadata.
+Artificially pending reads, external producers, broader coefficients/dtypes, transfer capture, and credible stencil pipeline timing remain additional gates.
+Reconcile the original $15 budget before dispatch. No paid resource is created by preparing this gate.
+
+Primary compilation API checked: [CuPy 14.2 RawKernel](https://docs.cupy.dev/en/v14.2.0/reference/generated/cupy.RawKernel.html).
+Local source-generation and ownership fault tests do not establish CUDA compiler or GPU behavior.

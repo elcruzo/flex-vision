@@ -157,3 +157,8 @@ See STENCILS.md and D061. The real local classifier runner is prepared.
 Experiment 033 passed configurable 3/5/7/9 stencils from Python and YAML through real local classifier inference.
 CPU and MPS reference paths both passed and repeated with pinned manifests.
 See experiments/033-stencil-reference.md. CUDA stencil implementation and acceptance remain pending.
+
+An experimental coefficient-specialized two-pass CUDA stencil backend is implemented.
+Plans expose one FP32 temporary and two launches. Async submissions retain intermediate ownership.
+The 192-execution TensorRT gate is prepared. Hardware compilation, correctness, traces, and performance remain pending.
+See STENCILS.md and D062. Existing detector pixel math remains unchanged.

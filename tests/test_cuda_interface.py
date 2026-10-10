@@ -68,7 +68,7 @@ def test_dlpack_preference_never_reads_cai_property(monkeypatch):
         @property
         def __cuda_array_interface__(self):
             raise AssertionError('Preferred DLPack import must not inspect CAI')
-    source=SimpleNamespace(dtype='uint8',shape=(5,7,3),strides=(21,3,1))
+    source=SimpleNamespace(dtype=__import__('numpy').dtype('uint8'),shape=(5,7,3),strides=(21,3,1))
     result=object()
     stream=SimpleNamespace(synchronize=lambda:None)
     cp=SimpleNamespace(ndarray=type(None),uint8='uint8',from_dlpack=lambda frame:source,
@@ -77,4 +77,4 @@ def test_dlpack_preference_never_reads_cai_property(monkeypatch):
     monkeypatch.setitem(sys.modules,'cupy',cp)
     monkeypatch.setattr(cuda,'_launch_metadata',lambda *a:((1,3,2,2),'float16',12,()))
     monkeypatch.setattr(cuda,'_kernel',lambda dtype:lambda *a,**k:None)
-    assert cuda.execute(object(),Dual()) is result
+    assert cuda.execute(SimpleNamespace(operations=(None,)),Dual()) is result

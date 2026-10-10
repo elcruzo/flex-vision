@@ -161,8 +161,6 @@ class Pipeline:
         tail = self.operations[1:] if stencil is not None else self.operations
         if len(tail) != 3:
             raise ValueError("complete letterbox -> normalize -> to before planning")
-        if stencil is not None and backend == 'cuda':
-            raise ValueError('CUDA stencil execution is not implemented; use an explicit reference path')
         size, _, output = tail
         ratio = min(size.width / w, size.height / h)
         # Round half up and preserve at least one pixel on each axis.
@@ -174,9 +172,10 @@ class Pipeline:
                 "output_encoding": "rgb", "output_shape": [1, 3, size.height, size.width],
                 "dtype": output.dtype, "geometry": asdict(geometry),
                 "operations": [{"kind": type(op).__name__, **asdict(op)} for op in self.operations],
-                "cuda_launches": 1 if backend == 'cuda' else None, "fusion": backend == 'cuda',
+                "cuda_launches": (2 if stencil is not None else 1) if backend == 'cuda' else None, "fusion": backend == 'cuda',
                 "synchronous": backend == 'cuda',
-                "temporary_arrays": 0 if backend == 'cuda' else None}
+                "temporary_arrays": int(stencil is not None) if backend == 'cuda' else None,
+                "stencil_implementation": "specialized-direct-experimental" if stencil is not None and backend == 'cuda' else None}
 
     def __call__(self, frame, *, out=None):
         from .cuda import execute
