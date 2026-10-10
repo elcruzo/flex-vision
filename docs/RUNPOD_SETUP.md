@@ -523,3 +523,14 @@ A prospective $0.65 reservation would bring it to $13.945168122393484, within th
 No new rental was created or reserved by this reconciliation. Recheck capacity and rates before dispatch.
 See [the calculation record](experiments/data/budget-after-026.json) for exact resource identities and posted offsets.
 The longer missed-export attempt 026 retains its full ceiling. No earlier delayed-charge headroom was removed.
+
+### Focused delayed-consumer retry reservation
+
+The October 10 preflight found no Pods. Posted Pod billing remains $9.770127805024458.
+The live catalog reports secure RTX 4090 HIGH capacity in EU-RO-1 at $0.89/hour.
+Two cpu3c vCPUs have HIGH capacity in EU-CZ-1 at $0.06/hour.
+Reserve $0.65 for one independently terminated 30-minute session, including storage headroom.
+The conservative cumulative bound becomes $13.945168122393484 within the original $15 authorization.
+Regenerate all six numerical controls, then run the delayed-consumer gate.
+Only run the matched serial comparison if that gate passes and enough export allowance remains.
+Use ordinary local SSH export. It retains its Mac-session dependency. No bucket is required or created.
