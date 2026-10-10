@@ -34,7 +34,7 @@ A signed upload can replace an existing object. Use a unique experiment/run key.
 Choose storage cost and retention before creating a destination. Do not extend the compute lease for export.
 Keep model weights and engines outside the result directory unless their redistribution permits upload.
 
-Before another paid inference run:
+Before relying on signed-URL export for a paid inference run:
 
 1. Reconcile the remaining $15 total compute budget.
 2. Configure the private destination and its retention rule.
@@ -46,3 +46,5 @@ Before another paid inference run:
 The local HTTP receiver check passed archive upload and hash verification after retrieval.
 This check validates transport plumbing only. It does not validate a storage provider or CUDA inference.
 The preparation does not recover experiment 026's lost evidence.
+Ordinary SSH export remains available without a bucket. It retains the documented Mac-session dependency.
+A shorter correctness dispatch reduces exposure but does not guarantee export across a session pause.

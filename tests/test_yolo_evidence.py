@@ -54,3 +54,11 @@ def test_invalid_evidence_is_rejected(tmp_path,fault):
         path.write_text('\n'.join(lines)+'\n')
     with pytest.raises(ValueError):
         summarize(tmp_path)
+
+
+def test_numerical_only_run_is_not_performance_evidence(tmp_path):
+    import json
+    from summarize_yolo import summarize
+    (tmp_path/'results.json').write_text(json.dumps({'run_kind':'validation'}))
+    with pytest.raises(ValueError, match='latency comparison'):
+        summarize(tmp_path)

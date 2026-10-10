@@ -15,6 +15,8 @@ FIELDS = ('preprocess_ms','network_ms','nms_ms','complete_gpu_ms','complete_host
 
 def summarize(root):
     report = json.loads((root/'results.json').read_text())
+    if report.get('run_kind', 'comparison') != 'comparison':
+        raise ValueError('Require a latency comparison, not validation or trace evidence')
     if report['status'] != 'passed' or report['dirty']:
         raise ValueError('Require a completed run from a clean source revision')
     if report['blocks'] < 10 or report['samples_per_block'] < 1000 or report['warmup'] < 100:

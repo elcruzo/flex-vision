@@ -5,6 +5,8 @@ set -euo pipefail
 : "${CPG_RESULT_NAME:?Set a new iteration result name}"
 [[ "$CPG_REVISION" =~ ^[a-f0-9]{40}$ ]]
 [[ "$CPG_RESULT_NAME" =~ ^iteration-[a-zA-Z0-9-]+$ ]]
+CPG_YOLO_MODE=${CPG_YOLO_MODE:-full}
+[[ "$CPG_YOLO_MODE" == full || "$CPG_YOLO_MODE" == validation ]]
 cd /workspace/flex-vision
 export CPG_RESULTS="benchmark-results/$CPG_RESULT_NAME"
 mkdir -p "$CPG_RESULTS"
@@ -20,6 +22,10 @@ curl -fL --retry 2 https://github.com/ultralytics/assets/releases/download/v8.3.
 .venv-gpu/bin/python -m pip check > "$CPG_RESULTS/pip-check.txt"
 nvidia-smi --query-gpu=name,driver_version,memory.total --format=csv,noheader > "$CPG_RESULTS/gpu.txt"
 .venv-gpu/bin/python scripts/gpu_preflight.py --output "$CPG_RESULTS/preflight.json"
+if [[ "$CPG_YOLO_MODE" == validation ]]; then
+  .venv-gpu/bin/python -u scripts/yolo_gpu.py --validate-only --output "$CPG_RESULTS/measured"
+  exit 0
+fi
 .venv-gpu/bin/python -u scripts/yolo_gpu.py --output "$CPG_RESULTS/measured"
 apt-get update -qq
 apt-get install -y -qq nsight-systems-2025.3.2

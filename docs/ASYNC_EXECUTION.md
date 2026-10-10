@@ -152,3 +152,9 @@ See [the outcome and coordinator correction](experiments/026-expired-delayed-con
 The [matched serial comparison](ASYNC_BENCHMARK.md) now has a prepared TensorRT/NMS runner and independent sample audit.
 It requires passing delayed-consumer evidence from the same source and engine before collecting timing.
 This preparation establishes no hardware performance result and does not change the synchronous default.
+
+The delayed-consumer entry point now regenerates all six numerical fixtures with `yolo_gpu.py --validate-only`.
+It builds the same engine and checks every existing candidate, framework import, negative stride, and retained output.
+It omits repeated baseline latency sampling and baseline trace installation before the pending-reader test.
+This is a correctness dispatch, not new comparison or trace evidence. The numerical policy remains unchanged.
+The matched comparison and async-specific trace still need separate execution and acceptance.

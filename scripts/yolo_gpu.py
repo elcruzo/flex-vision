@@ -101,7 +101,10 @@ def main():
     parser.add_argument('--blocks',type=int,default=10)
     parser.add_argument('--samples',type=int,default=1000)
     parser.add_argument('--trace',action='store_true')
+    parser.add_argument('--validate-only',action='store_true',help='Run every numerical case without latency sampling or trace capture')
     args = parser.parse_args()
+    if args.trace and args.validate_only:
+        parser.error('trace and validate-only are mutually exclusive')
     if args.blocks <= 0 or args.samples <= 0:
         parser.error('blocks and samples must be positive')
     args.output.mkdir(parents=True,exist_ok=False)
@@ -113,6 +116,7 @@ def main():
               'versions':{'torch':torch.__version__,'cupy':cp.__version__,'tensorrt':trt.__version__,
                           'cvcuda':cvcuda.__version__},'gpu':torch.cuda.get_device_name(0),
               'blocks':args.blocks,'samples_per_block':args.samples,'warmup':100,
+              'run_kind':'validation' if args.validate_only else 'trace' if args.trace else 'comparison',
               'unmeasured':['power','CPU utilization','GPU utilization','memory bandwidth','peak temporary memory'],
               'model_preparation':'FP32 convolution/batchnorm fusion before FP16 conversion',
               'vendor_plan':'resize/crop/convert/reformat to NCHW, then planar padding into owned output',
@@ -215,7 +219,7 @@ def main():
                                 decode(consumer(tensor))
                                 stream.synchronize()
                     torch.cuda.profiler.stop()
-                else:
+                elif not args.validate_only:
                     with (args.output/'samples.csv').open('w',newline='') as file:
                         writer = csv.writer(file)
                         writer.writerow(['fixture','block','sample','candidate','preprocess_ms','network_ms','nms_ms','complete_gpu_ms','complete_host_ms'])

@@ -560,3 +560,13 @@ Keep dispatch latency distinct from completed preprocessing latency.
 Serial results cannot establish overlap, concurrent camera throughput, or general async support.
 Keep defaults unchanged. Hardware results, async-specific traces, allocator observations, and repeatability remain pending.
 See ASYNC_BENCHMARK.md for the frozen boundaries and product connection.
+
+## D050 — Focus delayed-consumer dispatch on real inference correctness
+
+Regenerate the engine and all six numerical controls before the pending-reader test.
+Keep candidate, framework, negative-stride, retained-output, tensor, dense, and semantic checks unchanged.
+Omit the repeated 60,000 baseline timing samples and baseline trace from this correctness dispatch.
+Label the resulting report as validation. Reject it as latency-comparison evidence.
+The full comparison entry point keeps its default behavior. Async traces and matched performance remain required separately.
+A storage bucket remains optional. The normal bounded SSH export path remains available with its documented session-pause risk.
+Validate a storage provider before relying on signed-URL export, rather than making it a prerequisite for every GPU session.

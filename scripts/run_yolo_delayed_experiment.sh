@@ -10,7 +10,7 @@ cd /workspace/flex-vision
 export CPG_RESULTS="benchmark-results/$CPG_RESULT_NAME"
 mkdir -p "$CPG_RESULTS"
 trap 'find "$CPG_RESULTS" -name "*.csv" -exec gzip {} \;' EXIT
-bash scripts/run_yolo_experiment.sh
+CPG_YOLO_MODE=validation bash scripts/run_yolo_experiment.sh
 CPG_STREAM_TIMEOUT=$(.venv-gpu/bin/python - <<'PY'
 import math,os,time
 remaining=float(os.environ['CPG_LEASE_DEADLINE'])-time.time()
