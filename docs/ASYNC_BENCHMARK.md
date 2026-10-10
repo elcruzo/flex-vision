@@ -93,3 +93,29 @@ Experiment 027 passed 48 delayed-consumer checks and 40,000 matched serial infer
 Complete-host p50 improved 9.38–9.42%, with p99 improved 8.99–10.37% in this run.
 See [experiment 027](experiments/027-delayed-and-async.md).
 Keep the synchronous default. Async traces, allocator observations, independent repeats, and concurrency remain pending.
+
+
+## Separate trace and allocator gate
+
+The prepared `--diagnostics` mode does not produce selectable latency evidence.
+It requires the same clean-source and engine-matched 48-execution delayed report.
+Each fixture warms both strategies for 100 fully checked frames.
+Ten alternating blocks then check 100 frames per strategy, for 4,000 measured diagnostic frames.
+Capture one completed sync and submit range per fixture, with validation outside each range.
+A known 4,096-byte device-to-host transfer checks capture visibility.
+The audit rejects host transfers at least as large as the 2,457,600-byte FP16 output within those ranges.
+Small metadata transfers remain reported. This threshold does not prove the absence of all smaller pixel transfers.
+
+Record CuPy used/total and PyTorch allocated/reserved bytes after warmup and every drained block.
+Never clear the pools between blocks. Preserve every growth observation.
+Report stability only when no checkpoint exceeds its fixture's warm baseline in any recorded pool field.
+These pools exclude TensorRT internal allocations, driver memory, and transient peaks.
+This short serial run cannot establish concurrent capacity or a long-soak guarantee.
+The trace supports launch/transfer observations. Real inference checks support numerical and dependency correctness.
+Do not infer exact inter-stream event ordering from range counts alone.
+
+`scripts/run_yolo_async_diagnostics.sh` prepares fresh controls and the delayed gate before capture.
+It bounds installation, tracing, sanitization, and verification by the independent deadline minus the export reserve.
+Raw traces can contain environment data. Publish only sanitized captures after inspection.
+The independent `verify_yolo_async_diagnostics.py` rejects missing raw frames, failed checks, mismatched gates, and incomplete checkpoints.
+Hardware acceptance remains pending. The earlier 027 comparison does not validate this new diagnostics mode.

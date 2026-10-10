@@ -6,7 +6,7 @@ from pathlib import Path
 import sqlite3
 
 
-def verify(path):
+def verify(path, candidates=('cpg', 'torch', 'cvcuda')):
     result = {'trace_sha256':hashlib.sha256(path.read_bytes()).hexdigest(),
               'scope':'completed resident-input preprocessing, TensorRT, and CUDA NMS ranges; excludes uploads and validation downloads',
               'ranges':{}}
@@ -21,7 +21,7 @@ def verify(path):
         if copies != [(2,4096)]:
             raise ValueError('Known 4096-byte device-to-host transfer was not captured exactly')
         result['known_control'] = {'kind':2,'bytes':4096,'captured':True}
-        for candidate in ('cpg','torch','cvcuda'):
+        for candidate in candidates:
             spans = db.execute('SELECT start,end FROM NVTX_EVENTS WHERE text=? ORDER BY start',
                                ('yolo_'+candidate+'_complete',)).fetchall()
             if len(spans) != 2:

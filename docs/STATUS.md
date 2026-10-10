@@ -101,3 +101,10 @@ Experiment 027 passed 48 delayed-consumer checks and 40,000 matched serial infer
 Complete-host p50 improved 9.38–9.42%, with p99 improved 8.99–10.37% in this run.
 See [experiment 027](experiments/027-delayed-and-async.md).
 Keep the synchronous default. Async traces, allocator observations, independent repeats, and concurrency remain pending.
+
+
+The async diagnostic capture and allocator gate is prepared in `scripts/run_yolo_async_diagnostics.sh`.
+It runs 4,000 checked serial frames and audits capture controls, transfers, and post-drain pool observations.
+See ASYNC_BENCHMARK.md and D052. GPU execution remains pending.
+Local fault checks reject incomplete frames, missing checkpoints, engine mismatch, and tensor-sized host transfers.
+They do not establish hardware acceptance or production async support.

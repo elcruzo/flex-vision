@@ -21,6 +21,7 @@ def main():
     parser.add_argument('--controls', type=Path, required=True)
     parser.add_argument('--delayed-report', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--diagnostics', action='store_true', help='Separate instrumented trace and allocator run; not latency evidence')
     args = parser.parse_args()
     from yolo_common import digest
     revision = subprocess.check_output(['git', 'rev-parse', 'HEAD'], text=True).strip()
@@ -40,11 +41,23 @@ def main():
     pipe = pipeline()
     report = {'status': 'failed', 'revision': revision, 'dirty': False,
               'engine_sha256': gate['engine_sha256'], 'delayed_report_sha256': digest(args.delayed_report),
-              'mode': 'serial-async-v1', 'blocks': 10, 'samples_per_block': 1000, 'warmup': 100,
+              'mode': 'serial-async-diagnostics-v1' if args.diagnostics else 'serial-async-v1',
+              'blocks': 10, 'samples_per_block': 100 if args.diagnostics else 1000, 'warmup': 100,
               'scope': 'Resident 1080p input; fresh outputs; serial FP16 TensorRT and CUDA NMS; no camera acquisition or overlap',
               'fixtures': [], 'p99_guard_fraction': 0.05}
     pending = job = None
+    profiling = False
+    if args.diagnostics:
+        report['allocator_checkpoints'] = []
+        report['scope'] = 'Instrumented serial async trace and post-drain pool observations; no latency selection'
     try:
+        if args.diagnostics:
+            torch.cuda.profiler.start()
+            profiling = True
+            control = cp.arange(1024, dtype=cp.float32)
+            with torch.cuda.nvtx.range('known_4096_byte_d2h_control'):
+                cp.asnumpy(control)
+            del control
         torch.backends.cuda.matmul.allow_tf32 = False
         torch.backends.cudnn.allow_tf32 = False
         with torch.inference_mode(), (args.output / 'samples.csv').open('w', newline='') as handle:
@@ -75,7 +88,10 @@ def main():
                 for block in range(-1, 10):
                     order = ('sync', 'submit') if block % 2 == 0 else ('submit', 'sync')
                     for candidate in order:
-                        for index in range(100 if block == -1 else 1000):
+                        for index in range(100 if block == -1 else report['samples_per_block']):
+                            traced = args.diagnostics and block == 0 and index == 0
+                            if traced:
+                                torch.cuda.nvtx.range_push('yolo_' + candidate + '_complete')
                             start = time.perf_counter_ns()
                             events[0].record(pre)
                             with pre:
@@ -101,6 +117,8 @@ def main():
                                 pending.close()
                                 pending = None
                             host_ms = (time.perf_counter_ns() - start) / 1e6
+                            if traced:
+                                torch.cuda.nvtx.range_pop()
                             # Validation follows the complete timing boundary on both paths.
                             with downstream, torch.cuda.stream(consumer._torch_stream):
                                 correct = bool(valid(image, head, decoded, expected, reference, reference_detection, 'cpg').item())
@@ -113,6 +131,15 @@ def main():
                             if not correct:
                                 raise AssertionError('Complete inference correctness failed')
                             del image, head, decoded
+                    if args.diagnostics:
+                        for stream in streams:
+                            stream.synchronize()
+                        pool = cp.get_default_memory_pool()
+                        report['allocator_checkpoints'].append({
+                            'fixture': name, 'block': block,
+                            'cupy_used_bytes': pool.used_bytes(), 'cupy_total_bytes': pool.total_bytes(),
+                            'torch_allocated_bytes': torch.cuda.memory_allocated(),
+                            'torch_reserved_bytes': torch.cuda.memory_reserved()})
                     handle.flush()
                     print('async_comparison', name, block, flush=True)
         if len(report['fixtures']) != 2:
@@ -133,7 +160,11 @@ def main():
             report['drain_error'] = repr(exc)
             raise
         finally:
-            (args.output / 'results.json').write_text(json.dumps(report, indent=2) + '\n')
+            try:
+                if profiling:
+                    torch.cuda.profiler.stop()
+            finally:
+                (args.output / 'results.json').write_text(json.dumps(report, indent=2) + '\n')
 
 
 if __name__ == '__main__':

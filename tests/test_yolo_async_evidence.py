@@ -60,3 +60,11 @@ def test_matching_hardware_gate_required():
     for revision, engine, dirty in [('c'*40,'b'*64,False),('a'*40,'c'*64,False),('a'*40,'b'*64,True)]:
         with pytest.raises(ValueError, match='matching'):
             require_gate(report, revision, engine, dirty)
+
+
+def test_diagnostics_cannot_be_selected_as_latency(evidence):
+    root, report, rows, save = evidence
+    report['mode'] = 'serial-async-diagnostics-v1'
+    save()
+    with pytest.raises(ValueError, match='complete frozen serial async protocol'):
+        summarize(root)

@@ -579,3 +579,11 @@ Accept this fixed correctness scenario and scoped first comparison.
 Keep the synchronous default until independent repeats, async traces, and allocator observations pass.
 Do not infer overlap, reusable slots, or multi-camera throughput from serial measurements.
 Preserve the dispatch-wrapper correction and its hashes separately from the clean measured source.
+
+## D052 — Separate async diagnostics from latency selection
+
+Add an instrumented 4,000-frame serial mode with capture controls and post-drain allocator checkpoints.
+Keep the accepted 40,000-frame timing protocol unchanged.
+Reject diagnostics reports as latency evidence and preserve pool growth without claiming global memory stability.
+Require fresh matching delayed-consumer evidence before hardware execution.
+Local evidence fault checks are preparation only. Async capture and allocator hardware acceptance remain pending.
