@@ -589,3 +589,7 @@ Require all 144 scenarios. Preserve failures and verify export and exact cleanup
 Experiment 030 resources are absent. Its lifetime bound replaces only its $0.65 reservation.
 The cumulative conservative bound including one corrected 031 retry is $14.781640344615706.
 See experiments/data/budget-after-030.json. The original $15 authorization remains unchanged.
+
+Experiment 031 resources are absent. Its full-lifetime bound replaces only its $0.65 reservation.
+Including one CAI transfer-capture reservation, the conservative cumulative bound is $14.98270978906015.
+See experiments/data/budget-after-031.json. No additional budget is authorized.
