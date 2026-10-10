@@ -100,3 +100,12 @@ Use scripts/run_yolo_cai_trace_experiment.sh under the independent lease deadlin
 It regenerates numerical controls and the full correctness gate, then captures and sanitizes the Nsight export.
 Local evidence faults, shell syntax, and Python compilation passed. Hardware capture remains pending.
 This protocol provides no timing selection, overlap, allocator stability, or external-library acceptance.
+
+Use scripts/project_yolo_trace.py to retain a compact projection after sanitization.
+The projection keeps selected NVTX ranges, overlapping GPU/runtime events, and sanitized strings.
+It compares the selected kernel/copy observations with the full sanitized source.
+The local test confirms that the CAI audit remains valid after projection and rejects unsanitized environment rows.
+Keep the full trace bundle locally. A projection does not represent the whole process.
+
+The projection also preserved experiment 028's actual Nsight range observations: 672 kernels and 33 copy events.
+All 201 local checks passed. This validates projection handling, not the pending CAI hardware capture.
