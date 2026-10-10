@@ -502,3 +502,24 @@ Offset those charges against reservations to avoid double counting, while retain
 The conservative cumulative bound is $14.780820900171262 within $15. Reconcile before another paid retry.
 The coordinator now checks the independent wall deadline before polling and export.
 See experiment 026 for the missing evidence and session-continuity limits.
+
+### Lifetime-bounded reconciliation after experiment 026
+
+The fresh Pod inventory is empty. The October 2–11 UTC billing-window read still reports $9.770127805024458 posted.
+Replace only four prior $0.65 reservations using their recorded run-start and confirmed-absence times.
+Bound both compute rates over that entire interval, add 60 seconds, and retain $0.10 storage headroom per attempt.
+Use the larger of posted charges and that lifetime bound. Keep all other reservation ceilings unchanged.
+
+| Attempt | Bounded seconds | Replacement ceiling |
+| --- | ---: | ---: |
+| 023 | 516 | $0.23616666666666666 |
+| 024 | 427 | $0.21268055555555554 |
+| 025 failed | 1154 | $0.4045277777777778 |
+| 025 corrected | 610 | $0.2609722222222222 |
+
+These bounds use the historical $0.89/hour GPU and $0.06/hour controller rates, not a new provisioning quote.
+The conservative cumulative bound falls from $14.780820900171262 to $13.295168122393484.
+A prospective $0.65 reservation would bring it to $13.945168122393484, within the existing $15 authorization.
+No new rental was created or reserved by this reconciliation. Recheck capacity and rates before dispatch.
+See [the calculation record](experiments/data/budget-after-026.json) for exact resource identities and posted offsets.
+The longer missed-export attempt 026 retains its full ceiling. No earlier delayed-charge headroom was removed.

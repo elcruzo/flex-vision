@@ -89,3 +89,9 @@ Independent evidence export is prepared through an optional GPU-side signed PUT 
 The local archive/upload/retrieval check passed. The full local suite passed 139 checks.
 See [export setup](DURABLE_EXPORT.md). No storage destination or cloud export acceptance exists yet.
 Experiment 026 remains unvalidated. Reconcile budget and validate provider export before another rental.
+
+The recent four ended leases now have lifetime-bounded replacement reservations.
+The cumulative conservative bound is $13.295168122393484 against the existing $15 authorization.
+No new rental was created. See RUNPOD_SETUP.md and its calculation record.
+The delayed-consumer runner now regenerates complete numerical controls without repeating baseline timing and trace capture first.
+GPU delayed-consumer acceptance remains pending. Numerical-only reports cannot count as performance evidence.

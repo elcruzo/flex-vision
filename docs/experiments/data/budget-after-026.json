@@ -1,0 +1,59 @@
+{
+  "posted_total": 9.770127805024458,
+  "method": "Replace four 0.65 reservations with max(posted, 0.95/hour times creation-run-to-confirmed-absence plus 60 seconds, plus 0.10 storage headroom). Retain all other ceilings.",
+  "rows": [
+    {
+      "experiment": "023",
+      "pods": [
+        "f2sti5i5x4xnc1",
+        "spmvmy3tfpxhhb"
+      ],
+      "start_epoch": 1791562517,
+      "absence_utc": "2026-10-09T16:22:52.500325Z",
+      "seconds": 516,
+      "posted": 0.0791666628792882,
+      "ceiling": 0.23616666666666666,
+      "previous_ceiling": 0.65
+    },
+    {
+      "experiment": "024",
+      "pods": [
+        "d3p1cf4fjk2v30",
+        "s3zi8nijcosqli"
+      ],
+      "start_epoch": 1791586692,
+      "absence_utc": "2026-10-09T23:04:18.809536Z",
+      "seconds": 427,
+      "posted": 0.08760357655955886,
+      "ceiling": 0.21268055555555554,
+      "previous_ceiling": 0.65
+    },
+    {
+      "experiment": "025-failed",
+      "pods": [
+        "4q0ttle5butxnf",
+        "ks669mn6w8rpm5"
+      ],
+      "start_epoch": 1791588705,
+      "absence_utc": "2026-10-09T23:49:58.746705Z",
+      "seconds": 1154,
+      "posted": 0.2829682599622174,
+      "ceiling": 0.4045277777777778,
+      "previous_ceiling": 0.65
+    },
+    {
+      "experiment": "025",
+      "pods": [
+        "0e3cultzi45uw0",
+        "kbemgn020opvxw"
+      ],
+      "start_epoch": 1791589810,
+      "absence_utc": "2026-10-09T23:59:19.659864Z",
+      "seconds": 610,
+      "posted": 0.13718502262418042,
+      "ceiling": 0.2609722222222222,
+      "previous_ceiling": 0.65
+    }
+  ],
+  "bound": 13.295168122393484
+}
