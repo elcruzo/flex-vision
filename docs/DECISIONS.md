@@ -622,3 +622,11 @@ Use documented CuPy Event.done without weakening either required pending boundar
 Preserve the zero-check failed report and require a fresh complete GPU result.
 Prefer DLPack without accessing a dual-protocol producer's unused CAI descriptor.
 Local fault checks pass. Neither this correction nor baseline DLPack controls establish CAI hardware acceptance.
+
+## D057 — Separate ready-input reuse from advertised-stream ordering
+
+Experiment 030 exposed an unordered stream=None overwrite in the CAI harness.
+Require caller completion before future writes when no producer stream is advertised.
+Keep immediate producer reuse for advertised streams, with a fresh pending observation directly before reuse.
+Record both contracts in cai-v2 without reducing the 144-case matrix.
+Preserve the failed cai-v1 evidence. Corrected hardware acceptance remains pending.

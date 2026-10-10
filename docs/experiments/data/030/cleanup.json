@@ -1,0 +1,9 @@
+{
+  "observed_utc": "2026-10-10T05:28:50.715422+00:00",
+  "pods": [],
+  "secrets": [],
+  "gpu": "k0nh3at4u3f0bu",
+  "controller": "h5tw0m36rvwr9h",
+  "secret": "644k4kiedd",
+  "qualification": "Fresh Runpod inventory confirms absence. Coordinator handle was no longer available."
+}

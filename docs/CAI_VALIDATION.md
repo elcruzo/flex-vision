@@ -24,8 +24,11 @@ For a stream=None export, complete this event before importing because that cont
 For submit, queue a 1,000,000,000-cycle preprocessing delay first.
 Require preprocessing completion to remain pending when submission returns.
 Release the caller's exporter reference and require its weak reference to remain alive before explicit completion.
-Immediately queue a zero fill on the producer stream.
+For an advertised stream, require pending completion again immediately before queuing a zero fill on that stream.
 The adapter's reverse dependency must keep that write behind preprocessing's input read.
+For stream=None, the caller must wait for preprocessing completion before queuing any future write.
+The adapter cannot order writes on a stream that the exporter does not advertise.
+Protocol cai-v2 records these distinct reuse contracts and the observation at the actual reuse boundary.
 This deliberately pending read prevents a missing dependency from passing merely because preprocessing already finished.
 
 Wait for preprocessing, then check every output bit against the independent oracle.
@@ -70,3 +73,6 @@ The runtime cannot reconstruct ownership from an integer alone.
 The first hardware attempt failed before CAI import because it used Torch's event query spelling on CuPy.
 The corrected harness uses documented CuPy Event.done at both pending boundaries.
 See experiments/029-cai-event-failure.md. Require a fresh complete result before acceptance.
+
+Experiment 030 passed seven scenarios before unordered stream=None reuse failed in the harness.
+See experiments/030-cai-ready-reuse.md. Corrected cai-v2 GPU acceptance remains pending.

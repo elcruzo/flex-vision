@@ -8,7 +8,7 @@ from verify_yolo_stream_ownership import FIXTURES
 
 def verify(report):
     if (report.get('status')!='passed' or report.get('dirty') is not False
-            or report.get('drain_status')!='passed' or report.get('mode')!='cai-v1'
+            or report.get('drain_status')!='passed' or report.get('mode')!='cai-v2'
             or report.get('delay_cycles')!=500000000 or report.get('preprocessing_delay_cycles')!=1000000000):
         raise ValueError('Require complete clean CAI protocol and drain')
     for field,length in [('revision',40),('engine_sha256',64)]:
@@ -22,7 +22,9 @@ def verify(report):
         if identity not in expected or identity in seen:
             raise ValueError('Unexpected or duplicate CAI scenario')
         seen.add(identity)
-        if (row.get('pending_producer') is not (row['producer']!='ready')
+        if (row.get('reuse_ordering') != ('caller_completion' if row['producer']=='ready' else 'advertised_stream_fence')
+                or row.get('pending_at_reuse') is not (True if row['execution']=='submit' and row['producer']!='ready' else None)
+                or row.get('pending_producer') is not (row['producer']!='ready')
                 or row.get('preprocessing_pending') is not (True if row['execution']=='submit' else None)
                 or row.get('exporter_retained') is not (True if row['execution']=='submit' else None)
                 or row.get('retained_output_exact') is not (True if index else None)

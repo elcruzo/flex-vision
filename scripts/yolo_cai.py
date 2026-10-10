@@ -32,7 +32,7 @@ def main():
     from cpg.reference import numpy_reference
     from yolo_common import pipeline, cases, digest, decode, compare_dense, compare_detections
     from pending_yolo_consumer import PendingConsumer
-    report = dict(status='failed', mode='cai-v1',
+    report = dict(status='failed', mode='cai-v2',
         revision=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),
         dirty=bool(subprocess.check_output(['git','status','--porcelain'],text=True)),
         engine_sha256=digest(args.engine), delay_cycles=500000000, preprocessing_delay_cycles=1000000000, checks=[],
@@ -69,6 +69,8 @@ def main():
                 storage_host = host if layout=='contiguous' else host[::-1] if layout=='reverse_rows' else host[...,::-1]
                 for label, stream, handle in [('explicit',producer,producer.ptr),('legacy',cp.cuda.Stream.null,1),('ptds',cp.cuda.Stream.ptds,2),('ready',producer,None)]:
                     for mode in ('sync','submit'):
+                        report['active_scenario']=dict(fixture=name,layout=layout,producer=label,execution=mode)
+                        report['stage']='producer_setup'
                         with stream:
                             uploaded = cp.asarray(np.ascontiguousarray(storage_host))
                             storage = cp.zeros_like(uploaded)
@@ -95,13 +97,21 @@ def main():
                         gc.collect()
                         if mode=='submit' and owner() is None:
                             raise AssertionError('Exporter released before explicit completion')
-                        # Future producer writes must wait until preprocessing finishes reading.
+                        report['stage']='producer_reuse'
+                        # With no advertised stream, the caller orders future writes.
+                        if mode=='submit' and label=='ready':
+                            pending.wait()
+                        pending_at_reuse = None
+                        if mode=='submit' and label!='ready':
+                            require_pending(pending._event, 'Preprocessing before producer reuse')
+                            pending_at_reuse = True
                         with stream: storage.fill(0)
                         if mode=='submit':
                             pending.wait()
                             pending = None
                         else:
                             downstream.wait_event(pre.record())
+                        report['stage']='tensor_and_inference_checks'
                         if retained is not None:
                             np.testing.assert_array_equal(cp.asnumpy(retained[0]).view(np.uint16),retained[1].view(np.uint16))
                         np.testing.assert_array_equal(cp.asnumpy(image).view(np.uint16),expected.view(np.uint16))
@@ -114,6 +124,8 @@ def main():
                         stream.synchronize()
                         assert not cp.count_nonzero(storage).item()
                         report['checks'].append(dict(fixture=name,layout=layout,producer=label,execution=mode,
+                            reuse_ordering='caller_completion' if label=='ready' else 'advertised_stream_fence',
+                            pending_at_reuse=pending_at_reuse,
                             pending_producer=label!='ready',preprocessing_pending=True if mode=='submit' else None,
                             exporter_retained=True if mode=='submit' else None,
                             retained_output_exact=True if retained is not None else None,
@@ -121,6 +133,8 @@ def main():
                         retained=(image,expected)
                         del image,head,storage,uploaded
             print('cai_validated',name,flush=True)
+        report['active_scenario']=None
+        report['stage']='complete'
         report['status']='passed'
     except Exception as exc:
         report['error']=repr(exc)

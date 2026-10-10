@@ -13,9 +13,11 @@ def evidence():
             for p in ('explicit','legacy','ptds','ready'):
                 for e in ('sync','submit'):
                     rows.append(dict(fixture=f,layout=l,producer=p,execution=e,pending_producer=p!='ready',
+                        reuse_ordering='caller_completion' if p=='ready' else 'advertised_stream_fence',
+                        pending_at_reuse=True if e=='submit' and p!='ready' else None,
                         preprocessing_pending=True if e=='submit' else None,exporter_retained=True if e=='submit' else None,retained_output_exact=True if rows else None,
                         producer_reuse=True,tensor_exact=True,dense_output=True,detections=True))
-    return dict(status='passed',dirty=False,drain_status='passed',mode='cai-v1',delay_cycles=500000000,preprocessing_delay_cycles=1000000000,
+    return dict(status='passed',dirty=False,drain_status='passed',mode='cai-v2',delay_cycles=500000000,preprocessing_delay_cycles=1000000000,
                 revision='a'*40,engine_sha256='b'*64,checks=rows)
 
 
@@ -42,3 +44,15 @@ def test_cupy_pending_check_uses_documented_done_property():
     require_pending(SimpleNamespace(done=False), 'Producer')
     with pytest.raises(AssertionError, match='completed before'):
         require_pending(SimpleNamespace(done=True), 'Preprocessing')
+
+
+@pytest.mark.parametrize('producer,execution', [('ready','submit'),('explicit','submit'),('legacy','submit'),('ptds','submit')])
+def test_reuse_boundary_required(producer,execution):
+    report=evidence()
+    row=next(r for r in report['checks'] if r['producer']==producer and r['execution']==execution)
+    row['reuse_ordering']='unordered'
+    with pytest.raises(ValueError):verify(report)
+    report=evidence()
+    row=next(r for r in report['checks'] if r['producer']==producer and r['execution']==execution)
+    row['pending_at_reuse']=False
+    with pytest.raises(ValueError):verify(report)

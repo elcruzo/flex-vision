@@ -128,3 +128,8 @@ Experiment 029 failed in the CAI harness before its first import because CuPy Ev
 The corrected harness uses Event.done and preserves the required pending boundaries.
 The DLPack preference also avoids evaluating an unused CAI descriptor.
 See experiments/029-cai-event-failure.md. CAI GPU acceptance remains pending and all rental resources are absent.
+
+Experiment 030 passed seven CAI scenarios before the harness violated stream=None input reuse ordering.
+Protocol cai-v2 now separates caller completion from advertised-stream completion fencing.
+See experiments/030-cai-ready-reuse.md and D057. All rental resources are absent.
+The full 144-case gate, CAI transfer capture, and broader interoperability remain pending.
