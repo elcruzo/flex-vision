@@ -1,0 +1,8 @@
+{
+  "status": "unvalidated_export_missed",
+  "revision": "234d05338ae1fcccd4911e485cf34556c241282e",
+  "gpu": "ck71jv7pv25pug",
+  "result": "No inference result bundle exported before the independent cloud lease expired",
+  "acceptance": "none",
+  "cleanup": "GPU, controller, and secret independently absent"
+}

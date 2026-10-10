@@ -491,3 +491,14 @@ The fresh 23:59:19 UTC inventory was empty. No rental remains active.
 Posted billing remained $8.783250520227739. Retain both $0.65 reservations and all previous delayed-charge headroom.
 The conservative cumulative bound is $14.043217323611703 within $15. Reconcile before another rental.
 See experiment 025 for the failure, correction, scoped correctness, and remaining acceptance.
+
+### Delayed-consumer lease with missed export
+
+Experiment 026 submitted the scenario but exported no result bundle after a local session pause.
+At 02:19:25 UTC on October 10, the GPU, controller, and temporary secret were independently absent.
+No rental remains active. The delayed-consumer scenario remains unvalidated.
+Posted billing is $9.770127805024458. Newly posted reserved resources total $0.8992737082371605.
+Offset those charges against reservations to avoid double counting, while retaining existing ceiling headroom.
+The conservative cumulative bound is $14.780820900171262 within $15. Reconcile before another paid retry.
+The coordinator now checks the independent wall deadline before polling and export.
+See experiment 026 for the missing evidence and session-continuity limits.

@@ -533,3 +533,12 @@ Use a finite GPU delay solely to observe a pending reader after preprocessing co
 Reject a scenario where the reader already completed at that boundary.
 Check exact tensors, dense outputs, detections, subsequent allocations, and shutdown through real inference.
 The harness and local fault checks are prepared. GPU acceptance and performance remain pending.
+
+## D047 — Bound local polling by the independent cloud deadline
+
+Experiment 026 exported no inference evidence after a long local session pause. All cloud resources were independently absent.
+Treat its delayed-consumer acceptance as unvalidated, not passed or numerically failed.
+Local monotonic elapsed time can lag cloud wall time across a Mac pause.
+Stop progress polling at the independent wall deadline minus the export reserve. Recheck expiration before export.
+Idle-sleep inhibition cannot guarantee session continuity. Do not silently extend rentals or claim durable export.
+Preserve the missed export and reconcile already reserved charges before another paid run.

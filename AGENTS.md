@@ -88,3 +88,7 @@ Keep the synchronous default. Async caller-owned output and consumer tracking re
 The delayed-consumer gate is prepared in scripts/yolo_delayed_consumer.py and scripts/run_yolo_delayed_experiment.sh.
 Read docs/ASYNC_EXECUTION.md and D046. PendingConsumer is a harness, not production inference integration.
 Its local lifecycle/evidence checks passed. Real GPU acceptance remains pending.
+
+Experiment 026 missed delayed-consumer export during a local pause. Read docs/experiments/026-expired-delayed-consumer.md.
+The coordinator now stops polling at the independent wall deadline. Delayed-consumer GPU acceptance remains pending.
+Reconcile reservation ceilings before another rental under the existing $15 budget.

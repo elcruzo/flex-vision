@@ -76,3 +76,8 @@ The owned-output submission API passed 48 fixed TensorRT executions with early c
 See [experiment 025](experiments/025-async-submission.md), including the first pinned stream compatibility failure.
 This is integration correctness progress, not a measured async latency gain.
 Delayed-consumer behavior, async traces, and matched performance are the next gates.
+
+The delayed-consumer rental in experiment 026 missed export during a local session pause.
+No delayed-consumer acceptance was obtained. Exact cloud resource absence was independently verified.
+The coordinator now checks the independent wall deadline before polling and export.
+See [experiment 026](experiments/026-expired-delayed-consumer.md). Reconcile reservations before another paid run.

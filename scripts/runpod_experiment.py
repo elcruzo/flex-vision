@@ -68,7 +68,8 @@ def coordinate(receipt_path, setup, result_name, gpu_region, controller_region='
             ' > /workspace/cpg-experiment.log 2>&1 < /dev/null &'], check=True, timeout=30)
         log('experiment_submitted', pod=gpu['id'], result=result_name,
             setup_sha256=hashlib.sha256(setup_bytes).hexdigest())
-        while time.monotonic() - started < min(3300,minutes*60-300):
+        export_deadline = deadline - 300
+        while time.monotonic() - started < min(3300,minutes*60-300) and time.time() < export_deadline:
             try:
                 completed = subprocess.run(ssh + [
                     'tail -2 /workspace/cpg-experiment.log; if test -f /workspace/cpg-experiment.exit; then '
@@ -82,7 +83,9 @@ def coordinate(receipt_path, setup, result_name, gpu_region, controller_region='
                 log('ssh_poll_retry', pod=gpu['id'])
             time.sleep(30)
         else:
-            raise TimeoutError('Experiment exceeded local export allowance')
+            raise TimeoutError('Experiment exceeded export allowance or independent cloud deadline')
+        if time.time() >= deadline:
+            raise TimeoutError('Independent cloud deadline passed before export')
         remote = '/workspace/flex-vision/benchmark-results/' + result_name
         # Preserve failed experiments too. Only complete files are hashed.
         subprocess.run(ssh + [f'mkdir -p {remote}; cp /workspace/cpg-experiment.log {remote}/execution.log'],

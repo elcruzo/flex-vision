@@ -145,3 +145,6 @@ No new rental ran for this preparation. Reconcile the existing budget before har
 
 API references: [TensorRT Python runtime](https://docs.nvidia.com/deeplearning/tensorrt/10.x.x/inference-library/python-api-docs.html) and
 [CUDA 13.0 clock64](https://docs.nvidia.com/cuda/archive/13.0.0/cuda-c-programming-guide/index.html#time-function).
+
+Experiment 026 missed export during a local session pause. No delayed-consumer GPU acceptance is available.
+See [the outcome and coordinator correction](experiments/026-expired-delayed-consumer.md).

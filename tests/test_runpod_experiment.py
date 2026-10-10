@@ -79,3 +79,25 @@ def test_startup_timeout_removes_controller_secret_and_raced_gpu(tmp_path,monkey
             experiment.coordinate(receipt_path,setup,'iteration-test','EU-CZ-1')
     assert [call.args[0]['id'] for call in terminate.call_args_list] == ['cpu','late-gpu']
     assert api.call_args_list[0].args == ('DELETE','account/secrets/secret')
+
+
+def test_wall_deadline_stops_polling_after_mac_pause(tmp_path, monkeypatch):
+    import pytest
+    monkeypatch.chdir(tmp_path)
+    setup = tmp_path/'setup.sh'; setup.write_text('true\n')
+    receipt_path = tmp_path/'receipt.json'
+    receipt = {'id':'cpu','run':'123-456','secret_id':'secret'}
+    pod = {'id':'gpu','env':{'CPG_LEASE_RUN':'123-456','CPG_LEASE_DEADLINE':'3500'},
+           'ssh':{'direct':{'username':'root','host':'host','port':22}}}
+    def launch(*args): receipt_path.write_text(json.dumps(receipt))
+    with patch.object(experiment,'launch',side_effect=launch), patch.object(
+            experiment,'api',side_effect=[{'pods':[pod]},None,None]), patch.object(
+            experiment,'verify'), patch.object(experiment,'terminate') as terminate, patch.object(
+            experiment.time,'monotonic',return_value=0), patch.object(
+            experiment.time,'time',side_effect=[100,100,3600]), patch.object(
+            experiment.time,'sleep') as sleep, patch.object(experiment.subprocess,'run') as run:
+        with pytest.raises(TimeoutError,match='cloud deadline'):
+            experiment.coordinate(receipt_path,setup,'iteration-test','EU-RO-1')
+    assert run.call_count == 2  # Upload and submit only. No post-expiration SSH poll.
+    sleep.assert_not_called()
+    terminate.assert_called_once_with({'id':'gpu','run':'123-456'})
