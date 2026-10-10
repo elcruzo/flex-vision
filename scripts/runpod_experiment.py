@@ -18,7 +18,7 @@ from runpod_controller import launch
 from runpod_lease import api, log, terminate, verify
 
 
-def coordinate(receipt_path, setup, result_name, gpu_region, controller_region='EU-RO-1', gpu='NVIDIA L4', minutes=60):
+def coordinate(receipt_path, setup, result_name, gpu_region, controller_region='EU-RO-1', gpu='NVIDIA L4', minutes=60, export_config=None):
     if minutes not in (30,45,60):
         raise ValueError('Require a bounded 30, 45, or 60 minute lease')
     if not re.fullmatch(r'iteration-[a-zA-Z0-9-]+', result_name):
@@ -27,6 +27,13 @@ def coordinate(receipt_path, setup, result_name, gpu_region, controller_region='
     if target.exists():
         raise ValueError('Result directory already exists')
     setup_bytes = setup.read_bytes()
+    export_bytes = None
+    if export_config is not None:
+        from urllib.parse import urlsplit
+        export_bytes = export_config.read_bytes()
+        url = urlsplit(json.loads(export_bytes)['put_url'])
+        if url.scheme != 'https' or not url.hostname or url.username or url.password or url.fragment:
+            raise ValueError('Require an HTTPS signed PUT URL')
     launch(minutes, receipt_path, controller_region, gpu_region, gpu)
     receipt = json.loads(receipt_path.read_text())
     gpu = None
@@ -64,6 +71,17 @@ def coordinate(receipt_path, setup, result_name, gpu_region, controller_region='
         if not math.isfinite(deadline) or not time.time() < deadline <= time.time()+minutes*60:
             raise ValueError('Missing or invalid independent GPU deadline')
         command = 'export CPG_LEASE_DEADLINE=' + shlex.quote(str(deadline)) + '; bash /workspace/cpg-experiment.sh; code=$?; echo "$code" > /workspace/cpg-experiment.exit'
+        if export_bytes is not None:
+            subprocess.run(ssh + ['umask 077; cat > /workspace/cpg-export.json'],
+                           input=export_bytes, check=True, timeout=30)
+            subprocess.run(ssh + ['cat > /workspace/cpg-export.py'],
+                           input=Path(__file__).with_name('export_experiment.py').read_bytes(), check=True, timeout=30)
+            remote_root = '/workspace/flex-vision/benchmark-results/' + result_name
+            command += (f'; mkdir -p {remote_root}; '
+                f'cp /workspace/cpg-experiment.log {remote_root}/execution.log; '
+                f'cp /workspace/cpg-experiment.exit {remote_root}/experiment.exit; '
+                f'python /workspace/cpg-export.py --root {remote_root} --config /workspace/cpg-export.json')
+        command += '; touch /workspace/cpg-experiment.finished'
         subprocess.run(ssh + ['nohup bash -c ' + shlex.quote(command) +
             ' > /workspace/cpg-experiment.log 2>&1 < /dev/null &'], check=True, timeout=30)
         log('experiment_submitted', pod=gpu['id'], result=result_name,
@@ -72,7 +90,7 @@ def coordinate(receipt_path, setup, result_name, gpu_region, controller_region='
         while time.monotonic() - started < min(3300,minutes*60-300) and time.time() < export_deadline:
             try:
                 completed = subprocess.run(ssh + [
-                    'tail -2 /workspace/cpg-experiment.log; if test -f /workspace/cpg-experiment.exit; then '
+                    'tail -2 /workspace/cpg-experiment.log; if test -f /workspace/cpg-experiment.finished; then '
                     'printf "CPG_EXIT="; cat /workspace/cpg-experiment.exit; fi'],
                     capture_output=True, text=True, timeout=30, check=True)
                 print(completed.stdout, end='', flush=True)
@@ -135,13 +153,14 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--receipt', type=Path, required=True)
     parser.add_argument('--setup', type=Path, required=True)
+    parser.add_argument('--export-config', type=Path, help='Private JSON file containing put_url')
     parser.add_argument('--result-name', required=True)
     parser.add_argument('--gpu-region', default='EUR-IS-1')
     parser.add_argument('--gpu', choices=('NVIDIA L4','NVIDIA GeForce RTX 4090'), default='NVIDIA L4')
     parser.add_argument('--controller-region', default='EU-RO-1')
     parser.add_argument('--minutes',type=int,choices=(30,45,60),default=60)
     args = parser.parse_args()
-    coordinate(args.receipt, args.setup, args.result_name, args.gpu_region, args.controller_region, args.gpu, args.minutes)
+    coordinate(args.receipt, args.setup, args.result_name, args.gpu_region, args.controller_region, args.gpu, args.minutes, args.export_config)
 
 
 if __name__ == '__main__':

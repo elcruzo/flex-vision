@@ -128,3 +128,10 @@ GitHub can forcibly stop a canceled job. See [its cancellation behavior](https:/
 
 Artifact export is separate from emergency cleanup. A reached deadline discards unexported container data to bound spending.
 Watch the deadline during the experiment and export incrementally.
+
+## Optional independent export
+
+The coordinator accepts `--export-config` for a GPU-side signed-URL upload after experiment completion.
+See [independent evidence export](DURABLE_EXPORT.md) for setup and acceptance limits.
+Without this option, export still depends on the local Mac connection.
+Cloud export remains unvalidated. No storage resource was created by this preparation.

@@ -542,3 +542,11 @@ Local monotonic elapsed time can lag cloud wall time across a Mac pause.
 Stop progress polling at the independent wall deadline minus the export reserve. Recheck expiration before export.
 Idle-sleep inhibition cannot guarantee session continuity. Do not silently extend rentals or claim durable export.
 Preserve the missed export and reconcile already reserved charges before another paid run.
+
+## D048 — Prepare export that does not depend on the Mac
+
+Prepare an optional GPU-side archive upload through a scoped HTTPS PUT URL.
+Keep storage account keys outside the GPU. Keep GitHub optional and independent cleanup unchanged.
+Retain the experiment exit code separately from upload status. Verify downloaded manifest hashes before accepting evidence.
+Local receiver checks passed. A private destination, provider acceptance, and budget reconciliation remain pending.
+Do not claim durable cloud export or delayed-consumer acceptance from local checks.

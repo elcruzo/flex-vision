@@ -101,3 +101,13 @@ def test_wall_deadline_stops_polling_after_mac_pause(tmp_path, monkeypatch):
     assert run.call_count == 2  # Upload and submit only. No post-expiration SSH poll.
     sleep.assert_not_called()
     terminate.assert_called_once_with({'id':'gpu','run':'123-456'})
+
+
+def test_invalid_durable_destination_rejected_before_rental(tmp_path):
+    import pytest
+    setup = tmp_path/'setup.sh'; setup.write_text('true\n')
+    config = tmp_path/'export.json'; config.write_text('{"put_url":"http://example.com/private"}')
+    with patch.object(experiment, 'launch') as launch:
+        with pytest.raises(ValueError, match='HTTPS'):
+            experiment.coordinate(tmp_path/'receipt', setup, 'iteration-durable', 'EU-RO-1', export_config=config)
+        launch.assert_not_called()

@@ -81,3 +81,8 @@ The delayed-consumer rental in experiment 026 missed export during a local sessi
 No delayed-consumer acceptance was obtained. Exact cloud resource absence was independently verified.
 The coordinator now checks the independent wall deadline before polling and export.
 See [experiment 026](experiments/026-expired-delayed-consumer.md). Reconcile reservations before another paid run.
+
+Independent evidence export is prepared through an optional GPU-side signed PUT URL.
+The local archive/upload/retrieval check passed. The full local suite passed 139 checks.
+See [export setup](DURABLE_EXPORT.md). No storage destination or cloud export acceptance exists yet.
+Experiment 026 remains unvalidated. Reconcile budget and validate provider export before another rental.
