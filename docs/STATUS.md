@@ -44,13 +44,16 @@ Evidence: [inspection comparison](experiments/014-inspection-comparison.md),
 
 ## Next sequence
 
-1. Reconcile pending cloud charges within the authorized budget.
-2. Keep caller-owned output optional after experiment 023. It removed pool requests but increased preprocessing host p50 about 5.2%.
-3. Investigate service tails using the retained per-frame, telemetry, and allocator records.
-4. Define output-buffer ownership and asynchronous execution semantics before changing the runtime.
-5. Implement one measured runtime change, then repeat the complete detector inference scenario.
-6. Add the configurable stencil path and robot workload as the plan requires.
-7. Develop and validate ROS transport and Jetson capture before claiming the flagship product path.
+1. Reconcile rental reservations within the existing $15 authorization and verify reliable evidence export.
+2. Complete the prepared delayed-consumer TensorRT gate. Experiment 026 exported no acceptance evidence.
+3. Run the matched serial sync/submission comparison in ASYNC_BENCHMARK.md after that gate passes.
+4. Verify async-specific traces, allocator behavior, repeatability, and the complete-host p99 guard before selecting a strategy.
+5. Evaluate bounded concurrent execution and reusable workspace with explicit consumer completion.
+6. Add the configurable stencil path, general planning, and measured tuning as the plan requires.
+7. Develop and validate ROS transport and Jetson capture for the flagship camera-to-TensorRT path.
+
+Keep caller-owned output optional. Its measured allocation benefit did not produce a latency improvement.
+The submission API and fixed ownership scenario exist. They do not establish delayed-consumer or async performance acceptance.
 
 The existing two-workload evidence permits focused runtime development.
 It does not remove any required operator, integration, or release deliverable.

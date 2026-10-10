@@ -550,3 +550,13 @@ Keep storage account keys outside the GPU. Keep GitHub optional and independent 
 Retain the experiment exit code separately from upload status. Verify downloaded manifest hashes before accepting evidence.
 Local receiver checks passed. A private destination, provider acceptance, and budget reconciliation remain pending.
 Do not claim durable cloud export or delayed-consumer acceptance from local checks.
+
+## D049 — Measure complete serial async inference before concurrent scheduling
+
+Prepare matched synchronous and submission execution through the same TensorRT context and CUDA NMS.
+Require passing delayed-consumer evidence with matching clean source and engine before timing.
+Use 40,000 checked frames, alternating order, explicit cleanup, and a 5% complete-host p99 regression guard.
+Keep dispatch latency distinct from completed preprocessing latency.
+Serial results cannot establish overlap, concurrent camera throughput, or general async support.
+Keep defaults unchanged. Hardware results, async-specific traces, allocator observations, and repeatability remain pending.
+See ASYNC_BENCHMARK.md for the frozen boundaries and product connection.

@@ -148,3 +148,7 @@ API references: [TensorRT Python runtime](https://docs.nvidia.com/deeplearning/t
 
 Experiment 026 missed export during a local session pause. No delayed-consumer GPU acceptance is available.
 See [the outcome and coordinator correction](experiments/026-expired-delayed-consumer.md).
+
+The [matched serial comparison](ASYNC_BENCHMARK.md) now has a prepared TensorRT/NMS runner and independent sample audit.
+It requires passing delayed-consumer evidence from the same source and engine before collecting timing.
+This preparation establishes no hardware performance result and does not change the synchronous default.
