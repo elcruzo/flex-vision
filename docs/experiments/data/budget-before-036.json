@@ -1,0 +1,19 @@
+{
+  "method": "Replace only failed 022 full $1.10 ceiling. Bound GPU through recorded exact termination and CPU through later confirmed empty inventory, each plus 60 seconds, plus $0.10 storage. Preserve all other ceilings and posted offsets.",
+  "gpu": "jdq1fhfhe339we",
+  "cpu": "e6gb71u4a6tb0w",
+  "start_epoch": 1791532815,
+  "gpu_end_utc": "2026-10-09T08:01:34+00:00",
+  "cpu_absence_utc": "2026-10-09T14:05:48.546282+00:00",
+  "gpu_seconds": 79.0,
+  "cpu_seconds": 21933.546282052994,
+  "ceiling": 0.5009229935897721,
+  "previous_ceiling": 1.1,
+  "previous_bound": 14.774168122393483,
+  "reconciled_bound": 14.175091115983255,
+  "new_reservation": 0.65,
+  "reserved_bound": 14.825091115983255,
+  "lease_minutes": 30,
+  "posted_total_latest": 10.214210358002674,
+  "qualification": "Latest posted total is not added again to the retained conservative bound; prior ceilings cover these resources. No billable creation in this reconciliation."
+}

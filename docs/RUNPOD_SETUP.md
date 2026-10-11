@@ -598,3 +598,19 @@ Experiment 032 is absent and now has a full-lifetime replacement bound.
 One 15-minute stencil gate is reserved at $0.40, including compute, controller boot, and storage headroom.
 The cumulative conservative bound is $14.967029233504595 within the original $15 authorization.
 Newly posted 027 charges are already covered by its retained ceiling. See experiments/data/budget-after-032.json.
+
+### Reconciled failed soak startup and full stencil gate reservation
+
+The live billing window through October 12 reports $10.214210358002674 posted and no active Pods.
+Reconcile only the failed 022 startup ceiling of $1.10.
+Its GPU jdq1fhfhe339we has recorded termination at October 9, 08:01:34 UTC, 79 seconds after run creation.
+Its controller e6gb71u4a6tb0w is covered through the later confirmed empty inventory at 14:05:48.546282 UTC.
+Use both full intervals, another 60 seconds each, and $0.10 storage headroom.
+The replacement ceiling is $0.5009229935897721, substantially above its posted $0.01820589741691947.
+Preserve all other ceilings and previously applied posted offsets.
+The reconciled conservative bound becomes $14.175091115983255.
+Reserve $0.65 for one independently terminated 30-minute full stencil v2 gate, including export time.
+The bound with that reservation is $14.825091115983255, within the original $15 authorization.
+See experiments/data/budget-before-036.json. This reconciliation creates no paid resource.
+The gate must retain all 288 cases. Timing may run only after correctness acceptance and if the remaining lease permits it.
+Do not automatically retry or claim GPU acceptance from reservation or startup.

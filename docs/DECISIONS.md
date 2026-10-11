@@ -725,3 +725,12 @@ Require exact declared Gaussian coefficients and complete v2 coverage in the ver
 Retain v1 verification for historical asymmetric evidence; it does not prove Gaussian support.
 No GPU result or additional reservation follows from preparing this extension.
 Recheck lease duration and the original budget before dispatch. See STENCILS.md.
+
+## D069 — Reconcile the ended soak startup before another full GPU gate
+
+Replace only failed experiment 022's $1.10 ceiling using its recorded GPU termination and later controller absence.
+Retain 60-second headroom per resource and $0.10 storage; do not shorten the controller interval to an inferred shutdown.
+The resulting $0.500923 ceiling exceeds its posted charges. Preserve all other ceilings.
+One $0.65 reservation brings the cumulative bound to $14.825091 under the original $15.
+Use a 30-minute independently terminated lease for the complete v2 gate, without automatic retry.
+See RUNPOD_SETUP.md and experiments/data/budget-before-036.json.
