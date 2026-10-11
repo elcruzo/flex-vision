@@ -1,0 +1,71 @@
+{
+  "status": "passed",
+  "role": "publish",
+  "revision": "050d09e68387419de88b3dee678a0cf88ef662f6",
+  "dirty": false,
+  "torch": "2.10.0+cpu",
+  "torchvision": "0.25.0+cpu",
+  "numpy": "2.4.2",
+  "source_image_sha256": "2ae870185ec12f23e7f636043c834cdebe3f2a836d0769157047d4fcc3bb71f0",
+  "payload_sha256": "ea986a07524de47b216874a68af82ea182d2f189d5b91f0536d51b39a46adb3f",
+  "width": 451,
+  "height": 300,
+  "step": 1370,
+  "frames": 8,
+  "checks": [
+    {
+      "sequence": 0,
+      "frame_id": "cpg_cat_0",
+      "stamp_sec": 1791686247,
+      "stamp_nanosec": 858955968
+    },
+    {
+      "sequence": 1,
+      "frame_id": "cpg_cat_1",
+      "stamp_sec": 1791686248,
+      "stamp_nanosec": 293396844
+    },
+    {
+      "sequence": 2,
+      "frame_id": "cpg_cat_2",
+      "stamp_sec": 1791686248,
+      "stamp_nanosec": 790495927
+    },
+    {
+      "sequence": 3,
+      "frame_id": "cpg_cat_3",
+      "stamp_sec": 1791686249,
+      "stamp_nanosec": 291385011
+    },
+    {
+      "sequence": 4,
+      "frame_id": "cpg_cat_4",
+      "stamp_sec": 1791686249,
+      "stamp_nanosec": 790133553
+    },
+    {
+      "sequence": 5,
+      "frame_id": "cpg_cat_5",
+      "stamp_sec": 1791686250,
+      "stamp_nanosec": 290348720
+    },
+    {
+      "sequence": 6,
+      "frame_id": "cpg_cat_6",
+      "stamp_sec": 1791686250,
+      "stamp_nanosec": 790125470
+    },
+    {
+      "sequence": 7,
+      "frame_id": "cpg_cat_7",
+      "stamp_sec": 1791686251,
+      "stamp_nanosec": 291499428
+    }
+  ],
+  "tensor_atol": 0.0002,
+  "logit_atol": 0.001,
+  "logit_rtol": 0.0001,
+  "negative_control": false,
+  "tensor_path": true,
+  "scope": "CPU Image transport, explicit CPU preprocessing and pinned CPU classifier; optional experimental stamped tensor transport; no GPU, live camera or performance acceptance"
+}

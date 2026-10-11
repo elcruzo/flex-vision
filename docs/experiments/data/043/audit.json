@@ -1,0 +1,7 @@
+{
+  "status": "passed",
+  "frames": 8,
+  "header_exact_all_three_processes": true,
+  "source": "050d09e68387419de88b3dee678a0cf88ef662f6",
+  "scope": "CPU three-process transport and actual classifier inference only"
+}

@@ -801,3 +801,12 @@ Experiment 042 preserved exact FP16/FP32 bits and rejected ten malformed tensor 
 Keep native CUDA handles, stamped output, separate-process inference, and final ROS interface acceptance open.
 The experimental schema is not a stable production API commitment.
 See experiments/042-ros-tensor-contract.md.
+
+## D078 — Validate stamped standard tensors through a separate inference process
+
+Experiment 043 passed eight Image-to-preprocessing-to-classifier frames across three CPU ROS processes.
+The experimental envelope preserves the exact source header, layout, dimensions, and encoding with the standard tensor.
+Retain the initial downstream-discovery failure. Wait for downstream discovery before Image subscription.
+This accepts only the fixed CPU integration. Completion acknowledgment, geometry, CUDA owners, and production backpressure remain pending.
+Do not fix the production schema or claim GPU transport from this experiment.
+See experiments/043-stamped-tensor-inference.md.

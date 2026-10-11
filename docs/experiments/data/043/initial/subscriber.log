@@ -1,0 +1,27 @@
+Traceback (most recent call last):
+  File "/workspace/scripts/ros_classifier_reference.py", line 155, in <module>
+    if node is not None:node.destroy_node()
+                    ^^^^^^
+  File "/workspace/scripts/ros_classifier_reference.py", line 144, in main
+    stamp_sec=decoded.metadata.stamp_sec,stamp_nanosec=decoded.metadata.stamp_nanosec,payload_equal=True,
+    ^^^^^^^^^^^^^^^^
+  File "/opt/ros/lyrical/lib/python3.14/site-packages/rclpy/__init__.py", line 324, in spin
+    executor.spin_once()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "/opt/ros/lyrical/lib/python3.14/site-packages/rclpy/executors.py", line 1033, in spin_once
+    self._spin_once_impl(timeout_sec)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/opt/ros/lyrical/lib/python3.14/site-packages/rclpy/executors.py", line 1025, in _spin_once_impl
+    raise exception
+  File "/opt/ros/lyrical/lib/python3.14/site-packages/rclpy/task.py", line 351, in _execute_coroutine_step
+    result = coro.send(None)
+  File "/opt/ros/lyrical/lib/python3.14/site-packages/rclpy/executors.py", line 683, in handler
+    await call_coroutine()
+  File "/opt/ros/lyrical/lib/python3.14/site-packages/rclpy/executors.py", line 535, in _execute
+    await await_or_execute(tmr.callback)
+  File "/opt/ros/lyrical/lib/python3.14/site-packages/rclpy/executors.py", line 139, in await_or_execute
+    return callback(*args)
+  File "/workspace/scripts/ros_classifier_reference.py", line 79, in tick
+    if time.monotonic()-self.started>45:raise TimeoutError('Bounded ROS inference deadline')
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TimeoutError: Bounded ROS inference deadline
