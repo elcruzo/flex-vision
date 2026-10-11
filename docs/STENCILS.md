@@ -131,3 +131,9 @@ The prepared v2 verifier requires sigma 1.2 and exact canonical FP32 Gaussian co
 It rejects Gaussian claims with only v1 coverage, wrong coefficients, or a different sigma.
 These report checks do not independently recompute model results or establish CUDA execution.
 Do not reuse a historical lease reservation for a longer test. Confirm setup time, export allowance, and the remaining original budget before dispatch.
+
+Experiment 036 passed the complete 288-case CUDA v2 gate on RTX 4090, including dense Gaussian coefficients.
+It also passed a 6,400-frame matched asymmetric-stencil inference comparison against grouped PyTorch.
+See experiments/036-stencil-cuda.md for numerical checks, performance scope, cleanup, and remaining transfer/strategy gates.
+Earlier statements of pending hardware acceptance describe preparation before this experiment.
+Broad platforms, external-producer delays, Gaussian timing, separable strategies, and stencil transfer capture remain pending.

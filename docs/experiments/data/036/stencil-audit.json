@@ -1,0 +1,8 @@
+{
+  "status": "coverage_verified",
+  "executions": 288,
+  "protocol": "stencil-inference-v2",
+  "revision": "014e17298a9fdf4f656ed90d79cd0144b52ebb62",
+  "engine_sha256": "08dcb8ff54c5c565ba1fb96954c17726089c5eb8d433f809ecf9b30ec7e2acac",
+  "qualification": "Recorded fixed inference checks, not independent recomputation, traces, performance, or full stream acceptance"
+}

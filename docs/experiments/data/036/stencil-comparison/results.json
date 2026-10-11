@@ -1,0 +1,157 @@
+{
+  "status": "passed",
+  "mode": "stencil-comparison-v1",
+  "revision": "014e17298a9fdf4f656ed90d79cd0144b52ebb62",
+  "dirty": false,
+  "engine_sha256": "08dcb8ff54c5c565ba1fb96954c17726089c5eb8d433f809ecf9b30ec7e2acac",
+  "acceptance_sha256": "6548e93460b9e79c4455c574a47da6e531134786d316a2a15b2617d20efc7754",
+  "blocks": 4,
+  "samples": 100,
+  "warmup": 100,
+  "limits": {
+    "tensor_atol": 0.0005,
+    "dense_box_atol": 4.0,
+    "dense_box_rtol": 0.01,
+    "dense_score_atol": 0.03,
+    "dense_score_rtol": 0.03,
+    "detection_iou": 0.95,
+    "detection_score_atol": 0.03,
+    "box_score_floor": 0.01,
+    "same_engine_score_atol": 0.003,
+    "same_engine_score_rtol": 0.003,
+    "confidence": 0.5,
+    "nms_iou": 0.7,
+    "max_detections": 300
+  },
+  "checks": [
+    {
+      "fixture": "astronaut-1080p",
+      "size": 3,
+      "path": "cpg",
+      "tensor_max_error": 0.0,
+      "inference": "passed"
+    },
+    {
+      "fixture": "astronaut-1080p",
+      "size": 3,
+      "path": "pytorch",
+      "tensor_max_error": 0.0,
+      "inference": "passed"
+    },
+    {
+      "fixture": "astronaut-1080p",
+      "size": 5,
+      "path": "cpg",
+      "tensor_max_error": 0.0,
+      "inference": "passed"
+    },
+    {
+      "fixture": "astronaut-1080p",
+      "size": 5,
+      "path": "pytorch",
+      "tensor_max_error": 0.0,
+      "inference": "passed"
+    },
+    {
+      "fixture": "astronaut-1080p",
+      "size": 7,
+      "path": "cpg",
+      "tensor_max_error": 0.0,
+      "inference": "passed"
+    },
+    {
+      "fixture": "astronaut-1080p",
+      "size": 7,
+      "path": "pytorch",
+      "tensor_max_error": 0.0,
+      "inference": "passed"
+    },
+    {
+      "fixture": "astronaut-1080p",
+      "size": 9,
+      "path": "cpg",
+      "tensor_max_error": 0.0,
+      "inference": "passed"
+    },
+    {
+      "fixture": "astronaut-1080p",
+      "size": 9,
+      "path": "pytorch",
+      "tensor_max_error": 0.0,
+      "inference": "passed"
+    },
+    {
+      "fixture": "chelsea-1080p",
+      "size": 3,
+      "path": "cpg",
+      "tensor_max_error": 0.0,
+      "inference": "passed"
+    },
+    {
+      "fixture": "chelsea-1080p",
+      "size": 3,
+      "path": "pytorch",
+      "tensor_max_error": 0.0,
+      "inference": "passed"
+    },
+    {
+      "fixture": "chelsea-1080p",
+      "size": 5,
+      "path": "cpg",
+      "tensor_max_error": 0.0,
+      "inference": "passed"
+    },
+    {
+      "fixture": "chelsea-1080p",
+      "size": 5,
+      "path": "pytorch",
+      "tensor_max_error": 0.0,
+      "inference": "passed"
+    },
+    {
+      "fixture": "chelsea-1080p",
+      "size": 7,
+      "path": "cpg",
+      "tensor_max_error": 0.0,
+      "inference": "passed"
+    },
+    {
+      "fixture": "chelsea-1080p",
+      "size": 7,
+      "path": "pytorch",
+      "tensor_max_error": 0.0,
+      "inference": "passed"
+    },
+    {
+      "fixture": "chelsea-1080p",
+      "size": 9,
+      "path": "cpg",
+      "tensor_max_error": 0.0,
+      "inference": "passed"
+    },
+    {
+      "fixture": "chelsea-1080p",
+      "size": 9,
+      "path": "pytorch",
+      "tensor_max_error": 0.0,
+      "inference": "passed"
+    }
+  ],
+  "validation_policy": "Every timed inference checked after its interval; both paths include host synchronization. Following-memory-state effects remain possible.",
+  "versions": {
+    "cupy": "14.2.0",
+    "torch": "2.9.1+cu130"
+  },
+  "gpu": "NVIDIA GeForce RTX 4090",
+  "scope": "Resident 1080p, positive asymmetric stencils, owned synchronous outputs, one fixed TensorRT engine.",
+  "unmeasured": [
+    "transfer trace",
+    "launch counts",
+    "power",
+    "memory bandwidth",
+    "peak workspace",
+    "multi-camera throughput"
+  ],
+  "active_scenario": null,
+  "drain_status": "passed"
+}

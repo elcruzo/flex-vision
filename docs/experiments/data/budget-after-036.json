@@ -1,0 +1,9 @@
+{
+  "method": "Replace only the 036 reservation with both compute rates over run creation through confirmed absence plus 60 seconds and 0.10 storage. Preserve all other ceilings.",
+  "start_epoch": 1791684368,
+  "absence_utc": "2026-10-11T02:11:54.169556+00:00",
+  "seconds": 346.1695559024811,
+  "ceiling": 0.20718363280759916,
+  "previous_bound": 14.825091115983255,
+  "reconciled_bound": 14.382274748790854
+}
