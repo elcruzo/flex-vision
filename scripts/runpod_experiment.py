@@ -52,6 +52,12 @@ def coordinate(receipt_path, setup, result_name, gpu_region, controller_region='
                 pod = matches[0]
                 gpu = {'id': pod['id'], 'run': receipt['run']}
                 verify(pod, gpu)
+                if minutes == 15:
+                    deadline = float(pod.get('env', {}).get('CPG_LEASE_DEADLINE', 'nan'))
+                    if not math.isfinite(deadline):
+                        raise ValueError('Missing independent GPU deadline')
+                    if deadline - time.time() <= 600:
+                        raise TimeoutError('Startup consumed the ten-minute validation allowance')
                 direct = pod.get('ssh', {}).get('direct')
                 if direct:
                     break

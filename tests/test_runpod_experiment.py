@@ -111,3 +111,24 @@ def test_invalid_durable_destination_rejected_before_rental(tmp_path):
         with pytest.raises(ValueError, match='HTTPS'):
             experiment.coordinate(tmp_path/'receipt', setup, 'iteration-durable', 'EU-RO-1', export_config=config)
         launch.assert_not_called()
+
+
+def test_short_lease_ends_before_late_ssh_submission(tmp_path, monkeypatch):
+    import pytest
+    monkeypatch.chdir(tmp_path)
+    setup = tmp_path/'setup.sh'; setup.write_text('true\n')
+    receipt_path = tmp_path/'receipt.json'
+    receipt = {'id':'cpu','run':'123-456','secret_id':'secret'}
+    pod = {'id':'gpu','env':{'CPG_LEASE_RUN':'123-456','CPG_LEASE_DEADLINE':'1600'},
+           'ssh':{'direct':None}}
+    def launch(*args): receipt_path.write_text(json.dumps(receipt))
+    with patch.object(experiment,'launch',side_effect=launch), patch.object(
+            experiment,'api',side_effect=[{'pods':[pod]},None,None]), patch.object(
+            experiment,'verify'), patch.object(experiment,'terminate') as terminate, patch.object(
+            experiment.time,'time',return_value=1000), patch.object(
+            experiment.time,'sleep') as sleep, patch.object(experiment.subprocess,'run') as run:
+        with pytest.raises(TimeoutError,match='validation allowance'):
+            experiment.coordinate(receipt_path,setup,'iteration-test','EU-RO-1',minutes=15)
+    run.assert_not_called()
+    sleep.assert_not_called()
+    terminate.assert_called_once_with({'id':'gpu','run':'123-456'})

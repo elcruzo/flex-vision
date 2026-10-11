@@ -682,3 +682,12 @@ Preserve the full 192-case stencil protocol and five-minute export allowance.
 Do not use the shorter lease for a soak or retry automatically after late setup.
 Reconcile only the ended lease ceiling and reserve $0.40 within the original $15 budget.
 Local duration, identity, and deadline tests passed. Fresh GPU execution remains pending.
+
+## D064 — End short startup when the validation allowance cannot fit
+
+Experiment 034 reached no SSH readiness within five minutes and ran no stencil checks.
+Reject 15-minute startup when ten minutes or less remain before the independent deadline.
+Keep all 192 cases and exact cleanup. Do not reduce acceptance to fit slow provisioning.
+The ended lease leaves a conservative cumulative bound of $14.774168.
+Another $0.40 reservation requires reconciliation or additional authorization.
+CUDA stencil acceptance remains pending. See experiments/034-stencil-startup.md.

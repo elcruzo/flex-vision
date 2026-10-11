@@ -1,0 +1,13 @@
+{
+  "method": "Replace only the unused 034 reservation with both quoted compute rates over start-to-confirmed-absence lifetime, plus 60 seconds and 0.10 storage. Preserve all other ceilings. Not posted billing.",
+  "pods": [
+    "gcz610r8jtkh7o",
+    "tiytub0njqwzr5"
+  ],
+  "start_epoch": 1791683297,
+  "absence_utc": "2026-10-11T01:54:03+00:00",
+  "seconds": 346,
+  "ceiling": 0.20713888888888887,
+  "previous_bound": 14.967029233504595,
+  "reconciled_bound": 14.774168122393483
+}
