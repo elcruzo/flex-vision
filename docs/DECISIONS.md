@@ -751,3 +751,11 @@ Use local Docker ARM64 rather than paid hardware for this CPU transport stage.
 Keep CUDA residency, preprocessing, inference, and Jetson acceptance separate.
 Build and runtime results must follow; prepared source alone does not pass the transport gate.
 See experiments/ros_buffer_probe/README.md.
+
+## D072 — Accept only the fixed native CPU transport probe
+
+Experiment 037 passed 30 complete padded Image payloads between separate Lyrical/Fast DDS processes in local ARM64 Docker.
+The native Buffer schema assertion compiled; exact sequence, pixel, padding, and basic metadata checks passed.
+Retain the shell and removed-CMake-macro failures. Use current exported targets for further native builds.
+This accepts the CPU transport prerequisite, not preprocessing, inference, CUDA handles, or Jetson support.
+See experiments/037-ros-cpu-transport.md.

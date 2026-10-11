@@ -41,3 +41,7 @@ Record promotion bytes, drops, queue depth, and complete latency instead of infe
 Only after this probe passes, connect the preprocessing runtime and real TensorRT inference.
 Jetson camera capture, target builds, power, and the flagship launch remain separate required gates.
 No build was attempted on this Mac: its MPS GPU cannot execute the CUDA transport path.
+
+Experiment 037 subsequently built and passed the native standard Image CPU publisher/subscriber probe in local ARM64 ROS Lyrical.
+The schema's native Buffer type and 30 complete padded payloads passed. See experiments/037-ros-cpu-transport.md.
+CUDA handles, CPU promotion uploads, preprocessing, inference, and Jetson transport remain unvalidated.

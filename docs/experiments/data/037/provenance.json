@@ -1,0 +1,9 @@
+{
+  "revision": "769f5f7388876bcc426040b6a12ae550b2fdd91e",
+  "dirty": false,
+  "source_sha256": "9ac7c99e78b018bb903ba91a091fbd2a5bac3a6c442613c9bef5483ebecd4fcc",
+  "container": "ros@sha256:f79cd486fa218596747c45d00ca42101b0303fc6d94ed5adb72145cd6f54b86c",
+  "middleware": "rmw_fastrtps_cpp",
+  "ros_domain_id": 73,
+  "scope": "Two native processes in one local ARM64 Linux container; CPU buffer-backed standard Image transport; no preprocessing or inference; no GPU support claim"
+}
