@@ -10,10 +10,12 @@ import time
 
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('role',choices=('publish','subscribe'))
+    parser.add_argument('role',choices=('publish','subscribe','preprocess'))
+    parser.add_argument('--tensor-path',action='store_true',help='Use a separate preprocessing process and stamped standard tensor output')
     parser.add_argument('--output',type=Path,required=True)
     parser.add_argument('--negative-control',action='store_true',help='Require an absent dog class at subscribed-image inference; expected failure')
     args=parser.parse_args()
+    if args.role=='preprocess' and not args.tensor_path:parser.error('Preprocess role requires --tensor-path')
     if args.negative_control and args.role!='subscribe':parser.error('Negative control applies only to subscriber')
     if args.output.exists():raise ValueError('Result already exists')
     import numpy as np
@@ -26,7 +28,9 @@ def main():
     from torchvision.models import mobilenet_v3_small
     from cpg import Pipeline
     from cpg.reference import numpy_reference,torch_reference
-    from cpg.ros import cpu_image_view
+    from cpg.ros import cpu_image_view,write_cpu_tensor,cpu_tensor_view
+    if args.tensor_path:
+        from cpg_tensor_probe.msg import StampedTensor
     from cpg.validation import photo_cases
     from local_classifier import check_semantics,WEIGHTS_SHA256
     from local_detector import digest
@@ -39,7 +43,7 @@ def main():
                 torch=torch.__version__,torchvision=torchvision.__version__,numpy=np.__version__,
                 source_image_sha256=hashlib.sha256(frame.tobytes()).hexdigest(),payload_sha256=hashlib.sha256(payload.tobytes()).hexdigest(),
                 width=w,height=h,step=step,frames=0,checks=[],tensor_atol=2e-4,logit_atol=.001,logit_rtol=1e-4,
-                negative_control=args.negative_control,scope='CPU Image transport, explicit CPU preprocessing and pinned CPU classifier; no GPU, live camera, tensor publication or performance acceptance')
+                negative_control=args.negative_control,tensor_path=args.tensor_path,scope='CPU Image transport, explicit CPU preprocessing and pinned CPU classifier; optional experimental stamped tensor transport; no GPU, live camera or performance acceptance')
     node=None
     try:
         if report['dirty']:raise ValueError('Require clean committed source')
@@ -63,12 +67,20 @@ def main():
                 self.started=time.monotonic();self.count=0;self.drain=0
                 qos=QoSProfile(depth=2,reliability=ReliabilityPolicy.RELIABLE)
                 if args.role=='publish':self.pub=self.create_publisher(Image,'cpg_reference/image',qos)
+                elif args.role=='preprocess':
+                    self.pub=self.create_publisher(StampedTensor,'cpg_reference/tensor',qos)
+                    self.sub=self.create_subscription(Image,'cpg_reference/image',self.receive,qos)
+                elif args.tensor_path:self.sub=self.create_subscription(StampedTensor,'cpg_reference/tensor',self.receive_tensor,qos)
                 else:self.sub=self.create_subscription(Image,'cpg_reference/image',self.receive,qos)
                 self.timer=self.create_timer(.5,self.tick)
             def finish(self):
                 report.update(status='passed',frames=self.count);rclpy.shutdown()
             def tick(self):
                 if time.monotonic()-self.started>45:raise TimeoutError('Bounded ROS inference deadline')
+                if args.role=='preprocess' and self.count==8:
+                    self.drain+=1
+                    if self.drain==2:self.finish()
+                    return
                 if args.role!='publish':return
                 if self.count==8:
                     self.drain+=1
@@ -80,6 +92,22 @@ def main():
                 msg=Image();msg.width=w;msg.height=h;msg.step=step;msg.encoding='bgr8';msg.is_bigendian=0
                 msg.header.frame_id='cpg_cat_'+str(self.count);msg.header.stamp=self.get_clock().now().to_msg()
                 msg.data=array('B',payload.tobytes());self.pub.publish(msg);self.count+=1
+            def receive_tensor(self,msg):
+                if (msg.layout,msg.source_width,msg.source_height,msg.source_encoding,msg.header.frame_id)!=('NCHW',w,h,'bgr8','cpg_cat_'+str(self.count)):
+                    raise AssertionError('Stamped tensor metadata or sequence mismatch')
+                borrowed=cpu_tensor_view(msg.tensor,expected_shape=(1,3,224,224),expected_dtype='float32')
+                size=(3,5,7,9)[self.count%4];_,expected,baseline,labels=references[size]
+                np.testing.assert_allclose(borrowed.pixels,expected,atol=report['tensor_atol'],rtol=0)
+                # An explicit consumer-owned CPU copy avoids mutable ROS storage in Torch.
+                actual=torch.from_numpy(borrowed.pixels.copy())
+                with torch.inference_mode():head=model(actual)
+                torch.testing.assert_close(head,baseline,atol=report['logit_atol'],rtol=report['logit_rtol'])
+                actual_labels,mass=check_semantics(head,negative=args.negative_control)
+                if actual_labels!=labels:raise AssertionError('Class ordering mismatch')
+                report['checks'].append(dict(sequence=self.count,size=size,frame_id=msg.header.frame_id,stamp_sec=msg.header.stamp.sec,stamp_nanosec=msg.header.stamp.nanosec,
+                    tensor_max_abs_error=float(np.abs(borrowed.pixels-expected).max()),logit_max_abs_error=float((head-baseline).abs().max()),top5=actual_labels,cat_probability=mass))
+                self.count+=1
+                if self.count==8:self.finish()
             def receive(self,msg):
                 if (msg.width,msg.height,msg.step,msg.encoding,msg.is_bigendian,msg.header.frame_id)!=(w,h,step,'bgr8',0,'cpg_cat_'+str(self.count)):
                     raise AssertionError('Image metadata or sequence mismatch')
@@ -88,7 +116,18 @@ def main():
                 np.testing.assert_array_equal(raw.reshape(h,step),payload)
                 decoded=cpu_image_view(msg,expected_encoding='bgr8')
                 view=decoded.pixels
-                size=(3,5,7,9)[self.count%4];pipe,expected,baseline,labels=references[size]
+                size=(3,5,7,9)[self.count%4]
+                if args.role=='preprocess':
+                    if not self.pub.get_subscription_count():raise RuntimeError('Tensor consumer is unavailable')
+                    pipe=Pipeline(input_encoding='bgr8').gaussian(size,sigma=1.2).letterbox(224,224).normalize([.485,.456,.406],[.229,.224,.225],scale=1/255).to(dtype='float32',layout='NCHW')
+                    actual,_=torch_reference(pipe,view,device='cpu')
+                    result=StampedTensor();result.header=msg.header;result.layout='NCHW'
+                    result.source_width=msg.width;result.source_height=msg.height;result.source_encoding=msg.encoding
+                    write_cpu_tensor(result.tensor,actual.numpy());self.pub.publish(result)
+                    report['checks'].append(dict(sequence=self.count,frame_id=result.header.frame_id,stamp_sec=result.header.stamp.sec,stamp_nanosec=result.header.stamp.nanosec,header_preserved=True))
+                    self.count+=1
+                    return
+                pipe,expected,baseline,labels=references[size]
                 actual,_=torch_reference(pipe,view,device='cpu')
                 np.testing.assert_allclose(actual.numpy(),expected,atol=report['tensor_atol'],rtol=0)
                 with torch.inference_mode():head=model(actual)

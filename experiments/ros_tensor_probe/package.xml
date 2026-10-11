@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>cpg_tensor_probe</name>
+  <version>0.0.1</version>
+  <description>Experimental stamped standard tensor transport envelope.</description>
+  <maintainer email="elcruzo@users.noreply.github.com">elcruzo</maintainer>
+  <license>LicenseRef-Undecided</license>
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <buildtool_depend>rosidl_default_generators</buildtool_depend>
+  <depend>std_msgs</depend>
+  <depend>tensor_msgs</depend>
+  <exec_depend>rosidl_default_runtime</exec_depend>
+  <member_of_group>rosidl_interface_packages</member_of_group>
+  <export><build_type>ament_cmake</build_type></export>
+</package>
