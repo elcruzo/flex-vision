@@ -120,3 +120,7 @@ The mathematical Gaussian is separable. The current candidate executes a full sp
 A separable implementation remains required strategy work and must preserve the declared numerical policy or use measured tolerances.
 These frontend additions do not establish Gaussian CUDA acceptance or performance.
 Use local_stencil_reference.py --kernel-kind gaussian for the complete local classifier reference check.
+
+Experiment 035 passed all four Gaussian sizes through CPU and MPS reference preprocessing and real CPU classifier inference.
+See experiments/035-gaussian-reference.md for identities, measured errors, and the retained sandbox MPS failure.
+This accepts the fixed local reference case, not the experimental CUDA Gaussian path or separable strategy.
