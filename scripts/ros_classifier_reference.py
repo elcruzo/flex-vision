@@ -69,7 +69,7 @@ def main():
                 if args.role=='publish':self.pub=self.create_publisher(Image,'cpg_reference/image',qos)
                 elif args.role=='preprocess':
                     self.pub=self.create_publisher(StampedTensor,'cpg_reference/tensor',qos)
-                    self.sub=self.create_subscription(Image,'cpg_reference/image',self.receive,qos)
+                    self.sub=None;self.input_qos=qos
                 elif args.tensor_path:self.sub=self.create_subscription(StampedTensor,'cpg_reference/tensor',self.receive_tensor,qos)
                 else:self.sub=self.create_subscription(Image,'cpg_reference/image',self.receive,qos)
                 self.timer=self.create_timer(.5,self.tick)
@@ -77,6 +77,10 @@ def main():
                 report.update(status='passed',frames=self.count);rclpy.shutdown()
             def tick(self):
                 if time.monotonic()-self.started>45:raise TimeoutError('Bounded ROS inference deadline')
+                if args.role=='preprocess' and self.sub is None:
+                    if self.pub.get_subscription_count():
+                        self.sub=self.create_subscription(Image,'cpg_reference/image',self.receive,self.input_qos)
+                    return
                 if args.role=='preprocess' and self.count==8:
                     self.drain+=1
                     if self.drain==2:self.finish()
@@ -91,7 +95,9 @@ def main():
                     return
                 msg=Image();msg.width=w;msg.height=h;msg.step=step;msg.encoding='bgr8';msg.is_bigendian=0
                 msg.header.frame_id='cpg_cat_'+str(self.count);msg.header.stamp=self.get_clock().now().to_msg()
-                msg.data=array('B',payload.tobytes());self.pub.publish(msg);self.count+=1
+                msg.data=array('B',payload.tobytes())
+                report['checks'].append(dict(sequence=self.count,frame_id=msg.header.frame_id,stamp_sec=msg.header.stamp.sec,stamp_nanosec=msg.header.stamp.nanosec))
+                self.pub.publish(msg);self.count+=1
             def receive_tensor(self,msg):
                 if (msg.layout,msg.source_width,msg.source_height,msg.source_encoding,msg.header.frame_id)!=('NCHW',w,h,'bgr8','cpg_cat_'+str(self.count)):
                     raise AssertionError('Stamped tensor metadata or sequence mismatch')
