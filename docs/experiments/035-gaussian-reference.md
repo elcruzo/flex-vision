@@ -23,3 +23,14 @@ Gaussian graphs currently lower to one full two-dimensional stencil.
 A separable CUDA strategy, multiple stencil stages, and complete detector comparisons remain pending.
 The prepared hardware gate must include Gaussian coefficients before claiming Gaussian GPU acceptance.
 No paid resources were created for this local experiment.
+
+## Reproducible Gaussian YAML repeat
+
+Clean revision 4c5c775 repeats CPU and MPS preprocessing using the Gaussian YAML frontend for actual inference input.
+Both runs passed the same four sizes, tensor tolerance, real classifier logits, top-five ordering, and cat probability checks.
+The harness also preserves Python and relative convolution-file graph equality.
+See [CPU YAML repeat](data/035/cpu-yaml-repeat.json) and [MPS YAML repeat](data/035/mps-yaml-repeat.json).
+Each record includes the Gaussian configuration hash and explicit graph-equality result.
+The four retained gaussian-N.yaml files match those hashes.
+MPS fallback remained disabled. CPU inference and MPS output download remain explicit.
+This repeat improves configuration-path reproducibility without extending CUDA or performance acceptance.
