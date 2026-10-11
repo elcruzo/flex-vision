@@ -11,6 +11,7 @@ import time
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('role',choices=('publish','subscribe','preprocess'))
+    parser.add_argument('--fixed-gaussian',type=int,choices=(3,5,7,9),help='Match a configured node instead of cycling stencil sizes')
     parser.add_argument('--tensor-path',action='store_true',help='Use a separate preprocessing process and stamped standard tensor output')
     parser.add_argument('--output',type=Path,required=True)
     parser.add_argument('--negative-control',action='store_true',help='Require an absent dog class at subscribed-image inference; expected failure')
@@ -102,7 +103,7 @@ def main():
                 if (msg.layout,msg.source_width,msg.source_height,msg.source_encoding,msg.header.frame_id)!=('NCHW',w,h,'bgr8','cpg_cat_'+str(self.count)):
                     raise AssertionError('Stamped tensor metadata or sequence mismatch')
                 borrowed=cpu_tensor_view(msg.tensor,expected_shape=(1,3,224,224),expected_dtype='float32')
-                size=(3,5,7,9)[self.count%4];_,expected,baseline,labels=references[size]
+                size=args.fixed_gaussian or (3,5,7,9)[self.count%4];_,expected,baseline,labels=references[size]
                 np.testing.assert_allclose(borrowed.pixels,expected,atol=report['tensor_atol'],rtol=0)
                 # An explicit consumer-owned CPU copy avoids mutable ROS storage in Torch.
                 actual=torch.from_numpy(borrowed.pixels.copy())
@@ -122,7 +123,7 @@ def main():
                 np.testing.assert_array_equal(raw.reshape(h,step),payload)
                 decoded=cpu_image_view(msg,expected_encoding='bgr8')
                 view=decoded.pixels
-                size=(3,5,7,9)[self.count%4]
+                size=args.fixed_gaussian or (3,5,7,9)[self.count%4]
                 if args.role=='preprocess':
                     if not self.pub.get_subscription_count():raise RuntimeError('Tensor consumer is unavailable')
                     pipe=Pipeline(input_encoding='bgr8').gaussian(size,sigma=1.2).letterbox(224,224).normalize([.485,.456,.406],[.229,.224,.225],scale=1/255).to(dtype='float32',layout='NCHW')
