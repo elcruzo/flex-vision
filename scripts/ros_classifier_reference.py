@@ -12,7 +12,9 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('role',choices=('publish','subscribe'))
     parser.add_argument('--output',type=Path,required=True)
+    parser.add_argument('--negative-control',action='store_true',help='Require an absent dog class at subscribed-image inference; expected failure')
     args=parser.parse_args()
+    if args.negative_control and args.role!='subscribe':parser.error('Negative control applies only to subscriber')
     if args.output.exists():raise ValueError('Result already exists')
     import numpy as np
     import torch
@@ -36,7 +38,7 @@ def main():
                 torch=torch.__version__,torchvision=torchvision.__version__,numpy=np.__version__,
                 source_image_sha256=hashlib.sha256(frame.tobytes()).hexdigest(),payload_sha256=hashlib.sha256(payload.tobytes()).hexdigest(),
                 width=w,height=h,step=step,frames=0,checks=[],tensor_atol=2e-4,logit_atol=.001,logit_rtol=1e-4,
-                scope='CPU Image transport, explicit CPU preprocessing and pinned CPU classifier; no GPU, live camera, tensor publication or performance acceptance')
+                negative_control=args.negative_control,scope='CPU Image transport, explicit CPU preprocessing and pinned CPU classifier; no GPU, live camera, tensor publication or performance acceptance')
     node=None
     try:
         if report['dirty']:raise ValueError('Require clean committed source')
@@ -89,7 +91,7 @@ def main():
                 np.testing.assert_allclose(actual.numpy(),expected,atol=report['tensor_atol'],rtol=0)
                 with torch.inference_mode():head=model(actual)
                 torch.testing.assert_close(head,baseline,atol=report['logit_atol'],rtol=report['logit_rtol'])
-                actual_labels,mass=check_semantics(head)
+                actual_labels,mass=check_semantics(head,negative=args.negative_control)
                 if actual_labels!=labels:raise AssertionError('Class ordering mismatch')
                 report['checks'].append(dict(sequence=self.count,size=size,frame_id=msg.header.frame_id,
                     stamp_sec=msg.header.stamp.sec,stamp_nanosec=msg.header.stamp.nanosec,payload_equal=True,
