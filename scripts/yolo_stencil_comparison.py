@@ -14,7 +14,7 @@ import time
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--engine', type=Path, required=True)
-    parser.add_argument('--acceptance', type=Path, required=True, help='Passed 192-case stencil report from this source and engine')
+    parser.add_argument('--acceptance', type=Path, required=True, help='Passed complete stencil report from this source and engine')
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--blocks', type=int, default=10)
     parser.add_argument('--samples', type=int, default=100)

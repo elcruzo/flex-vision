@@ -15,15 +15,15 @@ def main():
     import cupy as cp
     import numpy as np
     import torch
-    from cpg.pipeline import Conv2d
+    from cpg.pipeline import Conv2d, Pipeline
     from cpg.reference import numpy_reference
     from yolo_common import pipeline,cases,digest,decode,compare_dense,compare_detections
     from pending_yolo_consumer import PendingConsumer
     pre,downstream=[cp.cuda.Stream(non_blocking=True) for _ in range(2)]
     consumer=PendingConsumer(args.engine,downstream)
-    report=dict(status='failed',mode='stencil-inference-v1',revision=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),
-                dirty=bool(subprocess.check_output(['git','status','--porcelain'],text=True)),engine_sha256=digest(args.engine),checks=[],
-                scope='Six fixtures, four sizes, positive/negative asymmetric stencils, contiguous/reversed channels, sync/submit, FP16 TensorRT. No performance or full stream acceptance.')
+    report=dict(status='failed',mode='stencil-inference-v2',revision=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),
+                gaussian_sigma=1.2,dirty=bool(subprocess.check_output(['git','status','--porcelain'],text=True)),engine_sha256=digest(args.engine),checks=[],
+                scope='Six fixtures, four sizes, positive/negative asymmetric and dense Gaussian stencils, contiguous/reversed channels, sync/submit, FP16 TensorRT. No performance or full stream acceptance.')
     pending=job=None
     retained=None
     try:
@@ -33,11 +33,12 @@ def main():
             for name,rgb,_,_ in cases():
                 host=np.ascontiguousarray(rgb[...,::-1])
                 for size in (3,5,7,9):
-                    for variant in ('positive','negative'):
+                    for variant in ('positive','negative','gaussian'):
                         coefficients=[[0.]*size for _ in range(size)]
                         edge,center=(.125,.75) if variant=='positive' else (-.25,1.5)
                         coefficients[0][0]=edge;coefficients[size//2][size//2]=center;coefficients[-1][0]=edge
-                        pipe=replace(base,operations=(Conv2d(tuple(tuple(r) for r in coefficients)),)+base.operations)
+                        stencil = Pipeline().gaussian(size,sigma=1.2).operations[0] if variant=='gaussian' else Conv2d(tuple(tuple(r) for r in coefficients))
+                        pipe=replace(base,operations=(stencil,)+base.operations)
                         expected,_=numpy_reference(pipe,host)
                         with pre:oracle=cp.asarray(expected)
                         pre.synchronize()

@@ -716,3 +716,12 @@ Snapshot normalized outer-product coefficients as FP32 and reuse replicated bord
 Support Gaussian YAML construction and the requested custom_conv alias.
 The current experimental CUDA candidate is a full direct stencil, not a separable implementation.
 Retain separable strategy evaluation and multi-stencil graph support as pending work. See STENCILS.md.
+
+## D068 — Add dense Gaussian coverage to the hardware protocol
+
+Extend the prepared stencil gate from v1 to v2 without removing any asymmetric scenario.
+Add sigma-1.2 Gaussian checks across all sizes, fixtures, layouts, and execution modes: 288 executions total.
+Require exact declared Gaussian coefficients and complete v2 coverage in the verifier.
+Retain v1 verification for historical asymmetric evidence; it does not prove Gaussian support.
+No GPU result or additional reservation follows from preparing this extension.
+Recheck lease duration and the original budget before dispatch. See STENCILS.md.

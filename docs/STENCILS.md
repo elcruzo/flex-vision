@@ -66,7 +66,8 @@ The output remains freshly owned or uses the existing synchronous out= contract.
 No reusable workspace, asynchronous out=, shared-memory strategy, automatic tuning, or performance claim is established by this implementation.
 
 The prepared GPU gate is scripts/run_yolo_stencil_experiment.sh.
-It covers 192 actual TensorRT executions: six fixtures, four sizes, positive/negative asymmetric kernels, two layouts, and sync/submit.
+Its current v2 protocol prepares 288 TensorRT executions: six fixtures, four sizes, positive/negative asymmetric and dense Gaussian kernels, two layouts, and sync/submit.
+The original v1 protocol contained 192 executions and remains readable as historical evidence.
 It checks exact FP16 tensor bits against NumPy, dense inference, detections, retained outputs, and drainage.
 The report verifier rejects incomplete coverage and wrong implementation metadata.
 Artificially pending reads, external producers, broader coefficients/dtypes, transfer capture, and credible stencil pipeline timing remain additional gates.
@@ -81,7 +82,8 @@ Experiment 034 ran no stencil checks because the GPU container did not expose SS
 Both pods and the temporary credential are gone. See experiments/034-stencil-startup.md.
 
 After CUDA correctness acceptance, use scripts/yolo_stencil_comparison.py with the same fixed FP16 TensorRT engine.
-The required --acceptance report must pass all 192 cases and match the measured source revision and engine hash.
+The required --acceptance report must pass its complete protocol and match the measured source revision and engine hash.
+Protocol v1 covers 192 asymmetric cases; v2 adds 96 Gaussian cases. Neither protocol has passed on GPU yet.
 Retain that acceptance report with the timing bundle.
 The prepared comparison uses both resident 1080p photographs and all four positive asymmetric stencil sizes.
 The baseline uses grouped PyTorch FP32 convolution with flipped coefficients and replicated borders.
@@ -124,3 +126,8 @@ Use local_stencil_reference.py --kernel-kind gaussian for the complete local cla
 Experiment 035 passed all four Gaussian sizes through CPU and MPS reference preprocessing and real CPU classifier inference.
 See experiments/035-gaussian-reference.md for identities, measured errors, and the retained sandbox MPS failure.
 This accepts the fixed local reference case, not the experimental CUDA Gaussian path or separable strategy.
+
+The prepared v2 verifier requires sigma 1.2 and exact canonical FP32 Gaussian coefficients in each declared plan.
+It rejects Gaussian claims with only v1 coverage, wrong coefficients, or a different sigma.
+These report checks do not independently recompute model results or establish CUDA execution.
+Do not reuse a historical lease reservation for a longer test. Confirm setup time, export allowance, and the remaining original budget before dispatch.

@@ -31,3 +31,31 @@ def test_incomplete_rejected(fault):
     elif fault=='plan':r['checks'][0]['plan']['temporary_arrays']=0
     else:r['dirty']=True
     with pytest.raises(ValueError):verify(r)
+
+
+def gaussian_evidence():
+    from cpg import Pipeline
+    r=evidence();r.update(mode='stencil-inference-v2',gaussian_sigma=1.2)
+    for f in sorted(FIXTURES):
+        for size in (3,5,7,9):
+            kernel=Pipeline().gaussian(size,sigma=1.2).operations[0].kernel
+            for layout in ('contiguous','reverse_channels'):
+                for execution in ('sync','submit'):
+                    r['checks'].append(dict(fixture=f,size=size,variant='gaussian',layout=layout,execution=execution,
+                        tensor_exact=True,dense_output=True,detections=True,retained_output_exact=True,
+                        plan=dict(cuda_launches=2,temporary_arrays=1,stencil_implementation='specialized-direct-experimental',
+                                  operations=[dict(kind='Conv2d',kernel=kernel)])))
+    return r
+
+
+def test_complete_gaussian_matrix():
+    assert verify(gaussian_evidence())['executions']==288
+
+
+@pytest.mark.parametrize('fault',['no-gaussian','wrong-kernel','wrong-sigma'])
+def test_gaussian_claim_requires_dense_coefficients_and_full_coverage(fault):
+    r=gaussian_evidence()
+    if fault=='no-gaussian':r['checks']=r['checks'][:192]
+    elif fault=='wrong-kernel':r['checks'][-1]['plan']['operations'][0]['kernel']=((1.,),)
+    else:r['gaussian_sigma']=2
+    with pytest.raises(ValueError):verify(r)
