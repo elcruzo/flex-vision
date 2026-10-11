@@ -24,3 +24,10 @@ The publisher accepts optional pixel, padding, stride, or sequence fault modes.
 It corrupts the sixth message before publication. The subscriber must reject the transported payload and return failure.
 The harness records both process exit codes. A build error or timeout is not a passing fault control.
 Experiments 037 and 038 record the valid CPU run and four actual transport rejection controls.
+
+Dockerfile.reference prepares a separate CPU inference environment for the container's Python 3.14 ABI.
+It uses PyTorch 2.10/TorchVision 0.25 CPU wheels in a virtual environment that can access installed ROS bindings.
+It does not alter the existing Mac or CUDA benchmark environments.
+The image checks ROS/framework imports and records resolved Python/system packages.
+A successful image build would establish environment compatibility only; real ROS preprocessing and model acceptance remain separate.
+The initial base-image virtual-environment attempt lacked ensurepip. The derived image installs python3-venv explicitly.

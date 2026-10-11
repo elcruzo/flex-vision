@@ -1,0 +1,8 @@
+FROM ros@sha256:f79cd486fa218596747c45d00ca42101b0303fc6d94ed5adb72145cd6f54b86c
+SHELL ["/bin/bash", "-c"]
+RUN apt-get update && apt-get install -y --no-install-recommends python3-venv ca-certificates && rm -rf /var/lib/apt/lists/*
+RUN python3 -m venv --system-site-packages /opt/cpg-reference
+RUN /opt/cpg-reference/bin/python -m pip install numpy==2.4.2 PyYAML==6.0.3 pillow==12.1.0
+RUN /opt/cpg-reference/bin/python -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.10.0 torchvision==0.25.0
+RUN source /opt/ros/lyrical/setup.bash && /opt/cpg-reference/bin/python -c "import torch, torchvision, rclpy; print(torch.__version__, torchvision.__version__); assert not torch.cuda.is_available()"
+RUN /opt/cpg-reference/bin/python -m pip freeze > /opt/cpg-reference-packages.txt && dpkg-query -W > /opt/cpg-reference-system-packages.txt
