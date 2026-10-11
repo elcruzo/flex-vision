@@ -20,6 +20,7 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--device',choices=('cpu','mps'),default='cpu')
     parser.add_argument('--output',type=Path,required=True)
+    parser.add_argument('--kernel-kind',choices=('asymmetric','gaussian'),default='asymmetric')
     args=parser.parse_args()
     if args.device=='mps' and os.environ.get('PYTORCH_ENABLE_MPS_FALLBACK')=='1':
         raise ValueError('Disable MPS CPU fallback for this explicit reference experiment')
@@ -31,7 +32,7 @@ def main():
                 torch_version=torch.__version__,platform=platform.platform(),python=platform.python_version(),
                 mps_fallback_environment=os.environ.get('PYTORCH_ENABLE_MPS_FALLBACK'),
                 fixture_manifest_sha256=digest(Path('tests/fixtures/images/manifest.json')),
-                preprocessing_device=args.device,inference_device='cpu',weights_sha256=WEIGHTS_SHA256,
+                preprocessing_device=args.device,inference_device='cpu',weights_sha256=WEIGHTS_SHA256,kernel_kind=args.kernel_kind,
                 scope='Explicit stencil reference and real classifier checks; no CUDA or performance acceptance',
                 tensor_atol=2e-4,logit_atol=.001,logit_rtol=1e-4,checks=[])
     try:
@@ -45,7 +46,10 @@ def main():
         for size in (3,5,7,9):
             kernel=[[0.]*size for _ in range(size)]
             kernel[0][0]=.125;kernel[size//2][size//2]=.75;kernel[-1][0]=.125
-            pipe=(Pipeline(input_encoding='bgr8').conv2d(kernel).letterbox(224,224)
+            leading = Pipeline(input_encoding='bgr8')
+            leading = leading.gaussian(size,sigma=1.2) if args.kernel_kind=='gaussian' else leading.conv2d(kernel)
+            kernel = leading.operations[0].kernel
+            pipe=(leading.letterbox(224,224)
                   .normalize([.485,.456,.406],[.229,.224,.225],scale=1/255).to(dtype='float32',layout='NCHW'))
             # Exercise relative file loading as well as the literal frontend.
             (args.output/f'kernel-{size}.yaml').write_text('kernel: '+json.dumps(kernel)+'\n')

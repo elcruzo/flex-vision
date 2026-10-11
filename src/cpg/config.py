@@ -61,7 +61,15 @@ def load_pipeline(path):
         if not isinstance(operations, list) or len(operations) not in (2, 3):
             raise ConfigError("pipeline: require optional convolution, letterbox, then normalize")
         offset = 0
-        if len(operations) == 3:
+        if len(operations) == 3 and isinstance(operations[0], dict) and 'gaussian' in operations[0]:
+            _fields(operations[0], {'gaussian'}, set(), 'pipeline[0]')
+            parameters = _fields(operations[0]['gaussian'], {'size', 'sigma'}, set(), 'pipeline[0].gaussian')
+            try:
+                pipeline = pipeline.gaussian(**parameters)
+            except (ValueError, TypeError) as exc:
+                raise ConfigError(f'pipeline[0].gaussian: {exc}') from exc
+            offset = 1
+        elif len(operations) == 3:
             _fields(operations[0], {'convolution'}, set(), 'pipeline[0]')
             parameters = _fields(operations[0]['convolution'], {'kernel'}, set(), 'pipeline[0].convolution')
             kernel = parameters['kernel']

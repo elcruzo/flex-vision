@@ -104,3 +104,19 @@ Synthetic verifier fault checks do not establish GPU execution or performance.
 No measured stencil comparison exists yet.
 This candidate does not establish vendor stencil superiority, reusable workspace, sustained multi-camera throughput, or residency traces.
 Compare shared-memory and vendor strategies only after this numerical and complete-pipeline evidence exists.
+
+## Gaussian graph construction
+
+Pipeline.gaussian(size, sigma=...) constructs a leading normalized Gaussian stencil for sizes 3, 5, 7, and 9.
+Sigma must be positive finite numeric data. No automatic sigma is selected.
+Compute one-dimensional exp(-0.5 * (distance/sigma)^2) weights in Python float arithmetic and normalize their sum.
+Form their outer product, then snapshot each coefficient as finite FP32 through the existing convolution contract.
+The FP32 sum can differ slightly from one. Preserve FP32 intermediates and replicated borders without implicit clamping.
+The configuration accepts a leading gaussian mapping with size and sigma.
+Pipeline.custom_conv is an alias of conv2d and uses the same flipped-convolution semantics.
+
+Only one leading stencil is supported. A Gaussian followed by another convolution is not yet a supported graph.
+The mathematical Gaussian is separable. The current candidate executes a full specialized two-dimensional stencil.
+A separable implementation remains required strategy work and must preserve the declared numerical policy or use measured tolerances.
+These frontend additions do not establish Gaussian CUDA acceptance or performance.
+Use local_stencil_reference.py --kernel-kind gaussian for the complete local classifier reference check.

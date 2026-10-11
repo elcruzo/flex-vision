@@ -137,6 +137,26 @@ class Pipeline:
             raise ValueError('kernel must contain rows of coefficients') from exc
         return replace(self, operations=(Conv2d(kernel),))
 
+    def custom_conv(self, kernel):
+        """Alias for the specified flipped, replicate-border stencil."""
+        return self.conv2d(kernel)
+
+    def gaussian(self, size, *, sigma):
+        """Snapshot a normalized separable Gaussian as one leading stencil."""
+        if type(size) is not int or size not in (3, 5, 7, 9):
+            raise ValueError('Gaussian size must be 3, 5, 7, or 9')
+        sigma = _finite(sigma, 'Gaussian sigma')
+        if sigma <= 0:
+            raise ValueError('Gaussian sigma must be positive')
+        radius = size // 2
+        weights = []
+        for index in range(size):
+            ratio = (index - radius) / sigma
+            weights.append(math.exp(-0.5 * ratio * ratio))
+        total = sum(weights)
+        weights = [value / total for value in weights]
+        return self.conv2d([[y * x for x in weights] for y in weights])
+
     def letterbox(self, width, height, value=114):
         value = _finite(value, "padding value")
         return replace(self, operations=self.operations + (Letterbox(width, height, value),))

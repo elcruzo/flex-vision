@@ -708,3 +708,11 @@ Show operation groups, separate stencil intermediates, and datatype-derived outp
 Leave latency, transfer counts, peak memory, and reference workspace unknown.
 Preserve inspect without the option and avoid CUDA or tensor-framework imports during planning.
 This is static inspection, not measured profiling or autotuning. See PLAN_INSPECTION.md.
+
+## D067 — Define Gaussian construction through the stencil contract
+
+Add the required Gaussian frontend with explicit positive sigma and the four initial sizes.
+Snapshot normalized outer-product coefficients as FP32 and reuse replicated borders and unclamped intermediates.
+Support Gaussian YAML construction and the requested custom_conv alias.
+The current experimental CUDA candidate is a full direct stencil, not a separable implementation.
+Retain separable strategy evaluation and multi-stencil graph support as pending work. See STENCILS.md.
