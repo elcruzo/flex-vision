@@ -767,3 +767,11 @@ Check exact subscriber failure reasons and both process exit codes; do not count
 Preserve initial discovery and final drainage, and end incomplete publication after subscriber loss.
 Production recovery, overload policy, and native CUDA transport remain pending.
 See experiments/038-ros-transport-controls.md.
+
+## D074 — Separate the ROS Python ABI from frozen CUDA experiment environments
+
+The local Lyrical image uses Python 3.14, incompatible with the pinned Mac reference stack.
+Build an isolated CPU-only PyTorch 2.10/TorchVision 0.25 environment without altering prior experiment environments.
+Experiment 039 passed ROS/framework imports and the existing four-size Gaussian classifier reference gate at unchanged tolerances.
+Record the resolved packages and image identity. Do not claim subscribed-image inference from this environment check.
+See experiments/039-ros-reference-environment.md.

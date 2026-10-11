@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "image": "sha256:b3a4e11d1c649660b44a2311b3af4c27c93b798ff42ce3bdeea0ec9f47b93fd6",
+  "base_image": "ros@sha256:f79cd486fa218596747c45d00ca42101b0303fc6d94ed5adb72145cd6f54b86c",
+  "architecture": "arm64",
+  "python": "3.14.4",
+  "torch": "2.10.0+cpu",
+  "torchvision": "0.25.0+cpu",
+  "scope": "ROS/framework import compatibility plus explicit Gaussian reference and real CPU classifier; no transported-image inference yet"
+}
