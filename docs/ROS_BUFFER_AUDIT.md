@@ -1,6 +1,8 @@
 # ROS CUDA buffer integration audit
 
-Status: upstream API review only. No CPG ROS package, transport build, or robot acceptance is claimed.
+Status: upstream CUDA API review with subsequent CPU ROS integration evidence.
+An experimental configured CPU node now passes classifier inference and stamped tensor transport.
+Native CUDA transport and robot acceptance remain pending. See ROS_NODE.md.
 The inspected ros2/rosidl_buffer_backends source revision is d7cd9642d77a1d64fd85f25ba0bf96e108401900.
 The temporary checkout was inspected without importing upstream implementation code into CPG.
 

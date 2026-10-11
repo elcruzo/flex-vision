@@ -818,3 +818,11 @@ Experiment 044 passed eight frames through the installed executable and a separa
 Preserve headers and expose bounded replay options without claiming consumer acknowledgment.
 Keep native CUDA transport, composition, clean packaging, and production recovery pending.
 See ROS_NODE.md and experiments/044-configured-ros-node.md.
+
+## D080 — Carry rounded letterbox geometry through ROS tensor transport
+
+Include actual resized dimensions and padding with source dimensions in the experimental envelope.
+Reconstruct checked geometry at the consumer instead of guessing a nominal resize scale.
+Experiment 045 passed eight exact geometry and full-image source-coordinate checks through actual classifier inference.
+Real detector-coordinate mapping and native CUDA transport remain pending.
+See experiments/045-ros-letterbox-geometry.md.

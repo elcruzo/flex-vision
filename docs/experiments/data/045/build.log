@@ -1,0 +1,273 @@
+Starting >>> cpg_tensor_probe
+-- The C compiler identification is GNU 15.2.0
+-- The CXX compiler identification is GNU 15.2.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found ament_cmake: 2.8.8 (/opt/ros/lyrical/share/ament_cmake/cmake)
+-- Found rosidl_default_generators: 1.8.1 (/opt/ros/lyrical/share/rosidl_default_generators/cmake)
+-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+-- Found rosidl_adapter: 5.2.1 (/opt/ros/lyrical/share/rosidl_adapter/cmake)
+-- Found std_msgs: 5.9.3 (/opt/ros/lyrical/share/std_msgs/cmake)
+-- Found tensor_msgs: 0.1.2 (/standard/ws/install/tensor_msgs/share/tensor_msgs/cmake)
+-- Found Python3: /usr/bin/python3 (found version "3.14.4") found components: Interpreter
+-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+-- Found Python3: /usr/bin/python3 (found version "3.14.4") found components: Interpreter Development NumPy Development.Module Development.Embed
+-- Found Python3: /usr/bin/python3 (found version "3.14.4") found components: Interpreter
+-- Configuring done (9.0s)
+-- Generating done (0.4s)
+-- Build files have been written to: /results/ws/build/cpg_tensor_probe
+[  2%] Generating type hashes for ROS interfaces
+[  2%] Built target cpg_tensor_probe__rosidl_generator_type_description
+[  5%] Generating Rust code for ROS interfaces
+[  8%] Generating C++ code for ROS interfaces
+[  8%] Built target cpg_tensor_probe__rs
+[  8%] Built target cpg_tensor_probe__cpp
+[ 11%] Generating C code for ROS interfaces
+[ 14%] Building C object CMakeFiles/cpg_tensor_probe__rosidl_generator_c.dir/rosidl_generator_c/cpg_tensor_probe/msg/detail/stamped_tensor__description.c.o
+[ 17%] Building C object CMakeFiles/cpg_tensor_probe__rosidl_generator_c.dir/rosidl_generator_c/cpg_tensor_probe/msg/detail/stamped_tensor__type_support.c.o
+[ 20%] Building C object CMakeFiles/cpg_tensor_probe__rosidl_generator_c.dir/rosidl_generator_c/cpg_tensor_probe/msg/detail/stamped_tensor__functions.c.o
+[ 22%] Linking C shared library libcpg_tensor_probe__rosidl_generator_c.so
+[ 22%] Built target cpg_tensor_probe__rosidl_generator_c
+[ 25%] Generating C++ type support dispatch for ROS interfaces
+[ 28%] Building CXX object CMakeFiles/cpg_tensor_probe__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/cpg_tensor_probe/msg/stamped_tensor__type_support.cpp.o
+[ 31%] Linking CXX shared library libcpg_tensor_probe__rosidl_typesupport_cpp.so
+[ 31%] Built target cpg_tensor_probe__rosidl_typesupport_cpp
+[ 34%] Generating C++ introspection for ROS interfaces
+[ 37%] Building CXX object CMakeFiles/cpg_tensor_probe__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/cpg_tensor_probe/msg/detail/stamped_tensor__type_support.cpp.o
+[ 40%] Linking CXX shared library libcpg_tensor_probe__rosidl_typesupport_introspection_cpp.so
+[ 40%] Built target cpg_tensor_probe__rosidl_typesupport_introspection_cpp
+[ 42%] Generating C type support dispatch for ROS interfaces
+[ 45%] Building CXX object CMakeFiles/cpg_tensor_probe__rosidl_typesupport_c.dir/rosidl_typesupport_c/cpg_tensor_probe/msg/stamped_tensor__type_support.cpp.o
+[ 48%] Linking CXX shared library libcpg_tensor_probe__rosidl_typesupport_c.so
+[ 48%] Built target cpg_tensor_probe__rosidl_typesupport_c
+[ 51%] Generating C introspection for ROS interfaces
+[ 54%] Building C object CMakeFiles/cpg_tensor_probe__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/cpg_tensor_probe/msg/detail/stamped_tensor__type_support.c.o
+[ 57%] Linking C shared library libcpg_tensor_probe__rosidl_typesupport_introspection_c.so
+[ 57%] Built target cpg_tensor_probe__rosidl_typesupport_introspection_c
+[ 60%] Generating C type support for eProsima Fast-RTPS
+[ 62%] Building CXX object CMakeFiles/cpg_tensor_probe__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/cpg_tensor_probe/msg/detail/stamped_tensor__type_support_c.cpp.o
+[ 65%] Linking CXX shared library libcpg_tensor_probe__rosidl_typesupport_fastrtps_c.so
+[ 65%] Built target cpg_tensor_probe__rosidl_typesupport_fastrtps_c
+[ 68%] Generating C++ type support for eProsima Fast-RTPS
+[ 71%] Building CXX object CMakeFiles/cpg_tensor_probe__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/cpg_tensor_probe/msg/detail/dds_fastrtps/stamped_tensor__type_support.cpp.o
+[ 74%] Linking CXX shared library libcpg_tensor_probe__rosidl_typesupport_fastrtps_cpp.so
+[ 74%] Built target cpg_tensor_probe__rosidl_typesupport_fastrtps_cpp
+[ 74%] Built target cpg_tensor_probe
+[ 77%] Generating Python code for ROS interfaces
+[ 77%] Built target cpg_tensor_probe__py
+[ 80%] Building C object CMakeFiles/cpg_tensor_probe__rosidl_generator_py.dir/rosidl_generator_py/cpg_tensor_probe/msg/_stamped_tensor_s.c.o
+[ 80%] Built target ament_cmake_python_sync_cpg_tensor_probe
+[ 82%] Linking C shared library libcpg_tensor_probe__rosidl_generator_py.so
+running egg_info
+creating cpg_tensor_probe.egg-info
+writing cpg_tensor_probe.egg-info/PKG-INFO
+writing dependency_links to cpg_tensor_probe.egg-info/dependency_links.txt
+writing top-level names to cpg_tensor_probe.egg-info/top_level.txt
+writing manifest file 'cpg_tensor_probe.egg-info/SOURCES.txt'
+[ 82%] Built target cpg_tensor_probe__rosidl_generator_py
+reading manifest file 'cpg_tensor_probe.egg-info/SOURCES.txt'
+writing manifest file 'cpg_tensor_probe.egg-info/SOURCES.txt'
+[ 85%] Building C object CMakeFiles/cpg_tensor_probe_s__rosidl_typesupport_c.dir/rosidl_generator_py/cpg_tensor_probe/_cpg_tensor_probe_s.ep.rosidl_typesupport_c.c.o
+[ 88%] Building C object CMakeFiles/cpg_tensor_probe_s__rosidl_typesupport_introspection_c.dir/rosidl_generator_py/cpg_tensor_probe/_cpg_tensor_probe_s.ep.rosidl_typesupport_introspection_c.c.o
+[ 91%] Building C object CMakeFiles/cpg_tensor_probe_s__rosidl_typesupport_fastrtps_c.dir/rosidl_generator_py/cpg_tensor_probe/_cpg_tensor_probe_s.ep.rosidl_typesupport_fastrtps_c.c.o
+[ 91%] Built target ament_cmake_python_build_cpg_tensor_probe_egg
+[ 94%] Linking C shared module rosidl_generator_py/cpg_tensor_probe/cpg_tensor_probe_s__rosidl_typesupport_c.so
+[ 97%] Linking C shared module rosidl_generator_py/cpg_tensor_probe/cpg_tensor_probe_s__rosidl_typesupport_introspection_c.so
+[100%] Linking C shared module rosidl_generator_py/cpg_tensor_probe/cpg_tensor_probe_s__rosidl_typesupport_fastrtps_c.so
+[100%] Built target cpg_tensor_probe_s__rosidl_typesupport_c
+[100%] Built target cpg_tensor_probe_s__rosidl_typesupport_introspection_c
+[100%] Built target cpg_tensor_probe_s__rosidl_typesupport_fastrtps_c
+-- Install configuration: ""
+-- Installing: /results/ws/install/cpg_tensor_probe/share/ament_index/resource_index/rosidl_interfaces/cpg_tensor_probe
+-- Installing: /results/ws/install/cpg_tensor_probe/share/cpg_tensor_probe/msg/StampedTensor.json
+-- Installing: /results/ws/install/cpg_tensor_probe/include/cpg_tensor_probe/cpg_tensor_probe
+-- Installing: /results/ws/install/cpg_tensor_probe/include/cpg_tensor_probe/cpg_tensor_probe/msg
+-- Installing: /results/ws/install/cpg_tensor_probe/include/cpg_tensor_probe/cpg_tensor_probe/msg/rosidl_generator_c__visibility_control.h
+-- Installing: /results/ws/install/cpg_tensor_probe/include/cpg_tensor_probe/cpg_tensor_probe/msg/detail
+-- Installing: /results/ws/install/cpg_tensor_probe/include/cpg_tensor_probe/cpg_tensor_probe/msg/detail/stamped_tensor__struct.h
+-- Installing: /results/ws/install/cpg_tensor_probe/include/cpg_tensor_probe/cpg_tensor_probe/msg/detail/stamped_tensor__type_support.h
+-- Installing: /results/ws/install/cpg_tensor_probe/include/cpg_tensor_probe/cpg_tensor_probe/msg/detail/stamped_tensor__functions.c
+-- Installing: /results/ws/install/cpg_tensor_probe/include/cpg_tensor_probe/cpg_tensor_probe/msg/detail/stamped_tensor__description.c
+-- Installing: /results/ws/install/cpg_tensor_probe/include/cpg_tensor_probe/cpg_tensor_probe/msg/detail/stamped_tensor__type_support.c
+-- Installing: /results/ws/install/cpg_tensor_probe/include/cpg_tensor_probe/cpg_tensor_probe/msg/detail/stamped_tensor__functions.h
+-- Installing: /results/ws/install/cpg_tensor_probe/include/cpg_tensor_probe/cpg_tensor_probe/msg/stamped_tensor.h
+-- Installing: /results/ws/install/cpg_tensor_probe/share/cpg_tensor_probe/environment/library_path.sh
+-- Installing: /results/ws/install/cpg_tensor_probe/share/cpg_tensor_probe/environment/library_path.dsv
+-- Installing: /results/ws/install/cpg_tensor_probe/lib/libcpg_tensor_probe__rosidl_generator_c.so
+-- Set non-toolchain portion of runtime path of "/results/ws/install/cpg_tensor_probe/lib/libcpg_tensor_probe__rosidl_generator_c.so" to ""
+-- Up-to-date: /results/ws/install/cpg_tensor_probe/include/cpg_tensor_probe/cpg_tensor_probe
+-- Up-to-date: /results/ws/install/cpg_tensor_probe/include/cpg_tensor_probe/cpg_tensor_probe/msg
+-- Up-to-date: /results/ws/install/cpg_tensor_probe/include/cpg_tensor_probe/cpg_tensor_probe/msg/detail
+-- Installing: /results/ws/install/cpg_tensor_probe/include/cpg_tensor_probe/cpg_tensor_probe/msg/detail/stamped_tensor__rosidl_typesupport_fastrtps_c.h
+-- Installing: /results/ws/install/cpg_tensor_probe/include/cpg_tensor_probe/cpg_tensor_probe/msg/rosidl_typesupport_fastrtps_c__visibility_control.h
+-- Installing: /results/ws/install/cpg_tensor_probe/lib/libcpg_tensor_probe__rosidl_typesupport_fastrtps_c.so
+-- Set non-toolchain portion of runtime path of "/results/ws/install/cpg_tensor_probe/lib/libcpg_tensor_probe__rosidl_typesupport_fastrtps_c.so" to ""
+-- Up-to-date: /results/ws/install/cpg_tensor_probe/include/cpg_tensor_probe/cpg_tensor_probe
+-- Up-to-date: /results/ws/install/cpg_tensor_probe/include/cpg_tensor_probe/cpg_tensor_probe/msg
+-- Up-to-date: /results/ws/install/cpg_tensor_probe/include/cpg_tensor_probe/cpg_tensor_probe/msg/detail
+-- Installing: /results/ws/install/cpg_tensor_probe/include/cpg_tensor_probe/cpg_tensor_probe/msg/detail/stamped_tensor__rosidl_typesupport_introspection_c.h
+-- Installing: /results/ws/install/cpg_tensor_probe/include/cpg_tensor_probe/cpg_tensor_probe/msg/detail/stamped_tensor__type_support.c
+-- Installing: /results/ws/install/cpg_tensor_probe/include/cpg_tensor_probe/cpg_tensor_probe/msg/rosidl_typesupport_introspection_c__visibility_control.h
+-- Installing: /results/ws/install/cpg_tensor_probe/lib/libcpg_tensor_probe__rosidl_typesupport_introspection_c.so
+-- Set non-toolchain portion of runtime path of "/results/ws/install/cpg_tensor_probe/lib/libcpg_tensor_probe__rosidl_typesupport_introspection_c.so" to ""
+-- Installing: /results/ws/install/cpg_tensor_probe/lib/libcpg_tensor_probe__rosidl_typesupport_c.so
+-- Set non-toolchain portion of runtime path of "/results/ws/install/cpg_tensor_probe/lib/libcpg_tensor_probe__rosidl_typesupport_c.so" to ""
+-- Up-to-date: /results/ws/install/cpg_tensor_probe/include/cpg_tensor_probe/cpg_tensor_probe
+-- Up-to-date: /results/ws/install/cpg_tensor_probe/include/cpg_tensor_probe/cpg_tensor_probe/msg
+-- Installing: /results/ws/install/cpg_tensor_probe/include/cpg_tensor_probe/cpg_tensor_probe/msg/stamped_tensor.hpp
+-- Up-to-date: /results/ws/install/cpg_tensor_probe/include/cpg_tensor_probe/cpg_tensor_probe/msg/detail
+-- Installing: /results/ws/install/cpg_tensor_probe/include/cpg_tensor_probe/cpg_tensor_probe/msg/detail/stamped_tensor__type_support.hpp
+-- Installing: /results/ws/install/cpg_tensor_probe/include/cpg_tensor_probe/cpg_tensor_probe/msg/detail/stamped_tensor__builder.hpp
+-- Installing: /results/ws/install/cpg_tensor_probe/include/cpg_tensor_probe/cpg_tensor_probe/msg/detail/stamped_tensor__struct.hpp
+-- Installing: /results/ws/install/cpg_tensor_probe/include/cpg_tensor_probe/cpg_tensor_probe/msg/detail/stamped_tensor__traits.hpp
+-- Installing: /results/ws/install/cpg_tensor_probe/include/cpg_tensor_probe/cpg_tensor_probe/msg/rosidl_generator_cpp__visibility_control.hpp
+-- Up-to-date: /results/ws/install/cpg_tensor_probe/include/cpg_tensor_probe/cpg_tensor_probe
+-- Up-to-date: /results/ws/install/cpg_tensor_probe/include/cpg_tensor_probe/cpg_tensor_probe/msg
+-- Installing: /results/ws/install/cpg_tensor_probe/include/cpg_tensor_probe/cpg_tensor_probe/msg/rosidl_typesupport_fastrtps_cpp__visibility_control.h
+-- Up-to-date: /results/ws/install/cpg_tensor_probe/include/cpg_tensor_probe/cpg_tensor_probe/msg/detail
+-- Installing: /results/ws/install/cpg_tensor_probe/include/cpg_tensor_probe/cpg_tensor_probe/msg/detail/dds_fastrtps
+-- Installing: /results/ws/install/cpg_tensor_probe/include/cpg_tensor_probe/cpg_tensor_probe/msg/detail/stamped_tensor__rosidl_typesupport_fastrtps_cpp.hpp
+-- Installing: /results/ws/install/cpg_tensor_probe/lib/libcpg_tensor_probe__rosidl_typesupport_fastrtps_cpp.so
+-- Set non-toolchain portion of runtime path of "/results/ws/install/cpg_tensor_probe/lib/libcpg_tensor_probe__rosidl_typesupport_fastrtps_cpp.so" to ""
+-- Up-to-date: /results/ws/install/cpg_tensor_probe/include/cpg_tensor_probe/cpg_tensor_probe
+-- Up-to-date: /results/ws/install/cpg_tensor_probe/include/cpg_tensor_probe/cpg_tensor_probe/msg
+-- Up-to-date: /results/ws/install/cpg_tensor_probe/include/cpg_tensor_probe/cpg_tensor_probe/msg/detail
+-- Installing: /results/ws/install/cpg_tensor_probe/include/cpg_tensor_probe/cpg_tensor_probe/msg/detail/stamped_tensor__rosidl_typesupport_introspection_cpp.hpp
+-- Installing: /results/ws/install/cpg_tensor_probe/include/cpg_tensor_probe/cpg_tensor_probe/msg/detail/stamped_tensor__type_support.cpp
+-- Installing: /results/ws/install/cpg_tensor_probe/lib/libcpg_tensor_probe__rosidl_typesupport_introspection_cpp.so
+-- Set non-toolchain portion of runtime path of "/results/ws/install/cpg_tensor_probe/lib/libcpg_tensor_probe__rosidl_typesupport_introspection_cpp.so" to ""
+-- Installing: /results/ws/install/cpg_tensor_probe/lib/libcpg_tensor_probe__rosidl_typesupport_cpp.so
+-- Set non-toolchain portion of runtime path of "/results/ws/install/cpg_tensor_probe/lib/libcpg_tensor_probe__rosidl_typesupport_cpp.so" to ""
+-- Installing: /results/ws/install/cpg_tensor_probe/share/cpg_tensor_probe/environment/pythonpath.sh
+-- Installing: /results/ws/install/cpg_tensor_probe/share/cpg_tensor_probe/environment/pythonpath.dsv
+-- Installing: /results/ws/install/cpg_tensor_probe/lib/python3.14/site-packages/cpg_tensor_probe/cpg_tensor_probe_s__rosidl_typesupport_fastrtps_c.so
+-- Set non-toolchain portion of runtime path of "/results/ws/install/cpg_tensor_probe/lib/python3.14/site-packages/cpg_tensor_probe/cpg_tensor_probe_s__rosidl_typesupport_fastrtps_c.so" to ""
+-- Installing: /results/ws/install/cpg_tensor_probe/lib/python3.14/site-packages/cpg_tensor_probe/cpg_tensor_probe_s__rosidl_typesupport_introspection_c.so
+-- Set non-toolchain portion of runtime path of "/results/ws/install/cpg_tensor_probe/lib/python3.14/site-packages/cpg_tensor_probe/cpg_tensor_probe_s__rosidl_typesupport_introspection_c.so" to ""
+-- Installing: /results/ws/install/cpg_tensor_probe/lib/python3.14/site-packages/cpg_tensor_probe/cpg_tensor_probe_s__rosidl_typesupport_c.so
+-- Set non-toolchain portion of runtime path of "/results/ws/install/cpg_tensor_probe/lib/python3.14/site-packages/cpg_tensor_probe/cpg_tensor_probe_s__rosidl_typesupport_c.so" to ""
+-- Installing: /results/ws/install/cpg_tensor_probe/lib/libcpg_tensor_probe__rosidl_generator_py.so
+-- Set non-toolchain portion of runtime path of "/results/ws/install/cpg_tensor_probe/lib/libcpg_tensor_probe__rosidl_generator_py.so" to ""
+-- Installing: /results/ws/install/cpg_tensor_probe/share/cpg_tensor_probe/rust
+-- Installing: /results/ws/install/cpg_tensor_probe/share/cpg_tensor_probe/rust/Cargo.toml
+-- Installing: /results/ws/install/cpg_tensor_probe/share/cpg_tensor_probe/rust/build.rs
+-- Installing: /results/ws/install/cpg_tensor_probe/share/cpg_tensor_probe/rust/src
+-- Installing: /results/ws/install/cpg_tensor_probe/share/cpg_tensor_probe/rust/src/msg
+-- Installing: /results/ws/install/cpg_tensor_probe/share/cpg_tensor_probe/rust/src/msg/rmw.rs
+-- Installing: /results/ws/install/cpg_tensor_probe/share/cpg_tensor_probe/rust/src/lib.rs
+-- Installing: /results/ws/install/cpg_tensor_probe/share/cpg_tensor_probe/rust/src/msg.rs
+-- Installing: /results/ws/install/cpg_tensor_probe/share/cpg_tensor_probe/msg/StampedTensor.idl
+-- Installing: /results/ws/install/cpg_tensor_probe/share/cpg_tensor_probe/msg/StampedTensor.msg
+-- Installing: /results/ws/install/cpg_tensor_probe/share/ament_index/resource_index/package_run_dependencies/cpg_tensor_probe
+-- Installing: /results/ws/install/cpg_tensor_probe/share/ament_index/resource_index/parent_prefix_path/cpg_tensor_probe
+-- Installing: /results/ws/install/cpg_tensor_probe/share/cpg_tensor_probe/environment/ament_prefix_path.sh
+-- Installing: /results/ws/install/cpg_tensor_probe/share/cpg_tensor_probe/environment/ament_prefix_path.dsv
+-- Installing: /results/ws/install/cpg_tensor_probe/share/cpg_tensor_probe/environment/path.sh
+-- Installing: /results/ws/install/cpg_tensor_probe/share/cpg_tensor_probe/environment/path.dsv
+-- Installing: /results/ws/install/cpg_tensor_probe/share/cpg_tensor_probe/local_setup.bash
+-- Installing: /results/ws/install/cpg_tensor_probe/share/cpg_tensor_probe/local_setup.fish
+-- Installing: /results/ws/install/cpg_tensor_probe/share/cpg_tensor_probe/local_setup.sh
+-- Installing: /results/ws/install/cpg_tensor_probe/share/cpg_tensor_probe/local_setup.zsh
+-- Installing: /results/ws/install/cpg_tensor_probe/share/cpg_tensor_probe/local_setup.dsv
+-- Installing: /results/ws/install/cpg_tensor_probe/share/cpg_tensor_probe/package.dsv
+-- Installing: /results/ws/install/cpg_tensor_probe/share/ament_index/resource_index/packages/cpg_tensor_probe
+-- Installing: /results/ws/install/cpg_tensor_probe/share/cpg_tensor_probe/cmake/export_cpg_tensor_probe__rosidl_generator_cExport.cmake
+-- Installing: /results/ws/install/cpg_tensor_probe/share/cpg_tensor_probe/cmake/export_cpg_tensor_probe__rosidl_generator_cExport-noconfig.cmake
+-- Installing: /results/ws/install/cpg_tensor_probe/share/cpg_tensor_probe/cmake/export_cpg_tensor_probe__rosidl_typesupport_fastrtps_cExport.cmake
+-- Installing: /results/ws/install/cpg_tensor_probe/share/cpg_tensor_probe/cmake/export_cpg_tensor_probe__rosidl_typesupport_fastrtps_cExport-noconfig.cmake
+-- Installing: /results/ws/install/cpg_tensor_probe/share/cpg_tensor_probe/cmake/cpg_tensor_probe__rosidl_typesupport_introspection_cExport.cmake
+-- Installing: /results/ws/install/cpg_tensor_probe/share/cpg_tensor_probe/cmake/cpg_tensor_probe__rosidl_typesupport_introspection_cExport-noconfig.cmake
+-- Installing: /results/ws/install/cpg_tensor_probe/share/cpg_tensor_probe/cmake/cpg_tensor_probe__rosidl_typesupport_cExport.cmake
+-- Installing: /results/ws/install/cpg_tensor_probe/share/cpg_tensor_probe/cmake/cpg_tensor_probe__rosidl_typesupport_cExport-noconfig.cmake
+-- Installing: /results/ws/install/cpg_tensor_probe/share/cpg_tensor_probe/cmake/export_cpg_tensor_probe__rosidl_generator_cppExport.cmake
+-- Installing: /results/ws/install/cpg_tensor_probe/share/cpg_tensor_probe/cmake/export_cpg_tensor_probe__rosidl_typesupport_fastrtps_cppExport.cmake
+-- Installing: /results/ws/install/cpg_tensor_probe/share/cpg_tensor_probe/cmake/export_cpg_tensor_probe__rosidl_typesupport_fastrtps_cppExport-noconfig.cmake
+-- Installing: /results/ws/install/cpg_tensor_probe/share/cpg_tensor_probe/cmake/cpg_tensor_probe__rosidl_typesupport_introspection_cppExport.cmake
+-- Installing: /results/ws/install/cpg_tensor_probe/share/cpg_tensor_probe/cmake/cpg_tensor_probe__rosidl_typesupport_introspection_cppExport-noconfig.cmake
+-- Installing: /results/ws/install/cpg_tensor_probe/share/cpg_tensor_probe/cmake/cpg_tensor_probe__rosidl_typesupport_cppExport.cmake
+-- Installing: /results/ws/install/cpg_tensor_probe/share/cpg_tensor_probe/cmake/cpg_tensor_probe__rosidl_typesupport_cppExport-noconfig.cmake
+-- Installing: /results/ws/install/cpg_tensor_probe/share/cpg_tensor_probe/cmake/export_cpg_tensor_probe__rosidl_generator_pyExport.cmake
+-- Installing: /results/ws/install/cpg_tensor_probe/share/cpg_tensor_probe/cmake/export_cpg_tensor_probe__rosidl_generator_pyExport-noconfig.cmake
+-- Installing: /results/ws/install/cpg_tensor_probe/lib/python3.14/site-packages/cpg_tensor_probe-0.0.1-py3.14.egg-info
+-- Installing: /results/ws/install/cpg_tensor_probe/lib/python3.14/site-packages/cpg_tensor_probe-0.0.1-py3.14.egg-info/PKG-INFO
+-- Installing: /results/ws/install/cpg_tensor_probe/lib/python3.14/site-packages/cpg_tensor_probe-0.0.1-py3.14.egg-info/SOURCES.txt
+-- Installing: /results/ws/install/cpg_tensor_probe/lib/python3.14/site-packages/cpg_tensor_probe-0.0.1-py3.14.egg-info/top_level.txt
+-- Installing: /results/ws/install/cpg_tensor_probe/lib/python3.14/site-packages/cpg_tensor_probe-0.0.1-py3.14.egg-info/dependency_links.txt
+-- Up-to-date: /results/ws/install/cpg_tensor_probe/lib/python3.14/site-packages/cpg_tensor_probe
+-- Installing: /results/ws/install/cpg_tensor_probe/lib/python3.14/site-packages/cpg_tensor_probe/_cpg_tensor_probe_s.ep.rosidl_typesupport_fastrtps_c.c
+-- Installing: /results/ws/install/cpg_tensor_probe/lib/python3.14/site-packages/cpg_tensor_probe/msg
+-- Installing: /results/ws/install/cpg_tensor_probe/lib/python3.14/site-packages/cpg_tensor_probe/msg/_stamped_tensor_s.c
+-- Installing: /results/ws/install/cpg_tensor_probe/lib/python3.14/site-packages/cpg_tensor_probe/msg/_stamped_tensor.py
+-- Installing: /results/ws/install/cpg_tensor_probe/lib/python3.14/site-packages/cpg_tensor_probe/msg/__init__.py
+-- Installing: /results/ws/install/cpg_tensor_probe/lib/python3.14/site-packages/cpg_tensor_probe/_cpg_tensor_probe_s.ep.rosidl_typesupport_introspection_c.c
+-- Installing: /results/ws/install/cpg_tensor_probe/lib/python3.14/site-packages/cpg_tensor_probe/__init__.py
+-- Installing: /results/ws/install/cpg_tensor_probe/lib/python3.14/site-packages/cpg_tensor_probe/_cpg_tensor_probe_s.ep.rosidl_typesupport_c.c
+-- Installing: /results/ws/install/cpg_tensor_probe/lib/python3.14/site-packages/cpg_tensor_probe/py.typed
+-- Up-to-date: /results/ws/install/cpg_tensor_probe/lib/python3.14/site-packages/cpg_tensor_probe/cpg_tensor_probe_s__rosidl_typesupport_introspection_c.so
+-- Up-to-date: /results/ws/install/cpg_tensor_probe/lib/python3.14/site-packages/cpg_tensor_probe/cpg_tensor_probe_s__rosidl_typesupport_fastrtps_c.so
+-- Up-to-date: /results/ws/install/cpg_tensor_probe/lib/python3.14/site-packages/cpg_tensor_probe/cpg_tensor_probe_s__rosidl_typesupport_c.so
+Listing '/results/ws/install/cpg_tensor_probe/lib/python3.14/site-packages/cpg_tensor_probe'...
+Compiling '/results/ws/install/cpg_tensor_probe/lib/python3.14/site-packages/cpg_tensor_probe/__init__.py'...
+Listing '/results/ws/install/cpg_tensor_probe/lib/python3.14/site-packages/cpg_tensor_probe/msg'...
+Compiling '/results/ws/install/cpg_tensor_probe/lib/python3.14/site-packages/cpg_tensor_probe/msg/__init__.py'...
+Compiling '/results/ws/install/cpg_tensor_probe/lib/python3.14/site-packages/cpg_tensor_probe/msg/_stamped_tensor.py'...
+-- Installing: /results/ws/install/cpg_tensor_probe/share/cpg_tensor_probe/cmake/rosidl_cmake-extras.cmake
+-- Installing: /results/ws/install/cpg_tensor_probe/share/cpg_tensor_probe/cmake/ament_cmake_export_dependencies-extras.cmake
+-- Installing: /results/ws/install/cpg_tensor_probe/share/cpg_tensor_probe/cmake/ament_cmake_export_include_directories-extras.cmake
+-- Installing: /results/ws/install/cpg_tensor_probe/share/cpg_tensor_probe/cmake/ament_cmake_export_libraries-extras.cmake
+-- Installing: /results/ws/install/cpg_tensor_probe/share/cpg_tensor_probe/cmake/ament_cmake_export_targets-extras.cmake
+-- Installing: /results/ws/install/cpg_tensor_probe/share/cpg_tensor_probe/cmake/rosidl_cmake_export_typesupport_targets-extras.cmake
+-- Installing: /results/ws/install/cpg_tensor_probe/share/cpg_tensor_probe/cmake/rosidl_cmake_export_typesupport_libraries-extras.cmake
+-- Installing: /results/ws/install/cpg_tensor_probe/share/cpg_tensor_probe/cmake/rosidl_cmake_aggregate_target-extras.cmake
+-- Installing: /results/ws/install/cpg_tensor_probe/share/cpg_tensor_probe/cmake/cpg_tensor_probeConfig.cmake
+-- Installing: /results/ws/install/cpg_tensor_probe/share/cpg_tensor_probe/cmake/cpg_tensor_probeConfig-version.cmake
+-- Installing: /results/ws/install/cpg_tensor_probe/share/cpg_tensor_probe/package.xml
+Finished <<< cpg_tensor_probe [19.8s]
+Starting >>> cuda_preprocess
+-- The C compiler identification is GNU 15.2.0
+-- The CXX compiler identification is GNU 15.2.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found ament_cmake: 2.8.8 (/opt/ros/lyrical/share/ament_cmake/cmake)
+-- Configuring done (2.0s)
+-- Generating done (0.0s)
+-- Build files have been written to: /results/ws/build/cuda_preprocess
+-- Install configuration: ""
+-- Installing: /results/ws/install/cuda_preprocess/lib/cuda_preprocess/preprocess_node
+-- Installing: /results/ws/install/cuda_preprocess/share/ament_index/resource_index/package_run_dependencies/cuda_preprocess
+-- Installing: /results/ws/install/cuda_preprocess/share/ament_index/resource_index/parent_prefix_path/cuda_preprocess
+-- Installing: /results/ws/install/cuda_preprocess/share/cuda_preprocess/environment/ament_prefix_path.sh
+-- Installing: /results/ws/install/cuda_preprocess/share/cuda_preprocess/environment/ament_prefix_path.dsv
+-- Installing: /results/ws/install/cuda_preprocess/share/cuda_preprocess/environment/path.sh
+-- Installing: /results/ws/install/cuda_preprocess/share/cuda_preprocess/environment/path.dsv
+-- Installing: /results/ws/install/cuda_preprocess/share/cuda_preprocess/local_setup.bash
+-- Installing: /results/ws/install/cuda_preprocess/share/cuda_preprocess/local_setup.fish
+-- Installing: /results/ws/install/cuda_preprocess/share/cuda_preprocess/local_setup.sh
+-- Installing: /results/ws/install/cuda_preprocess/share/cuda_preprocess/local_setup.zsh
+-- Installing: /results/ws/install/cuda_preprocess/share/cuda_preprocess/local_setup.dsv
+-- Installing: /results/ws/install/cuda_preprocess/share/cuda_preprocess/package.dsv
+-- Installing: /results/ws/install/cuda_preprocess/share/ament_index/resource_index/packages/cuda_preprocess
+-- Installing: /results/ws/install/cuda_preprocess/share/cuda_preprocess/cmake/cuda_preprocessConfig.cmake
+-- Installing: /results/ws/install/cuda_preprocess/share/cuda_preprocess/cmake/cuda_preprocessConfig-version.cmake
+-- Installing: /results/ws/install/cuda_preprocess/share/cuda_preprocess/package.xml
+Finished <<< cuda_preprocess [2.24s]
+
+Summary: 2 packages finished [22.3s]

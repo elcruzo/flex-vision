@@ -25,7 +25,9 @@ Discovery and a bounded DDS queue do not prove downstream completion or a produc
 
 Input is validated RGB8 or BGR8 host storage with padded rows supported.
 The YAML graph must fit the currently implemented fixed pipeline contract.
-The node preserves the source header, encoding, and dimensions in the output envelope.
+The node preserves the source header, encoding, dimensions, and actual letterbox geometry in the output envelope.
+The consumer can reconstruct rounded resize scales and remove padding before mapping model boxes.
+Experiment 045 checks geometry against an independent reference through real classifier inference.
 CPU preprocessing and tensor serialization perform host payload copies.
 The reference path must not be described as GPU-resident or a measured CUDA upload fallback.
 
