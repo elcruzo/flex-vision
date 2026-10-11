@@ -331,3 +331,8 @@ Keep the synchronous default. Async traces, allocator observations, independent 
 Experiment 028 passed 4,000 async diagnostic inference checks, transfer capture, and declared post-drain pool observations.
 See [experiment 028](experiments/028-async-diagnostics.md). No latency selection follows from instrumented samples.
 The synchronous default remains unchanged. Independent performance repeats and bounded concurrency remain pending.
+
+Experiment 036 passed the complete fixed CUDA stencil/Gaussian inference gate and matched asymmetric-stencil timing.
+It does not complete full G3 or the remaining MVP operator matrix. See experiments/036-stencil-cuda.md.
+The current upstream ROS buffer/tensor APIs are pinned and audited in ROS_BUFFER_AUDIT.md.
+Native transport build, lifetime probes, inference integration, and Jetson acceptance remain pending.

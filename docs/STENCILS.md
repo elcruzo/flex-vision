@@ -1,7 +1,8 @@
 # Configurable stencil contract
 
 Status: Python/YAML construction and explicit NumPy/PyTorch references are implemented.
-An experimental specialized CUDA backend is implemented. CUDA compilation and hardware acceptance remain pending.
+An experimental specialized CUDA backend passed the fixed RTX 4090 v2 gate in experiment 036.
+Broader hardware, stream, transport, and performance acceptance remain pending.
 This slice advances required custom stencils. It does not complete the operator matrix.
 
 Use one leading conv2d operation followed by letterbox, normalize, and output conversion.

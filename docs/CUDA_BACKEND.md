@@ -6,7 +6,9 @@ The first backend executes this fixed graph in one CUDA kernel:
 RGB8/BGR8 HWC → letterbox → normalize → FP16/FP32 NCHW
 ```
 
-It does not implement the remaining MVP operators, batching, or autotuning.
+A later experimental extension adds one leading custom or Gaussian stencil as a separate pass.
+The fixed RTX 4090 stencil gate and matched asymmetric timing passed in [experiment 036](experiments/036-stencil-cuda.md).
+Remaining operators, multiple stencil stages, batching, and autotuning remain incomplete.
 A [fixed TensorRT consumer experiment](TENSORRT_EXPERIMENT.md) exists outside the library API.
 The complete scope in REQUIREMENTS.md remains required.
 

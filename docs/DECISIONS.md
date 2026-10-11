@@ -734,3 +734,11 @@ The resulting $0.500923 ceiling exceeds its posted charges. Preserve all other c
 One $0.65 reservation brings the cumulative bound to $14.825091 under the original $15.
 Use a 30-minute independently terminated lease for the complete v2 gate, without automatic retry.
 See RUNPOD_SETUP.md and experiments/data/budget-before-036.json.
+
+## D070 — Audit native ROS handles before fixing a tensor interface
+
+Pin the upstream ROS buffer API at d7cd9642d77a1d64fd85f25ba0bf96e108401900.
+Count automatic CPU-buffer promotion as a payload upload, and retain native owners through stream reads.
+Evaluate the standard ExperimentalTensor schema and its conversion bridge before creating an independent tensor representation.
+Preserve camera identity: the tensor schema has no header, so a stamped wrapper remains a candidate requiring consumer checks.
+Transport build and runtime acceptance remain pending. See ROS_BUFFER_AUDIT.md.
