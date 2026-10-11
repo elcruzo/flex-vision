@@ -742,3 +742,12 @@ Count automatic CPU-buffer promotion as a payload upload, and retain native owne
 Evaluate the standard ExperimentalTensor schema and its conversion bridge before creating an independent tensor representation.
 Preserve camera identity: the tensor schema has no header, so a stamped wrapper remains a candidate requiring consumer checks.
 Transport build and runtime acceptance remain pending. See ROS_BUFFER_AUDIT.md.
+
+## D071 — Validate ordinary ROS Image transport locally before native CUDA integration
+
+Add a bounded independent publisher/subscriber probe for Lyrical's buffer-backed standard Image schema.
+Check complete padded 1080p CPU payloads, sequence identity, metadata, and bounded shutdown in separate processes.
+Use local Docker ARM64 rather than paid hardware for this CPU transport stage.
+Keep CUDA residency, preprocessing, inference, and Jetson acceptance separate.
+Build and runtime results must follow; prepared source alone does not pass the transport gate.
+See experiments/ros_buffer_probe/README.md.

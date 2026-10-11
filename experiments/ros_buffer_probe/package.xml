@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>cpg_buffer_probe</name>
+  <version>0.0.1</version>
+  <description>Experimental bounded standard Image transport probe; not the CPG production node.</description>
+  <maintainer email="elcruzo@users.noreply.github.com">elcruzo</maintainer>
+  <license>LicenseRef-Undecided</license>
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <depend>rclcpp</depend>
+  <depend>sensor_msgs</depend>
+  <depend>rosidl_buffer</depend>
+  <export><build_type>ament_cmake</build_type></export>
+</package>
