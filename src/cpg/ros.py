@@ -61,3 +61,53 @@ def cpu_image_view(message, *, expected_encoding):
     pixels=np.ndarray((height,width,3),dtype=np.uint8,buffer=data,strides=(step,3,1))
     pixels.setflags(write=False)
     return CPUImageView(pixels,ImageMetadata(width,height,step,message.encoding,header.frame_id,sec,ns),message)
+
+
+@dataclass(frozen=True)
+class CPUTensorView:
+    pixels: np.ndarray = field(repr=False)
+    owner: object = field(repr=False)
+
+
+def write_cpu_tensor(message, pixels):
+    """Copy an explicit contiguous host FP16/FP32 tensor into a ROS message.
+
+    This CPU serialization path copies payload bytes. It is not a GPU bridge.
+    Layout and camera metadata require a separate consumer contract.
+    """
+    if type(pixels) is not np.ndarray or pixels.dtype not in (np.dtype('float16'), np.dtype('float32')):
+        raise TypeError('Require a NumPy FP16 or FP32 tensor')
+    if not pixels.flags.c_contiguous or not pixels.shape or any(d <= 0 for d in pixels.shape):
+        raise ValueError('Require a nonempty contiguous tensor')
+    message.dtype_code = 2
+    message.dtype_bits = pixels.dtype.itemsize * 8
+    message.dtype_lanes = 1
+    message.shape = list(pixels.shape)
+    message.strides = []
+    message.byte_offset = 0
+    message.data = array('B', pixels.tobytes())
+    return message
+
+
+def cpu_tensor_view(message, *, expected_shape, expected_dtype):
+    """Borrow a strict contiguous standard tensor's explicit host storage."""
+    dtype = np.dtype(expected_dtype)
+    if dtype not in (np.dtype('float16'), np.dtype('float32')):
+        raise ValueError('Expected tensor dtype must be FP16 or FP32')
+    shape = tuple(message.shape)
+    if not shape or any(type(d) is not int or d <= 0 for d in shape) or shape != tuple(expected_shape):
+        raise ValueError('Tensor shape does not match the consumer contract')
+    fields = (message.dtype_code, message.dtype_bits, message.dtype_lanes)
+    if any(type(value) is not int for value in fields) or fields != (2, dtype.itemsize * 8, 1):
+        raise ValueError('Tensor dtype does not match the consumer contract')
+    if len(message.strides) or type(message.byte_offset) is not int or message.byte_offset != 0:
+        raise ValueError('Require contiguous tensor storage with zero byte offset')
+    data = message.data
+    if type(data) not in (bytes, bytearray, array) or (type(data) is array and data.typecode != 'B'):
+        raise TypeError('Require explicit host tensor storage; CUDA storage needs a native bridge')
+    import math
+    if len(data) != math.prod(shape) * dtype.itemsize:
+        raise ValueError('Tensor byte count does not match its shape and dtype')
+    pixels = np.ndarray(shape, dtype=dtype, buffer=data)
+    pixels.setflags(write=False)
+    return CPUTensorView(pixels, message)

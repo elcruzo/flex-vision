@@ -792,3 +792,12 @@ Return a read-only view with the original message owner and immutable metadata.
 Experiment 041 passed eight actual subscribed-image classifier checks.
 This is CPU integration only. Native CUDA ownership and production node publication remain pending.
 See ROS_IMAGE_ADAPTER.md and experiments/041-ros-image-adapter.md.
+
+## D077 — Check the standard tensor schema before output integration
+
+Build pinned tensor_msgs externally because the local ROS image lacks it.
+Use explicit host serialization adapters for the initial CPU output path.
+Experiment 042 preserved exact FP16/FP32 bits and rejected ten malformed tensor controls.
+Keep native CUDA handles, stamped output, separate-process inference, and final ROS interface acceptance open.
+The experimental schema is not a stable production API commitment.
+See experiments/042-ros-tensor-contract.md.

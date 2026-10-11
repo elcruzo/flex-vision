@@ -1,0 +1,76 @@
+{
+  "status": "passed",
+  "checks": [
+    {
+      "dtype": "float16",
+      "shape": [
+        1,
+        3,
+        224,
+        224
+      ],
+      "payload_bytes": 301056,
+      "exact_bits": true,
+      "owner_retained": true,
+      "readonly": true,
+      "controls": [
+        {
+          "name": "shape",
+          "error": "Tensor shape does not match the consumer contract"
+        },
+        {
+          "name": "dtype",
+          "error": "Tensor dtype does not match the consumer contract"
+        },
+        {
+          "name": "strides",
+          "error": "Require contiguous tensor storage with zero byte offset"
+        },
+        {
+          "name": "offset",
+          "error": "Require contiguous tensor storage with zero byte offset"
+        },
+        {
+          "name": "truncated",
+          "error": "Tensor byte count does not match its shape and dtype"
+        }
+      ]
+    },
+    {
+      "dtype": "float32",
+      "shape": [
+        1,
+        3,
+        224,
+        224
+      ],
+      "payload_bytes": 602112,
+      "exact_bits": true,
+      "owner_retained": true,
+      "readonly": true,
+      "controls": [
+        {
+          "name": "shape",
+          "error": "Tensor shape does not match the consumer contract"
+        },
+        {
+          "name": "dtype",
+          "error": "Tensor dtype does not match the consumer contract"
+        },
+        {
+          "name": "strides",
+          "error": "Require contiguous tensor storage with zero byte offset"
+        },
+        {
+          "name": "offset",
+          "error": "Require contiguous tensor storage with zero byte offset"
+        },
+        {
+          "name": "truncated",
+          "error": "Tensor byte count does not match its shape and dtype"
+        }
+      ]
+    }
+  ],
+  "scope": "Actual CPU ROS serialization contract only; no transport, inference, GPU or camera metadata acceptance"
+}

@@ -1,0 +1,9 @@
+{
+  "base_revision": "120635a",
+  "working_tree": true,
+  "upstream_tensor_revision": "d7cd9642d77a1d64fd85f25ba0bf96e108401900",
+  "files": {
+    "src/cpg/ros.py": "d6332ef9adaa94028f94beb825ad819a709f8a9e8df147f480215083c5f91ba5",
+    "scripts/ros_tensor_contract.py": "a8501d882964f21a1047db4eef357a76f7842bcd12dc157362475d9c06ec136b"
+  }
+}

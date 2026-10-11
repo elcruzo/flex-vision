@@ -1,0 +1,239 @@
+Starting >>> tensor_msgs
+-- The C compiler identification is GNU 15.2.0
+-- The CXX compiler identification is GNU 15.2.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found ament_cmake: 2.8.8 (/opt/ros/lyrical/share/ament_cmake/cmake)
+-- Found rosidl_default_generators: 1.8.1 (/opt/ros/lyrical/share/rosidl_default_generators/cmake)
+-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+-- Found rosidl_adapter: 5.2.1 (/opt/ros/lyrical/share/rosidl_adapter/cmake)
+-- Found Python3: /usr/bin/python3 (found version "3.14.4") found components: Interpreter
+-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+-- Found Python3: /usr/bin/python3 (found version "3.14.4") found components: Interpreter Development NumPy Development.Module Development.Embed
+-- Found Python3: /usr/bin/python3 (found version "3.14.4") found components: Interpreter
+-- Found ament_lint_auto: 0.20.6 (/opt/ros/lyrical/share/ament_lint_auto/cmake)
+-- Added test 'copyright' to check source files copyright and LICENSE
+-- Added test 'lint_cmake' to check CMake code style
+-- Added test 'xmllint' to check XML markup files
+-- Configuring done (3.5s)
+-- Generating done (0.0s)
+-- Build files have been written to: /tmp/tensor-ws/build/tensor_msgs
+[  2%] Generating type hashes for ROS interfaces
+[  2%] Built target tensor_msgs__rosidl_generator_type_description
+[  5%] Generating Rust code for ROS interfaces
+[  5%] Built target tensor_msgs__rs
+[  8%] Generating C code for ROS interfaces
+[ 11%] Building C object CMakeFiles/tensor_msgs__rosidl_generator_c.dir/rosidl_generator_c/tensor_msgs/msg/detail/experimental_tensor__description.c.o
+[ 14%] Building C object CMakeFiles/tensor_msgs__rosidl_generator_c.dir/rosidl_generator_c/tensor_msgs/msg/detail/experimental_tensor__type_support.c.o
+[ 17%] Building C object CMakeFiles/tensor_msgs__rosidl_generator_c.dir/rosidl_generator_c/tensor_msgs/msg/detail/experimental_tensor__functions.c.o
+[ 20%] Linking C shared library libtensor_msgs__rosidl_generator_c.so
+[ 20%] Built target tensor_msgs__rosidl_generator_c
+[ 22%] Generating C++ code for ROS interfaces
+[ 22%] Built target tensor_msgs__cpp
+[ 25%] Generating C type support dispatch for ROS interfaces
+[ 28%] Building CXX object CMakeFiles/tensor_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/tensor_msgs/msg/experimental_tensor__type_support.cpp.o
+[ 31%] Linking CXX shared library libtensor_msgs__rosidl_typesupport_c.so
+[ 31%] Built target tensor_msgs__rosidl_typesupport_c
+[ 37%] Generating C++ type support dispatch for ROS interfaces
+[ 40%] Generating C++ introspection for ROS interfaces
+[ 40%] Generating C introspection for ROS interfaces
+[ 42%] Building CXX object CMakeFiles/tensor_msgs__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/tensor_msgs/msg/experimental_tensor__type_support.cpp.o
+[ 45%] Building C object CMakeFiles/tensor_msgs__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/tensor_msgs/msg/detail/experimental_tensor__type_support.c.o
+[ 48%] Building CXX object CMakeFiles/tensor_msgs__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/tensor_msgs/msg/detail/experimental_tensor__type_support.cpp.o
+[ 51%] Linking C shared library libtensor_msgs__rosidl_typesupport_introspection_c.so
+[ 51%] Built target tensor_msgs__rosidl_typesupport_introspection_c
+[ 54%] Linking CXX shared library libtensor_msgs__rosidl_typesupport_cpp.so
+[ 54%] Built target tensor_msgs__rosidl_typesupport_cpp
+[ 57%] Generating C type support for eProsima Fast-RTPS
+[ 60%] Linking CXX shared library libtensor_msgs__rosidl_typesupport_introspection_cpp.so
+[ 60%] Built target tensor_msgs__rosidl_typesupport_introspection_cpp
+[ 62%] Building CXX object CMakeFiles/tensor_msgs__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/tensor_msgs/msg/detail/experimental_tensor__type_support_c.cpp.o
+[ 65%] Linking CXX shared library libtensor_msgs__rosidl_typesupport_fastrtps_c.so
+[ 65%] Built target tensor_msgs__rosidl_typesupport_fastrtps_c
+[ 68%] Generating C++ type support for eProsima Fast-RTPS
+[ 71%] Building CXX object CMakeFiles/tensor_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/tensor_msgs/msg/detail/dds_fastrtps/experimental_tensor__type_support.cpp.o
+[ 74%] Linking CXX shared library libtensor_msgs__rosidl_typesupport_fastrtps_cpp.so
+[ 74%] Built target tensor_msgs__rosidl_typesupport_fastrtps_cpp
+[ 74%] Built target tensor_msgs
+[ 77%] Generating Python code for ROS interfaces
+[ 77%] Built target tensor_msgs__py
+[ 80%] Building C object CMakeFiles/tensor_msgs__rosidl_generator_py.dir/rosidl_generator_py/tensor_msgs/msg/_experimental_tensor_s.c.o
+[ 80%] Built target ament_cmake_python_sync_tensor_msgs
+[ 82%] Linking C shared library libtensor_msgs__rosidl_generator_py.so
+running egg_info
+creating tensor_msgs.egg-info
+writing tensor_msgs.egg-info/PKG-INFO
+writing dependency_links to tensor_msgs.egg-info/dependency_links.txt
+writing top-level names to tensor_msgs.egg-info/top_level.txt
+writing manifest file 'tensor_msgs.egg-info/SOURCES.txt'
+[ 82%] Built target tensor_msgs__rosidl_generator_py
+reading manifest file 'tensor_msgs.egg-info/SOURCES.txt'
+writing manifest file 'tensor_msgs.egg-info/SOURCES.txt'
+[ 85%] Building C object CMakeFiles/tensor_msgs_s__rosidl_typesupport_fastrtps_c.dir/rosidl_generator_py/tensor_msgs/_tensor_msgs_s.ep.rosidl_typesupport_fastrtps_c.c.o
+[ 88%] Building C object CMakeFiles/tensor_msgs_s__rosidl_typesupport_c.dir/rosidl_generator_py/tensor_msgs/_tensor_msgs_s.ep.rosidl_typesupport_c.c.o
+[ 91%] Building C object CMakeFiles/tensor_msgs_s__rosidl_typesupport_introspection_c.dir/rosidl_generator_py/tensor_msgs/_tensor_msgs_s.ep.rosidl_typesupport_introspection_c.c.o
+[ 91%] Built target ament_cmake_python_build_tensor_msgs_egg
+[ 94%] Linking C shared module rosidl_generator_py/tensor_msgs/tensor_msgs_s__rosidl_typesupport_fastrtps_c.so
+[ 97%] Linking C shared module rosidl_generator_py/tensor_msgs/tensor_msgs_s__rosidl_typesupport_introspection_c.so
+[100%] Linking C shared module rosidl_generator_py/tensor_msgs/tensor_msgs_s__rosidl_typesupport_c.so
+[100%] Built target tensor_msgs_s__rosidl_typesupport_introspection_c
+[100%] Built target tensor_msgs_s__rosidl_typesupport_fastrtps_c
+[100%] Built target tensor_msgs_s__rosidl_typesupport_c
+-- Install configuration: ""
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/share/ament_index/resource_index/rosidl_interfaces/tensor_msgs
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/share/tensor_msgs/msg/ExperimentalTensor.json
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/include/tensor_msgs/tensor_msgs
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/include/tensor_msgs/tensor_msgs/msg
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/include/tensor_msgs/tensor_msgs/msg/rosidl_generator_c__visibility_control.h
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/include/tensor_msgs/tensor_msgs/msg/detail
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/include/tensor_msgs/tensor_msgs/msg/detail/experimental_tensor__functions.h
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/include/tensor_msgs/tensor_msgs/msg/detail/experimental_tensor__description.c
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/include/tensor_msgs/tensor_msgs/msg/detail/experimental_tensor__type_support.c
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/include/tensor_msgs/tensor_msgs/msg/detail/experimental_tensor__functions.c
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/include/tensor_msgs/tensor_msgs/msg/detail/experimental_tensor__struct.h
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/include/tensor_msgs/tensor_msgs/msg/detail/experimental_tensor__type_support.h
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/include/tensor_msgs/tensor_msgs/msg/experimental_tensor.h
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/share/tensor_msgs/environment/library_path.sh
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/share/tensor_msgs/environment/library_path.dsv
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/lib/libtensor_msgs__rosidl_generator_c.so
+-- Set non-toolchain portion of runtime path of "/tmp/tensor-ws/install/tensor_msgs/lib/libtensor_msgs__rosidl_generator_c.so" to ""
+-- Up-to-date: /tmp/tensor-ws/install/tensor_msgs/include/tensor_msgs/tensor_msgs
+-- Up-to-date: /tmp/tensor-ws/install/tensor_msgs/include/tensor_msgs/tensor_msgs/msg
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/include/tensor_msgs/tensor_msgs/msg/rosidl_typesupport_fastrtps_c__visibility_control.h
+-- Up-to-date: /tmp/tensor-ws/install/tensor_msgs/include/tensor_msgs/tensor_msgs/msg/detail
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/include/tensor_msgs/tensor_msgs/msg/detail/experimental_tensor__rosidl_typesupport_fastrtps_c.h
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/lib/libtensor_msgs__rosidl_typesupport_fastrtps_c.so
+-- Set non-toolchain portion of runtime path of "/tmp/tensor-ws/install/tensor_msgs/lib/libtensor_msgs__rosidl_typesupport_fastrtps_c.so" to ""
+-- Up-to-date: /tmp/tensor-ws/install/tensor_msgs/include/tensor_msgs/tensor_msgs
+-- Up-to-date: /tmp/tensor-ws/install/tensor_msgs/include/tensor_msgs/tensor_msgs/msg
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/include/tensor_msgs/tensor_msgs/msg/rosidl_typesupport_introspection_c__visibility_control.h
+-- Up-to-date: /tmp/tensor-ws/install/tensor_msgs/include/tensor_msgs/tensor_msgs/msg/detail
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/include/tensor_msgs/tensor_msgs/msg/detail/experimental_tensor__type_support.c
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/include/tensor_msgs/tensor_msgs/msg/detail/experimental_tensor__rosidl_typesupport_introspection_c.h
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/lib/libtensor_msgs__rosidl_typesupport_introspection_c.so
+-- Set non-toolchain portion of runtime path of "/tmp/tensor-ws/install/tensor_msgs/lib/libtensor_msgs__rosidl_typesupport_introspection_c.so" to ""
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/lib/libtensor_msgs__rosidl_typesupport_c.so
+-- Set non-toolchain portion of runtime path of "/tmp/tensor-ws/install/tensor_msgs/lib/libtensor_msgs__rosidl_typesupport_c.so" to ""
+-- Up-to-date: /tmp/tensor-ws/install/tensor_msgs/include/tensor_msgs/tensor_msgs
+-- Up-to-date: /tmp/tensor-ws/install/tensor_msgs/include/tensor_msgs/tensor_msgs/msg
+-- Up-to-date: /tmp/tensor-ws/install/tensor_msgs/include/tensor_msgs/tensor_msgs/msg/detail
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/include/tensor_msgs/tensor_msgs/msg/detail/experimental_tensor__type_support.hpp
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/include/tensor_msgs/tensor_msgs/msg/detail/experimental_tensor__traits.hpp
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/include/tensor_msgs/tensor_msgs/msg/detail/experimental_tensor__struct.hpp
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/include/tensor_msgs/tensor_msgs/msg/detail/experimental_tensor__builder.hpp
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/include/tensor_msgs/tensor_msgs/msg/experimental_tensor.hpp
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/include/tensor_msgs/tensor_msgs/msg/rosidl_generator_cpp__visibility_control.hpp
+-- Up-to-date: /tmp/tensor-ws/install/tensor_msgs/include/tensor_msgs/tensor_msgs
+-- Up-to-date: /tmp/tensor-ws/install/tensor_msgs/include/tensor_msgs/tensor_msgs/msg
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/include/tensor_msgs/tensor_msgs/msg/rosidl_typesupport_fastrtps_cpp__visibility_control.h
+-- Up-to-date: /tmp/tensor-ws/install/tensor_msgs/include/tensor_msgs/tensor_msgs/msg/detail
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/include/tensor_msgs/tensor_msgs/msg/detail/dds_fastrtps
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/include/tensor_msgs/tensor_msgs/msg/detail/experimental_tensor__rosidl_typesupport_fastrtps_cpp.hpp
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/lib/libtensor_msgs__rosidl_typesupport_fastrtps_cpp.so
+-- Set non-toolchain portion of runtime path of "/tmp/tensor-ws/install/tensor_msgs/lib/libtensor_msgs__rosidl_typesupport_fastrtps_cpp.so" to ""
+-- Up-to-date: /tmp/tensor-ws/install/tensor_msgs/include/tensor_msgs/tensor_msgs
+-- Up-to-date: /tmp/tensor-ws/install/tensor_msgs/include/tensor_msgs/tensor_msgs/msg
+-- Up-to-date: /tmp/tensor-ws/install/tensor_msgs/include/tensor_msgs/tensor_msgs/msg/detail
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/include/tensor_msgs/tensor_msgs/msg/detail/experimental_tensor__rosidl_typesupport_introspection_cpp.hpp
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/include/tensor_msgs/tensor_msgs/msg/detail/experimental_tensor__type_support.cpp
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/lib/libtensor_msgs__rosidl_typesupport_introspection_cpp.so
+-- Set non-toolchain portion of runtime path of "/tmp/tensor-ws/install/tensor_msgs/lib/libtensor_msgs__rosidl_typesupport_introspection_cpp.so" to ""
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/lib/libtensor_msgs__rosidl_typesupport_cpp.so
+-- Set non-toolchain portion of runtime path of "/tmp/tensor-ws/install/tensor_msgs/lib/libtensor_msgs__rosidl_typesupport_cpp.so" to ""
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/share/tensor_msgs/environment/pythonpath.sh
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/share/tensor_msgs/environment/pythonpath.dsv
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/lib/python3.14/site-packages/tensor_msgs/tensor_msgs_s__rosidl_typesupport_fastrtps_c.so
+-- Set non-toolchain portion of runtime path of "/tmp/tensor-ws/install/tensor_msgs/lib/python3.14/site-packages/tensor_msgs/tensor_msgs_s__rosidl_typesupport_fastrtps_c.so" to ""
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/lib/python3.14/site-packages/tensor_msgs/tensor_msgs_s__rosidl_typesupport_introspection_c.so
+-- Set non-toolchain portion of runtime path of "/tmp/tensor-ws/install/tensor_msgs/lib/python3.14/site-packages/tensor_msgs/tensor_msgs_s__rosidl_typesupport_introspection_c.so" to ""
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/lib/python3.14/site-packages/tensor_msgs/tensor_msgs_s__rosidl_typesupport_c.so
+-- Set non-toolchain portion of runtime path of "/tmp/tensor-ws/install/tensor_msgs/lib/python3.14/site-packages/tensor_msgs/tensor_msgs_s__rosidl_typesupport_c.so" to ""
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/lib/libtensor_msgs__rosidl_generator_py.so
+-- Set non-toolchain portion of runtime path of "/tmp/tensor-ws/install/tensor_msgs/lib/libtensor_msgs__rosidl_generator_py.so" to ""
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/share/tensor_msgs/rust
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/share/tensor_msgs/rust/Cargo.toml
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/share/tensor_msgs/rust/build.rs
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/share/tensor_msgs/rust/src
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/share/tensor_msgs/rust/src/msg.rs
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/share/tensor_msgs/rust/src/lib.rs
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/share/tensor_msgs/rust/src/msg
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/share/tensor_msgs/rust/src/msg/rmw.rs
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/share/tensor_msgs/msg/ExperimentalTensor.idl
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/share/tensor_msgs/msg/ExperimentalTensor.msg
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/share/ament_index/resource_index/package_run_dependencies/tensor_msgs
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/share/ament_index/resource_index/parent_prefix_path/tensor_msgs
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/share/tensor_msgs/environment/ament_prefix_path.sh
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/share/tensor_msgs/environment/ament_prefix_path.dsv
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/share/tensor_msgs/environment/path.sh
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/share/tensor_msgs/environment/path.dsv
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/share/tensor_msgs/local_setup.bash
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/share/tensor_msgs/local_setup.fish
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/share/tensor_msgs/local_setup.sh
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/share/tensor_msgs/local_setup.zsh
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/share/tensor_msgs/local_setup.dsv
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/share/tensor_msgs/package.dsv
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/share/ament_index/resource_index/packages/tensor_msgs
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/share/tensor_msgs/cmake/export_tensor_msgs__rosidl_generator_cExport.cmake
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/share/tensor_msgs/cmake/export_tensor_msgs__rosidl_generator_cExport-noconfig.cmake
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/share/tensor_msgs/cmake/export_tensor_msgs__rosidl_typesupport_fastrtps_cExport.cmake
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/share/tensor_msgs/cmake/export_tensor_msgs__rosidl_typesupport_fastrtps_cExport-noconfig.cmake
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/share/tensor_msgs/cmake/tensor_msgs__rosidl_typesupport_introspection_cExport.cmake
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/share/tensor_msgs/cmake/tensor_msgs__rosidl_typesupport_introspection_cExport-noconfig.cmake
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/share/tensor_msgs/cmake/tensor_msgs__rosidl_typesupport_cExport.cmake
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/share/tensor_msgs/cmake/tensor_msgs__rosidl_typesupport_cExport-noconfig.cmake
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/share/tensor_msgs/cmake/export_tensor_msgs__rosidl_generator_cppExport.cmake
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/share/tensor_msgs/cmake/export_tensor_msgs__rosidl_typesupport_fastrtps_cppExport.cmake
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/share/tensor_msgs/cmake/export_tensor_msgs__rosidl_typesupport_fastrtps_cppExport-noconfig.cmake
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/share/tensor_msgs/cmake/tensor_msgs__rosidl_typesupport_introspection_cppExport.cmake
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/share/tensor_msgs/cmake/tensor_msgs__rosidl_typesupport_introspection_cppExport-noconfig.cmake
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/share/tensor_msgs/cmake/tensor_msgs__rosidl_typesupport_cppExport.cmake
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/share/tensor_msgs/cmake/tensor_msgs__rosidl_typesupport_cppExport-noconfig.cmake
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/share/tensor_msgs/cmake/export_tensor_msgs__rosidl_generator_pyExport.cmake
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/share/tensor_msgs/cmake/export_tensor_msgs__rosidl_generator_pyExport-noconfig.cmake
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/lib/python3.14/site-packages/tensor_msgs-0.1.2-py3.14.egg-info
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/lib/python3.14/site-packages/tensor_msgs-0.1.2-py3.14.egg-info/SOURCES.txt
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/lib/python3.14/site-packages/tensor_msgs-0.1.2-py3.14.egg-info/top_level.txt
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/lib/python3.14/site-packages/tensor_msgs-0.1.2-py3.14.egg-info/dependency_links.txt
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/lib/python3.14/site-packages/tensor_msgs-0.1.2-py3.14.egg-info/PKG-INFO
+-- Up-to-date: /tmp/tensor-ws/install/tensor_msgs/lib/python3.14/site-packages/tensor_msgs
+-- Up-to-date: /tmp/tensor-ws/install/tensor_msgs/lib/python3.14/site-packages/tensor_msgs/tensor_msgs_s__rosidl_typesupport_introspection_c.so
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/lib/python3.14/site-packages/tensor_msgs/__init__.py
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/lib/python3.14/site-packages/tensor_msgs/_tensor_msgs_s.ep.rosidl_typesupport_c.c
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/lib/python3.14/site-packages/tensor_msgs/_tensor_msgs_s.ep.rosidl_typesupport_introspection_c.c
+-- Up-to-date: /tmp/tensor-ws/install/tensor_msgs/lib/python3.14/site-packages/tensor_msgs/tensor_msgs_s__rosidl_typesupport_fastrtps_c.so
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/lib/python3.14/site-packages/tensor_msgs/_tensor_msgs_s.ep.rosidl_typesupport_fastrtps_c.c
+-- Up-to-date: /tmp/tensor-ws/install/tensor_msgs/lib/python3.14/site-packages/tensor_msgs/tensor_msgs_s__rosidl_typesupport_c.so
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/lib/python3.14/site-packages/tensor_msgs/msg
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/lib/python3.14/site-packages/tensor_msgs/msg/__init__.py
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/lib/python3.14/site-packages/tensor_msgs/msg/_experimental_tensor.py
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/lib/python3.14/site-packages/tensor_msgs/msg/_experimental_tensor_s.c
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/lib/python3.14/site-packages/tensor_msgs/py.typed
+Listing '/tmp/tensor-ws/install/tensor_msgs/lib/python3.14/site-packages/tensor_msgs'...
+Compiling '/tmp/tensor-ws/install/tensor_msgs/lib/python3.14/site-packages/tensor_msgs/__init__.py'...
+Listing '/tmp/tensor-ws/install/tensor_msgs/lib/python3.14/site-packages/tensor_msgs/msg'...
+Compiling '/tmp/tensor-ws/install/tensor_msgs/lib/python3.14/site-packages/tensor_msgs/msg/__init__.py'...
+Compiling '/tmp/tensor-ws/install/tensor_msgs/lib/python3.14/site-packages/tensor_msgs/msg/_experimental_tensor.py'...
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/share/tensor_msgs/cmake/rosidl_cmake-extras.cmake
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/share/tensor_msgs/cmake/ament_cmake_export_include_directories-extras.cmake
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/share/tensor_msgs/cmake/ament_cmake_export_libraries-extras.cmake
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/share/tensor_msgs/cmake/ament_cmake_export_targets-extras.cmake
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/share/tensor_msgs/cmake/rosidl_cmake_export_typesupport_targets-extras.cmake
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/share/tensor_msgs/cmake/ament_cmake_export_dependencies-extras.cmake
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/share/tensor_msgs/cmake/rosidl_cmake_export_typesupport_libraries-extras.cmake
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/share/tensor_msgs/cmake/rosidl_cmake_aggregate_target-extras.cmake
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/share/tensor_msgs/cmake/tensor_msgsConfig.cmake
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/share/tensor_msgs/cmake/tensor_msgsConfig-version.cmake
+-- Installing: /tmp/tensor-ws/install/tensor_msgs/share/tensor_msgs/package.xml
+Finished <<< tensor_msgs [10.4s]
+
+Summary: 1 package finished [10.7s]
