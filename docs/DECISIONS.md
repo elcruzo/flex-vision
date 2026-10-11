@@ -783,3 +783,12 @@ The NumPy tensor oracle, logits, class order, and cat semantic check passed at e
 An absent-dog control failed at the expected inference check and stopped publication after consumer loss.
 Accept this reference integration only; production node, tensor publication, native CUDA transport, and Jetson remain pending.
 See experiments/040-ros-classifier.md.
+
+## D076 — Retain the message owner in explicit CPU Image views
+
+Extract strict host Image decoding from the inference harness into cpg.ros.
+Reject foreign storage without coercion and preserve row padding, encoding, and timestamp contracts.
+Return a read-only view with the original message owner and immutable metadata.
+Experiment 041 passed eight actual subscribed-image classifier checks.
+This is CPU integration only. Native CUDA ownership and production node publication remain pending.
+See ROS_IMAGE_ADAPTER.md and experiments/041-ros-image-adapter.md.
