@@ -57,6 +57,15 @@ def main():
             config.write_text('input: {encoding: bgr8}\npipeline:\n  - convolution: {kernel: kernel-'+str(size)+'.yaml}\n  - letterbox: {width: 224, height: 224}\n  - normalize: {mean: [0.485,0.456,0.406], std: [0.229,0.224,0.225], scale: '+str(1/255)+'}\noutput: {dtype: float32, layout: nchw}\n')
             loaded=load_pipeline(config)
             if loaded!=pipe:raise AssertionError('Literal and kernel-file graphs differ')
+            gaussian_config = None
+            if args.kernel_kind == 'gaussian':
+                gaussian_config = args.output/f'gaussian-{size}.yaml'
+                gaussian_config.write_text(config.read_text().replace(
+                    'convolution: {kernel: kernel-'+str(size)+'.yaml}',
+                    'gaussian: {size: '+str(size)+', sigma: 1.2}'))
+                loaded = load_pipeline(gaussian_config)
+                if loaded != pipe:
+                    raise AssertionError('Gaussian YAML and Python graphs differ')
             expected,_=numpy_reference(pipe,frame)
             actual,_=torch_reference(loaded,frame,device=args.device)
             actual=actual.cpu()
@@ -68,7 +77,9 @@ def main():
             if check_semantics(baseline)[0]!=labels:raise AssertionError('Classifier top-five order differs')
             report['checks'].append(dict(size=size,tensor_max_abs_error=float(np.abs(actual.numpy()-expected).max()),
                                          logit_max_abs_error=float((candidate-baseline).abs().max()),top5=labels,cat_probability=mass,
-                                         literal_and_file_equal=True,plan=pipe.plan(frame.shape)))
+                                         literal_and_file_equal=True,gaussian_yaml_equal=True if gaussian_config is not None else None,
+                                         gaussian_config_sha256=digest(gaussian_config) if gaussian_config is not None else None,
+                                         plan=pipe.plan(frame.shape)))
         report['status']='passed'
     except Exception as exc:
         report['error']=repr(exc)

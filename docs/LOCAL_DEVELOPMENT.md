@@ -3,9 +3,11 @@
 Available: immutable detector graph, plan inspection, NumPy oracle, and explicit CPU/MPS PyTorch reference execution.
 An initial CUDA backend accepts GPU input through `pipeline(frame)`. CPU inputs are rejected rather than silently uploaded.
 Read [the CUDA contract](CUDA_BACKEND.md). Local reference functions remain explicit.
-This slice supports only letterbox → normalize → output conversion.
-Strict YAML loading and `cpg inspect` are available for this subset.
-Other operators, batches, and broader GPU input protocols remain pending.
+The original slice supports letterbox → normalize → output conversion.
+A later extension adds one leading custom or Gaussian stencil, explicit references, and an experimental unvalidated CUDA stencil candidate.
+See [stencil semantics and evidence](STENCILS.md). Multiple stencil stages and batching remain pending.
+Strict YAML loading and `cpg inspect --explain` describe the supported fixed graph.
+Measured profiling, tuning, and broader acceptance remain pending.
 A fixed FP32 TensorRT experiment exists. See [its evidence](experiments/006-tensorrt.md).
 
 ## Reproduce the environment
