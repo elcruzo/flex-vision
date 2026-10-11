@@ -29,7 +29,7 @@ def main():
     from torchvision.models import mobilenet_v3_small
     from cpg import Pipeline
     from cpg.reference import numpy_reference,torch_reference
-    from cpg.ros import cpu_image_view,write_cpu_tensor,cpu_tensor_view
+    from cpg.ros import cpu_image_view,write_cpu_tensor,cpu_tensor_view,write_tensor_geometry,tensor_geometry
     if args.tensor_path:
         from cpg_tensor_probe.msg import StampedTensor
     from cpg.validation import photo_cases
@@ -103,8 +103,13 @@ def main():
                 if (msg.layout,msg.source_width,msg.source_height,msg.source_encoding,msg.header.frame_id)!=('NCHW',w,h,'bgr8','cpg_cat_'+str(self.count)):
                     raise AssertionError('Stamped tensor metadata or sequence mismatch')
                 borrowed=cpu_tensor_view(msg.tensor,expected_shape=(1,3,224,224),expected_dtype='float32')
-                size=args.fixed_gaussian or (3,5,7,9)[self.count%4];_,expected,baseline,labels=references[size]
+                size=args.fixed_gaussian or (3,5,7,9)[self.count%4];pipe,expected,baseline,labels=references[size]
                 np.testing.assert_allclose(borrowed.pixels,expected,atol=report['tensor_atol'],rtol=0)
+                geometry=tensor_geometry(msg)
+                _,expected_geometry=numpy_reference(pipe,frame)
+                if geometry!=expected_geometry:raise AssertionError('Transported letterbox geometry mismatch')
+                box=(geometry.left,geometry.top,geometry.left+geometry.resized_width,geometry.top+geometry.resized_height)
+                if geometry.source_box(box)!=(0.,0.,float(w),float(h)):raise AssertionError('Source box mapping mismatch')
                 # An explicit consumer-owned CPU copy avoids mutable ROS storage in Torch.
                 actual=torch.from_numpy(borrowed.pixels.copy())
                 with torch.inference_mode():head=model(actual)
@@ -112,7 +117,7 @@ def main():
                 actual_labels,mass=check_semantics(head,negative=args.negative_control)
                 if actual_labels!=labels:raise AssertionError('Class ordering mismatch')
                 report['checks'].append(dict(sequence=self.count,size=size,frame_id=msg.header.frame_id,stamp_sec=msg.header.stamp.sec,stamp_nanosec=msg.header.stamp.nanosec,
-                    tensor_max_abs_error=float(np.abs(borrowed.pixels-expected).max()),logit_max_abs_error=float((head-baseline).abs().max()),top5=actual_labels,cat_probability=mass))
+                    geometry_exact=True,source_box_exact=True,tensor_max_abs_error=float(np.abs(borrowed.pixels-expected).max()),logit_max_abs_error=float((head-baseline).abs().max()),top5=actual_labels,cat_probability=mass))
                 self.count+=1
                 if self.count==8:self.finish()
             def receive(self,msg):
@@ -127,10 +132,10 @@ def main():
                 if args.role=='preprocess':
                     if not self.pub.get_subscription_count():raise RuntimeError('Tensor consumer is unavailable')
                     pipe=Pipeline(input_encoding='bgr8').gaussian(size,sigma=1.2).letterbox(224,224).normalize([.485,.456,.406],[.229,.224,.225],scale=1/255).to(dtype='float32',layout='NCHW')
-                    actual,_=torch_reference(pipe,view,device='cpu')
+                    actual,geometry= torch_reference(pipe,view,device='cpu')
                     result=StampedTensor();result.header=msg.header;result.layout='NCHW'
                     result.source_width=msg.width;result.source_height=msg.height;result.source_encoding=msg.encoding
-                    write_cpu_tensor(result.tensor,actual.numpy());self.pub.publish(result)
+                    write_cpu_tensor(result.tensor,actual.numpy());write_tensor_geometry(result,geometry);self.pub.publish(result)
                     report['checks'].append(dict(sequence=self.count,frame_id=result.header.frame_id,stamp_sec=result.header.stamp.sec,stamp_nanosec=result.header.stamp.nanosec,header_preserved=True))
                     self.count+=1
                     return

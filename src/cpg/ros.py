@@ -111,3 +111,35 @@ def cpu_tensor_view(message, *, expected_shape, expected_dtype):
     pixels = np.ndarray(shape, dtype=dtype, buffer=data)
     pixels.setflags(write=False)
     return CPUTensorView(pixels, message)
+
+
+def write_tensor_geometry(message, geometry):
+    """Write actual letterbox geometry into the experimental stamped envelope."""
+    message.source_width = geometry.input_width
+    message.source_height = geometry.input_height
+    message.resized_width = geometry.resized_width
+    message.resized_height = geometry.resized_height
+    message.padding_left = geometry.left
+    message.padding_top = geometry.top
+    # Validate the completed envelope against the tensor dimensions.
+    tensor_geometry(message)
+    return message
+
+
+def tensor_geometry(message):
+    """Validate stamped NCHW geometry before mapping model boxes to source."""
+    from .pipeline import Geometry
+    if message.layout != 'NCHW' or message.source_encoding not in ('rgb8', 'bgr8'):
+        raise ValueError('Require RGB/BGR source and NCHW model layout')
+    shape = tuple(message.tensor.shape)
+    if len(shape) != 4 or shape[:2] != (1, 3) or any(type(d) is not int or d <= 0 for d in shape):
+        raise ValueError('Require one three-channel NCHW model tensor')
+    width = _uint32(message.source_width, 'source_width', positive=True)
+    height = _uint32(message.source_height, 'source_height', positive=True)
+    resized_width = _uint32(message.resized_width, 'resized_width', positive=True)
+    resized_height = _uint32(message.resized_height, 'resized_height', positive=True)
+    left = _uint32(message.padding_left, 'padding_left')
+    top = _uint32(message.padding_top, 'padding_top')
+    if left + resized_width > shape[3] or top + resized_height > shape[2]:
+        raise ValueError('Resized image and padding exceed the model tensor')
+    return Geometry(height, width, resized_height, resized_width, shape[2], shape[3], top, left)

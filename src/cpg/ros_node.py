@@ -29,7 +29,7 @@ def main():
     torch.set_num_threads(args.cpu_threads)
     from .config import load_pipeline
     from .reference import torch_reference
-    from .ros import cpu_image_view, write_cpu_tensor
+    from .ros import cpu_image_view, write_cpu_tensor, write_tensor_geometry
     import rclpy
     from rclpy.node import Node
     from rclpy.qos import QoSProfile, ReliabilityPolicy
@@ -67,7 +67,7 @@ def main():
                 if not self.publisher.get_subscription_count():
                     raise RuntimeError('Tensor consumer disappeared')
                 decoded = cpu_image_view(message, expected_encoding=pipeline.input_encoding)
-                output, _ = torch_reference(pipeline, decoded.pixels, device='cpu')
+                output, geometry = torch_reference(pipeline, decoded.pixels, device='cpu')
                 result = StampedTensor()
                 result.header = message.header
                 result.layout = 'NCHW'
@@ -75,6 +75,7 @@ def main():
                 result.source_height = decoded.metadata.height
                 result.source_encoding = decoded.metadata.encoding
                 write_cpu_tensor(result.tensor, output.numpy())
+                write_tensor_geometry(result, geometry)
                 self.publisher.publish(result)
                 report['checks'].append(dict(sequence=report['frames'], frame_id=result.header.frame_id,
                     stamp_sec=result.header.stamp.sec, stamp_nanosec=result.header.stamp.nanosec,
