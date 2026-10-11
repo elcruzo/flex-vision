@@ -74,3 +74,33 @@ Reconcile the original $15 budget before dispatch. No paid resource is created b
 
 Primary compilation API checked: [CuPy 14.2 RawKernel](https://docs.cupy.dev/en/v14.2.0/reference/generated/cupy.RawKernel.html).
 Local source-generation and ownership fault tests do not establish CUDA compiler or GPU behavior.
+
+## Prepared matched timing gate
+
+Experiment 034 ran no stencil checks because the GPU container did not expose SSH before the test window became insufficient.
+Both pods and the temporary credential are gone. See experiments/034-stencil-startup.md.
+
+After CUDA correctness acceptance, use scripts/yolo_stencil_comparison.py with the same fixed FP16 TensorRT engine.
+The required --acceptance report must pass all 192 cases and match the measured source revision and engine hash.
+Retain that acceptance report with the timing bundle.
+The prepared comparison uses both resident 1080p photographs and all four positive asymmetric stencil sizes.
+The baseline uses grouped PyTorch FP32 convolution with flipped coefficients and replicated borders.
+It then runs bilinear resize, padding, normalization, FP16 conversion, and contiguous NCHW output.
+Constants are uploaded before sampling. Both paths return owned outputs and synchronize preprocessing.
+No input pixel upload occurs inside the measured interval.
+
+Before sampling, CPG must match exact NumPy FP16 bits.
+PyTorch must match the existing 0.0005 tensor absolute tolerance with zero relative tolerance.
+Both must pass the existing same-engine dense and detection checks.
+Every timed inference repeats those model checks after its measured interval.
+That validation can affect the following memory state; report this limit when interpreting results.
+The experiment disables TF32 and cuDNN autotuning, warms each path, and alternates path order across an even number of blocks.
+It writes per-frame preprocessing, inference, decode, GPU total, and complete host intervals.
+The default protocol records 16,000 completed inference checks.
+
+Use scripts/summarize_yolo_stencil.py to reject missing or duplicated coverage and invalid timing values.
+The summary calculates p50, p95, and p99 from exported raw samples.
+Synthetic verifier fault checks do not establish GPU execution or performance.
+No measured stencil comparison exists yet.
+This candidate does not establish vendor stencil superiority, reusable workspace, sustained multi-camera throughput, or residency traces.
+Compare shared-memory and vendor strategies only after this numerical and complete-pipeline evidence exists.

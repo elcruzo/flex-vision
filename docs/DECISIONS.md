@@ -691,3 +691,12 @@ Keep all 192 cases and exact cleanup. Do not reduce acceptance to fit slow provi
 The ended lease leaves a conservative cumulative bound of $14.774168.
 Another $0.40 reservation requires reconciliation or additional authorization.
 CUDA stencil acceptance remains pending. See experiments/034-stencil-startup.md.
+
+## D065 — Compare complete stencil preprocessing before strategy expansion
+
+Prepare a resident 1080p comparison against grouped PyTorch convolution and unfused detector preprocessing.
+Use the same TensorRT engine, explicit flipped/replicated semantics, and existing numerical limits.
+Check every timed inference after its interval and retain raw samples with alternating path order.
+Reject incomplete or duplicated timing evidence independently of the producer.
+The scripts are prepared, not hardware accepted or measured. Preserve possible following-memory-state effects.
+Do not select a fastest strategy from source inspection or synthetic evidence. See STENCILS.md.
