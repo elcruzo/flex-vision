@@ -19,3 +19,8 @@ See docs/ROS_BUFFER_AUDIT.md for the pinned API and remaining acceptance require
 Build with the installed ROS development tools. The local container harness is scripts/run_ros_cpu_probe.sh.
 The harness requires a new CPG_ROS_RESULTS directory inside the container and the repository mounted at /workspace.
 No package or release is published. Project licensing remains undecided; the package license marker records that state.
+
+The publisher accepts optional pixel, padding, stride, or sequence fault modes.
+It corrupts the sixth message before publication. The subscriber must reject the transported payload and return failure.
+The harness records both process exit codes. A build error or timeout is not a passing fault control.
+Experiments 037 and 038 record the valid CPU run and four actual transport rejection controls.

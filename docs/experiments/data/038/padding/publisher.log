@@ -1,0 +1,2 @@
+probe_failed: subscriber disappeared before completion
+[ros2run]: Process exited with failure 1

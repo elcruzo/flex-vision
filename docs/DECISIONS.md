@@ -759,3 +759,11 @@ The native Buffer schema assertion compiled; exact sequence, pixel, padding, and
 Retain the shell and removed-CMake-macro failures. Use current exported targets for further native builds.
 This accepts the CPU transport prerequisite, not preprocessing, inference, CUDA handles, or Jetson support.
 See experiments/037-ros-cpu-transport.md.
+
+## D073 — Require actual corrupted-message controls for transport validation
+
+Experiment 038 repeated the valid CPU path and rejected four publisher-side corruptions through actual ROS serialization.
+Check exact subscriber failure reasons and both process exit codes; do not count timeout/build errors as successful controls.
+Preserve initial discovery and final drainage, and end incomplete publication after subscriber loss.
+Production recovery, overload policy, and native CUDA transport remain pending.
+See experiments/038-ros-transport-controls.md.

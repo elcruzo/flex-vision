@@ -1,0 +1,51 @@
+Starting >>> cpg_buffer_probe
+-- The C compiler identification is GNU 15.2.0
+-- The CXX compiler identification is GNU 15.2.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found ament_cmake: 2.8.8 (/opt/ros/lyrical/share/ament_cmake/cmake)
+-- Found rclcpp: 32.0.3 (/opt/ros/lyrical/share/rclcpp/cmake)
+-- Found rosidl_generator_c: 5.2.1 (/opt/ros/lyrical/share/rosidl_generator_c/cmake)
+-- Found rosidl_generator_cpp: 5.2.1 (/opt/ros/lyrical/share/rosidl_generator_cpp/cmake)
+-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+-- Found rmw_implementation_cmake: 7.10.2 (/opt/ros/lyrical/share/rmw_implementation_cmake/cmake)
+-- Found rmw_fastrtps_cpp: 9.4.10 (/opt/ros/lyrical/share/rmw_fastrtps_cpp/cmake)
+-- Using RMW implementation 'rmw_fastrtps_cpp' as default
+-- Found sensor_msgs: 5.9.3 (/opt/ros/lyrical/share/sensor_msgs/cmake)
+-- Configuring done (0.4s)
+-- Generating done (0.0s)
+-- Build files have been written to: /tmp/cpg-ros-probe/build/cpg_buffer_probe
+[ 50%] Building CXX object CMakeFiles/image_probe.dir/src/image_probe.cpp.o
+[100%] Linking CXX executable image_probe
+[100%] Built target image_probe
+-- Install configuration: ""
+-- Installing: /tmp/cpg-ros-probe/install/cpg_buffer_probe/lib/cpg_buffer_probe/image_probe
+-- Set non-toolchain portion of runtime path of "/tmp/cpg-ros-probe/install/cpg_buffer_probe/lib/cpg_buffer_probe/image_probe" to ""
+-- Installing: /tmp/cpg-ros-probe/install/cpg_buffer_probe/share/ament_index/resource_index/package_run_dependencies/cpg_buffer_probe
+-- Installing: /tmp/cpg-ros-probe/install/cpg_buffer_probe/share/ament_index/resource_index/parent_prefix_path/cpg_buffer_probe
+-- Installing: /tmp/cpg-ros-probe/install/cpg_buffer_probe/share/cpg_buffer_probe/environment/ament_prefix_path.sh
+-- Installing: /tmp/cpg-ros-probe/install/cpg_buffer_probe/share/cpg_buffer_probe/environment/ament_prefix_path.dsv
+-- Installing: /tmp/cpg-ros-probe/install/cpg_buffer_probe/share/cpg_buffer_probe/environment/path.sh
+-- Installing: /tmp/cpg-ros-probe/install/cpg_buffer_probe/share/cpg_buffer_probe/environment/path.dsv
+-- Installing: /tmp/cpg-ros-probe/install/cpg_buffer_probe/share/cpg_buffer_probe/local_setup.bash
+-- Installing: /tmp/cpg-ros-probe/install/cpg_buffer_probe/share/cpg_buffer_probe/local_setup.fish
+-- Installing: /tmp/cpg-ros-probe/install/cpg_buffer_probe/share/cpg_buffer_probe/local_setup.sh
+-- Installing: /tmp/cpg-ros-probe/install/cpg_buffer_probe/share/cpg_buffer_probe/local_setup.zsh
+-- Installing: /tmp/cpg-ros-probe/install/cpg_buffer_probe/share/cpg_buffer_probe/local_setup.dsv
+-- Installing: /tmp/cpg-ros-probe/install/cpg_buffer_probe/share/cpg_buffer_probe/package.dsv
+-- Installing: /tmp/cpg-ros-probe/install/cpg_buffer_probe/share/ament_index/resource_index/packages/cpg_buffer_probe
+-- Installing: /tmp/cpg-ros-probe/install/cpg_buffer_probe/share/cpg_buffer_probe/cmake/cpg_buffer_probeConfig.cmake
+-- Installing: /tmp/cpg-ros-probe/install/cpg_buffer_probe/share/cpg_buffer_probe/cmake/cpg_buffer_probeConfig-version.cmake
+-- Installing: /tmp/cpg-ros-probe/install/cpg_buffer_probe/share/cpg_buffer_probe/package.xml
+Finished <<< cpg_buffer_probe [3.40s]
+
+Summary: 1 package finished [3.45s]

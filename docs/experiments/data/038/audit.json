@@ -1,0 +1,54 @@
+{
+  "status": "verified",
+  "revision": "a452f0a833dfba2ccdf46b81a753beb8c38fcbd8",
+  "source_sha256": "57f552bb0a3d8372776c2c06285144deb23f3ed4732ab85b18805f5c17e0f921",
+  "container": "ros@sha256:f79cd486fa218596747c45d00ca42101b0303fc6d94ed5adb72145cd6f54b86c",
+  "checks": [
+    {
+      "fault": "none",
+      "verified": true,
+      "exits": {
+        "publisher_exit": 0,
+        "subscriber_exit": 0
+      },
+      "expected_reason": null
+    },
+    {
+      "fault": "pixel",
+      "verified": true,
+      "exits": {
+        "publisher_exit": 1,
+        "subscriber_exit": 1
+      },
+      "expected_reason": "pixel mismatch"
+    },
+    {
+      "fault": "padding",
+      "verified": true,
+      "exits": {
+        "publisher_exit": 1,
+        "subscriber_exit": 1
+      },
+      "expected_reason": "row padding mismatch"
+    },
+    {
+      "fault": "stride",
+      "verified": true,
+      "exits": {
+        "publisher_exit": 1,
+        "subscriber_exit": 1
+      },
+      "expected_reason": "metadata, sequence, or payload-size mismatch"
+    },
+    {
+      "fault": "sequence",
+      "verified": true,
+      "exits": {
+        "publisher_exit": 1,
+        "subscriber_exit": 1
+      },
+      "expected_reason": "metadata, sequence, or payload-size mismatch"
+    }
+  ],
+  "scope": "Actual CPU Image transport fault controls; not CUDA or inference acceptance"
+}
