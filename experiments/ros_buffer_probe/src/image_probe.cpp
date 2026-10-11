@@ -22,8 +22,8 @@ uint8_t pixel(uint32_t y, uint32_t x, uint32_t c, uint64_t sequence) {
 
 class Probe : public rclcpp::Node {
  public:
-  explicit Probe(bool publish) : Node(publish ? "cpg_probe_publisher" : "cpg_probe_subscriber"),
-      publish_(publish), started_(std::chrono::steady_clock::now()) {
+  explicit Probe(bool publish, std::string fault) : Node(publish ? "cpg_probe_publisher" : "cpg_probe_subscriber"),
+      publish_(publish), fault_(std::move(fault)), started_(std::chrono::steady_clock::now()) {
     if (publish_) publisher_ = create_publisher<Image>("cpg_probe/image", rclcpp::QoS(4).reliable());
     else subscription_ = create_subscription<Image>("cpg_probe/image", rclcpp::QoS(4).reliable(),
         [this](Image::ConstSharedPtr msg) { receive(msg); });
@@ -48,7 +48,10 @@ class Probe : public rclcpp::Node {
       }
       return;
     }
-    if (publisher_->get_subscription_count() == 0) return;
+    if (publisher_->get_subscription_count() == 0) {
+      if (count_ > 0) fail("subscriber disappeared before completion");
+      return;
+    }
     Image msg;
     msg.height = height; msg.width = width; msg.step = step;
     msg.encoding = "rgb8"; msg.is_bigendian = 0;
@@ -58,6 +61,12 @@ class Probe : public rclcpp::Node {
       for (uint32_t x = 0; x < width; ++x)
         for (uint32_t c = 0; c < 3; ++c) msg.data[y * step + x * 3 + c] = pixel(y, x, c, count_);
       for (uint32_t x = width * 3; x < step; ++x) msg.data[y * step + x] = 239;
+    }
+    if (count_ == 5) {
+      if (fault_ == "pixel") msg.data[0] ^= 1;
+      else if (fault_ == "padding") msg.data[width * 3] ^= 1;
+      else if (fault_ == "stride") msg.step += 1;
+      else if (fault_ == "sequence") msg.header.frame_id = "cpg_probe_99";
     }
     msg.header.stamp = now();
     publisher_->publish(msg); ++count_;
@@ -92,6 +101,7 @@ class Probe : public rclcpp::Node {
     }
   }
   bool publish_, passed_ = false;
+  std::string fault_;
   uint64_t count_ = 0, drain_ticks_ = 0;
   std::chrono::steady_clock::time_point started_;
   std::vector<double> latency_ms_;
@@ -101,10 +111,14 @@ class Probe : public rclcpp::Node {
 };
 int main(int argc, char **argv) {
   try {
-    if (argc != 2 || (std::string(argv[1]) != "publish" && std::string(argv[1]) != "subscribe"))
+    if ((argc != 2 && argc != 3) || (std::string(argv[1]) != "publish" && std::string(argv[1]) != "subscribe"))
       throw std::invalid_argument("Require publish or subscribe");
+    const std::string fault = argc == 3 ? argv[2] : "none";
+    if ((fault != "none" && fault != "pixel" && fault != "padding" && fault != "stride" && fault != "sequence") ||
+        (std::string(argv[1]) == "subscribe" && fault != "none"))
+      throw std::invalid_argument("Unsupported publisher fault mode");
     rclcpp::init(argc, argv);
-    auto probe = std::make_shared<Probe>(std::string(argv[1]) == "publish");
+    auto probe = std::make_shared<Probe>(std::string(argv[1]) == "publish", fault);
     rclcpp::spin(probe);
     return probe->passed() ? 0 : 1;
   } catch (const std::exception &error) {
