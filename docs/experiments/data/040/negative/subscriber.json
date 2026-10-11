@@ -1,0 +1,23 @@
+{
+  "status": "failed",
+  "role": "subscribe",
+  "revision": "6bd085f64ddb8950f6dac4dc370baa93baac919b",
+  "dirty": false,
+  "torch": "2.10.0+cpu",
+  "torchvision": "0.25.0+cpu",
+  "numpy": "2.4.2",
+  "source_image_sha256": "2ae870185ec12f23e7f636043c834cdebe3f2a836d0769157047d4fcc3bb71f0",
+  "payload_sha256": "ea986a07524de47b216874a68af82ea182d2f189d5b91f0536d51b39a46adb3f",
+  "width": 451,
+  "height": 300,
+  "step": 1370,
+  "frames": 0,
+  "checks": [],
+  "tensor_atol": 0.0002,
+  "logit_atol": 0.001,
+  "logit_rtol": 0.0001,
+  "negative_control": true,
+  "scope": "CPU Image transport, explicit CPU preprocessing and pinned CPU classifier; no GPU, live camera, tensor publication or performance acceptance",
+  "weights_sha256": "047dcff4addef86ea5bc2eff13c9614dc11f47ab1160d0a71a25e7db994f4e1f",
+  "error": "AssertionError('Expected dog (negative control) in top five with group probability >= 0.2; top5=[285, 281, 282, 287, 793], mass=0.000001')"
+}

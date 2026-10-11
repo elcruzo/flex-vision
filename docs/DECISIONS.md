@@ -775,3 +775,11 @@ Build an isolated CPU-only PyTorch 2.10/TorchVision 0.25 environment without alt
 Experiment 039 passed ROS/framework imports and the existing four-size Gaussian classifier reference gate at unchanged tolerances.
 Record the resolved packages and image identity. Do not claim subscribed-image inference from this environment check.
 See experiments/039-ros-reference-environment.md.
+
+## D075 — Accept subscribed-image classifier reference with a semantic control
+
+Experiment 040 passed 16 actual subscribed padded BGR images through explicit CPU preprocessing and pinned classifier inference.
+The NumPy tensor oracle, logits, class order, and cat semantic check passed at existing tolerances.
+An absent-dog control failed at the expected inference check and stopped publication after consumer loss.
+Accept this reference integration only; production node, tensor publication, native CUDA transport, and Jetson remain pending.
+See experiments/040-ros-classifier.md.

@@ -1,0 +1,166 @@
+{
+  "status": "passed",
+  "role": "subscribe",
+  "revision": "dadbfb1943b6aad235a4890bc4df08967fa5bc81",
+  "dirty": false,
+  "torch": "2.10.0+cpu",
+  "torchvision": "0.25.0+cpu",
+  "numpy": "2.4.2",
+  "source_image_sha256": "2ae870185ec12f23e7f636043c834cdebe3f2a836d0769157047d4fcc3bb71f0",
+  "payload_sha256": "ea986a07524de47b216874a68af82ea182d2f189d5b91f0536d51b39a46adb3f",
+  "width": 451,
+  "height": 300,
+  "step": 1370,
+  "frames": 8,
+  "checks": [
+    {
+      "sequence": 0,
+      "size": 3,
+      "frame_id": "cpg_cat_0",
+      "stamp_sec": 1791685624,
+      "stamp_nanosec": 948088555,
+      "payload_equal": true,
+      "tensor_max_abs_error": 1.32732093334198e-05,
+      "logit_max_abs_error": 2.574920654296875e-05,
+      "top5": [
+        285,
+        281,
+        282,
+        287,
+        793
+      ],
+      "cat_probability": 0.9930100440979004
+    },
+    {
+      "sequence": 1,
+      "size": 5,
+      "frame_id": "cpg_cat_1",
+      "stamp_sec": 1791685625,
+      "stamp_nanosec": 445451722,
+      "payload_equal": true,
+      "tensor_max_abs_error": 1.119263470172882e-05,
+      "logit_max_abs_error": 2.384185791015625e-05,
+      "top5": [
+        285,
+        281,
+        282,
+        287,
+        793
+      ],
+      "cat_probability": 0.9913268685340881
+    },
+    {
+      "sequence": 2,
+      "size": 7,
+      "frame_id": "cpg_cat_2",
+      "stamp_sec": 1791685625,
+      "stamp_nanosec": 945353083,
+      "payload_equal": true,
+      "tensor_max_abs_error": 1.0281801223754883e-05,
+      "logit_max_abs_error": 2.384185791015625e-05,
+      "top5": [
+        285,
+        281,
+        282,
+        287,
+        793
+      ],
+      "cat_probability": 0.9909876585006714
+    },
+    {
+      "sequence": 3,
+      "size": 9,
+      "frame_id": "cpg_cat_3",
+      "stamp_sec": 1791685626,
+      "stamp_nanosec": 445456208,
+      "payload_equal": true,
+      "tensor_max_abs_error": 1.0281801223754883e-05,
+      "logit_max_abs_error": 2.288818359375e-05,
+      "top5": [
+        285,
+        281,
+        282,
+        287,
+        793
+      ],
+      "cat_probability": 0.9909581542015076
+    },
+    {
+      "sequence": 4,
+      "size": 3,
+      "frame_id": "cpg_cat_4",
+      "stamp_sec": 1791685626,
+      "stamp_nanosec": 945349000,
+      "payload_equal": true,
+      "tensor_max_abs_error": 1.32732093334198e-05,
+      "logit_max_abs_error": 2.574920654296875e-05,
+      "top5": [
+        285,
+        281,
+        282,
+        287,
+        793
+      ],
+      "cat_probability": 0.9930100440979004
+    },
+    {
+      "sequence": 5,
+      "size": 5,
+      "frame_id": "cpg_cat_5",
+      "stamp_sec": 1791685627,
+      "stamp_nanosec": 445290792,
+      "payload_equal": true,
+      "tensor_max_abs_error": 1.119263470172882e-05,
+      "logit_max_abs_error": 2.384185791015625e-05,
+      "top5": [
+        285,
+        281,
+        282,
+        287,
+        793
+      ],
+      "cat_probability": 0.9913268685340881
+    },
+    {
+      "sequence": 6,
+      "size": 7,
+      "frame_id": "cpg_cat_6",
+      "stamp_sec": 1791685627,
+      "stamp_nanosec": 945245334,
+      "payload_equal": true,
+      "tensor_max_abs_error": 1.0281801223754883e-05,
+      "logit_max_abs_error": 2.384185791015625e-05,
+      "top5": [
+        285,
+        281,
+        282,
+        287,
+        793
+      ],
+      "cat_probability": 0.9909876585006714
+    },
+    {
+      "sequence": 7,
+      "size": 9,
+      "frame_id": "cpg_cat_7",
+      "stamp_sec": 1791685628,
+      "stamp_nanosec": 445246459,
+      "payload_equal": true,
+      "tensor_max_abs_error": 1.0281801223754883e-05,
+      "logit_max_abs_error": 2.288818359375e-05,
+      "top5": [
+        285,
+        281,
+        282,
+        287,
+        793
+      ],
+      "cat_probability": 0.9909581542015076
+    }
+  ],
+  "tensor_atol": 0.0002,
+  "logit_atol": 0.001,
+  "logit_rtol": 0.0001,
+  "scope": "CPU Image transport, explicit CPU preprocessing and pinned CPU classifier; no GPU, live camera, tensor publication or performance acceptance",
+  "weights_sha256": "047dcff4addef86ea5bc2eff13c9614dc11f47ab1160d0a71a25e7db994f4e1f"
+}

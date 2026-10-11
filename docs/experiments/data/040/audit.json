@@ -1,0 +1,8 @@
+{
+  "status": "verified",
+  "positive_completed_frames": 16,
+  "expected_semantic_failures": 1,
+  "original_payload_hash_recomputed": true,
+  "image": "sha256:b3a4e11d1c649660b44a2311b3af4c27c93b798ff42ce3bdeea0ec9f47b93fd6",
+  "scope": "CPU ROS subscriptions through explicit reference preprocessing and real pinned classifier; report/payload-identity audit, not independent replay of saved pixel tensors"
+}

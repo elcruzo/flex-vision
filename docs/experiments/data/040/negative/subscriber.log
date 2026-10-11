@@ -1,0 +1,29 @@
+Traceback (most recent call last):
+  File "/workspace/scripts/ros_classifier_reference.py", line 113, in <module>
+    if __name__=='__main__':main()
+                            ~~~~^^
+  File "/workspace/scripts/ros_classifier_reference.py", line 102, in main
+    node=Gate();rclpy.spin(node)
+                ~~~~~~~~~~^^^^^^
+  File "/opt/ros/lyrical/lib/python3.14/site-packages/rclpy/__init__.py", line 324, in spin
+    executor.spin_once()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "/opt/ros/lyrical/lib/python3.14/site-packages/rclpy/executors.py", line 1033, in spin_once
+    self._spin_once_impl(timeout_sec)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/opt/ros/lyrical/lib/python3.14/site-packages/rclpy/executors.py", line 1025, in _spin_once_impl
+    raise exception
+  File "/opt/ros/lyrical/lib/python3.14/site-packages/rclpy/task.py", line 351, in _execute_coroutine_step
+    result = coro.send(None)
+  File "/opt/ros/lyrical/lib/python3.14/site-packages/rclpy/executors.py", line 683, in handler
+    await call_coroutine()
+  File "/opt/ros/lyrical/lib/python3.14/site-packages/rclpy/executors.py", line 564, in _execute
+    await await_or_execute(sub.callback, *msg_tuple)
+  File "/opt/ros/lyrical/lib/python3.14/site-packages/rclpy/executors.py", line 139, in await_or_execute
+    return callback(*args)
+  File "/workspace/scripts/ros_classifier_reference.py", line 94, in receive
+    actual_labels,mass=check_semantics(head,negative=args.negative_control)
+                       ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scripts/local_classifier.py", line 53, in check_semantics
+    raise AssertionError(f'Expected {"dog (negative control)" if negative else "cat"} in top five with group probability >= 0.2; top5={labels}, mass={mass:.6f}')
+AssertionError: Expected dog (negative control) in top five with group probability >= 0.2; top5=[285, 281, 282, 287, 793], mass=0.000001
