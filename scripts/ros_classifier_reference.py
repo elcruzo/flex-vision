@@ -26,6 +26,7 @@ def main():
     from torchvision.models import mobilenet_v3_small
     from cpg import Pipeline
     from cpg.reference import numpy_reference,torch_reference
+    from cpg.ros import cpu_image_view
     from cpg.validation import photo_cases
     from local_classifier import check_semantics,WEIGHTS_SHA256
     from local_detector import digest
@@ -85,7 +86,8 @@ def main():
                 raw=np.frombuffer(msg.data,dtype=np.uint8)
                 if raw.size!=h*step:raise AssertionError('Image payload size mismatch')
                 np.testing.assert_array_equal(raw.reshape(h,step),payload)
-                view=np.ndarray((h,w,3),dtype=np.uint8,buffer=raw,strides=(step,3,1))
+                decoded=cpu_image_view(msg,expected_encoding='bgr8')
+                view=decoded.pixels
                 size=(3,5,7,9)[self.count%4];pipe,expected,baseline,labels=references[size]
                 actual,_=torch_reference(pipe,view,device='cpu')
                 np.testing.assert_allclose(actual.numpy(),expected,atol=report['tensor_atol'],rtol=0)
@@ -94,7 +96,8 @@ def main():
                 actual_labels,mass=check_semantics(head,negative=args.negative_control)
                 if actual_labels!=labels:raise AssertionError('Class ordering mismatch')
                 report['checks'].append(dict(sequence=self.count,size=size,frame_id=msg.header.frame_id,
-                    stamp_sec=msg.header.stamp.sec,stamp_nanosec=msg.header.stamp.nanosec,payload_equal=True,
+                    stamp_sec=decoded.metadata.stamp_sec,stamp_nanosec=decoded.metadata.stamp_nanosec,payload_equal=True,
+                    message_owner_retained=decoded.owner is msg,view_readonly=not view.flags.writeable,
                     tensor_max_abs_error=float(np.abs(actual.numpy()-expected).max()),logit_max_abs_error=float((head-baseline).abs().max()),
                     top5=actual_labels,cat_probability=mass))
                 self.count+=1
