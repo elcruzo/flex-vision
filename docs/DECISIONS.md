@@ -810,3 +810,11 @@ Retain the initial downstream-discovery failure. Wait for downstream discovery b
 This accepts only the fixed CPU integration. Completion acknowledgment, geometry, CUDA owners, and production backpressure remain pending.
 Do not fix the production schema or claim GPU transport from this experiment.
 See experiments/043-stamped-tensor-inference.md.
+
+## D079 — Separate configured preprocessing from its inference harness
+
+Add the experimental cuda_preprocess/preprocess_node executable with strict YAML loading and explicit CPU reference selection.
+Experiment 044 passed eight frames through the installed executable and a separate real classifier.
+Preserve headers and expose bounded replay options without claiming consumer acknowledgment.
+Keep native CUDA transport, composition, clean packaging, and production recovery pending.
+See ROS_NODE.md and experiments/044-configured-ros-node.md.

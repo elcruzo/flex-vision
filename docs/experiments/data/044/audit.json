@@ -1,0 +1,9 @@
+{
+  "status": "passed",
+  "revision": "29627e8eab2ea2022c6f7401afa4cc6ac2e9309a",
+  "frames": 8,
+  "headers_exact": true,
+  "executable": "ros2 run cuda_preprocess preprocess_node",
+  "config": "examples/ros-classifier.yaml",
+  "backend": "cpu-reference"
+}

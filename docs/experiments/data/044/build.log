@@ -1,0 +1,38 @@
+Starting >>> cuda_preprocess
+-- The C compiler identification is GNU 15.2.0
+-- The CXX compiler identification is GNU 15.2.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found ament_cmake: 2.8.8 (/opt/ros/lyrical/share/ament_cmake/cmake)
+-- Configuring done (2.7s)
+-- Generating done (0.0s)
+-- Build files have been written to: /results/ws/build/cuda_preprocess
+-- Install configuration: ""
+-- Installing: /results/ws/install/cuda_preprocess/lib/cuda_preprocess/preprocess_node
+-- Installing: /results/ws/install/cuda_preprocess/share/ament_index/resource_index/package_run_dependencies/cuda_preprocess
+-- Installing: /results/ws/install/cuda_preprocess/share/ament_index/resource_index/parent_prefix_path/cuda_preprocess
+-- Installing: /results/ws/install/cuda_preprocess/share/cuda_preprocess/environment/ament_prefix_path.sh
+-- Installing: /results/ws/install/cuda_preprocess/share/cuda_preprocess/environment/ament_prefix_path.dsv
+-- Installing: /results/ws/install/cuda_preprocess/share/cuda_preprocess/environment/path.sh
+-- Installing: /results/ws/install/cuda_preprocess/share/cuda_preprocess/environment/path.dsv
+-- Installing: /results/ws/install/cuda_preprocess/share/cuda_preprocess/local_setup.bash
+-- Installing: /results/ws/install/cuda_preprocess/share/cuda_preprocess/local_setup.fish
+-- Installing: /results/ws/install/cuda_preprocess/share/cuda_preprocess/local_setup.sh
+-- Installing: /results/ws/install/cuda_preprocess/share/cuda_preprocess/local_setup.zsh
+-- Installing: /results/ws/install/cuda_preprocess/share/cuda_preprocess/local_setup.dsv
+-- Installing: /results/ws/install/cuda_preprocess/share/cuda_preprocess/package.dsv
+-- Installing: /results/ws/install/cuda_preprocess/share/ament_index/resource_index/packages/cuda_preprocess
+-- Installing: /results/ws/install/cuda_preprocess/share/cuda_preprocess/cmake/cuda_preprocessConfig.cmake
+-- Installing: /results/ws/install/cuda_preprocess/share/cuda_preprocess/cmake/cuda_preprocessConfig-version.cmake
+-- Installing: /results/ws/install/cuda_preprocess/share/cuda_preprocess/package.xml
+Finished <<< cuda_preprocess [3.08s]
+
+Summary: 1 package finished [3.20s]

@@ -1,0 +1,112 @@
+{
+  "status": "passed",
+  "backend": "cpu-reference",
+  "frames": 8,
+  "checks": [
+    {
+      "sequence": 0,
+      "frame_id": "cpg_cat_0",
+      "stamp_sec": 1791686354,
+      "stamp_nanosec": 667219962,
+      "shape": [
+        1,
+        3,
+        224,
+        224
+      ],
+      "payload_bytes": 602112
+    },
+    {
+      "sequence": 1,
+      "frame_id": "cpg_cat_1",
+      "stamp_sec": 1791686355,
+      "stamp_nanosec": 155834296,
+      "shape": [
+        1,
+        3,
+        224,
+        224
+      ],
+      "payload_bytes": 602112
+    },
+    {
+      "sequence": 2,
+      "frame_id": "cpg_cat_2",
+      "stamp_sec": 1791686355,
+      "stamp_nanosec": 651133546,
+      "shape": [
+        1,
+        3,
+        224,
+        224
+      ],
+      "payload_bytes": 602112
+    },
+    {
+      "sequence": 3,
+      "frame_id": "cpg_cat_3",
+      "stamp_sec": 1791686356,
+      "stamp_nanosec": 152933963,
+      "shape": [
+        1,
+        3,
+        224,
+        224
+      ],
+      "payload_bytes": 602112
+    },
+    {
+      "sequence": 4,
+      "frame_id": "cpg_cat_4",
+      "stamp_sec": 1791686356,
+      "stamp_nanosec": 652107713,
+      "shape": [
+        1,
+        3,
+        224,
+        224
+      ],
+      "payload_bytes": 602112
+    },
+    {
+      "sequence": 5,
+      "frame_id": "cpg_cat_5",
+      "stamp_sec": 1791686357,
+      "stamp_nanosec": 151809463,
+      "shape": [
+        1,
+        3,
+        224,
+        224
+      ],
+      "payload_bytes": 602112
+    },
+    {
+      "sequence": 6,
+      "frame_id": "cpg_cat_6",
+      "stamp_sec": 1791686357,
+      "stamp_nanosec": 651026338,
+      "shape": [
+        1,
+        3,
+        224,
+        224
+      ],
+      "payload_bytes": 602112
+    },
+    {
+      "sequence": 7,
+      "frame_id": "cpg_cat_7",
+      "stamp_sec": 1791686358,
+      "stamp_nanosec": 150982922,
+      "shape": [
+        1,
+        3,
+        224,
+        224
+      ],
+      "payload_bytes": 602112
+    }
+  ],
+  "scope": "Experimental CPU reference node; host payload copies; no native CUDA bridge"
+}
