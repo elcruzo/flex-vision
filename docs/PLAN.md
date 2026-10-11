@@ -197,6 +197,8 @@ Do not proceed to broad operator expansion without evidence.
 
 Proposed commands are `cpg profile`, `cpg benchmark`, and `cpg tune`.
 These commands do not exist yet.
+Static `cpg inspect --explain` now shows the fixed graph groups and pixel-buffer sizes without execution.
+See [static inspection](PLAN_INSPECTION.md). Measured profiling and tuning remain pending.
 
 Exit evidence:
 

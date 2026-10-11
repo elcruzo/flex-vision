@@ -700,3 +700,11 @@ Check every timed inference after its interval and retain raw samples with alter
 Reject incomplete or duplicated timing evidence independently of the producer.
 The scripts are prepared, not hardware accepted or measured. Preserve possible following-memory-state effects.
 Do not select a fastest strategy from source inspection or synthetic evidence. See STENCILS.md.
+
+## D066 — Explain static execution without inventing profiling results
+
+Add inspect --explain for the current fixed detector strategy.
+Show operation groups, separate stencil intermediates, and datatype-derived output sizes.
+Leave latency, transfer counts, peak memory, and reference workspace unknown.
+Preserve inspect without the option and avoid CUDA or tensor-framework imports during planning.
+This is static inspection, not measured profiling or autotuning. See PLAN_INSPECTION.md.
